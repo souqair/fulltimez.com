@@ -404,6 +404,10 @@
     align-items: center;
     justify-content: center;
     min-width: 44px;
+    position: relative;
+    z-index: 1001;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
     height: 44px;
     box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
 }
@@ -549,10 +553,10 @@
                 </a>
             </div>
             <div class="mobile-header-buttons">
-                <button class="mobile-header-btn" id="mobileSearchToggle" type="button" aria-label="Search">
+                <button class="mobile-header-btn" id="mobileSearchToggle" type="button" aria-label="Search" onclick="event.preventDefault(); event.stopPropagation(); console.log('Search clicked inline'); if(typeof toggleMobileSearch === 'function') toggleMobileSearch(); else { const sw = document.getElementById('searchWrapSection') || document.querySelector('.search-wrap'); if(sw) { sw.classList.toggle('show'); sw.style.display = sw.classList.contains('show') ? 'block' : 'none'; } } return false;">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
+                <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu" onclick="event.preventDefault(); event.stopPropagation(); console.log('Menu clicked inline'); if(typeof openMobileMenu === 'function') openMobileMenu(); else { const menu = document.getElementById('mobileNavMenu'); const overlay = document.getElementById('mobileMenuOverlay'); if(menu && overlay) { menu.classList.add('show'); overlay.classList.add('show'); document.body.style.overflow = 'hidden'; } } return false;">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
@@ -801,50 +805,80 @@
     <script>
     // Mobile Menu and Search Toggle
     document.addEventListener('DOMContentLoaded', function() {
-        // Menu Toggle
-        const menuToggle = document.getElementById('menuToggle');
+        console.log('DOM Loaded - Initializing mobile menu');
+        
+        // Get all elements
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const mobileNavMenu = document.getElementById('mobileNavMenu');
         const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
         const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+        const searchWrap = document.getElementById('searchWrapSection') || document.querySelector('.search-wrap');
         
-        function openMobileMenu() {
-            console.log('Opening mobile menu', { mobileNavMenu, mobileMenuOverlay });
-            if (mobileNavMenu && mobileMenuOverlay) {
-                mobileNavMenu.classList.add('show');
-                mobileMenuOverlay.classList.add('show');
+        console.log('Elements found:', {
+            mobileMenuToggle: !!mobileMenuToggle,
+            mobileNavMenu: !!mobileNavMenu,
+            mobileMenuOverlay: !!mobileMenuOverlay,
+            mobileMenuClose: !!mobileMenuClose,
+            mobileSearchToggle: !!mobileSearchToggle,
+            searchWrap: !!searchWrap
+        });
+        
+        // Make functions globally available for inline handlers
+        window.openMobileMenu = function() {
+            console.log('Opening mobile menu');
+            const menu = document.getElementById('mobileNavMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            if (menu && overlay) {
+                menu.classList.add('show');
+                overlay.classList.add('show');
                 document.body.style.overflow = 'hidden';
-                console.log('Menu opened - classes added');
+                console.log('Menu opened successfully');
             } else {
-                console.error('Menu elements not found!', { mobileNavMenu, mobileMenuOverlay });
+                console.error('Menu elements not found!', { menu, overlay });
             }
+        };
+        
+        window.closeMobileMenu = function() {
+            console.log('Closing mobile menu');
+            const menu = document.getElementById('mobileNavMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            if (menu && overlay) {
+                menu.classList.remove('show');
+                overlay.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        };
+        
+        // Local references for internal use
+        function openMobileMenu() {
+            window.openMobileMenu();
         }
         
         function closeMobileMenu() {
-            if (mobileNavMenu && mobileMenuOverlay) {
-                mobileNavMenu.classList.remove('show');
-                mobileMenuOverlay.classList.remove('show');
-                document.body.style.overflow = '';
-            }
+            window.closeMobileMenu();
         }
         
         // Mobile menu toggle button
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         if (mobileMenuToggle) {
+            console.log('Attaching menu toggle listener to button:', mobileMenuToggle);
             mobileMenuToggle.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
+                console.log('Menu button clicked!', e);
                 openMobileMenu();
+                return false;
             });
-        }
-        
-        // Legacy support - also check old ID
-        const menuToggle = document.getElementById('menuToggle');
-        if (menuToggle) {
-            menuToggle.addEventListener('click', function(e) {
+            // Also try direct onclick as backup
+            mobileMenuToggle.onclick = function(e) {
                 e.preventDefault();
                 e.stopPropagation();
+                console.log('Menu button onclick triggered');
                 openMobileMenu();
-            });
+                return false;
+            };
+        } else {
+            console.error('mobileMenuToggle button not found!');
         }
         
         if (mobileMenuClose) {
@@ -882,48 +916,63 @@
             });
         }
         
-        // Mobile search toggle button
-        const mobileSearchToggle = document.getElementById('mobileSearchToggle');
-        const searchWrap = document.getElementById('searchWrapSection') || document.querySelector('.search-wrap');
-        
-        function toggleSearch() {
-            if (searchWrap) {
-                const isShowing = searchWrap.classList.contains('show');
+        // Make search toggle globally available for inline handlers
+        window.toggleMobileSearch = function() {
+            console.log('Toggling search');
+            const sw = document.getElementById('searchWrapSection') || document.querySelector('.search-wrap');
+            if (sw) {
+                const isShowing = sw.classList.contains('show');
+                console.log('Current search state:', isShowing);
                 if (isShowing) {
-                    searchWrap.classList.remove('show');
+                    sw.classList.remove('show');
+                    sw.style.display = 'none';
+                    console.log('Search hidden - class removed');
                 } else {
-                    searchWrap.classList.add('show');
+                    sw.classList.add('show');
+                    sw.style.display = 'block';
+                    console.log('Search shown - class added');
                     // Scroll to search if needed
                     setTimeout(() => {
-                        searchWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        if (sw) {
+                            sw.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
                     }, 100);
                 }
-                console.log('Search toggled', searchWrap.classList.contains('show'));
                 // Close menu if open
-                if (mobileNavMenu && mobileNavMenu.classList.contains('show')) {
-                    closeMobileMenu();
+                const menu = document.getElementById('mobileNavMenu');
+                if (menu && menu.classList.contains('show')) {
+                    window.closeMobileMenu();
                 }
             } else {
-                console.error('Search wrap not found!');
+                console.error('Search wrap not found! Trying to find again...');
             }
+        };
+        
+        // Local reference for internal use
+        function toggleSearch() {
+            window.toggleMobileSearch();
         }
         
+        // Mobile search toggle button
         if (mobileSearchToggle) {
+            console.log('Attaching search toggle listener to button:', mobileSearchToggle);
             mobileSearchToggle.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
+                console.log('Search button clicked!', e);
                 toggleSearch();
+                return false;
             });
-        }
-        
-        // Legacy support - also check old ID
-        const searchToggle = document.getElementById('searchToggle');
-        if (searchToggle) {
-            searchToggle.addEventListener('click', function(e) {
+            // Also try direct onclick as backup
+            mobileSearchToggle.onclick = function(e) {
                 e.preventDefault();
                 e.stopPropagation();
+                console.log('Search button onclick triggered');
                 toggleSearch();
-            });
+                return false;
+            };
+        } else {
+            console.error('mobileSearchToggle button not found!');
         }
         
         // Close menu when window is resized to desktop size (Browser Responsive Mode)
