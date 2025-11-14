@@ -1936,7 +1936,12 @@ $(document).ready(function() {
         });
         
         // Fix width after carousel is initialized
-        $carousel.on('initialized.owl.carousel', function() {
+        $('.featured-candidates-carousel').on('initialized.owl.carousel', function() {
+            fixCandidatesCarouselWidth();
+        });
+        
+        // Also fix on refresh
+        $('.featured-candidates-carousel').on('refreshed.owl.carousel', function() {
             fixCandidatesCarouselWidth();
         });
     }
