@@ -21,6 +21,21 @@ header,
     position: relative !important;
     z-index: 1000 !important;
     overflow: visible !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+.mobile-header {
+    position: sticky !important;
+    top: 0 !important;
+}
+
+/* Don't affect header containers */
+.desktop-header .container,
+.mobile-header .container,
+.mobile-header .container-fluid {
+    overflow: visible !important;
+    max-width: 100% !important;
 }
 
 /* Modern Compact Featured Jobs Design */
