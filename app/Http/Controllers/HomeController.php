@@ -1,0 +1,88 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\JobPosting;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    public function index()
+    {
+        $basePublishedQuery = JobPosting::where('status', 'published')
+            ->where(function($q) {
+                $q->whereNull('expires_at')
+                  ->orWhere('expires_at', '>', now());
+            })
+            ->with(['employer.employerProfile', 'category']);
+
+        // Get featured jobs (validated featured ads only)
+        $featuredJobs = (clone $basePublishedQuery)
+            ->featured()
+            ->orderBy('featured_expires_at', 'desc')
+            ->orderBy('published_at', 'desc')
+            ->take(8)
+            ->get();
+
+        // Get recommended jobs (ads not currently featured)
+        $recommendedJobs = (clone $basePublishedQuery)
+            ->notFeatured()
+            ->orderBy('published_at', 'desc')
+            ->take(6)
+            ->get();
+
+        // Fallback: if still empty, pull latest published jobs (without featured requirement)
+        if ($recommendedJobs->isEmpty()) {
+            $recommendedJobs = (clone $basePublishedQuery)
+                ->orderBy('published_at', 'desc')
+                ->take(6)
+                ->get();
+        }
+
+        $jobSeekers = User::whereHas('role', function($q) {
+                $q->where('slug', 'seeker');
+            })
+            ->with('seekerProfile')
+            ->where('status', 'active')
+            ->latest()
+            ->take(10)
+            ->get();
+
+        // Get featured job seeker for the profile section
+        $featuredJobSeeker = User::whereHas('role', function($q) {
+                $q->where('slug', 'seeker');
+            })
+            ->with('seekerProfile')
+            ->where('status', 'active')
+            ->whereHas('seekerProfile', function($q) {
+                $q->whereNotNull('full_name')
+                  ->whereNotNull('current_position');
+            })
+            ->latest()
+            ->first();
+
+        // Get featured candidates (featured, approved, and verified seekers with complete profiles)
+        $featuredCandidates = User::whereHas('role', function($q) {
+                $q->where('slug', 'seeker');
+            })
+            ->with('seekerProfile')
+            ->where('status', 'active')
+            ->where('is_approved', true)
+            ->whereNotNull('email_verified_at')
+            ->whereHas('seekerProfile', function($q) {
+                $q->where('approval_status', 'approved') // Only approved resumes
+                  ->where('is_featured', true) // Must be featured
+                  ->where('featured_expires_at', '>', now()) // Featured must not be expired
+                  ->whereNotNull('full_name')
+                  ->whereNotNull('current_position')
+                  ->whereNotNull('expected_salary');
+            })
+            ->latest()
+            ->take(4)
+            ->get();
+
+        return view('home', compact('featuredJobs', 'recommendedJobs', 'jobSeekers', 'featuredJobSeeker', 'featuredCandidates'));
+    }
+}
+
