@@ -508,31 +508,6 @@
                     </div>
                 </div>
                 
-                @if($job->employer->employerProfile)
-                <div class="job-sidebar-card">
-                    <h5><i class="fas fa-address-card"></i> Contact Info</h5>
-                    <div class="contact-info-section">
-                        @if($job->employer->employerProfile->address)
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>{{ $job->employer->employerProfile->address }}</span>
-                        </div>
-                        @endif
-                        @if($job->employer->employerProfile->contact_phone)
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>{{ $job->employer->employerProfile->contact_phone }}</span>
-                        </div>
-                        @endif
-                        @if($job->employer->employerProfile->contact_email)
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>{{ $job->employer->employerProfile->contact_email }}</span>
-                        </div>
-                        @endif
-                    </div>
-                </div>
-                @endif
             </div>
         </div>
     </div>
