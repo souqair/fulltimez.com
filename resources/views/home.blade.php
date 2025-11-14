@@ -2039,7 +2039,7 @@ $(document).ready(function() {
 
 .featured-job-card,
 .featured-candidate-card {
-    width: 100%;
+    width:     280px !important;
     height: 100%;
 }
 </style>
