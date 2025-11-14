@@ -47,10 +47,17 @@ body {
 
 .featured-jobs-grid .owl-stage-outer {
     padding: 0 !important;
+    overflow: hidden !important;
+    width: 100% !important;
 }
 
 .featured-jobs-grid .owl-item {
     padding: 0 8px !important;
+}
+
+.featured-jobs-grid .owl-stage {
+    display: flex !important;
+    align-items: stretch !important;
 }
 
 .featured-job-card {
@@ -272,8 +279,18 @@ button svg{
 }
 
 @media (max-width: 768px) {
+    .featured-jobs-grid {
+        overflow: hidden;
+        width: 100%;
+    }
+    
     .featured-jobs-grid .owl-item {
         padding: 0 6px !important;
+    }
+    
+    .featured-candidates-carousel-wrapper {
+        overflow: hidden;
+        width: 100%;
     }
     
     .job-card-header {
@@ -630,8 +647,20 @@ button svg{
     padding: 0;
 }
 
+.featured-candidates-carousel-wrapper .owl-stage-outer {
+    overflow: hidden;
+    width: 100%;
+}
+
+.featured-candidates-carousel-wrapper .owl-stage {
+    display: flex;
+    align-items: stretch;
+}
+
 .featured-candidates-carousel-wrapper .owl-item {
     padding: 0 10px;
+    display: flex;
+    height: auto;
 }
 
 .featured-candidate-card {
@@ -1713,5 +1742,206 @@ button svg{
       </div> 
    </section> -->
 
+@push('scripts')
+<script>
+$(document).ready(function() {
+    // Featured Jobs Carousel - Fully Responsive
+    if($('.featured-jobs-carousel').length > 0) {
+        $('.featured-jobs-carousel').owlCarousel({
+            loop: true,
+            rewind: true,
+            nav: true,
+            navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+            margin: 15,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            autoplayHoverPause: true,
+            smartSpeed: 600,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: true,
+                    margin: 10,
+                    stagePadding: 10
+                },
+                480: {
+                    items: 1,
+                    nav: true,
+                    margin: 10,
+                    stagePadding: 15
+                },
+                576: {
+                    items: 2,
+                    nav: true,
+                    margin: 12
+                },
+                768: {
+                    items: 2,
+                    nav: true,
+                    margin: 15
+                },
+                992: {
+                    items: 3,
+                    nav: true,
+                    margin: 15
+                },
+                1200: {
+                    items: 4,
+                    nav: true,
+                    margin: 15
+                }
+            }
+        });
+    }
+    
+    // Featured Candidates Carousel - Fully Responsive
+    if($('.featured-candidates-carousel').length > 0) {
+        $('.featured-candidates-carousel').owlCarousel({
+            loop: true,
+            rewind: true,
+            nav: true,
+            navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+            margin: 20,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            autoplayHoverPause: true,
+            smartSpeed: 600,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: true,
+                    margin: 10,
+                    stagePadding: 10
+                },
+                480: {
+                    items: 1,
+                    nav: true,
+                    margin: 10,
+                    stagePadding: 15
+                },
+                576: {
+                    items: 2,
+                    nav: true,
+                    margin: 15
+                },
+                768: {
+                    items: 2,
+                    nav: true,
+                    margin: 18
+                },
+                992: {
+                    items: 3,
+                    nav: true,
+                    margin: 20
+                },
+                1200: {
+                    items: 4,
+                    nav: true,
+                    margin: 20
+                }
+            }
+        });
+    }
+});
+</script>
+<style>
+/* Owl Carousel Navigation Buttons - Mobile Responsive */
+.owl-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
 
+.owl-nav button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #007bff !important;
+    color: #ffffff !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.owl-nav button:hover {
+    background: #0056b3 !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+}
+
+.owl-nav button:active {
+    transform: scale(0.95);
+}
+
+.owl-nav button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 576px) {
+    .owl-nav {
+        margin-top: 15px;
+    }
+    
+    .owl-nav button {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+    
+    .featured-jobs-grid .owl-stage-outer,
+    .featured-candidates-carousel-wrapper .owl-stage-outer {
+        padding: 0 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .owl-nav button {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+    
+    .featured-jobs-grid .owl-item,
+    .featured-candidates-carousel-wrapper .owl-item {
+        padding: 0 5px !important;
+    }
+}
+
+/* Prevent horizontal scroll on carousel */
+.featured-jobs-grid .owl-stage-outer,
+.featured-candidates-carousel-wrapper .owl-stage-outer {
+    overflow: hidden;
+    width: 100%;
+}
+
+.featured-jobs-grid .owl-stage,
+.featured-candidates-carousel-wrapper .owl-stage {
+    display: flex;
+    align-items: stretch;
+}
+
+.featured-jobs-grid .owl-item,
+.featured-candidates-carousel-wrapper .owl-item {
+    display: flex;
+    height: auto;
+}
+
+.featured-job-card,
+.featured-candidate-card {
+    width: 100%;
+    height: 100%;
+}
+</style>
 @endsection
