@@ -1622,11 +1622,9 @@ button svg{
                                         $amount = str_replace(',', '', $matches[1]);
                                         // Format as currency
                                         echo 'AED ' . number_format((float)$amount);
-                                        // Check if it's hourly, weekly, or monthly
+                                        // Check if it's hourly or monthly
                                         if (strpos(strtolower($salary), 'hr') !== false || $amount < 1000) {
                                             echo '/Hr';
-                                        } elseif (strpos(strtolower($salary), 'we') !== false || ($amount >= 1000 && $amount < 10000)) {
-                                            echo '/We';
                                         } else {
                                             echo '/Mo';
                                         }
