@@ -271,102 +271,210 @@ button svg{
     font-weight: 600 !important;
 }
 
-@media (max-width: 768px) {
+/* Mobile Redesign for Featured Jobs */
+@media (max-width: 991.98px) {
+    .category-wrap.jobwrp .main_title {
+        font-size: 24px !important;
+        margin-bottom: 20px !important;
+        padding-bottom: 12px !important;
+    }
+    
+    .category-wrap.jobwrp .main_title::after {
+        width: 50px !important;
+        height: 3px !important;
+    }
+    
+    .featured-jobs-grid {
+        padding: 10px 0 !important;
+    }
+    
     .featured-jobs-grid .owl-item {
-        padding: 0 6px !important;
+        padding: 0 8px !important;
+    }
+    
+    .featured-job-card {
+        border-radius: 16px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+        border: 1px solid #e5e7eb !important;
+        overflow: hidden !important;
+    }
+    
+    .featured-job-card:hover {
+        box-shadow: 0 8px 20px rgba(39, 114, 232, 0.2) !important;
+        transform: translateY(-2px) !important;
     }
     
     .job-card-header {
-        padding: 12px 14px 10px !important;
+        padding: 16px 14px !important;
+        background: linear-gradient(135deg, #2772e8 0%, #1e5fc7 100%) !important;
+        border-radius: 0 !important;
+        position: relative !important;
+    }
+    
+    .job-card-header::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+        pointer-events: none;
+    }
+    
+    .company-header {
+        gap: 12px !important;
+        position: relative;
+        z-index: 1;
     }
     
     .company-logo {
-        width: 36px !important;
-        height: 36px !important;
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 12px !important;
+        border: 2px solid rgba(255, 255, 255, 0.4) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
     }
     
     .company-logo img {
-        width: 24px !important;
-        height: 24px !important;
+        width: 28px !important;
+        height: 28px !important;
     }
     
     .company-name h3 {
-        font-size: 12px !important;
+        font-size: 15px !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+        line-height: 1.3 !important;
     }
     
     .job-card-body {
-        padding: 12px 14px 10px !important;
+        padding: 16px 14px 14px !important;
+        background: #ffffff !important;
+    }
+    
+    .job-title {
+        margin-bottom: 12px !important;
     }
     
     .job-title a {
-        font-size: 14px !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: #1f2937 !important;
+        line-height: 1.4 !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    .job-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
     }
     
     .category-badge-top {
-        font-size: 9px !important;
-        padding: 4px 8px !important;
+        font-size: 11px !important;
+        padding: 6px 12px !important;
+        border-radius: 8px !important;
+        background: #e3f2fd !important;
+        color: #2772e8 !important;
+        font-weight: 600 !important;
     }
     
     .meta-badge {
-        font-size: 9px !important;
-        padding: 3px 8px !important;
+        font-size: 11px !important;
+        padding: 6px 12px !important;
+        border-radius: 8px !important;
+        background: #f3f4f6 !important;
+        color: #4b5563 !important;
+        font-weight: 500 !important;
+    }
+    
+    .meta-badge span {
+        font-weight: 600 !important;
+        color: #1f2937 !important;
     }
     
     .location-info {
-        font-size: 10px !important;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px !important;
+        color: #6b7280 !important;
+        font-weight: 500 !important;
     }
     
     .location-info img {
-        width: 12px !important;
-        height: 12px !important;
+        width: 16px !important;
+        height: 16px !important;
+        opacity: 0.7;
     }
     
     .job-card-footer {
-        padding: 10px 14px 12px !important;
+        padding: 14px 14px 16px !important;
+        background: #f8fafc !important;
+        border-top: 1px solid #e5e7eb !important;
     }
     
     .price-ad p {
-        font-size: 13px !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        color: #1f2937 !important;
+        margin: 0 !important;
     }
     
     .price-ad p span.price-amount {
-        font-size: 13px !important;
+        font-size: 16px !important;
+        color: #2772e8 !important;
+        font-weight: 700 !important;
     }
     
     .price-ad p span.price-period {
-        font-size: 11px !important;
+        font-size: 13px !important;
+        color: #6b7280 !important;
+        font-weight: 500 !important;
+    }
+    
+    .price-ad p span.price-negotiable {
+        font-size: 15px !important;
+        color: #10b981 !important;
+        font-weight: 600 !important;
     }
 }
 
 @media (max-width: 480px) {
     .featured-jobs-grid .owl-item {
-        padding: 0 5px !important;
+        padding: 0 6px !important;
     }
     
     .job-card-header {
-        padding: 10px 12px 8px !important;
+        padding: 14px 12px !important;
     }
     
     .company-logo {
-        width: 32px !important;
-        height: 32px !important;
+        width: 44px !important;
+        height: 44px !important;
     }
     
     .company-logo img {
-        width: 20px !important;
-        height: 20px !important;
+        width: 26px !important;
+        height: 26px !important;
     }
     
     .company-name h3 {
-        font-size: 11px !important;
+        font-size: 14px !important;
     }
     
     .job-card-body {
-        padding: 10px 12px 8px !important;
+        padding: 14px 12px 12px !important;
     }
     
     .job-title a {
-        font-size: 13px !important;
+        font-size: 15px !important;
     }
     
     .job-card-footer {
