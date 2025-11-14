@@ -348,48 +348,79 @@
     }
 }
 
-/* Toggle Buttons Styling - Mobile Only (Browser Responsive Mode Too) */
-@media (max-width: 991.98px) {
-    .toggle-btns {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    .toggle-btn {
-        background: #007bff;
-        color: #ffffff;
-        border: none;
-        padding: 10px 12px;
-        border-radius: 8px;
-        font-size: 18px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 44px;
-        height: 44px;
-        box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
-    }
-
-    .toggle-btn:hover {
-        background: #0056b3;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
-    }
-
-    .toggle-btn:active {
-        transform: translateY(0);
-        box-shadow: 0 1px 3px rgba(0, 123, 255, 0.2);
-    }
+/* Mobile Header - Completely Separate */
+.mobile-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 12px 0;
 }
 
-@media (min-width: 992px) {
-    .toggle-btns {
-        display: none !important;
-    }
+.mobile-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+}
+
+.mobile-logo {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-logo a {
+    display: flex;
+    align-items: center;
+}
+
+.mobile-logo img {
+    max-height: 45px;
+    width: auto;
+    height: auto;
+}
+
+.mobile-header-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.mobile-header-btn {
+    background: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+}
+
+.mobile-header-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.mobile-header-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 123, 255, 0.2);
+}
+
+/* Desktop Header - Completely Separate */
+.desktop-header {
+    background: #ffffff;
 }
 
 /* Login/Register Links Styling */
@@ -447,54 +478,73 @@
 }
 </style>
 
-<div class="container py-3">
-   <div class="app">
-        <div class="row align-items-center"> 
-         <!-- Logo - Left on Mobile, Left on Desktop -->
-         <div class="col-6 col-lg-3">
-                  <div class="fulltimez-logo"><a href="{{ route('home') }}"><img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo"></a></div>
-               </div>
-
-               <!-- Mobile Toggle Buttons - Right on Mobile -->
-               <div class="col-6 d-lg-none text-end">
-                   <div class="toggle-btns">
-                       <button class="toggle-btn" id="searchToggle" type="button">
-                           <i class="fa-solid fa-magnifying-glass"></i>
-                       </button>
-                       <button class="toggle-btn" id="menuToggle" type="button">
-                           <i class="fa-solid fa-bars"></i>
-                       </button>
-                   </div>
-               </div>
+<!-- Desktop Header - Only shows on desktop -->
+<div class="desktop-header d-none d-lg-block">
+    <div class="container py-3">
+        <div class="app">
+            <div class="row align-items-center">
+                <!-- Logo -->
+                <div class="col-lg-3">
+                    <div class="fulltimez-logo">
+                        <a href="{{ route('home') }}">
+                            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo">
+                        </a>
+                    </div>
+                </div>
 
                 <!-- Desktop Navigation -->
-                <div class="col-lg-6 d-none d-lg-block">
-    <nav class="top-nav">
-      <ul class="tabs">
-        <li class="tab"><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
-        <li class="tab"><a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">Browse Jobs</a></li>
-        <li class="tab"><a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">Browse Resumes</a></li>
-        <li class="tab"><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact Us</a></li>
-      </ul>
-    </nav>
+                <div class="col-lg-6">
+                    <nav class="top-nav">
+                        <ul class="tabs">
+                            <li class="tab"><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
+                            <li class="tab"><a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">Browse Jobs</a></li>
+                            <li class="tab"><a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">Browse Resumes</a></li>
+                            <li class="tab"><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Desktop Auth Links -->
+                <div class="col-lg-3">
+                    <div class="d-flex gap-2 justify-content-end">
+                        <div class="auth-buttons">
+                            @auth
+                            <a href="{{ route('dashboard') }}" class="auth-btn dashboard-btn">Dashboard</a>
+                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="auth-btn logout-btn">Logout</a>
+                            </form>
+                            @else
+                            <div class="login"><a href="{{ route('login') }}">Login</a></div>
+                            <div class="login"><a href="{{ route('choose.role') }}">Register</a></div>
+                            @endauth
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Desktop Auth Links -->
-<div class="col-lg-3 d-none d-lg-block">
-   <div class="d-flex gap-2 justify-content-end"> 
-      <div class="auth-buttons">
-      @auth
-      <a href="{{ route('dashboard') }}" class="auth-btn dashboard-btn">Dashboard</a>
-      <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-         @csrf
-         <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="auth-btn logout-btn">Logout</a>
-      </form>
-      @else
-      <div class="login"><a href="{{ route('login') }}">Login</a></div>
-      <div class="login"><a href="{{ route('choose.role') }}">Register</a></div>
-      @endauth
-      </div>
-   </div> 
+<!-- Mobile Header - Only shows on mobile -->
+<div class="mobile-header d-lg-none">
+    <div class="container py-3">
+        <div class="mobile-header-inner">
+            <div class="mobile-logo">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo">
+                </a>
+            </div>
+            <div class="mobile-header-buttons">
+                <button class="mobile-header-btn" id="mobileSearchToggle" type="button" aria-label="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Mobile Menu Overlay -->
@@ -541,13 +591,11 @@
         </a>
         @endauth
     </div>
-</div>
+    </div>
 </div>
 
-
-<hr class="mt-4">
- 
-</div>
+<!-- HR Separator - Only for Desktop -->
+<hr class="mt-4 d-none d-lg-block">
 
     @if(!(auth()->check() && auth()->user()->isEmployer() && request()->routeIs('dashboard')) && !request()->routeIs('candidates.index') && !request()->routeIs('jobs.index') && !request()->routeIs('contact'))
     <section class="search-wrap">
@@ -762,6 +810,18 @@
             }
         }
         
+        // Mobile menu toggle button
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openMobileMenu();
+            });
+        }
+        
+        // Legacy support - also check old ID
+        const menuToggle = document.getElementById('menuToggle');
         if (menuToggle) {
             menuToggle.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -786,7 +846,8 @@
         // Close menu when clicking outside
         document.addEventListener('click', function(e) {
             if (mobileNavMenu && mobileNavMenu.classList.contains('show')) {
-                if (!mobileNavMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                const menuToggleBtn = mobileMenuToggle || menuToggle;
+                if (menuToggleBtn && !mobileNavMenu.contains(e.target) && !menuToggleBtn.contains(e.target)) {
                     closeMobileMenu();
                 }
             }
@@ -804,10 +865,22 @@
             });
         }
         
-        // Search Toggle
-        const searchToggle = document.getElementById('searchToggle');
+        // Mobile search toggle button
+        const mobileSearchToggle = document.getElementById('mobileSearchToggle');
         const searchWrap = document.querySelector('.search-wrap');
         
+        if (mobileSearchToggle && searchWrap) {
+            mobileSearchToggle.addEventListener('click', function() {
+                searchWrap.classList.toggle('show');
+                // Close menu if open
+                if (mobileNavMenu && mobileNavMenu.classList.contains('show')) {
+                    closeMobileMenu();
+                }
+            });
+        }
+        
+        // Legacy support - also check old ID
+        const searchToggle = document.getElementById('searchToggle');
         if (searchToggle && searchWrap) {
             searchToggle.addEventListener('click', function() {
                 searchWrap.classList.toggle('show');
