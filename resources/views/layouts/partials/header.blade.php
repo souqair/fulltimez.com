@@ -569,20 +569,20 @@
     color: #ffffff;
 }
 
-/* Mobile Search Toggle - Works in Browser Responsive Mode */
+/* Mobile Search Toggle - Beautiful Design */
 @media (max-width: 991.98px) {
     .search-wrap {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        background: #ffffff;
+        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
         z-index: 10000;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
-        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         display: block !important;
         padding: 0 !important;
         max-height: 100vh;
@@ -597,55 +597,153 @@
         display: block !important;
     }
     
-    /* Search Box Close Button */
+    /* Search Box Close Button - Beautiful Design */
     .mobile-search-close {
-        background: rgba(255, 255, 255, 0.25);
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         color: #ffffff;
-        font-size: 22px;
-        transition: all 0.3s ease;
+        font-size: 20px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         flex-shrink: 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     
     .mobile-search-close:hover,
     .mobile-search-close:active {
-        background: rgba(255, 255, 255, 0.4);
-        transform: rotate(90deg) scale(1.1);
+        background: rgba(255, 255, 255, 0.5);
+        transform: rotate(90deg) scale(1.05);
         color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
     
-    /* Search Box Header */
+    /* Search Box Header - Beautiful Gradient */
     .mobile-search-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 20px 20px 15px 20px;
-        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        padding: 20px 16px 18px 16px;
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 50%, #004085 100%);
         color: #ffffff;
-        box-shadow: 0 2px 10px rgba(0, 123, 255, 0.2);
+        box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
         position: sticky;
         top: 0;
         z-index: 10;
+        border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .mobile-search-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+        pointer-events: none;
     }
     
     .mobile-search-header h3 {
         margin: 0;
-        font-size: 20px;
+        font-size: 22px;
         font-weight: 700;
         color: #ffffff;
         letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
     
-    /* Search form padding for mobile */
+    .mobile-search-header h3 i {
+        font-size: 20px;
+        margin-right: 8px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+    
+    /* Search form padding for mobile - Beautiful spacing */
     .search-wrap form {
-        padding: 20px 15px;
+        padding: 20px 16px 24px 16px;
+        background: transparent;
+    }
+    
+    /* Search form fields styling */
+    .search-wrap .search-barwrp {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 20px 16px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+    }
+    
+    .search-wrap .field {
+        margin-bottom: 20px;
+    }
+    
+    .search-wrap .field:last-child {
+        margin-bottom: 0;
+    }
+    
+    .search-wrap .label {
+        display: block;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 8px;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+    }
+    
+    .search-wrap .form-control {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        background: #ffffff;
+        color: #1f2937;
+    }
+    
+    .search-wrap .form-control:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        transform: translateY(-1px);
+    }
+    
+    .search-wrap .btn.primary {
+        width: 100%;
+        padding: 14px 24px;
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: #ffffff;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        margin-top: 10px;
+    }
+    
+    .search-wrap .btn.primary:hover {
+        background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+    }
+    
+    .search-wrap .btn.primary:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
     }
 }
 
@@ -781,7 +879,10 @@
     <section class="search-wrap" id="searchWrapSection">
       <!-- Mobile Search Header -->
       <div class="mobile-search-header d-lg-none">
-        <h3>Search Jobs</h3>
+        <h3>
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Search Jobs
+        </h3>
         <button type="button" class="mobile-search-close" id="mobileSearchClose" aria-label="Close Search">
           <i class="fa-solid fa-times"></i>
         </button>
