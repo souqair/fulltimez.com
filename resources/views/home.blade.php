@@ -277,6 +277,73 @@ button svg{
     }
     
     .job-card-header {
+        padding: 12px 14px 10px !important;
+    }
+    
+    .company-logo {
+        width: 36px !important;
+        height: 36px !important;
+    }
+    
+    .company-logo img {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    
+    .company-name h3 {
+        font-size: 12px !important;
+    }
+    
+    .job-card-body {
+        padding: 12px 14px 10px !important;
+    }
+    
+    .job-title a {
+        font-size: 14px !important;
+    }
+    
+    .category-badge-top {
+        font-size: 9px !important;
+        padding: 4px 8px !important;
+    }
+    
+    .meta-badge {
+        font-size: 9px !important;
+        padding: 3px 8px !important;
+    }
+    
+    .location-info {
+        font-size: 10px !important;
+    }
+    
+    .location-info img {
+        width: 12px !important;
+        height: 12px !important;
+    }
+    
+    .job-card-footer {
+        padding: 10px 14px 12px !important;
+    }
+    
+    .price-ad p {
+        font-size: 13px !important;
+    }
+    
+    .price-ad p span.price-amount {
+        font-size: 13px !important;
+    }
+    
+    .price-ad p span.price-period {
+        font-size: 11px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .featured-jobs-grid .owl-item {
+        padding: 0 5px !important;
+    }
+    
+    .job-card-header {
         padding: 10px 12px 8px !important;
     }
     
@@ -291,82 +358,15 @@ button svg{
     }
     
     .company-name h3 {
-        font-size: 10px !important;
+        font-size: 11px !important;
     }
     
     .job-card-body {
-        padding: 8px 12px 10px !important;
+        padding: 10px 12px 8px !important;
     }
     
     .job-title a {
-        font-size: 12px !important;
-    }
-    
-    .category-badge-top {
-        font-size: 8px !important;
-        padding: 3px 6px !important;
-    }
-    
-    .meta-badge {
-        font-size: 8px !important;
-        padding: 2px 6px !important;
-    }
-    
-    .location-info {
-        font-size: 9px !important;
-    }
-    
-    .location-info img {
-        width: 10px !important;
-        height: 10px !important;
-    }
-    
-    .job-card-footer {
-        padding: 8px 12px 10px !important;
-    }
-    
-    .price-ad p {
-        font-size: 11px !important;
-    }
-    
-    .price-ad p span.price-amount {
-        font-size: 11px !important;
-    }
-    
-    .price-ad p span.price-period {
-        font-size: 9px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .featured-jobs-grid .owl-item {
-        padding: 0 5px !important;
-    }
-    
-    .job-card-header {
-        padding: 10px 10px 8px !important;
-    }
-    
-    .company-logo {
-        width: 30px !important;
-        height: 30px !important;
-    }
-    
-    .company-logo img {
-        width: 18px !important;
-        height: 18px !important;
-    }
-    
-    .company-name h3 {
-        font-size: 9px !important;
-    }
-    
-    .job-card-body {
-        padding: 8px 10px 10px !important;
-    }
-    
-    .job-title a {
-        font-size: 11px !important;
+        font-size: 13px !important;
     }
     
     .job-card-footer {
