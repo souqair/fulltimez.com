@@ -8,9 +8,19 @@ use Illuminate\Support\Facades\Storage;
 
 @push('styles')
 <style>
-/* Global Container Fix */
+/* Global Container Fix - Don't affect header */
 body {
     overflow-x: hidden !important;
+}
+
+/* Ensure header is always visible */
+header,
+.header,
+.desktop-header,
+.mobile-header {
+    position: relative !important;
+    z-index: 1000 !important;
+    overflow: visible !important;
 }
 
 /* Modern Compact Featured Jobs Design */
@@ -403,7 +413,11 @@ button svg{
     }
 }
 
-.container {
+/* Container Fix - Don't affect header */
+.category-wrap .container,
+.jobs-wrap .container,
+.featured-candidates-section .container,
+.split-banner-section .container {
     max-width: 100% !important;
     overflow-x: hidden !important;
 }
@@ -1201,7 +1215,7 @@ button svg{
     }
 }
 
-/* Desktop Container Fix */
+/* Desktop Container Fix - Don't affect header */
 @media (min-width: 769px) {
     .category-wrap {
         overflow-x: hidden !important;
@@ -1211,7 +1225,10 @@ button svg{
         overflow-x: hidden !important;
     }
     
-    .container {
+    .category-wrap .container,
+    .jobs-wrap .container,
+    .featured-candidates-section .container,
+    .split-banner-section .container {
         max-width: 1200px !important;
         margin: 0 auto !important;
         overflow-x: hidden !important;
@@ -1246,7 +1263,10 @@ button svg{
         padding: 0 15px !important;
     }
     
-    .container {
+    .category-wrap .container,
+    .jobs-wrap .container,
+    .featured-candidates-section .container,
+    .split-banner-section .container {
         padding: 0 15px !important;
         max-width: 100% !important;
         overflow-x: hidden !important;

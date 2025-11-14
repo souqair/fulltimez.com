@@ -1,7 +1,7 @@
 <style>
 /* Top Navigation Menu Styling - Simple */
 .top-nav {
-    padding: 8px 6px 10px; !implements
+    padding: 8px 6px 10px;
 }
 
 .top-nav .tabs {
@@ -415,7 +415,8 @@
 
 /* Mobile Header - Completely Separate - Mobile Only */
 .mobile-header {
-    display: block;
+    display: block !important;
+    visibility: visible !important;
 }
 
 @media (max-width: 991.98px) {
@@ -545,6 +546,21 @@
 /* Desktop Header - Completely Separate */
 .desktop-header {
     background: #ffffff;
+    display: block;
+}
+
+@media (min-width: 992px) {
+    .desktop-header {
+        display: block !important;
+        visibility: visible !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .desktop-header {
+        display: none !important;
+        visibility: hidden !important;
+    }
 }
 
 /* Login/Register Links Styling */
