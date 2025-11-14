@@ -162,12 +162,15 @@
         transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         display: block !important;
         visibility: visible !important;
+        opacity: 1 !important;
     }
 
     .mobile-nav-menu.show {
         right: 0 !important;
         display: block !important;
         visibility: visible !important;
+        opacity: 1 !important;
+        transform: translateX(0) !important;
     }
     
     /* Custom Scrollbar for Mobile Menu */
@@ -956,10 +959,22 @@
             const menu = document.getElementById('mobileNavMenu');
             const overlay = document.getElementById('mobileMenuOverlay');
             if (menu && overlay) {
+                console.log('Menu element found:', menu);
+                console.log('Overlay element found:', overlay);
+                // Force display first
+                menu.style.display = 'block';
+                menu.style.visibility = 'visible';
+                menu.style.opacity = '1';
+                // Add show class
                 menu.classList.add('show');
                 overlay.classList.add('show');
+                // Force right position
+                setTimeout(() => {
+                    menu.style.right = '0';
+                    console.log('Menu position set to 0, classes:', menu.className);
+                }, 10);
                 document.body.style.overflow = 'hidden';
-                console.log('Menu opened successfully');
+                console.log('Menu opened successfully, right position:', menu.style.right);
             } else {
                 console.error('Menu elements not found!', { menu, overlay });
             }
@@ -971,6 +986,7 @@
             const overlay = document.getElementById('mobileMenuOverlay');
             if (menu && overlay) {
                 menu.classList.remove('show');
+                menu.style.right = '-100%';
                 overlay.classList.remove('show');
                 document.body.style.overflow = '';
             }
@@ -1128,8 +1144,11 @@
             // Mobile view - menu should be hidden by default
             if (mobileNavMenu) {
                 mobileNavMenu.classList.remove('show');
-                // Ensure menu is in DOM and visible when needed
+                // Ensure menu is in DOM and positioned off-screen
                 mobileNavMenu.style.display = 'block';
+                mobileNavMenu.style.visibility = 'visible';
+                mobileNavMenu.style.right = '-100%';
+                mobileNavMenu.style.opacity = '1';
             }
             if (mobileMenuOverlay) {
                 mobileMenuOverlay.classList.remove('show');
