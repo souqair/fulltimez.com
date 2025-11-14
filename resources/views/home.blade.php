@@ -2039,8 +2039,24 @@ $(document).ready(function() {
 
 .featured-job-card,
 .featured-candidate-card {
-    width:     280px !important;
+    width: 280px !important;
     height: 100%;
+}
+
+/* Mobile - Full Width */
+@media (max-width: 991.98px) {
+    .featured-job-card,
+    .featured-candidate-card {
+        width: 100% !important;
+    }
+}
+
+/* Web/Desktop - Fixed Width */
+@media (min-width: 992px) {
+    .featured-job-card,
+    .featured-candidate-card {
+        width: 280px !important;
+    }
 }
 </style>
 @endpush
