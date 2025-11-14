@@ -222,7 +222,7 @@ button svg{
 
 .price-ad p span.price-amount {
     font-size: 16px !important;
-    color: #007bff !important;
+    color: #374151 !important
     white-space: nowrap !important;
 }
 
