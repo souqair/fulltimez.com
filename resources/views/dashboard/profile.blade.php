@@ -465,33 +465,6 @@
                                         <input type="file" id="profile_picture_input" class="form-control @error('profile_picture') is-invalid @enderror" accept="image/*">
                                         <div class="text-muted mt-1">Max 2MB, JPG/PNG format, recommended 400x400</div>
                                         
-                                        <!-- Image Cropper Container -->
-                                        <div id="image-cropper-container" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e5e7eb; width: 100%;">
-                                            <div id="cropper-preview" style="width: 100%; max-height: 500px; overflow: hidden; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 20px;"></div>
-                                            <div class="row align-items-center">
-                                                <div class="col-md-6 text-center mb-3 mb-md-0">
-                                                    <h6 style="margin-bottom: 15px; color: #2c3e50; font-weight: 600;">Preview</h6>
-                                                    <div id="cropped-preview" style="width: 150px; height: 150px; margin: 0 auto; border: 2px solid #3498db; border-radius: 50%; overflow: hidden; background: #f0f0f0;">
-                                                        <img id="cropped-preview-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="d-flex flex-column gap-2">
-                                                        <button type="button" id="crop-btn" class="btn btn-primary" style="width: 100%;">
-                                                            <i class="fas fa-crop"></i> Crop Image
-                                                        </button>
-                                                        <button type="button" id="cancel-crop-btn" class="btn btn-secondary" style="width: 100%;">
-                                                            <i class="fas fa-times"></i> Cancel
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Hidden input for cropped image -->
-                                        <input type="hidden" id="cropped_image_data" name="cropped_image_data">
-                                        <input type="file" id="profile_picture" name="profile_picture" style="display: none;">
-                                        
                                         @if($user->seekerProfile && $user->seekerProfile->profile_picture)
                                             <div class="file-upload-info mt-2">
                                                 Current: <a href="{{ asset($user->seekerProfile->profile_picture) }}" target="_blank">View Current Picture</a>
@@ -501,6 +474,34 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <!-- Image Cropper Container -->
+                                    <div id="image-cropper-container" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e5e7eb; width: 100%;">
+                                        <div id="cropper-preview" style="width: 100%; max-height: 500px; overflow: hidden; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 20px;"></div>
+                                        <div class="row align-items-center">
+                                            <div class="col-md-6 text-center mb-3 mb-md-0">
+                                                <h6 style="margin-bottom: 15px; color: #2c3e50; font-weight: 600;">Preview</h6>
+                                                <div id="cropped-preview" style="width: 150px; height: 150px; margin: 0 auto; border: 2px solid #3498db; border-radius: 50%; overflow: hidden; background: #f0f0f0;">
+                                                    <img id="cropped-preview-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="d-flex flex-column gap-2">
+                                                    <button type="button" id="crop-btn" class="btn btn-primary" style="width: 100%;">
+                                                        <i class="fas fa-crop"></i> Crop Image
+                                                    </button>
+                                                    <button type="button" id="cancel-crop-btn" class="btn btn-secondary" style="width: 100%;">
+                                                        <i class="fas fa-times"></i> Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Hidden input for cropped image -->
+                                    <input type="hidden" id="cropped_image_data" name="cropped_image_data">
+                                    <input type="file" id="profile_picture" name="profile_picture" style="display: none;">
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -597,33 +598,6 @@
                                         <input type="file" id="company_logo_input" class="form-control @error('company_logo') is-invalid @enderror" accept="image/*">
                                         <div class="text-muted mt-1">Max 2MB, JPG/PNG format, recommended 400x400</div>
                                         
-                                        <!-- Image Cropper Container for Company Logo -->
-                                        <div id="company-logo-cropper-container" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e5e7eb; width: 100%;">
-                                            <div id="company-logo-cropper-preview" style="width: 100%; max-height: 500px; overflow: hidden; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 20px;"></div>
-                                            <div class="row align-items-center">
-                                                <div class="col-md-6 text-center mb-3 mb-md-0">
-                                                    <h6 style="margin-bottom: 15px; color: #2c3e50; font-weight: 600;">Preview</h6>
-                                                    <div id="company-logo-cropped-preview" style="width: 150px; height: 150px; margin: 0 auto; border: 2px solid #3498db; border-radius: 8px; overflow: hidden; background: #f0f0f0;">
-                                                        <img id="company-logo-cropped-preview-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="d-flex flex-column gap-2">
-                                                        <button type="button" id="crop-company-logo-btn" class="btn btn-primary" style="width: 100%;">
-                                                            <i class="fas fa-crop"></i> Crop Logo
-                                                        </button>
-                                                        <button type="button" id="cancel-company-logo-crop-btn" class="btn btn-secondary" style="width: 100%;">
-                                                            <i class="fas fa-times"></i> Cancel
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Hidden input for cropped company logo -->
-                                        <input type="hidden" id="cropped_company_logo_data" name="cropped_company_logo_data">
-                                        <input type="file" id="company_logo" name="company_logo" style="display: none;">
-                                        
                                         @if($user->employerProfile && $user->employerProfile->company_logo)
                                             <div class="file-upload-info mt-2">
                                                 Current: <a href="{{ asset($user->employerProfile->company_logo) }}" target="_blank">View Current Logo</a>
@@ -633,6 +607,34 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <!-- Image Cropper Container for Company Logo -->
+                                    <div id="company-logo-cropper-container" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e5e7eb; width: 100%;">
+                                        <div id="company-logo-cropper-preview" style="width: 100%; max-height: 500px; overflow: hidden; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 20px;"></div>
+                                        <div class="row align-items-center">
+                                            <div class="col-md-6 text-center mb-3 mb-md-0">
+                                                <h6 style="margin-bottom: 15px; color: #2c3e50; font-weight: 600;">Preview</h6>
+                                                <div id="company-logo-cropped-preview" style="width: 150px; height: 150px; margin: 0 auto; border: 2px solid #3498db; border-radius: 8px; overflow: hidden; background: #f0f0f0;">
+                                                    <img id="company-logo-cropped-preview-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="d-flex flex-column gap-2">
+                                                    <button type="button" id="crop-company-logo-btn" class="btn btn-primary" style="width: 100%;">
+                                                        <i class="fas fa-crop"></i> Crop Logo
+                                                    </button>
+                                                    <button type="button" id="cancel-company-logo-crop-btn" class="btn btn-secondary" style="width: 100%;">
+                                                        <i class="fas fa-times"></i> Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Hidden input for cropped company logo -->
+                                    <input type="hidden" id="cropped_company_logo_data" name="cropped_company_logo_data">
+                                    <input type="file" id="company_logo" name="company_logo" style="display: none;">
                                 </div>
                             </div>
                         </div>
