@@ -123,203 +123,61 @@
 
 /* Mobile Only Styles - Works in Browser Responsive Mode Too */
 @media (max-width: 991.98px) {
-    /* Mobile Menu Overlay */
-    .mobile-menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(4px);
-        z-index: 9998;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-        display: block !important;
+    /* Hide navigation and auth buttons by default on mobile */
+    .top-nav,
+    .d-flex.gap-2,
+    .search-wrap {
+        display: none;
     }
 
-    .mobile-menu-overlay.show {
-        opacity: 1;
-        visibility: visible;
-        display: block !important;
-    }
-
-    /* Mobile Navigation Drawer - Clean Implementation */
-    .mobile-nav-menu {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 320px;
-        max-width: 85vw;
-        height: 100vh;
-        background: #ffffff;
-        box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
-        padding: 0;
-        z-index: 9999;
-        overflow-y: auto;
-        overflow-x: hidden;
-        transform: translateX(100%);
-        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: transform;
-        display: block !important;
-        visibility: visible !important;
-    }
-
-    .mobile-nav-menu.show {
-        transform: translateX(0) !important;
-    }
-    
-    /* Custom Scrollbar for Mobile Menu */
-    .mobile-nav-menu::-webkit-scrollbar {
-        width: 6px;
-    }
-    
-    .mobile-nav-menu::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-    
-    .mobile-nav-menu::-webkit-scrollbar-thumb {
-        background: #007bff;
-        border-radius: 3px;
-    }
-    
-    .mobile-nav-menu::-webkit-scrollbar-thumb:hover {
-        background: #0056b3;
-    }
-}
-
-@media (min-width: 992px) {
-    .mobile-menu-overlay,
-    .mobile-nav-menu {
-        display: none !important;
-        visibility: hidden !important;
-    }
-    
-    .mobile-menu-overlay.show,
-    .mobile-nav-menu.show {
-        display: none !important;
-    }
-}
-
-@media (max-width: 991.98px) {
-    /* Mobile Menu Header */
-    .mobile-nav-menu-header {
+    /* Toggle buttons styling */
+    .toggle-btns {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 24px;
-        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-        color: #ffffff;
-        margin-bottom: 0;
-        box-shadow: 0 2px 10px rgba(0, 123, 255, 0.2);
-        position: sticky;
-        top: 0;
-        z-index: 10;
+        justify-content: flex-end;
+        gap: 10px;
     }
 
-    .mobile-nav-menu-header h3 {
-        margin: 0;
-        font-size: 22px;
-        font-weight: 700;
-        color: #ffffff;
-        letter-spacing: 0.5px;
-    }
-
-    .mobile-menu-close {
-        background: rgba(255, 255, 255, 0.25);
+    .toggle-btn {
+        background: none;
         border: none;
         font-size: 22px;
-        color: #ffffff;
         cursor: pointer;
-        padding: 10px;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        flex-shrink: 0;
-    }
-
-    .mobile-menu-close:hover,
-    .mobile-menu-close:active {
-        background: rgba(255, 255, 255, 0.4);
-        transform: rotate(90deg) scale(1.1);
-    }
-
-    /* Mobile Menu Content */
-    .mobile-nav-menu-content {
-        padding: 24px 20px;
-        background: #ffffff;
-    }
-
-    .mobile-nav-menu a {
-        display: flex;
-        align-items: center;
-        padding: 16px 20px;
-        color: #1f2937;
-        text-decoration: none;
-        border-radius: 12px;
-        margin-bottom: 8px;
-        transition: all 0.25s ease;
-        font-weight: 600;
-        font-size: 16px;
-        border-left: 4px solid transparent;
-        background: #f8fafc;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .mobile-nav-menu a::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 4px;
-        background: #007bff;
-        transform: scaleY(0);
-        transition: transform 0.25s ease;
-    }
-
-    .mobile-nav-menu a i {
-        margin-right: 16px;
-        width: 24px;
-        text-align: center;
-        font-size: 20px;
-        color: #6b7280;
-        transition: all 0.25s ease;
-    }
-
-    .mobile-nav-menu a:hover,
-    .mobile-nav-menu a.active {
-        background: linear-gradient(90deg, #e3f2fd 0%, #f0f7ff 100%);
         color: #007bff;
-        border-left-color: #007bff;
-        transform: translateX(8px);
-        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+        padding: 8px;
+        transition: all 0.2s ease;
     }
     
-    .mobile-nav-menu a:hover::before,
-    .mobile-nav-menu a.active::before {
-        transform: scaleY(1);
-    }
-    
-    .mobile-nav-menu a:hover i,
-    .mobile-nav-menu a.active i {
-        color: #007bff;
+    .toggle-btn:hover {
+        color: #0056b3;
         transform: scale(1.1);
     }
 
-    .mobile-nav-menu hr {
-        margin: 24px 0;
-        border: none;
-        border-top: 2px solid #e5e7eb;
-        opacity: 0.6;
+    /* Active state (visible) - Same as HTML file */
+    .menu-active .top-nav,
+    .menu-active .d-flex.gap-2 {
+        display: block; 
+        margin-top: 15px;
+    }
+    
+    .top-nav .tabs {
+        display: block;
+    }
+    
+    .top-nav .tab {
+        margin-bottom: 8px;
+    }
+    
+    .top-nav .tab a {
+        display: block;
+        padding: 12px 15px;
+        border-radius: 8px;
+    }
+
+    .search-active .search-wrap {
+        display: block;
     }
 }
+
 
 @media (max-width: 991.98px) {
     .mobile-auth-btn {
@@ -525,85 +383,6 @@
     color: #ffffff;
 }
 
-/* Mobile Search Toggle - Works in Browser Responsive Mode */
-@media (max-width: 991.98px) {
-    .search-wrap {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: #ffffff;
-        z-index: 10000;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        display: block !important;
-        padding: 0 !important;
-        max-height: 100vh;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    
-    .search-wrap.show {
-        transform: translateY(0) !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        display: block !important;
-    }
-    
-    /* Search Box Close Button */
-    .mobile-search-close {
-        background: rgba(255, 255, 255, 0.25);
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: #ffffff;
-        font-size: 22px;
-        transition: all 0.3s ease;
-        flex-shrink: 0;
-    }
-    
-    .mobile-search-close:hover,
-    .mobile-search-close:active {
-        background: rgba(255, 255, 255, 0.4);
-        transform: rotate(90deg) scale(1.1);
-        color: #ffffff;
-    }
-    
-    /* Search Box Header */
-    .mobile-search-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px 20px 15px 20px;
-        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-        color: #ffffff;
-        box-shadow: 0 2px 10px rgba(0, 123, 255, 0.2);
-        position: sticky;
-        top: 0;
-        z-index: 10;
-    }
-    
-    .mobile-search-header h3 {
-        margin: 0;
-        font-size: 20px;
-        font-weight: 700;
-        color: #ffffff;
-        letter-spacing: 0.5px;
-    }
-    
-    /* Search form padding for mobile */
-    .search-wrap form {
-        padding: 20px 15px;
-    }
-}
 
 @media (min-width: 992px) {
     .search-wrap {
@@ -665,68 +444,57 @@
 <!-- Mobile Header - Only shows on mobile -->
 <div class="mobile-header d-lg-none">
     <div class="container py-3">
-        <div class="mobile-header-inner">
-            <div class="mobile-logo">
-                <a href="{{ route('home') }}">
-                    <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo">
-                </a>
+        <div class="app">
+            <div class="row align-items-center">
+                <div class="col-6">
+                    <div class="fulltimez-logo">
+                        <a href="{{ route('home') }}">
+                            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 text-end">
+                    <div class="toggle-btns">
+                        <button class="toggle-btn" id="mobileMenuToggle" type="button">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <button class="toggle-btn" id="mobileSearchToggle" type="button">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="mobile-header-buttons">
-                <button class="mobile-header-btn" id="mobileSearchToggle" type="button" aria-label="Search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-                <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
+            
+            <!-- Mobile Navigation - Hidden by default, shown when menu-active -->
+            <div class="col-lg-6 d-lg-none">
+                <nav class="top-nav">
+                    <ul class="tabs">
+                        <li class="tab"><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
+                        <li class="tab"><a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">Browse Jobs</a></li>
+                        <li class="tab"><a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">Browse Resumes</a></li>
+                        <li class="tab"><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Mobile Auth Links - Hidden by default, shown when menu-active -->
+            <div class="col-lg-3 d-lg-none">
+                <div class="d-flex gap-2 justify-content-end">
+                    <div class="auth-buttons">
+                        @auth
+                        <a href="{{ route('dashboard') }}" class="auth-btn dashboard-btn">Dashboard</a>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="auth-btn logout-btn">Logout</a>
+                        </form>
+                        @else
+                        <div class="login"><a href="{{ route('login') }}">Login</a></div>
+                        <div class="login"><a href="{{ route('choose.role') }}">Register</a></div>
+                        @endauth
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- Mobile Menu Overlay -->
-<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-
-<!-- Mobile Navigation Menu -->
-<div class="mobile-nav-menu" id="mobileNavMenu">
-    <div class="mobile-nav-menu-header">
-        <h3>Menu</h3>
-        <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close Menu">
-            <i class="fa-solid fa-times"></i>
-        </button>
-    </div>
-    <div class="mobile-nav-menu-content">
-        <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
-            <i class="fa-solid fa-home"></i> Home
-        </a>
-        <a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-briefcase"></i> Browse Jobs
-        </a>
-        <a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-users"></i> Browse Resumes
-        </a>
-        <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">
-            <i class="fa-solid fa-envelope"></i> Contact Us
-        </a>
-        <hr>
-        @auth
-        <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">
-            <i class="fa-solid fa-chart-line"></i> Dashboard
-        </a>
-        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mobile-auth-btn logout-btn">
-            <i class="fa-solid fa-sign-out-alt"></i> Logout
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
-        @else
-        <a href="{{ route('login') }}" class="mobile-auth-btn login-btn">
-            <i class="fa-solid fa-sign-in-alt"></i> LOGIN
-        </a>
-        <a href="{{ route('choose.role') }}" class="mobile-auth-btn register-btn">
-            <i class="fa-solid fa-user-plus"></i> REGISTER
-        </a>
-        @endauth
-    </div>
     </div>
 </div>
 
@@ -735,13 +503,6 @@
 
     @if(!(auth()->check() && auth()->user()->isEmployer() && request()->routeIs('dashboard')) && !request()->routeIs('candidates.index') && !request()->routeIs('jobs.index') && !request()->routeIs('contact'))
     <section class="search-wrap" id="searchWrapSection">
-      <!-- Mobile Search Header -->
-      <div class="mobile-search-header d-lg-none">
-        <h3>Search Jobs</h3>
-        <button type="button" class="mobile-search-close" id="mobileSearchClose" aria-label="Close Search">
-          <i class="fa-solid fa-times"></i>
-        </button>
-      </div>
       <form action="{{ route('jobs.index') }}" method="GET" id="headerSearchForm">
       <div class="search-barwrp">
         <div class="field">
@@ -929,248 +690,49 @@
     </style>
     
     <script>
-    // Mobile Menu and Search Toggle
+    // Mobile Menu and Search Toggle - Same as HTML file
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM Loaded - Initializing mobile menu');
-        
-        // Get all elements
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const mobileNavMenu = document.getElementById('mobileNavMenu');
-        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-        const mobileMenuClose = document.getElementById('mobileMenuClose');
-        const mobileSearchToggle = document.getElementById('mobileSearchToggle');
-        const searchWrap = document.getElementById('searchWrapSection') || document.querySelector('.search-wrap');
-        
-        console.log('Elements found:', {
-            mobileMenuToggle: !!mobileMenuToggle,
-            mobileNavMenu: !!mobileNavMenu,
-            mobileMenuOverlay: !!mobileMenuOverlay,
-            mobileMenuClose: !!mobileMenuClose,
-            mobileSearchToggle: !!mobileSearchToggle,
-            searchWrap: !!searchWrap
-        });
-        
-        // Make functions globally available for inline handlers
-        window.openMobileMenu = function() {
-            const menu = document.getElementById('mobileNavMenu');
-            const overlay = document.getElementById('mobileMenuOverlay');
-            if (menu && overlay) {
-                // Add show class to trigger transform
-                menu.classList.add('show');
-                overlay.classList.add('show');
-                // Prevent body scroll
-                document.body.style.overflow = 'hidden';
-                document.body.style.position = 'fixed';
-                document.body.style.width = '100%';
-            }
-        };
-        
-        window.closeMobileMenu = function() {
-            const menu = document.getElementById('mobileNavMenu');
-            const overlay = document.getElementById('mobileMenuOverlay');
-            if (menu && overlay) {
-                // Remove show class to trigger transform back
-                menu.classList.remove('show');
-                overlay.classList.remove('show');
-                // Restore body scroll
-                document.body.style.overflow = '';
-                document.body.style.position = '';
-                document.body.style.width = '';
-            }
-        };
-        
-        // Local references for internal use
-        function openMobileMenu() {
-            window.openMobileMenu();
-        }
-        
-        function closeMobileMenu() {
-            window.closeMobileMenu();
-        }
-        
-        // Mobile menu toggle button
-        if (mobileMenuToggle) {
-            console.log('Attaching menu toggle listener to button:', mobileMenuToggle);
-            mobileMenuToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-                console.log('Menu button clicked!');
-                openMobileMenu();
-                return false;
-            }, true); // Use capture phase to ensure it fires first
-        } else {
-            console.error('mobileMenuToggle button not found!');
-        }
-        
-        if (mobileMenuClose) {
-            mobileMenuClose.addEventListener('click', function(e) {
-                e.stopPropagation();
-                closeMobileMenu();
-            });
-        }
-        
-        if (mobileMenuOverlay) {
-            mobileMenuOverlay.addEventListener('click', function() {
-                closeMobileMenu();
-            });
-        }
-        
-        // Touch/Swipe support for closing drawer
-        if (mobileNavMenu) {
-            let touchStartX = 0;
-            let touchEndX = 0;
-            
-            mobileNavMenu.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-            }, { passive: true });
-            
-            mobileNavMenu.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            }, { passive: true });
-            
-            function handleSwipe() {
-                const swipeThreshold = 50;
-                const swipeDistance = touchEndX - touchStartX;
-                
-                // Swipe right to close drawer (swipe from left to right)
-                if (swipeDistance > swipeThreshold) {
-                    closeMobileMenu();
-                }
-            }
-        }
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (mobileNavMenu && mobileNavMenu.classList.contains('show')) {
-                const menuToggleBtn = mobileMenuToggle || menuToggle;
-                if (menuToggleBtn && !mobileNavMenu.contains(e.target) && !menuToggleBtn.contains(e.target)) {
-                    closeMobileMenu();
-                }
-            }
-        });
-        
-        // Close menu when clicking on menu links
-        if (mobileNavMenu) {
-            const menuLinks = mobileNavMenu.querySelectorAll('a');
-            menuLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    setTimeout(() => {
-                        closeMobileMenu();
-                    }, 100);
-                });
-            });
-        }
-        
-        // Make search toggle globally available for inline handlers
-        window.toggleMobileSearch = function() {
-            console.log('Toggling search');
-            const sw = document.getElementById('searchWrapSection') || document.querySelector('.search-wrap');
-            if (sw) {
-                const isShowing = sw.classList.contains('show');
-                console.log('Current search state:', isShowing);
-                if (isShowing) {
-                    sw.classList.remove('show');
-                    document.body.style.overflow = '';
-                    console.log('Search hidden - class removed');
+        const menuToggle = document.getElementById("mobileMenuToggle");
+        const searchToggle = document.getElementById("mobileSearchToggle");
+        const app = document.querySelector(".app");
+
+        if (menuToggle && app) {
+            menuToggle.addEventListener("click", () => {
+                app.classList.toggle("menu-active");
+                app.classList.remove("search-active");
+
+                // Toggle icons
+                if (app.classList.contains("menu-active")) {
+                    menuToggle.innerHTML = '<i class="fa-solid fa-xmark"></i>'; // cross
                 } else {
-                    sw.classList.add('show');
-                    document.body.style.overflow = 'hidden';
-                    console.log('Search shown - class added');
+                    menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>'; // menu bars
                 }
-                // Close menu if open
-                const menu = document.getElementById('mobileNavMenu');
-                if (menu && menu.classList.contains('show')) {
-                    window.closeMobileMenu();
+
+                // reset search toggle icon
+                if (searchToggle) {
+                    searchToggle.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>';
                 }
-            } else {
-                console.error('Search wrap not found! Trying to find again...');
-            }
-        };
-        
-        window.closeMobileSearch = function() {
-            console.log('Closing search');
-            const sw = document.getElementById('searchWrapSection') || document.querySelector('.search-wrap');
-            if (sw) {
-                sw.classList.remove('show');
-                document.body.style.overflow = '';
-            }
-        };
-        
-        // Local reference for internal use
-        function toggleSearch() {
-            window.toggleMobileSearch();
+            });
         }
-        
-        // Mobile search toggle button
-        if (mobileSearchToggle) {
-            console.log('Attaching search toggle listener to button:', mobileSearchToggle);
-            mobileSearchToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-                console.log('Search button clicked!');
-                toggleSearch();
-                return false;
-            }, true); // Use capture phase to ensure it fires first
-        } else {
-            console.error('mobileSearchToggle button not found!');
-        }
-        
-        // Mobile search close button
-        const mobileSearchClose = document.getElementById('mobileSearchClose');
-        if (mobileSearchClose) {
-            console.log('Attaching search close listener');
-            mobileSearchClose.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-                console.log('Search close button clicked!');
-                window.closeMobileSearch();
-                return false;
-            }, true);
-        }
-        
-        // Close menu when window is resized to desktop size (Browser Responsive Mode)
-        let resizeTimer;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function() {
-                if (window.innerWidth >= 992) {
-                    // Desktop view - close mobile menu if open
-                    if (mobileNavMenu && mobileNavMenu.classList.contains('show')) {
-                        closeMobileMenu();
-                    }
+
+        if (searchToggle && app) {
+            searchToggle.addEventListener("click", () => {
+                app.classList.toggle("search-active");
+                app.classList.remove("menu-active");
+
+                // Toggle icons
+                if (app.classList.contains("search-active")) {
+                    searchToggle.innerHTML = '<i class="fa-solid fa-xmark"></i>'; // cross
+                } else {
+                    searchToggle.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>'; // magnifying glass
                 }
-            }, 100);
-        });
-        
-        // Check on page load if mobile view (Browser Responsive Mode)
-        function checkMobileView() {
-            return window.innerWidth < 992;
+
+                // reset menu toggle icon
+                if (menuToggle) {
+                    menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                }
+            });
         }
-        
-        // Initialize menu state based on viewport
-        if (checkMobileView()) {
-            // Mobile view - menu should be hidden by default (off-screen via transform)
-            if (mobileNavMenu) {
-                mobileNavMenu.classList.remove('show');
-            }
-            if (mobileMenuOverlay) {
-                mobileMenuOverlay.classList.remove('show');
-            }
-        }
-        
-        // Debug: Log all menu elements on load
-        console.log('Mobile Menu Elements:', {
-            mobileMenuToggle: !!mobileMenuToggle,
-            mobileNavMenu: !!mobileNavMenu,
-            mobileMenuOverlay: !!mobileMenuOverlay,
-            mobileMenuClose: !!mobileMenuClose,
-            mobileSearchToggle: !!mobileSearchToggle,
-            searchWrap: !!searchWrap
-        });
         
         // Dynamic city loading based on country selection
         const countrySelect = document.getElementById('countrySelect');
