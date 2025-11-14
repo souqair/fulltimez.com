@@ -436,6 +436,16 @@ button svg{
 }
 
 /* Recommended Jobs Section Styling */
+.jobs-wrap {
+    padding: 0;
+}
+
+@media (max-width: 991.98px) {
+    .jobs-wrap {
+        padding: 0 !important;
+    }
+}
+
 .jobs-wrap .jobs {
     background: #ffffff !important;
     border: 1px solid #e5e7eb !important;
