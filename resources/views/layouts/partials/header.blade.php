@@ -121,162 +121,198 @@
     background: #0056b3;
 }
 
-/* Mobile Menu Overlay */
-.mobile-menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 9998;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+/* Mobile Only Styles */
+@media (max-width: 991px) {
+    /* Mobile Menu Overlay */
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 9998;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .mobile-menu-overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .mobile-nav-menu {
+        position: fixed;
+        top: 0;
+        right: -320px;
+        width: 300px;
+        max-width: 85%;
+        height: 100vh;
+        background: #ffffff;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+        padding: 0;
+        z-index: 9999;
+        overflow-y: auto;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-nav-menu.show {
+        right: 0;
+    }
 }
 
-.mobile-menu-overlay.show {
-    display: block;
-    opacity: 1;
+@media (min-width: 992px) {
+    .mobile-menu-overlay,
+    .mobile-nav-menu {
+        display: none !important;
+    }
 }
 
-.mobile-nav-menu {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    max-width: 85%;
-    height: 100vh;
-    background: #ffffff;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    z-index: 9999;
-    overflow-y: auto;
-    transition: right 0.3s ease;
-    visibility: hidden;
+@media (max-width: 991px) {
+    .mobile-nav-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: #007bff;
+        color: #ffffff;
+        margin-bottom: 0;
+    }
+
+    .mobile-nav-menu-header h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+    }
+
+    .mobile-menu-close {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        font-size: 20px;
+        color: #ffffff;
+        cursor: pointer;
+        padding: 8px;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .mobile-menu-close:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: rotate(90deg);
+    }
+
+    .mobile-nav-menu-content {
+        padding: 20px;
+    }
+
+    .mobile-nav-menu a {
+        display: flex;
+        align-items: center;
+        padding: 16px 18px;
+        color: #374151;
+        text-decoration: none;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        transition: all 0.2s ease;
+        font-weight: 500;
+        font-size: 16px;
+        border-left: 4px solid transparent;
+        background: #f9fafb;
+    }
+
+    .mobile-nav-menu a i {
+        margin-right: 14px;
+        width: 22px;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .mobile-nav-menu a:hover,
+    .mobile-nav-menu a.active {
+        background: #e3f2fd;
+        color: #007bff;
+        border-left-color: #007bff;
+        transform: translateX(5px);
+    }
+
+    .mobile-nav-menu hr {
+        margin: 20px 0;
+        border: none;
+        border-top: 2px solid #e5e7eb;
+    }
 }
 
-.mobile-nav-menu.show {
-    right: 0;
-    visibility: visible;
+@media (max-width: 991px) {
+    .mobile-auth-btn {
+        display: flex;
+        align-items: center;
+        padding: 16px 18px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        transition: all 0.2s ease;
+        border-left: 4px solid transparent;
+        justify-content: center;
+    }
+
+    .mobile-auth-btn i {
+        margin-right: 14px;
+        width: 22px;
+        text-align: center;
+        font-size: 18px;
+    }
 }
 
-.mobile-nav-menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #e5e7eb;
-}
+@media (max-width: 991px) {
+    .mobile-auth-btn.login-btn {
+        background: #007bff;
+        color: #ffffff;
+    }
 
-.mobile-nav-menu-header h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-    color: #1a1a1a;
-}
+    .mobile-auth-btn.login-btn:hover {
+        background: #0056b3;
+    }
 
-.mobile-menu-close {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #6b7280;
-    cursor: pointer;
-    padding: 0;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-}
+    .mobile-auth-btn.register-btn {
+        background: #ffffff;
+        color: #007bff;
+        border: 2px solid #007bff;
+    }
 
-.mobile-menu-close:hover {
-    background: #f3f4f6;
-    color: #1a1a1a;
-}
+    .mobile-auth-btn.register-btn:hover {
+        background: #007bff;
+        color: #ffffff;
+    }
 
-.mobile-nav-menu a {
-    display: flex;
-    align-items: center;
-    padding: 14px 16px;
-    color: #374151;
-    text-decoration: none;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    transition: all 0.2s ease;
-    font-weight: 500;
-    font-size: 15px;
-    border-left: 3px solid transparent;
-}
+    .mobile-auth-btn.dashboard-btn {
+        background: #22c55e;
+        color: #ffffff;
+    }
 
-.mobile-nav-menu a:hover,
-.mobile-nav-menu a.active {
-    background: #f0f4ff;
-    color: #007bff;
-    border-left-color: #007bff;
-}
+    .mobile-auth-btn.dashboard-btn:hover {
+        background: #16a34a;
+    }
 
-.mobile-nav-menu hr {
-    margin: 20px 0;
-    border: none;
-    border-top: 1px solid #e5e7eb;
-}
+    .mobile-auth-btn.logout-btn {
+        background: #ffffff;
+        color: #ef4444;
+        border: 2px solid #ef4444;
+    }
 
-.mobile-auth-btn {
-    display: flex;
-    align-items: center;
-    padding: 14px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    transition: all 0.2s ease;
-    border-left: 3px solid transparent;
-}
-
-.mobile-auth-btn.login-btn {
-    background: #007bff;
-    color: #ffffff;
-}
-
-.mobile-auth-btn.login-btn:hover {
-    background: #0056b3;
-}
-
-.mobile-auth-btn.register-btn {
-    background: #ffffff;
-    color: #007bff;
-    border: 1px solid #007bff;
-}
-
-.mobile-auth-btn.register-btn:hover {
-    background: #007bff;
-    color: #ffffff;
-}
-
-.mobile-auth-btn.dashboard-btn {
-    background: #22c55e;
-    color: #ffffff;
-}
-
-.mobile-auth-btn.dashboard-btn:hover {
-    background: #16a34a;
-}
-
-.mobile-auth-btn.logout-btn {
-    background: #ffffff;
-    color: #ef4444;
-    border: 1px solid #ef4444;
-}
-
-.mobile-auth-btn.logout-btn:hover {
-    background: #ef4444;
-    color: #ffffff;
+    .mobile-auth-btn.logout-btn:hover {
+        background: #ef4444;
+        color: #ffffff;
+    }
 }
 
 @media (max-width: 991px) {
@@ -301,38 +337,48 @@
     }
 }
 
-/* Toggle Buttons Styling */
-.toggle-btns {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: flex-end;
+/* Toggle Buttons Styling - Mobile Only */
+@media (max-width: 991px) {
+    .toggle-btns {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .toggle-btn {
+        background: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 44px;
+        height: 44px;
+        box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+    }
+
+    .toggle-btn:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
+
+    .toggle-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 3px rgba(0, 123, 255, 0.2);
+    }
 }
 
-.toggle-btn {
-    background: #007bff;
-    color: #ffffff;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 40px;
-    height: 40px;
-}
-
-.toggle-btn:hover {
-    background: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-}
-
-.toggle-btn:active {
-    transform: translateY(0);
+@media (min-width: 992px) {
+    .toggle-btns {
+        display: none !important;
+    }
 }
 
 /* Login/Register Links Styling */
@@ -447,41 +493,43 @@
 <div class="mobile-nav-menu" id="mobileNavMenu">
     <div class="mobile-nav-menu-header">
         <h3>Menu</h3>
-        <button class="mobile-menu-close" id="mobileMenuClose">
+        <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close Menu">
             <i class="fa-solid fa-times"></i>
         </button>
     </div>
-    <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
-        <i class="fa-solid fa-home" style="margin-right: 12px; width: 20px;"></i> Home
-    </a>
-    <a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">
-        <i class="fa-solid fa-briefcase" style="margin-right: 12px; width: 20px;"></i> Browse Jobs
-    </a>
-    <a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">
-        <i class="fa-solid fa-users" style="margin-right: 12px; width: 20px;"></i> Browse Resumes
-    </a>
-    <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">
-        <i class="fa-solid fa-envelope" style="margin-right: 12px; width: 20px;"></i> Contact Us
-    </a>
-    <hr>
-    @auth
-    <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">
-        <i class="fa-solid fa-chart-line" style="margin-right: 12px; width: 20px;"></i> Dashboard
-    </a>
-    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mobile-auth-btn logout-btn">
-        <i class="fa-solid fa-sign-out-alt" style="margin-right: 12px; width: 20px;"></i> Logout
-    </a>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
-    @else
-    <a href="{{ route('login') }}" class="mobile-auth-btn login-btn">
-        <i class="fa-solid fa-sign-in-alt" style="margin-right: 12px; width: 20px;"></i> LOGIN
-    </a>
-    <a href="{{ route('choose.role') }}" class="mobile-auth-btn register-btn">
-        <i class="fa-solid fa-user-plus" style="margin-right: 12px; width: 20px;"></i> REGISTER
-    </a>
-    @endauth
+    <div class="mobile-nav-menu-content">
+        <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
+            <i class="fa-solid fa-home"></i> Home
+        </a>
+        <a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-briefcase"></i> Browse Jobs
+        </a>
+        <a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">
+            <i class="fa-solid fa-users"></i> Browse Resumes
+        </a>
+        <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">
+            <i class="fa-solid fa-envelope"></i> Contact Us
+        </a>
+        <hr>
+        @auth
+        <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">
+            <i class="fa-solid fa-chart-line"></i> Dashboard
+        </a>
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mobile-auth-btn logout-btn">
+            <i class="fa-solid fa-sign-out-alt"></i> Logout
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        @else
+        <a href="{{ route('login') }}" class="mobile-auth-btn login-btn">
+            <i class="fa-solid fa-sign-in-alt"></i> LOGIN
+        </a>
+        <a href="{{ route('choose.role') }}" class="mobile-auth-btn register-btn">
+            <i class="fa-solid fa-user-plus"></i> REGISTER
+        </a>
+        @endauth
+    </div>
 </div>
 </div>
 
@@ -688,14 +736,10 @@
         const mobileMenuClose = document.getElementById('mobileMenuClose');
         
         function openMobileMenu() {
-            console.log('Opening mobile menu');
             if (mobileNavMenu && mobileMenuOverlay) {
                 mobileNavMenu.classList.add('show');
                 mobileMenuOverlay.classList.add('show');
                 document.body.style.overflow = 'hidden';
-                console.log('Menu classes added');
-            } else {
-                console.log('Menu elements not found', { mobileNavMenu, mobileMenuOverlay });
             }
         }
         
@@ -711,7 +755,6 @@
             menuToggle.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('Menu toggle clicked');
                 openMobileMenu();
             });
         }
