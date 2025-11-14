@@ -672,10 +672,10 @@
                 </a>
             </div>
             <div class="mobile-header-buttons">
-                <button class="mobile-header-btn" id="mobileSearchToggle" type="button" aria-label="Search" onclick="event.preventDefault(); event.stopPropagation(); if(typeof window.toggleMobileSearch === 'function') { window.toggleMobileSearch(); } else { const sw = document.getElementById('searchWrapSection'); if(sw) { sw.classList.toggle('show'); document.body.style.overflow = sw.classList.contains('show') ? 'hidden' : ''; } } return false;">
+                <button class="mobile-header-btn" id="mobileSearchToggle" type="button" aria-label="Search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu" onclick="event.preventDefault(); event.stopPropagation(); if(typeof window.openMobileMenu === 'function') { window.openMobileMenu(); } else { const menu = document.getElementById('mobileNavMenu'); const overlay = document.getElementById('mobileMenuOverlay'); if(menu && overlay) { menu.classList.add('show'); overlay.classList.add('show'); document.body.style.overflow = 'hidden'; } } return false;">
+                <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
@@ -991,18 +991,11 @@
             mobileMenuToggle.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('Menu button clicked!', e);
+                e.stopImmediatePropagation();
+                console.log('Menu button clicked!');
                 openMobileMenu();
                 return false;
-            });
-            // Also try direct onclick as backup
-            mobileMenuToggle.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Menu button onclick triggered');
-                openMobileMenu();
-                return false;
-            };
+            }, true); // Use capture phase to ensure it fires first
         } else {
             console.error('mobileMenuToggle button not found!');
         }
@@ -1088,18 +1081,11 @@
             mobileSearchToggle.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('Search button clicked!', e);
+                e.stopImmediatePropagation();
+                console.log('Search button clicked!');
                 toggleSearch();
                 return false;
-            });
-            // Also try direct onclick as backup
-            mobileSearchToggle.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Search button onclick triggered');
-                toggleSearch();
-                return false;
-            };
+            }, true); // Use capture phase to ensure it fires first
         } else {
             console.error('mobileSearchToggle button not found!');
         }
@@ -1111,16 +1097,11 @@
             mobileSearchClose.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
+                e.stopImmediatePropagation();
                 console.log('Search close button clicked!');
                 window.closeMobileSearch();
                 return false;
-            });
-            mobileSearchClose.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                window.closeMobileSearch();
-                return false;
-            };
+            }, true);
         }
         
         // Close menu when window is resized to desktop size (Browser Responsive Mode)
