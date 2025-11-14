@@ -145,11 +145,11 @@
         display: block !important;
     }
 
-    /* Mobile Navigation Drawer */
+    /* Mobile Navigation Drawer - Clean Implementation */
     .mobile-nav-menu {
         position: fixed;
         top: 0;
-        right: -100%;
+        right: 0;
         width: 320px;
         max-width: 85vw;
         height: 100vh;
@@ -159,17 +159,14 @@
         z-index: 9999;
         overflow-y: auto;
         overflow-x: hidden;
-        transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform;
         display: block !important;
         visibility: visible !important;
-        opacity: 1 !important;
     }
 
     .mobile-nav-menu.show {
-        right: 0 !important;
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
         transform: translateX(0) !important;
     }
     
@@ -955,40 +952,30 @@
         
         // Make functions globally available for inline handlers
         window.openMobileMenu = function() {
-            console.log('Opening mobile menu');
             const menu = document.getElementById('mobileNavMenu');
             const overlay = document.getElementById('mobileMenuOverlay');
             if (menu && overlay) {
-                console.log('Menu element found:', menu);
-                console.log('Overlay element found:', overlay);
-                // Force display first
-                menu.style.display = 'block';
-                menu.style.visibility = 'visible';
-                menu.style.opacity = '1';
-                // Add show class
+                // Add show class to trigger transform
                 menu.classList.add('show');
                 overlay.classList.add('show');
-                // Force right position
-                setTimeout(() => {
-                    menu.style.right = '0';
-                    console.log('Menu position set to 0, classes:', menu.className);
-                }, 10);
+                // Prevent body scroll
                 document.body.style.overflow = 'hidden';
-                console.log('Menu opened successfully, right position:', menu.style.right);
-            } else {
-                console.error('Menu elements not found!', { menu, overlay });
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
             }
         };
         
         window.closeMobileMenu = function() {
-            console.log('Closing mobile menu');
             const menu = document.getElementById('mobileNavMenu');
             const overlay = document.getElementById('mobileMenuOverlay');
             if (menu && overlay) {
+                // Remove show class to trigger transform back
                 menu.classList.remove('show');
-                menu.style.right = '-100%';
                 overlay.classList.remove('show');
+                // Restore body scroll
                 document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
             }
         };
         
@@ -1027,6 +1014,31 @@
             mobileMenuOverlay.addEventListener('click', function() {
                 closeMobileMenu();
             });
+        }
+        
+        // Touch/Swipe support for closing drawer
+        if (mobileNavMenu) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            mobileNavMenu.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            
+            mobileNavMenu.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const swipeDistance = touchEndX - touchStartX;
+                
+                // Swipe right to close drawer (swipe from left to right)
+                if (swipeDistance > swipeThreshold) {
+                    closeMobileMenu();
+                }
+            }
         }
         
         // Close menu when clicking outside
@@ -1141,14 +1153,9 @@
         
         // Initialize menu state based on viewport
         if (checkMobileView()) {
-            // Mobile view - menu should be hidden by default
+            // Mobile view - menu should be hidden by default (off-screen via transform)
             if (mobileNavMenu) {
                 mobileNavMenu.classList.remove('show');
-                // Ensure menu is in DOM and positioned off-screen
-                mobileNavMenu.style.display = 'block';
-                mobileNavMenu.style.visibility = 'visible';
-                mobileNavMenu.style.right = '-100%';
-                mobileNavMenu.style.opacity = '1';
             }
             if (mobileMenuOverlay) {
                 mobileMenuOverlay.classList.remove('show');
