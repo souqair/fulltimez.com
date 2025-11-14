@@ -130,41 +130,62 @@
         left: 0;
         width: 100%;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(4px);
         z-index: 9998;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease, visibility 0.3s ease;
-        display: block;
+        display: block !important;
     }
 
     .mobile-menu-overlay.show {
         opacity: 1;
         visibility: visible;
-        display: block;
+        display: block !important;
     }
 
+    /* Mobile Navigation Drawer */
     .mobile-nav-menu {
         position: fixed;
         top: 0;
-        right: -320px;
-        width: 300px;
-        max-width: 85%;
+        right: -100%;
+        width: 320px;
+        max-width: 85vw;
         height: 100vh;
         background: #ffffff;
-        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+        box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
         padding: 0;
         z-index: 9999;
         overflow-y: auto;
-        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        display: block;
-        visibility: visible;
+        overflow-x: hidden;
+        transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        display: block !important;
+        visibility: visible !important;
     }
 
     .mobile-nav-menu.show {
         right: 0 !important;
         display: block !important;
         visibility: visible !important;
+    }
+    
+    /* Custom Scrollbar for Mobile Menu */
+    .mobile-nav-menu::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .mobile-nav-menu::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    .mobile-nav-menu::-webkit-scrollbar-thumb {
+        background: #007bff;
+        border-radius: 3px;
+    }
+    
+    .mobile-nav-menu::-webkit-scrollbar-thumb:hover {
+        background: #0056b3;
     }
 }
 
@@ -182,82 +203,121 @@
 }
 
 @media (max-width: 991.98px) {
+    /* Mobile Menu Header */
     .mobile-nav-menu-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px;
-        background: #007bff;
+        padding: 20px 24px;
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
         color: #ffffff;
         margin-bottom: 0;
+        box-shadow: 0 2px 10px rgba(0, 123, 255, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 10;
     }
 
     .mobile-nav-menu-header h3 {
         margin: 0;
-        font-size: 20px;
+        font-size: 22px;
         font-weight: 700;
         color: #ffffff;
+        letter-spacing: 0.5px;
     }
 
     .mobile-menu-close {
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.25);
         border: none;
-        font-size: 20px;
+        font-size: 22px;
         color: #ffffff;
         cursor: pointer;
-        padding: 8px;
-        width: 36px;
-        height: 36px;
+        padding: 10px;
+        width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 8px;
-        transition: all 0.2s ease;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
     }
 
-    .mobile-menu-close:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: rotate(90deg);
+    .mobile-menu-close:hover,
+    .mobile-menu-close:active {
+        background: rgba(255, 255, 255, 0.4);
+        transform: rotate(90deg) scale(1.1);
     }
 
+    /* Mobile Menu Content */
     .mobile-nav-menu-content {
-        padding: 20px;
+        padding: 24px 20px;
+        background: #ffffff;
     }
 
     .mobile-nav-menu a {
         display: flex;
         align-items: center;
-        padding: 16px 18px;
-        color: #374151;
+        padding: 16px 20px;
+        color: #1f2937;
         text-decoration: none;
-        border-radius: 10px;
-        margin-bottom: 10px;
-        transition: all 0.2s ease;
-        font-weight: 500;
+        border-radius: 12px;
+        margin-bottom: 8px;
+        transition: all 0.25s ease;
+        font-weight: 600;
         font-size: 16px;
         border-left: 4px solid transparent;
-        background: #f9fafb;
+        background: #f8fafc;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .mobile-nav-menu a::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 4px;
+        background: #007bff;
+        transform: scaleY(0);
+        transition: transform 0.25s ease;
     }
 
     .mobile-nav-menu a i {
-        margin-right: 14px;
-        width: 22px;
+        margin-right: 16px;
+        width: 24px;
         text-align: center;
-        font-size: 18px;
+        font-size: 20px;
+        color: #6b7280;
+        transition: all 0.25s ease;
     }
 
     .mobile-nav-menu a:hover,
     .mobile-nav-menu a.active {
-        background: #e3f2fd;
+        background: linear-gradient(90deg, #e3f2fd 0%, #f0f7ff 100%);
         color: #007bff;
         border-left-color: #007bff;
-        transform: translateX(5px);
+        transform: translateX(8px);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+    }
+    
+    .mobile-nav-menu a:hover::before,
+    .mobile-nav-menu a.active::before {
+        transform: scaleY(1);
+    }
+    
+    .mobile-nav-menu a:hover i,
+    .mobile-nav-menu a.active i {
+        color: #007bff;
+        transform: scale(1.1);
     }
 
     .mobile-nav-menu hr {
-        margin: 20px 0;
+        margin: 24px 0;
         border: none;
         border-top: 2px solid #e5e7eb;
+        opacity: 0.6;
     }
 }
 
@@ -468,21 +528,80 @@
 /* Mobile Search Toggle - Works in Browser Responsive Mode */
 @media (max-width: 991.98px) {
     .search-wrap {
-        display: none !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        z-index: 10000;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
-        max-height: 0;
-        overflow: hidden;
-        transition: all 0.3s ease;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        display: block !important;
+        padding: 0 !important;
+        max-height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     
     .search-wrap.show {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
         display: block !important;
-        opacity: 1;
-        visibility: visible;
-        max-height: 500px;
-        padding: 20px 0 !important;
-        margin-top: 15px !important;
+    }
+    
+    /* Search Box Close Button */
+    .mobile-search-close {
+        background: rgba(255, 255, 255, 0.25);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 22px;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
+    
+    .mobile-search-close:hover,
+    .mobile-search-close:active {
+        background: rgba(255, 255, 255, 0.4);
+        transform: rotate(90deg) scale(1.1);
+        color: #ffffff;
+    }
+    
+    /* Search Box Header */
+    .mobile-search-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 20px 15px 20px;
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: #ffffff;
+        box-shadow: 0 2px 10px rgba(0, 123, 255, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    
+    .mobile-search-header h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Search form padding for mobile */
+    .search-wrap form {
+        padding: 20px 15px;
     }
 }
 
@@ -553,10 +672,10 @@
                 </a>
             </div>
             <div class="mobile-header-buttons">
-                <button class="mobile-header-btn" id="mobileSearchToggle" type="button" aria-label="Search" onclick="event.preventDefault(); event.stopPropagation(); console.log('Search clicked inline'); if(typeof toggleMobileSearch === 'function') toggleMobileSearch(); else { const sw = document.getElementById('searchWrapSection') || document.querySelector('.search-wrap'); if(sw) { sw.classList.toggle('show'); sw.style.display = sw.classList.contains('show') ? 'block' : 'none'; } } return false;">
+                <button class="mobile-header-btn" id="mobileSearchToggle" type="button" aria-label="Search" onclick="event.preventDefault(); event.stopPropagation(); if(typeof window.toggleMobileSearch === 'function') { window.toggleMobileSearch(); } else { const sw = document.getElementById('searchWrapSection'); if(sw) { sw.classList.toggle('show'); document.body.style.overflow = sw.classList.contains('show') ? 'hidden' : ''; } } return false;">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu" onclick="event.preventDefault(); event.stopPropagation(); console.log('Menu clicked inline'); if(typeof openMobileMenu === 'function') openMobileMenu(); else { const menu = document.getElementById('mobileNavMenu'); const overlay = document.getElementById('mobileMenuOverlay'); if(menu && overlay) { menu.classList.add('show'); overlay.classList.add('show'); document.body.style.overflow = 'hidden'; } } return false;">
+                <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu" onclick="event.preventDefault(); event.stopPropagation(); if(typeof window.openMobileMenu === 'function') { window.openMobileMenu(); } else { const menu = document.getElementById('mobileNavMenu'); const overlay = document.getElementById('mobileMenuOverlay'); if(menu && overlay) { menu.classList.add('show'); overlay.classList.add('show'); document.body.style.overflow = 'hidden'; } } return false;">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
@@ -616,6 +735,13 @@
 
     @if(!(auth()->check() && auth()->user()->isEmployer() && request()->routeIs('dashboard')) && !request()->routeIs('candidates.index') && !request()->routeIs('jobs.index') && !request()->routeIs('contact'))
     <section class="search-wrap" id="searchWrapSection">
+      <!-- Mobile Search Header -->
+      <div class="mobile-search-header d-lg-none">
+        <h3>Search Jobs</h3>
+        <button type="button" class="mobile-search-close" id="mobileSearchClose" aria-label="Close Search">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
       <form action="{{ route('jobs.index') }}" method="GET" id="headerSearchForm">
       <div class="search-barwrp">
         <div class="field">
@@ -925,18 +1051,12 @@
                 console.log('Current search state:', isShowing);
                 if (isShowing) {
                     sw.classList.remove('show');
-                    sw.style.display = 'none';
+                    document.body.style.overflow = '';
                     console.log('Search hidden - class removed');
                 } else {
                     sw.classList.add('show');
-                    sw.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
                     console.log('Search shown - class added');
-                    // Scroll to search if needed
-                    setTimeout(() => {
-                        if (sw) {
-                            sw.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        }
-                    }, 100);
                 }
                 // Close menu if open
                 const menu = document.getElementById('mobileNavMenu');
@@ -945,6 +1065,15 @@
                 }
             } else {
                 console.error('Search wrap not found! Trying to find again...');
+            }
+        };
+        
+        window.closeMobileSearch = function() {
+            console.log('Closing search');
+            const sw = document.getElementById('searchWrapSection') || document.querySelector('.search-wrap');
+            if (sw) {
+                sw.classList.remove('show');
+                document.body.style.overflow = '';
             }
         };
         
@@ -973,6 +1102,25 @@
             };
         } else {
             console.error('mobileSearchToggle button not found!');
+        }
+        
+        // Mobile search close button
+        const mobileSearchClose = document.getElementById('mobileSearchClose');
+        if (mobileSearchClose) {
+            console.log('Attaching search close listener');
+            mobileSearchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Search close button clicked!');
+                window.closeMobileSearch();
+                return false;
+            });
+            mobileSearchClose.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                window.closeMobileSearch();
+                return false;
+            };
         }
         
         // Close menu when window is resized to desktop size (Browser Responsive Mode)
