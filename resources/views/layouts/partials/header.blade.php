@@ -1,7 +1,7 @@
 <style>
 /* Top Navigation Menu Styling - Simple */
 .top-nav {
-    padding: 8px 6px 10px;
+    padding: 8px 6px 10px; !implements
 }
 
 .top-nav .tabs {
@@ -414,11 +414,6 @@
 }
 
 /* Mobile Header - Completely Separate - Mobile Only */
-.mobile-header {
-    display: block !important;
-    visibility: visible !important;
-}
-
 @media (max-width: 991.98px) {
     .mobile-header {
         background: #ffffff;
@@ -433,8 +428,6 @@
         margin: 0;
         left: 0;
         right: 0;
-        display: block !important;
-        visibility: visible !important;
     }
     
     .mobile-header .container,
@@ -531,36 +524,12 @@
 @media (min-width: 992px) {
     .mobile-header {
         display: none !important;
-        visibility: hidden !important;
-    }
-}
-
-/* Ensure mobile header is visible on mobile */
-@media (max-width: 991.98px) {
-    .mobile-header.d-lg-none {
-        display: block !important;
-        visibility: visible !important;
     }
 }
 
 /* Desktop Header - Completely Separate */
 .desktop-header {
     background: #ffffff;
-    display: block;
-}
-
-@media (min-width: 992px) {
-    .desktop-header {
-        display: block !important;
-        visibility: visible !important;
-    }
-}
-
-@media (max-width: 991.98px) {
-    .desktop-header {
-        display: none !important;
-        visibility: hidden !important;
-    }
 }
 
 /* Login/Register Links Styling */

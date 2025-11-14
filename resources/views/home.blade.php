@@ -8,34 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 @push('styles')
 <style>
-/* Global Container Fix - Don't affect header */
+/* Global Container Fix */
 body {
     overflow-x: hidden !important;
-}
-
-/* Ensure header is always visible */
-header,
-.header,
-.desktop-header,
-.mobile-header {
-    position: relative !important;
-    z-index: 1000 !important;
-    overflow: visible !important;
-    display: block !important;
-    visibility: visible !important;
-}
-
-.mobile-header {
-    position: sticky !important;
-    top: 0 !important;
-}
-
-/* Don't affect header containers */
-.desktop-header .container,
-.mobile-header .container,
-.mobile-header .container-fluid {
-    overflow: visible !important;
-    max-width: 100% !important;
 }
 
 /* Modern Compact Featured Jobs Design */
@@ -428,11 +403,7 @@ button svg{
     }
 }
 
-/* Container Fix - Don't affect header */
-.category-wrap .container,
-.jobs-wrap .container,
-.featured-candidates-section .container,
-.split-banner-section .container {
+.container {
     max-width: 100% !important;
     overflow-x: hidden !important;
 }
@@ -1230,7 +1201,7 @@ button svg{
     }
 }
 
-/* Desktop Container Fix - Don't affect header */
+/* Desktop Container Fix */
 @media (min-width: 769px) {
     .category-wrap {
         overflow-x: hidden !important;
@@ -1240,10 +1211,7 @@ button svg{
         overflow-x: hidden !important;
     }
     
-    .category-wrap .container,
-    .jobs-wrap .container,
-    .featured-candidates-section .container,
-    .split-banner-section .container {
+    .container {
         max-width: 1200px !important;
         margin: 0 auto !important;
         overflow-x: hidden !important;
@@ -1278,10 +1246,7 @@ button svg{
         padding: 0 15px !important;
     }
     
-    .category-wrap .container,
-    .jobs-wrap .container,
-    .featured-candidates-section .container,
-    .split-banner-section .container {
+    .container {
         padding: 0 15px !important;
         max-width: 100% !important;
         overflow-x: hidden !important;
@@ -1981,5 +1946,3 @@ $(document).ready(function() {
 </style>
 @endpush
 @endsection
-
-
