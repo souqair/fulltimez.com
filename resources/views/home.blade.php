@@ -408,6 +408,14 @@ button svg{
     overflow-x: hidden !important;
 }
 
+/* Don't affect featured candidates container */
+.featured-candidates-section .container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 15px !important;
+    overflow: visible !important;
+}
+
 /* Recommended Jobs Section Styling */
 .jobs-wrap .jobs {
     background: #ffffff !important;
@@ -610,6 +618,9 @@ button svg{
 .featured-candidates-section {
     background: #f8f9fa;
     padding: 60px 0;
+    overflow: visible !important;
+    width: 100%;
+    position: relative;
 }
 
 .featured-candidates-header {
@@ -641,6 +652,9 @@ button svg{
 
 .featured-candidates-carousel-wrapper {
     padding: 20px 0;
+    overflow: visible;
+    width: 100%;
+    position: relative;
 }
 
 .featured-candidates-carousel-wrapper .owl-carousel {
@@ -673,6 +687,8 @@ button svg{
     height: 100%;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    min-height: 400px;
 }
 
 .featured-candidate-card:hover {
