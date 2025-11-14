@@ -146,17 +146,19 @@
     right: -100%;
     width: 280px;
     max-width: 85%;
-    height: 100%;
+    height: 100vh;
     background: #ffffff;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     z-index: 9999;
     overflow-y: auto;
     transition: right 0.3s ease;
+    visibility: hidden;
 }
 
 .mobile-nav-menu.show {
     right: 0;
+    visibility: visible;
 }
 
 .mobile-nav-menu-header {
@@ -391,23 +393,25 @@
 <div class="container py-3">
    <div class="app">
         <div class="row align-items-center"> 
+         <!-- Logo - Left on Mobile, Left on Desktop -->
          <div class="col-6 col-lg-3">
                   <div class="fulltimez-logo"><a href="{{ route('home') }}"><img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo"></a></div>
                </div>
 
-               <!-- Mobile Toggle Buttons -->
+               <!-- Mobile Toggle Buttons - Right on Mobile -->
                <div class="col-6 d-lg-none text-end">
                    <div class="toggle-btns">
-                       <button class="toggle-btn" id="menuToggle">
-                           <i class="fa-solid fa-bars"></i>
-                       </button>
-                       <button class="toggle-btn" id="searchToggle">
+                       <button class="toggle-btn" id="searchToggle" type="button">
                            <i class="fa-solid fa-magnifying-glass"></i>
+                       </button>
+                       <button class="toggle-btn" id="menuToggle" type="button">
+                           <i class="fa-solid fa-bars"></i>
                        </button>
                    </div>
                </div>
 
-                <div class="col-lg-6 d-mobile-none">
+                <!-- Desktop Navigation -->
+                <div class="col-lg-6 d-none d-lg-block">
     <nav class="top-nav">
       <ul class="tabs">
         <li class="tab"><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
@@ -418,22 +422,22 @@
     </nav>
 </div>
 
-<div class="col-lg-3 d-mobile-none">
-<div class="d-flex gap-2 justify-content-end"> 
-   <!-- Desktop Auth Links -->
-   <div class="auth-buttons">
-   @auth
-   <a href="{{ route('dashboard') }}" class="auth-btn dashboard-btn">Dashboard</a>
-   <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-      @csrf
-      <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="auth-btn logout-btn">Logout</a>
-   </form>
-   @else
-   <div class="login"><a href="{{ route('login') }}">Login</a></div>
-   <div class="login"><a href="{{ route('choose.role') }}">Register</a></div>
-   @endauth
-   </div>
-             </div> 
+<!-- Desktop Auth Links -->
+<div class="col-lg-3 d-none d-lg-block">
+   <div class="d-flex gap-2 justify-content-end"> 
+      <div class="auth-buttons">
+      @auth
+      <a href="{{ route('dashboard') }}" class="auth-btn dashboard-btn">Dashboard</a>
+      <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+         @csrf
+         <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="auth-btn logout-btn">Logout</a>
+      </form>
+      @else
+      <div class="login"><a href="{{ route('login') }}">Login</a></div>
+      <div class="login"><a href="{{ route('choose.role') }}">Register</a></div>
+      @endauth
+      </div>
+   </div> 
 </div>
 
 <!-- Mobile Menu Overlay -->
@@ -684,10 +688,14 @@
         const mobileMenuClose = document.getElementById('mobileMenuClose');
         
         function openMobileMenu() {
+            console.log('Opening mobile menu');
             if (mobileNavMenu && mobileMenuOverlay) {
                 mobileNavMenu.classList.add('show');
                 mobileMenuOverlay.classList.add('show');
                 document.body.style.overflow = 'hidden';
+                console.log('Menu classes added');
+            } else {
+                console.log('Menu elements not found', { mobileNavMenu, mobileMenuOverlay });
             }
         }
         
@@ -701,7 +709,9 @@
         
         if (menuToggle) {
             menuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
                 e.stopPropagation();
+                console.log('Menu toggle clicked');
                 openMobileMenu();
             });
         }
