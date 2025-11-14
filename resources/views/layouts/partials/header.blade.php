@@ -135,11 +135,13 @@
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease, visibility 0.3s ease;
+        display: block;
     }
 
     .mobile-menu-overlay.show {
         opacity: 1;
         visibility: visible;
+        display: block;
     }
 
     .mobile-nav-menu {
@@ -155,15 +157,14 @@
         z-index: 9999;
         overflow-y: auto;
         transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        display: block;
+        visibility: visible;
     }
 
     .mobile-nav-menu.show {
-        right: 0;
-    }
-    
-    /* Ensure menu is visible when shown */
-    .mobile-nav-menu.show {
+        right: 0 !important;
         display: block !important;
+        visibility: visible !important;
     }
 }
 
@@ -464,16 +465,28 @@
 @media (max-width: 991.98px) {
     .search-wrap {
         display: none !important;
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
     }
     
     .search-wrap.show {
         display: block !important;
+        opacity: 1;
+        visibility: visible;
+        max-height: 500px;
+        padding: 20px 0 !important;
+        margin-top: 15px !important;
     }
 }
 
 @media (min-width: 992px) {
     .search-wrap {
         display: block !important;
+        opacity: 1;
+        visibility: visible;
     }
 }
 </style>
@@ -598,7 +611,7 @@
 <hr class="mt-4 d-none d-lg-block">
 
     @if(!(auth()->check() && auth()->user()->isEmployer() && request()->routeIs('dashboard')) && !request()->routeIs('candidates.index') && !request()->routeIs('jobs.index') && !request()->routeIs('contact'))
-    <section class="search-wrap">
+    <section class="search-wrap" id="searchWrapSection">
       <form action="{{ route('jobs.index') }}" method="GET" id="headerSearchForm">
       <div class="search-barwrp">
         <div class="field">
@@ -795,10 +808,14 @@
         const mobileMenuClose = document.getElementById('mobileMenuClose');
         
         function openMobileMenu() {
+            console.log('Opening mobile menu', { mobileNavMenu, mobileMenuOverlay });
             if (mobileNavMenu && mobileMenuOverlay) {
                 mobileNavMenu.classList.add('show');
                 mobileMenuOverlay.classList.add('show');
                 document.body.style.overflow = 'hidden';
+                console.log('Menu opened - classes added');
+            } else {
+                console.error('Menu elements not found!', { mobileNavMenu, mobileMenuOverlay });
             }
         }
         
@@ -867,27 +884,45 @@
         
         // Mobile search toggle button
         const mobileSearchToggle = document.getElementById('mobileSearchToggle');
-        const searchWrap = document.querySelector('.search-wrap');
+        const searchWrap = document.getElementById('searchWrapSection') || document.querySelector('.search-wrap');
         
-        if (mobileSearchToggle && searchWrap) {
-            mobileSearchToggle.addEventListener('click', function() {
-                searchWrap.classList.toggle('show');
+        function toggleSearch() {
+            if (searchWrap) {
+                const isShowing = searchWrap.classList.contains('show');
+                if (isShowing) {
+                    searchWrap.classList.remove('show');
+                } else {
+                    searchWrap.classList.add('show');
+                    // Scroll to search if needed
+                    setTimeout(() => {
+                        searchWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                }
+                console.log('Search toggled', searchWrap.classList.contains('show'));
                 // Close menu if open
                 if (mobileNavMenu && mobileNavMenu.classList.contains('show')) {
                     closeMobileMenu();
                 }
+            } else {
+                console.error('Search wrap not found!');
+            }
+        }
+        
+        if (mobileSearchToggle) {
+            mobileSearchToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleSearch();
             });
         }
         
         // Legacy support - also check old ID
         const searchToggle = document.getElementById('searchToggle');
-        if (searchToggle && searchWrap) {
-            searchToggle.addEventListener('click', function() {
-                searchWrap.classList.toggle('show');
-                // Close menu if open
-                if (mobileNavMenu && mobileNavMenu.classList.contains('show')) {
-                    closeMobileMenu();
-                }
+        if (searchToggle) {
+            searchToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleSearch();
             });
         }
         
@@ -915,11 +950,23 @@
             // Mobile view - menu should be hidden by default
             if (mobileNavMenu) {
                 mobileNavMenu.classList.remove('show');
+                // Ensure menu is in DOM and visible when needed
+                mobileNavMenu.style.display = 'block';
             }
             if (mobileMenuOverlay) {
                 mobileMenuOverlay.classList.remove('show');
             }
         }
+        
+        // Debug: Log all menu elements on load
+        console.log('Mobile Menu Elements:', {
+            mobileMenuToggle: !!mobileMenuToggle,
+            mobileNavMenu: !!mobileNavMenu,
+            mobileMenuOverlay: !!mobileMenuOverlay,
+            mobileMenuClose: !!mobileMenuClose,
+            mobileSearchToggle: !!mobileSearchToggle,
+            searchWrap: !!searchWrap
+        });
         
         // Dynamic city loading based on country selection
         const countrySelect = document.getElementById('countrySelect');
