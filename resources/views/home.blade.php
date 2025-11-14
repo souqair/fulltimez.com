@@ -1623,11 +1623,7 @@ button svg{
                                         // Format as currency
                                         echo 'AED ' . number_format((float)$amount);
                                         // Check if it's hourly or monthly
-                                        if (strpos(strtolower($salary), 'hr') !== false || $amount < 1000) {
-                                            echo '/Hr';
-                                        } else {
-                                            echo '/Mo';
-                                        }
+                                        
                                     } else {
                                         echo $salary;
                                     }
