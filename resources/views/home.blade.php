@@ -272,51 +272,32 @@ button svg{
 }
 
 /* ============================================
-   🚀 APP-LIKE FEATURED JOBS - MOBILE DESIGN
-   Modern, Beautiful, Impressive Design
+   MOBILE ONLY - COMPLETE SEPARATE DESIGN
+   Featured Jobs Section - Mobile Version
    ============================================ */
 @media (max-width: 991.98px) {
-    /* Section Container - App Style */
+    /* Section Container */
     .category-wrap.jobwrp {
-        background: linear-gradient(180deg, #f0f4ff 0%, #ffffff 50%, #f8fafc 100%);
-        padding: 40px 0 50px !important;
-        margin-top: 40px !important;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .category-wrap.jobwrp::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 200px;
-        background: linear-gradient(135deg, rgba(39, 114, 232, 0.05) 0%, transparent 100%);
-        pointer-events: none;
+        background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        padding: 30px 0 40px !important;
+        margin-top: 30px !important;
     }
     
     .category-wrap.jobwrp .container {
-        padding-left: 20px;
-        padding-right: 20px;
-        position: relative;
-        z-index: 1;
+        padding-left: 16px;
+        padding-right: 16px;
     }
     
-    /* Title - Stunning App Design */
+    /* Title - Mobile Design */
     .category-wrap.jobwrp .main_title {
-        font-size: 32px !important;
-        font-weight: 900 !important;
-        background: linear-gradient(135deg, #2772e8 0%, #1e5fc7 50%, #004085 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        font-size: 28px !important;
+        font-weight: 800 !important;
+        color: #1a1a1a !important;
         text-align: center !important;
-        margin-bottom: 32px !important;
-        letter-spacing: -1px !important;
+        margin-bottom: 24px !important;
+        letter-spacing: -0.5px !important;
         position: relative !important;
-        padding-bottom: 20px !important;
-        text-shadow: 0 4px 12px rgba(39, 114, 232, 0.1);
+        padding-bottom: 16px !important;
     }
     
     .category-wrap.jobwrp .main_title::after {
@@ -325,17 +306,16 @@ button svg{
         bottom: 0 !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
-        width: 100px !important;
-        height: 5px !important;
-        background: linear-gradient(90deg, transparent 0%, #2772e8 50%, transparent 100%) !important;
-        border-radius: 3px !important;
-        box-shadow: 0 2px 8px rgba(39, 114, 232, 0.3);
+        width: 80px !important;
+        height: 4px !important;
+        background: linear-gradient(90deg, #2772e8 0%, #1e5fc7 100%) !important;
+        border-radius: 2px !important;
     }
     
-    /* Grid Container - App Style */
+    /* Grid Container */
     .featured-jobs-grid {
         padding: 0 !important;
-        margin: 0 -10px !important;
+        margin: 0 -8px !important;
     }
     
     .featured-jobs-grid .owl-carousel {
@@ -343,27 +323,26 @@ button svg{
     }
     
     .featured-jobs-grid .owl-stage-outer {
-        padding: 15px 0 30px !important;
+        padding: 10px 0 20px !important;
     }
     
     .featured-jobs-grid .owl-item {
-        padding: 0 10px !important;
+        padding: 0 8px !important;
     }
     
-    /* Job Card - Premium App Design */
+    /* Job Card - Complete Mobile Redesign */
     .featured-job-card {
         background: #ffffff !important;
         border: none !important;
-        border-radius: 24px !important;
-        box-shadow: 0 8px 30px rgba(39, 114, 232, 0.15), 0 0 0 1px rgba(39, 114, 232, 0.05) !important;
-        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 6px 20px rgba(39, 114, 232, 0.12) !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
         position: relative !important;
         overflow: hidden !important;
         height: 100% !important;
         display: flex !important;
         flex-direction: column !important;
         cursor: pointer !important;
-        transform: translateY(0);
     }
     
     .featured-job-card::before {
@@ -372,68 +351,45 @@ button svg{
         top: 0;
         left: 0;
         right: 0;
-        height: 5px;
-        background: linear-gradient(90deg, #2772e8 0%, #1e5fc7 30%, #004085 60%, #1e5fc7 100%);
-        background-size: 300% 100%;
-        animation: shimmerFlow 4s ease-in-out infinite;
-        z-index: 1;
+        height: 4px;
+        background: linear-gradient(90deg, #2772e8 0%, #1e5fc7 50%, #2772e8 100%);
+        background-size: 200% 100%;
+        animation: shimmer 3s infinite;
     }
     
-    @keyframes shimmerFlow {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-    }
-    
-    .featured-job-card::after {
-        content: '⭐ FEATURED';
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-        color: #ffffff;
-        font-size: 9px;
-        font-weight: 800;
-        padding: 4px 10px;
-        border-radius: 12px;
-        z-index: 10;
-        box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-    
-    .featured-job-card:active {
-        transform: scale(0.98) translateY(2px);
+    @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
     }
     
     .featured-job-card:hover {
-        box-shadow: 0 16px 40px rgba(39, 114, 232, 0.25), 0 0 0 1px rgba(39, 114, 232, 0.1) !important;
-        transform: translateY(-8px) scale(1.02) !important;
+        box-shadow: 0 12px 32px rgba(39, 114, 232, 0.2) !important;
+        transform: translateY(-4px) scale(1.02) !important;
     }
     
-    /* Header Section - Premium Gradient */
+    /* Header Section - Beautiful Gradient */
     .job-card-header {
-        padding: 24px 20px 20px !important;
-        background: linear-gradient(135deg, #2772e8 0%, #1e5fc7 40%, #004085 100%) !important;
+        padding: 20px 18px 18px !important;
+        background: linear-gradient(135deg, #2772e8 0%, #1e5fc7 50%, #004085 100%) !important;
         border-radius: 0 !important;
         position: relative !important;
         overflow: hidden !important;
-        margin-top: 5px;
     }
     
     .job-card-header::before {
         content: '';
         position: absolute;
-        top: -100%;
-        left: -100%;
-        width: 300%;
-        height: 300%;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
-        animation: rotateGlow 8s linear infinite;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        animation: pulse 4s ease-in-out infinite;
     }
     
-    @keyframes rotateGlow {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.8; }
     }
     
     .job-card-header::after {
@@ -443,151 +399,126 @@ button svg{
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%, rgba(0, 0, 0, 0.05) 100%);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 100%);
         pointer-events: none;
     }
     
     .company-header {
-        gap: 16px !important;
+        gap: 14px !important;
         position: relative;
         z-index: 1;
     }
     
     .company-logo {
-        width: 64px !important;
-        height: 64px !important;
-        border-radius: 16px !important;
-        border: 4px solid rgba(255, 255, 255, 0.6) !important;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
-        background: rgba(255, 255, 255, 0.98) !important;
-        backdrop-filter: blur(20px);
-        transition: all 0.3s ease;
-    }
-    
-    .featured-job-card:hover .company-logo {
-        transform: scale(1.1) rotate(5deg);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4) !important;
+        width: 56px !important;
+        height: 56px !important;
+        border-radius: 14px !important;
+        border: 3px solid rgba(255, 255, 255, 0.5) !important;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25) !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px);
     }
     
     .company-logo img {
-        width: 36px !important;
-        height: 36px !important;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        width: 32px !important;
+        height: 32px !important;
     }
     
     .company-name h3 {
-        font-size: 19px !important;
+        font-size: 17px !important;
         color: #ffffff !important;
-        font-weight: 800 !important;
-        text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+        font-weight: 700 !important;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
         line-height: 1.3 !important;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.2px;
     }
     
-    /* Body Section - Clean & Modern */
+    /* Body Section */
     .job-card-body {
-        padding: 24px 20px 18px !important;
+        padding: 20px 18px 16px !important;
         background: #ffffff !important;
         flex: 1;
-        position: relative;
     }
     
     .job-title {
-        margin-bottom: 16px !important;
+        margin-bottom: 14px !important;
     }
     
     .job-title a {
-        font-size: 20px !important;
-        font-weight: 800 !important;
-        color: #0f172a !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: #1a1a1a !important;
         line-height: 1.4 !important;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        transition: all 0.3s ease;
-        letter-spacing: -0.3px;
+        transition: color 0.3s ease;
     }
     
     .job-title a:hover {
         color: #2772e8 !important;
-        transform: translateX(2px);
     }
     
     .job-meta {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
-        margin-bottom: 18px;
+        margin-bottom: 16px;
     }
     
     .category-badge-top {
-        font-size: 13px !important;
-        padding: 10px 16px !important;
-        border-radius: 12px !important;
+        font-size: 12px !important;
+        padding: 8px 14px !important;
+        border-radius: 10px !important;
         background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
         color: #2772e8 !important;
-        font-weight: 800 !important;
-        box-shadow: 0 4px 12px rgba(39, 114, 232, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-        border: 2px solid rgba(39, 114, 232, 0.15);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        font-weight: 700 !important;
+        box-shadow: 0 2px 6px rgba(39, 114, 232, 0.15);
+        border: 1px solid rgba(39, 114, 232, 0.2);
     }
     
     .meta-badge {
         font-size: 12px !important;
-        padding: 10px 16px !important;
-        border-radius: 12px !important;
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
-        color: #475569 !important;
-        font-weight: 700 !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        border: 1px solid #e2e8f0;
+        padding: 8px 14px !important;
+        border-radius: 10px !important;
+        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%) !important;
+        color: #4b5563 !important;
+        font-weight: 600 !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
     
     .meta-badge span {
-        font-weight: 800 !important;
-        color: #1e293b !important;
+        font-weight: 700 !important;
+        color: #1f2937 !important;
     }
     
     .location-info {
         display: flex;
         align-items: center;
-        gap: 10px;
-        font-size: 15px !important;
-        color: #64748b !important;
-        font-weight: 700 !important;
-        padding: 14px 0;
-        border-top: 2px solid #f1f5f9;
-        border-bottom: 2px solid #f1f5f9;
-        margin-top: 6px;
-        background: linear-gradient(90deg, transparent 0%, #f8fafc 50%, transparent 100%);
+        gap: 8px;
+        font-size: 14px !important;
+        color: #6b7280 !important;
+        font-weight: 600 !important;
+        padding: 10px 0;
+        border-top: 1px solid #f3f4f6;
+        border-bottom: 1px solid #f3f4f6;
+        margin-top: 4px;
     }
     
     .location-info img {
-        width: 20px !important;
-        height: 20px !important;
-        opacity: 0.9;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        width: 18px !important;
+        height: 18px !important;
+        opacity: 0.8;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
     }
     
-    /* Footer Section - Premium Design */
+    /* Footer Section */
     .job-card-footer {
-        padding: 20px 20px 24px !important;
+        padding: 18px 18px 20px !important;
         background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%) !important;
-        border-top: 3px solid #e2e8f0 !important;
-        border-radius: 0 0 24px 24px;
-        position: relative;
-    }
-    
-    .job-card-footer::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 20px;
-        right: 20px;
-        height: 1px;
-        background: linear-gradient(90deg, transparent 0%, #cbd5e1 50%, transparent 100%);
+        border-top: 2px solid #e5e7eb !important;
+        border-radius: 0 0 20px 20px;
     }
     
     .price-ad {
@@ -595,106 +526,98 @@ button svg{
     }
     
     .price-ad p {
-        font-size: 19px !important;
-        font-weight: 800 !important;
-        color: #0f172a !important;
+        font-size: 17px !important;
+        font-weight: 700 !important;
+        color: #1a1a1a !important;
         margin: 0 !important;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 6px;
         flex-wrap: wrap;
     }
     
     .price-ad p span.price-amount {
-        font-size: 24px !important;
+        font-size: 20px !important;
         color: #2772e8 !important;
-        font-weight: 900 !important;
-        text-shadow: 0 2px 4px rgba(39, 114, 232, 0.15);
-        letter-spacing: -0.5px;
+        font-weight: 800 !important;
+        text-shadow: 0 1px 2px rgba(39, 114, 232, 0.1);
     }
     
     .price-ad p span.price-period {
-        font-size: 15px !important;
-        color: #64748b !important;
-        font-weight: 700 !important;
+        font-size: 14px !important;
+        color: #6b7280 !important;
+        font-weight: 600 !important;
     }
     
     .price-ad p span.price-negotiable {
-        font-size: 18px !important;
+        font-size: 17px !important;
         color: #10b981 !important;
-        font-weight: 800 !important;
-        padding: 8px 20px;
-        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%);
-        border-radius: 16px;
-        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-        border: 2px solid rgba(16, 185, 129, 0.2);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        font-weight: 700 !important;
+        padding: 6px 16px;
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2);
     }
 }
 
-/* Extra Small Mobile - Optimized */
+/* Extra Small Mobile */
 @media (max-width: 480px) {
-    .category-wrap.jobwrp {
-        padding: 35px 0 45px !important;
-    }
-    
     .category-wrap.jobwrp .main_title {
-        font-size: 28px !important;
-        margin-bottom: 28px !important;
+        font-size: 24px !important;
+        margin-bottom: 20px !important;
     }
     
     .featured-jobs-grid .owl-item {
-        padding: 0 8px !important;
+        padding: 0 6px !important;
     }
     
     .job-card-header {
-        padding: 22px 18px 18px !important;
+        padding: 18px 16px 16px !important;
     }
     
     .company-logo {
-        width: 60px !important;
-        height: 60px !important;
+        width: 52px !important;
+        height: 52px !important;
     }
     
     .company-logo img {
-        width: 34px !important;
-        height: 34px !important;
+        width: 30px !important;
+        height: 30px !important;
     }
     
     .company-name h3 {
-        font-size: 18px !important;
+        font-size: 16px !important;
     }
     
     .job-card-body {
-        padding: 22px 18px 16px !important;
+        padding: 18px 16px 14px !important;
     }
     
     .job-title a {
-        font-size: 19px !important;
+        font-size: 17px !important;
     }
     
     .category-badge-top,
     .meta-badge {
-        font-size: 12px !important;
-        padding: 9px 14px !important;
+        font-size: 11px !important;
+        padding: 7px 12px !important;
     }
     
     .location-info {
-        font-size: 14px !important;
+        font-size: 13px !important;
     }
     
     .job-card-footer {
-        padding: 18px 18px 22px !important;
+        padding: 16px 16px 18px !important;
     }
     
     .price-ad p span.price-amount {
-        font-size: 22px !important;
+        font-size: 18px !important;
     }
     
     .price-ad p {
-        font-size: 18px !important;
+        font-size: 16px !important;
     }
 }
 
