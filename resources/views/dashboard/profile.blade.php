@@ -466,25 +466,23 @@
                                         <div class="text-muted mt-1">Max 2MB, JPG/PNG format, recommended 400x400</div>
                                         
                                         <!-- Image Cropper Container -->
-                                        <div id="image-cropper-container" style="display: none; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e5e7eb;">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div id="cropper-preview" style="max-width: 100%; max-height: 400px; overflow: hidden; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px;"></div>
+                                        <div id="image-cropper-container" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e5e7eb; width: 100%;">
+                                            <div id="cropper-preview" style="width: 100%; max-height: 500px; overflow: hidden; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 20px;"></div>
+                                            <div class="row align-items-center">
+                                                <div class="col-md-6 text-center mb-3 mb-md-0">
+                                                    <h6 style="margin-bottom: 15px; color: #2c3e50; font-weight: 600;">Preview</h6>
+                                                    <div id="cropped-preview" style="width: 150px; height: 150px; margin: 0 auto; border: 2px solid #3498db; border-radius: 50%; overflow: hidden; background: #f0f0f0;">
+                                                        <img id="cropped-preview-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="text-center">
-                                                        <h6 style="margin-bottom: 15px; color: #2c3e50;">Preview</h6>
-                                                        <div id="cropped-preview" style="width: 150px; height: 150px; margin: 0 auto; border: 2px solid #3498db; border-radius: 50%; overflow: hidden; background: #f0f0f0;">
-                                                            <img id="cropped-preview-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                                                        </div>
-                                                        <div class="mt-3">
-                                                            <button type="button" id="crop-btn" class="btn btn-primary btn-sm" style="width: 100%; margin-bottom: 8px;">
-                                                                <i class="fas fa-crop"></i> Crop Image
-                                                            </button>
-                                                            <button type="button" id="cancel-crop-btn" class="btn btn-secondary btn-sm" style="width: 100%;">
-                                                                <i class="fas fa-times"></i> Cancel
-                                                            </button>
-                                                        </div>
+                                                <div class="col-md-6">
+                                                    <div class="d-flex flex-column gap-2">
+                                                        <button type="button" id="crop-btn" class="btn btn-primary" style="width: 100%;">
+                                                            <i class="fas fa-crop"></i> Crop Image
+                                                        </button>
+                                                        <button type="button" id="cancel-crop-btn" class="btn btn-secondary" style="width: 100%;">
+                                                            <i class="fas fa-times"></i> Cancel
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -600,25 +598,23 @@
                                         <div class="text-muted mt-1">Max 2MB, JPG/PNG format, recommended 400x400</div>
                                         
                                         <!-- Image Cropper Container for Company Logo -->
-                                        <div id="company-logo-cropper-container" style="display: none; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e5e7eb;">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div id="company-logo-cropper-preview" style="max-width: 100%; max-height: 400px; overflow: hidden; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px;"></div>
+                                        <div id="company-logo-cropper-container" style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e5e7eb; width: 100%;">
+                                            <div id="company-logo-cropper-preview" style="width: 100%; max-height: 500px; overflow: hidden; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 20px;"></div>
+                                            <div class="row align-items-center">
+                                                <div class="col-md-6 text-center mb-3 mb-md-0">
+                                                    <h6 style="margin-bottom: 15px; color: #2c3e50; font-weight: 600;">Preview</h6>
+                                                    <div id="company-logo-cropped-preview" style="width: 150px; height: 150px; margin: 0 auto; border: 2px solid #3498db; border-radius: 8px; overflow: hidden; background: #f0f0f0;">
+                                                        <img id="company-logo-cropped-preview-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="text-center">
-                                                        <h6 style="margin-bottom: 15px; color: #2c3e50;">Preview</h6>
-                                                        <div id="company-logo-cropped-preview" style="width: 150px; height: 150px; margin: 0 auto; border: 2px solid #3498db; border-radius: 8px; overflow: hidden; background: #f0f0f0;">
-                                                            <img id="company-logo-cropped-preview-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                                                        </div>
-                                                        <div class="mt-3">
-                                                            <button type="button" id="crop-company-logo-btn" class="btn btn-primary btn-sm" style="width: 100%; margin-bottom: 8px;">
-                                                                <i class="fas fa-crop"></i> Crop Logo
-                                                            </button>
-                                                            <button type="button" id="cancel-company-logo-crop-btn" class="btn btn-secondary btn-sm" style="width: 100%;">
-                                                                <i class="fas fa-times"></i> Cancel
-                                                            </button>
-                                                        </div>
+                                                <div class="col-md-6">
+                                                    <div class="d-flex flex-column gap-2">
+                                                        <button type="button" id="crop-company-logo-btn" class="btn btn-primary" style="width: 100%;">
+                                                            <i class="fas fa-crop"></i> Crop Logo
+                                                        </button>
+                                                        <button type="button" id="cancel-company-logo-crop-btn" class="btn btn-secondary" style="width: 100%;">
+                                                            <i class="fas fa-times"></i> Cancel
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
