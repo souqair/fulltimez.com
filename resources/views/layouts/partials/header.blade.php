@@ -228,14 +228,115 @@
         font-size: 13px;
     }
 }
+
+/* Toggle Buttons Styling */
+.toggle-btns {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.toggle-btn {
+    background: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+}
+
+.toggle-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.toggle-btn:active {
+    transform: translateY(0);
+}
+
+/* Login/Register Links Styling */
+.login {
+    display: inline-block;
+}
+
+.login a {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.login:first-child a {
+    background: #007bff;
+    color: #ffffff;
+}
+
+.login:first-child a:hover {
+    background: #0056b3;
+    color: #ffffff;
+}
+
+.login:last-child a {
+    background: #ffffff;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.login:last-child a:hover {
+    background: #007bff;
+    color: #ffffff;
+}
+
+/* Mobile Search Toggle */
+@media (max-width: 991px) {
+    .search-wrap {
+        display: none !important;
+    }
+    
+    .search-wrap.show {
+        display: block !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .search-wrap {
+        display: block !important;
+    }
+}
 </style>
 
-<div class="container">
+<div class="container py-3">
    <div class="app">
         <div class="row align-items-center"> 
-         <div class="col-lg-3 col-md-6 col-6">
+         <div class="col-6 col-lg-3">
                   <div class="fulltimez-logo"><a href="{{ route('home') }}"><img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo"></a></div>
                </div>
+
+               <!-- Mobile Toggle Buttons -->
+               <div class="col-6 d-lg-none text-end">
+                   <div class="toggle-btns">
+                       <button class="toggle-btn" id="menuToggle">
+                           <i class="fa-solid fa-bars"></i>
+                       </button>
+                       <button class="toggle-btn" id="searchToggle">
+                           <i class="fa-solid fa-magnifying-glass"></i>
+                       </button>
+                   </div>
+               </div>
+
                 <div class="col-lg-6 d-mobile-none">
     <nav class="top-nav">
       <ul class="tabs">
@@ -247,35 +348,10 @@
     </nav>
 </div>
 
-<div class="col-lg-3 col-md-6 col-6">
+<div class="col-lg-3 d-mobile-none">
 <div class="d-flex gap-2 justify-content-end"> 
-   <!-- Mobile Navigation Dropdown -->
-   <div class="mobile-nav-dropdown d-mobile-only" style="margin-left: auto; position: relative;">
-       <button class="mobile-nav-toggle" id="mobileNavToggle">
-           <i class="fas fa-bars"></i>
-           <span>Menu</span>
-       </button>
-       <div class="mobile-nav-menu" id="mobileNavMenu">
-           <a href="{{ route('home') }}">Home</a>
-           <a href="{{ route('jobs.index') }}">Browse Jobs</a>
-           <a href="{{ route('candidates.index') }}">Browse Resumes</a>
-           <a href="{{ route('contact') }}">Contact Us</a>
-           <hr>
-           @auth
-           <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">Dashboard</a>
-           <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mobile-auth-btn logout-btn">Logout</a>
-           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-               @csrf
-           </form>
-           @else
-           <a href="{{ route('login') }}" class="mobile-auth-btn login-btn">LOGIN</a>
-           <a href="{{ route('choose.role') }}" class="mobile-auth-btn register-btn">REGISTER</a>
-           @endauth
-       </div>
-   </div>
-   
    <!-- Desktop Auth Links -->
-   <div class="d-mobile-none auth-buttons">
+   <div class="auth-buttons">
    @auth
    <a href="{{ route('dashboard') }}" class="auth-btn dashboard-btn">Dashboard</a>
    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
@@ -283,11 +359,33 @@
       <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="auth-btn logout-btn">Logout</a>
    </form>
    @else
-   <a href="{{ route('login') }}" class="auth-btn login-btn">LOGIN</a>
-   <a href="{{ route('choose.role') }}" class="auth-btn register-btn">REGISTER</a>
+   <div class="login"><a href="{{ route('login') }}">Login</a></div>
+   <div class="login"><a href="{{ route('choose.role') }}">Register</a></div>
    @endauth
    </div>
              </div> 
+</div>
+
+<!-- Mobile Navigation Menu -->
+<div class="mobile-nav-dropdown d-lg-none" id="mobileNavMenu" style="display: none; width: 100%; margin-top: 15px;">
+    <div class="mobile-nav-menu">
+        <a href="{{ route('home') }}">Home</a>
+        <a href="{{ route('jobs.index') }}">Browse Jobs</a>
+        <a href="{{ route('candidates.index') }}">Browse Resumes</a>
+        <a href="{{ route('contact') }}">Contact Us</a>
+        <hr>
+        @auth
+        <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">Dashboard</a>
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mobile-auth-btn logout-btn">Logout</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        @else
+        <a href="{{ route('login') }}" class="mobile-auth-btn login-btn">LOGIN</a>
+        <a href="{{ route('choose.role') }}" class="mobile-auth-btn register-btn">REGISTER</a>
+        @endauth
+    </div>
+</div>
 </div>
 
 
@@ -484,8 +582,33 @@
     </style>
     
     <script>
-    // Dynamic city loading based on country selection
+    // Mobile Menu and Search Toggle
     document.addEventListener('DOMContentLoaded', function() {
+        // Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNavMenu = document.getElementById('mobileNavMenu');
+        
+        if (menuToggle && mobileNavMenu) {
+            menuToggle.addEventListener('click', function() {
+                if (mobileNavMenu.style.display === 'none' || mobileNavMenu.style.display === '') {
+                    mobileNavMenu.style.display = 'block';
+                } else {
+                    mobileNavMenu.style.display = 'none';
+                }
+            });
+        }
+        
+        // Search Toggle
+        const searchToggle = document.getElementById('searchToggle');
+        const searchWrap = document.querySelector('.search-wrap');
+        
+        if (searchToggle && searchWrap) {
+            searchToggle.addEventListener('click', function() {
+                searchWrap.classList.toggle('show');
+            });
+        }
+        
+        // Dynamic city loading based on country selection
         const countrySelect = document.getElementById('countrySelect');
         const citySelect = document.getElementById('citySelect');
         
