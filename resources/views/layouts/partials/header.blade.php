@@ -121,50 +121,120 @@
     background: #0056b3;
 }
 
-.mobile-nav-menu {
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    margin-top: 8px;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    min-width: 200px;
-    z-index: 1000;
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
     display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-menu-overlay.show {
+    display: block;
+    opacity: 1;
+}
+
+.mobile-nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    max-width: 85%;
+    height: 100%;
+    background: #ffffff;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 9999;
+    overflow-y: auto;
+    transition: right 0.3s ease;
 }
 
 .mobile-nav-menu.show {
-    display: block;
+    right: 0;
+}
+
+.mobile-nav-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.mobile-nav-menu-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.mobile-menu-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.mobile-menu-close:hover {
+    background: #f3f4f6;
+    color: #1a1a1a;
 }
 
 .mobile-nav-menu a {
-    display: block;
-    padding: 10px 12px;
-    color: #4a5568;
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    color: #374151;
     text-decoration: none;
-    border-radius: 6px;
-    margin-bottom: 4px;
+    border-radius: 8px;
+    margin-bottom: 8px;
     transition: all 0.2s ease;
     font-weight: 500;
+    font-size: 15px;
+    border-left: 3px solid transparent;
 }
 
-.mobile-nav-menu a:hover {
+.mobile-nav-menu a:hover,
+.mobile-nav-menu a.active {
     background: #f0f4ff;
     color: #007bff;
+    border-left-color: #007bff;
+}
+
+.mobile-nav-menu hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #e5e7eb;
 }
 
 .mobile-auth-btn {
-    display: block;
-    padding: 8px 14px;
-    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    border-radius: 8px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
-    text-align: center;
     margin-top: 8px;
+    margin-bottom: 8px;
     transition: all 0.2s ease;
+    border-left: 3px solid transparent;
 }
 
 .mobile-auth-btn.login-btn {
@@ -366,25 +436,48 @@
              </div> 
 </div>
 
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
 <!-- Mobile Navigation Menu -->
-<div class="mobile-nav-dropdown d-lg-none" id="mobileNavMenu" style="display: none; width: 100%; margin-top: 15px;">
-    <div class="mobile-nav-menu">
-        <a href="{{ route('home') }}">Home</a>
-        <a href="{{ route('jobs.index') }}">Browse Jobs</a>
-        <a href="{{ route('candidates.index') }}">Browse Resumes</a>
-        <a href="{{ route('contact') }}">Contact Us</a>
-        <hr>
-        @auth
-        <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">Dashboard</a>
-        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mobile-auth-btn logout-btn">Logout</a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
-        @else
-        <a href="{{ route('login') }}" class="mobile-auth-btn login-btn">LOGIN</a>
-        <a href="{{ route('choose.role') }}" class="mobile-auth-btn register-btn">REGISTER</a>
-        @endauth
+<div class="mobile-nav-menu" id="mobileNavMenu">
+    <div class="mobile-nav-menu-header">
+        <h3>Menu</h3>
+        <button class="mobile-menu-close" id="mobileMenuClose">
+            <i class="fa-solid fa-times"></i>
+        </button>
     </div>
+    <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
+        <i class="fa-solid fa-home" style="margin-right: 12px; width: 20px;"></i> Home
+    </a>
+    <a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">
+        <i class="fa-solid fa-briefcase" style="margin-right: 12px; width: 20px;"></i> Browse Jobs
+    </a>
+    <a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">
+        <i class="fa-solid fa-users" style="margin-right: 12px; width: 20px;"></i> Browse Resumes
+    </a>
+    <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">
+        <i class="fa-solid fa-envelope" style="margin-right: 12px; width: 20px;"></i> Contact Us
+    </a>
+    <hr>
+    @auth
+    <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">
+        <i class="fa-solid fa-chart-line" style="margin-right: 12px; width: 20px;"></i> Dashboard
+    </a>
+    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mobile-auth-btn logout-btn">
+        <i class="fa-solid fa-sign-out-alt" style="margin-right: 12px; width: 20px;"></i> Logout
+    </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+    @else
+    <a href="{{ route('login') }}" class="mobile-auth-btn login-btn">
+        <i class="fa-solid fa-sign-in-alt" style="margin-right: 12px; width: 20px;"></i> LOGIN
+    </a>
+    <a href="{{ route('choose.role') }}" class="mobile-auth-btn register-btn">
+        <i class="fa-solid fa-user-plus" style="margin-right: 12px; width: 20px;"></i> REGISTER
+    </a>
+    @endauth
 </div>
 </div>
 
@@ -587,14 +680,63 @@
         // Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
         const mobileNavMenu = document.getElementById('mobileNavMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
         
-        if (menuToggle && mobileNavMenu) {
-            menuToggle.addEventListener('click', function() {
-                if (mobileNavMenu.style.display === 'none' || mobileNavMenu.style.display === '') {
-                    mobileNavMenu.style.display = 'block';
-                } else {
-                    mobileNavMenu.style.display = 'none';
+        function openMobileMenu() {
+            if (mobileNavMenu && mobileMenuOverlay) {
+                mobileNavMenu.classList.add('show');
+                mobileMenuOverlay.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeMobileMenu() {
+            if (mobileNavMenu && mobileMenuOverlay) {
+                mobileNavMenu.classList.remove('show');
+                mobileMenuOverlay.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                openMobileMenu();
+            });
+        }
+        
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeMobileMenu();
+            });
+        }
+        
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.addEventListener('click', function() {
+                closeMobileMenu();
+            });
+        }
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (mobileNavMenu && mobileNavMenu.classList.contains('show')) {
+                if (!mobileNavMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    closeMobileMenu();
                 }
+            }
+        });
+        
+        // Close menu when clicking on menu links
+        if (mobileNavMenu) {
+            const menuLinks = mobileNavMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    setTimeout(() => {
+                        closeMobileMenu();
+                    }, 100);
+                });
             });
         }
         
@@ -605,6 +747,10 @@
         if (searchToggle && searchWrap) {
             searchToggle.addEventListener('click', function() {
                 searchWrap.classList.toggle('show');
+                // Close menu if open
+                if (mobileNavMenu && mobileNavMenu.classList.contains('show')) {
+                    closeMobileMenu();
+                }
             });
         }
         
