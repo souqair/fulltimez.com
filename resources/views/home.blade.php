@@ -51,7 +51,7 @@ body {
 
 .job-card-header {
     padding: 20px 20px 18px !important;
-    background: #2d3748 !important;
+    background: #2772e8 !important;
     position: relative !important;
     border-radius: 16px 16px 0 0 !important;
 }
