@@ -414,6 +414,25 @@ button svg{
     margin: 0 auto !important;
     padding: 0 15px !important;
     overflow: visible !important;
+    width: 100% !important;
+}
+
+@media (min-width: 1200px) {
+    .featured-candidates-section .container {
+        max-width: 1200px !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .featured-candidates-section .container {
+        max-width: 960px !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .featured-candidates-section .container {
+        max-width: 720px !important;
+    }
 }
 
 /* Recommended Jobs Section Styling */
@@ -652,18 +671,23 @@ button svg{
 
 .featured-candidates-carousel-wrapper {
     padding: 20px 0;
-    overflow: visible;
+    overflow: hidden;
     width: 100%;
     position: relative;
+    max-width: 100%;
 }
 
 .featured-candidates-carousel-wrapper .owl-carousel {
     padding: 0;
+    width: 100%;
+    max-width: 100%;
 }
 
 .featured-candidates-carousel-wrapper .owl-stage-outer {
     overflow: hidden;
     width: 100%;
+    max-width: 100%;
+    position: relative;
 }
 
 .featured-candidates-carousel-wrapper .owl-stage {
@@ -1814,7 +1838,7 @@ $(document).ready(function() {
     
     // Featured Candidates Carousel - Fully Responsive
     if($('.featured-candidates-carousel').length > 0) {
-        $('.featured-candidates-carousel').owlCarousel({
+        var candidatesCarousel = $('.featured-candidates-carousel').owlCarousel({
             loop: true,
             rewind: true,
             nav: true,
@@ -1860,6 +1884,60 @@ $(document).ready(function() {
                     margin: 20
                 }
             }
+        });
+        
+        // Fix width issues with jQuery
+        function fixCandidatesCarouselWidth() {
+            var $carousel = $('.featured-candidates-carousel');
+            var $wrapper = $('.featured-candidates-carousel-wrapper');
+            var $container = $('.featured-candidates-section .container');
+            
+            if($carousel.length > 0 && $wrapper.length > 0 && $container.length > 0) {
+                // Get container width
+                var containerWidth = $container.width();
+                
+                // Set wrapper and carousel width to match container
+                $wrapper.css({
+                    'max-width': containerWidth + 'px',
+                    'width': '100%',
+                    'margin': '0 auto'
+                });
+                
+                $carousel.css({
+                    'max-width': '100%',
+                    'width': '100%'
+                });
+                
+                // Fix owl-stage-outer width
+                $carousel.find('.owl-stage-outer').css({
+                    'max-width': '100%',
+                    'width': '100%'
+                });
+                
+                // Trigger refresh
+                if(candidatesCarousel && typeof candidatesCarousel.trigger === 'function') {
+                    candidatesCarousel.trigger('refresh.owl.carousel');
+                }
+            }
+        }
+        
+        // Fix width on load
+        setTimeout(function() {
+            fixCandidatesCarouselWidth();
+        }, 100);
+        
+        // Fix width on window resize
+        var resizeTimer;
+        $(window).on('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                fixCandidatesCarouselWidth();
+            }, 250);
+        });
+        
+        // Fix width after carousel is initialized
+        $carousel.on('initialized.owl.carousel', function() {
+            fixCandidatesCarouselWidth();
         });
     }
 });
