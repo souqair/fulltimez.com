@@ -875,7 +875,7 @@
 <!-- HR Separator - Only for Desktop -->
 <hr class="mt-4 d-none d-lg-block">
 
-    @if(!(auth()->check() && auth()->user()->isEmployer() && request()->routeIs('dashboard')) && !request()->routeIs('candidates.index') && !request()->routeIs('jobs.index') && !request()->routeIs('contact'))
+    @if(!(auth()->check() && auth()->user()->isEmployer() && request()->routeIs('dashboard')) && !request()->routeIs('candidates.index') && !request()->routeIs('jobs.index') && !request()->routeIs('contact') && !request()->routeIs('login') && !request()->routeIs('register') && !request()->routeIs('choose.role') && !request()->routeIs('jobseeker.login') && !request()->routeIs('jobseeker.register') && !request()->routeIs('jobseeker.forgot-password') && !request()->routeIs('jobseeker.reset-password') && !request()->routeIs('employer.login') && !request()->routeIs('employer.register') && !request()->routeIs('employer.forgot-password') && !request()->routeIs('employer.reset-password') && !request()->routeIs('admin.login'))
     <section class="search-wrap" id="searchWrapSection">
       <!-- Mobile Search Header -->
       <div class="mobile-search-header d-lg-none">
