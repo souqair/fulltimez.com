@@ -462,10 +462,40 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Profile Picture</label>
-                                        <input type="file" name="profile_picture" class="form-control @error('profile_picture') is-invalid @enderror" accept="image/*">
-                                        <div class="text-muted mt-1">Max 2MB, JPG/PNG format</div>
+                                        <input type="file" id="profile_picture_input" class="form-control @error('profile_picture') is-invalid @enderror" accept="image/*">
+                                        <div class="text-muted mt-1">Max 2MB, JPG/PNG format, recommended 400x400</div>
+                                        
+                                        <!-- Image Cropper Container -->
+                                        <div id="image-cropper-container" style="display: none; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e5e7eb;">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div id="cropper-preview" style="max-width: 100%; max-height: 400px; overflow: hidden; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px;"></div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="text-center">
+                                                        <h6 style="margin-bottom: 15px; color: #2c3e50;">Preview</h6>
+                                                        <div id="cropped-preview" style="width: 150px; height: 150px; margin: 0 auto; border: 2px solid #3498db; border-radius: 50%; overflow: hidden; background: #f0f0f0;">
+                                                            <img id="cropped-preview-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                                        </div>
+                                                        <div class="mt-3">
+                                                            <button type="button" id="crop-btn" class="btn btn-primary btn-sm" style="width: 100%; margin-bottom: 8px;">
+                                                                <i class="fas fa-crop"></i> Crop Image
+                                                            </button>
+                                                            <button type="button" id="cancel-crop-btn" class="btn btn-secondary btn-sm" style="width: 100%;">
+                                                                <i class="fas fa-times"></i> Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Hidden input for cropped image -->
+                                        <input type="hidden" id="cropped_image_data" name="cropped_image_data">
+                                        <input type="file" id="profile_picture" name="profile_picture" style="display: none;">
+                                        
                                         @if($user->seekerProfile && $user->seekerProfile->profile_picture)
-                                            <div class="file-upload-info">
+                                            <div class="file-upload-info mt-2">
                                                 Current: <a href="{{ asset($user->seekerProfile->profile_picture) }}" target="_blank">View Current Picture</a>
                                             </div>
                                         @endif
@@ -566,10 +596,40 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Company Logo</label>
-                                        <input type="file" name="company_logo" class="form-control @error('company_logo') is-invalid @enderror" accept="image/*">
-                                        <div class="text-muted mt-1">Max 2MB, JPG/PNG format</div>
+                                        <input type="file" id="company_logo_input" class="form-control @error('company_logo') is-invalid @enderror" accept="image/*">
+                                        <div class="text-muted mt-1">Max 2MB, JPG/PNG format, recommended 400x400</div>
+                                        
+                                        <!-- Image Cropper Container for Company Logo -->
+                                        <div id="company-logo-cropper-container" style="display: none; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e5e7eb;">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div id="company-logo-cropper-preview" style="max-width: 100%; max-height: 400px; overflow: hidden; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px;"></div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="text-center">
+                                                        <h6 style="margin-bottom: 15px; color: #2c3e50;">Preview</h6>
+                                                        <div id="company-logo-cropped-preview" style="width: 150px; height: 150px; margin: 0 auto; border: 2px solid #3498db; border-radius: 8px; overflow: hidden; background: #f0f0f0;">
+                                                            <img id="company-logo-cropped-preview-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                                        </div>
+                                                        <div class="mt-3">
+                                                            <button type="button" id="crop-company-logo-btn" class="btn btn-primary btn-sm" style="width: 100%; margin-bottom: 8px;">
+                                                                <i class="fas fa-crop"></i> Crop Logo
+                                                            </button>
+                                                            <button type="button" id="cancel-company-logo-crop-btn" class="btn btn-secondary btn-sm" style="width: 100%;">
+                                                                <i class="fas fa-times"></i> Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Hidden input for cropped company logo -->
+                                        <input type="hidden" id="cropped_company_logo_data" name="cropped_company_logo_data">
+                                        <input type="file" id="company_logo" name="company_logo" style="display: none;">
+                                        
                                         @if($user->employerProfile && $user->employerProfile->company_logo)
-                                            <div class="file-upload-info">
+                                            <div class="file-upload-info mt-2">
                                                 Current: <a href="{{ asset($user->employerProfile->company_logo) }}" target="_blank">View Current Logo</a>
                                             </div>
                                         @endif
@@ -595,10 +655,340 @@
     </div>
 </section>
 
+@push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+@endpush
+
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('profileForm');
+    
+    // Image Cropper functionality
+    let cropper = null;
+    let cropperImage = null;
+    let companyLogoCropper = null;
+    let companyLogoImage = null;
+    
+    const profilePictureInput = document.getElementById('profile_picture_input');
+    if (profilePictureInput) {
+        profilePictureInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) {
+                return;
+            }
+            
+            // Validate file type
+            if (!file.type.match('image.*')) {
+                alert('Please select a valid image file (JPG or PNG).');
+                this.value = '';
+                return;
+            }
+            
+            // Validate file size (max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Image size should be less than 2MB.');
+                this.value = '';
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                // Destroy previous cropper if exists
+                if (cropper) {
+                    cropper.destroy();
+                }
+                
+                // Create image element
+                const cropperContainer = document.getElementById('cropper-preview');
+                if (cropperImage) {
+                    cropperImage.remove();
+                }
+                
+                cropperImage = document.createElement('img');
+                cropperImage.id = 'cropper-image';
+                cropperImage.src = event.target.result;
+                cropperContainer.innerHTML = '';
+                cropperContainer.appendChild(cropperImage);
+                
+                // Show cropper container
+                document.getElementById('image-cropper-container').style.display = 'block';
+                
+                // Initialize cropper
+                cropper = new Cropper(cropperImage, {
+                    aspectRatio: 1,
+                    viewMode: 1,
+                    autoCropArea: 0.8,
+                    responsive: true,
+                    guides: true,
+                    center: true,
+                    highlight: false,
+                    cropBoxMovable: true,
+                    cropBoxResizable: true,
+                    toggleDragModeOnDblclick: false,
+                    ready: function() {
+                        updatePreview();
+                    }
+                });
+                
+                // Update preview on crop events
+                let previewTimeout;
+                cropperImage.addEventListener('crop', function() {
+                    clearTimeout(previewTimeout);
+                    previewTimeout = setTimeout(updatePreview, 100);
+                });
+                
+                cropperImage.addEventListener('cropend', function() {
+                    updatePreview();
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+    
+    function updatePreview() {
+        if (!cropper) {
+            return;
+        }
+        
+        const canvas = cropper.getCroppedCanvas({
+            width: 400,
+            height: 400,
+            imageSmoothingEnabled: true,
+            imageSmoothingQuality: 'high'
+        });
+        
+        if (canvas) {
+            const previewImg = document.getElementById('cropped-preview-img');
+            previewImg.src = canvas.toDataURL('image/jpeg', 0.9);
+            previewImg.style.display = 'block';
+        }
+    }
+    
+    // Crop button click
+    const cropBtn = document.getElementById('crop-btn');
+    if (cropBtn) {
+        cropBtn.addEventListener('click', function() {
+            if (!cropper) {
+                return;
+            }
+            
+            const canvas = cropper.getCroppedCanvas({
+                width: 400,
+                height: 400,
+                imageSmoothingEnabled: true,
+                imageSmoothingQuality: 'high'
+            });
+            
+            if (canvas) {
+                // Convert canvas to blob
+                canvas.toBlob(function(blob) {
+                    // Create a File object from blob
+                    const file = new File([blob], 'profile_picture.jpg', { type: 'image/jpeg' });
+                    
+                    // Create a DataTransfer object to set the file
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    
+                    // Set the file to the hidden input
+                    const fileInput = document.getElementById('profile_picture');
+                    fileInput.files = dataTransfer.files;
+                    
+                    // Store base64 for preview
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                    document.getElementById('cropped_image_data').value = dataUrl;
+                    
+                    // Hide cropper and show success message
+                    document.getElementById('image-cropper-container').style.display = 'none';
+                    alert('Image cropped successfully! You can now save your profile.');
+                }, 'image/jpeg', 0.9);
+            }
+        });
+    }
+    
+    // Cancel crop button
+    const cancelCropBtn = document.getElementById('cancel-crop-btn');
+    if (cancelCropBtn) {
+        cancelCropBtn.addEventListener('click', function() {
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+            if (cropperImage) {
+                cropperImage.remove();
+                cropperImage = null;
+            }
+            document.getElementById('image-cropper-container').style.display = 'none';
+            document.getElementById('profile_picture_input').value = '';
+            document.getElementById('profile_picture').value = '';
+            document.getElementById('cropped_image_data').value = '';
+            const previewImg = document.getElementById('cropped-preview-img');
+            if (previewImg) {
+                previewImg.style.display = 'none';
+            }
+        });
+    }
+    
+    // Company Logo Cropper functionality
+    const companyLogoInput = document.getElementById('company_logo_input');
+    if (companyLogoInput) {
+        companyLogoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) {
+                return;
+            }
+            
+            // Validate file type
+            if (!file.type.match('image.*')) {
+                alert('Please select a valid image file (JPG or PNG).');
+                this.value = '';
+                return;
+            }
+            
+            // Validate file size (max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Image size should be less than 2MB.');
+                this.value = '';
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                // Destroy previous cropper if exists
+                if (companyLogoCropper) {
+                    companyLogoCropper.destroy();
+                }
+                
+                // Create image element
+                const cropperContainer = document.getElementById('company-logo-cropper-preview');
+                if (companyLogoImage) {
+                    companyLogoImage.remove();
+                }
+                
+                companyLogoImage = document.createElement('img');
+                companyLogoImage.id = 'company-logo-cropper-image';
+                companyLogoImage.src = event.target.result;
+                cropperContainer.innerHTML = '';
+                cropperContainer.appendChild(companyLogoImage);
+                
+                // Show cropper container
+                document.getElementById('company-logo-cropper-container').style.display = 'block';
+                
+                // Initialize cropper
+                companyLogoCropper = new Cropper(companyLogoImage, {
+                    aspectRatio: 1,
+                    viewMode: 1,
+                    autoCropArea: 0.8,
+                    responsive: true,
+                    guides: true,
+                    center: true,
+                    highlight: false,
+                    cropBoxMovable: true,
+                    cropBoxResizable: true,
+                    toggleDragModeOnDblclick: false,
+                    ready: function() {
+                        updateCompanyLogoPreview();
+                    }
+                });
+                
+                // Update preview on crop events
+                let previewTimeout;
+                companyLogoImage.addEventListener('crop', function() {
+                    clearTimeout(previewTimeout);
+                    previewTimeout = setTimeout(updateCompanyLogoPreview, 100);
+                });
+                
+                companyLogoImage.addEventListener('cropend', function() {
+                    updateCompanyLogoPreview();
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+    
+    function updateCompanyLogoPreview() {
+        if (!companyLogoCropper) {
+            return;
+        }
+        
+        const canvas = companyLogoCropper.getCroppedCanvas({
+            width: 400,
+            height: 400,
+            imageSmoothingEnabled: true,
+            imageSmoothingQuality: 'high'
+        });
+        
+        if (canvas) {
+            const previewImg = document.getElementById('company-logo-cropped-preview-img');
+            previewImg.src = canvas.toDataURL('image/jpeg', 0.9);
+            previewImg.style.display = 'block';
+        }
+    }
+    
+    // Crop company logo button click
+    const cropCompanyLogoBtn = document.getElementById('crop-company-logo-btn');
+    if (cropCompanyLogoBtn) {
+        cropCompanyLogoBtn.addEventListener('click', function() {
+            if (!companyLogoCropper) {
+                return;
+            }
+            
+            const canvas = companyLogoCropper.getCroppedCanvas({
+                width: 400,
+                height: 400,
+                imageSmoothingEnabled: true,
+                imageSmoothingQuality: 'high'
+            });
+            
+            if (canvas) {
+                // Convert canvas to blob
+                canvas.toBlob(function(blob) {
+                    // Create a File object from blob
+                    const file = new File([blob], 'company_logo.jpg', { type: 'image/jpeg' });
+                    
+                    // Create a DataTransfer object to set the file
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    
+                    // Set the file to the hidden input
+                    const fileInput = document.getElementById('company_logo');
+                    fileInput.files = dataTransfer.files;
+                    
+                    // Store base64 for preview
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                    document.getElementById('cropped_company_logo_data').value = dataUrl;
+                    
+                    // Hide cropper and show success message
+                    document.getElementById('company-logo-cropper-container').style.display = 'none';
+                    alert('Logo cropped successfully! You can now save your profile.');
+                }, 'image/jpeg', 0.9);
+            }
+        });
+    }
+    
+    // Cancel company logo crop button
+    const cancelCompanyLogoCropBtn = document.getElementById('cancel-company-logo-crop-btn');
+    if (cancelCompanyLogoCropBtn) {
+        cancelCompanyLogoCropBtn.addEventListener('click', function() {
+            if (companyLogoCropper) {
+                companyLogoCropper.destroy();
+                companyLogoCropper = null;
+            }
+            if (companyLogoImage) {
+                companyLogoImage.remove();
+                companyLogoImage = null;
+            }
+            document.getElementById('company-logo-cropper-container').style.display = 'none';
+            document.getElementById('company_logo_input').value = '';
+            document.getElementById('company_logo').value = '';
+            document.getElementById('cropped_company_logo_data').value = '';
+            const previewImg = document.getElementById('company-logo-cropped-preview-img');
+            if (previewImg) {
+                previewImg.style.display = 'none';
+            }
+        });
+    }
     
     // Character count for textareas
     const textareas = form.querySelectorAll('textarea[maxlength]');
