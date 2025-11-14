@@ -1620,11 +1620,21 @@ button svg{
    <h3><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
    <ul class="tags">
               @php
-                  $skills = is_array($job->skills_required) ? $job->skills_required : json_decode($job->skills_required, true);
+                  $skills = null;
+                  if ($job->skills_required) {
+                      if (is_array($job->skills_required)) {
+                          $skills = $job->skills_required;
+                      } elseif (is_string($job->skills_required)) {
+                          $decoded = json_decode($job->skills_required, true);
+                          $skills = is_array($decoded) ? $decoded : null;
+                      }
+                  }
               @endphp
-              @if($skills && is_array($skills))
+              @if($skills && is_array($skills) && count($skills) > 0)
                   @foreach(array_slice($skills, 0, 4) as $skill)
-                      <li><a href="#">{{ $skill }}</a></li>
+                      @if(!empty($skill))
+                          <li><a href="#">{{ $skill }}</a></li>
+                      @endif
                   @endforeach
               @endif
             </ul>
