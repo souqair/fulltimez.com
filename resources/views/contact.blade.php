@@ -30,99 +30,98 @@
             <p class="contact-subtitle">Have a question or need help? We're here to assist you. Reach out to us and we'll get back to you as soon as possible.</p>
         </div>
 
-            <div class="contact-content">
-                <div class="row g-4">
-                    <!-- Contact Form -->
-                    <div class="col-lg-8">
-                        <div class="contact-form-card">
-                            @if(session('success'))
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            @endif
-
-                            @if($errors->any())
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <ul class="mb-0">
-                                        @foreach($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            @endif
-
-                            <form action="{{ route('contact.submit') }}" method="POST" class="contact-form">
-                                @csrf
-                                <div class="form-row">
-                                    <div class="form-group-half">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label">
-                                                <i class="fas fa-user"></i> Your Name <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required placeholder="Enter your full name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group-half">
-                                        <div class="form-group">
-                                            <label for="email" class="form-label">
-                                                <i class="fas fa-envelope"></i> Email Address <span class="text-danger">*</span>
-                                            </label>
-                                            <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required placeholder="your.email@example.com">
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="phone" class="form-label">
-                                        <i class="fas fa-phone"></i> Phone Number
-                                    </label>
-                                    <input type="tel" name="phone" id="phone" class="form-control" value="{{ old('phone') }}" placeholder="+971 50 123 4567">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="subject" class="form-label">
-                                        <i class="fas fa-tag"></i> Subject <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="text" name="subject" id="subject" class="form-control" value="{{ old('subject') }}" required placeholder="What is this regarding?">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="message" class="form-label">
-                                        <i class="fas fa-comment"></i> Message <span class="text-danger">*</span>
-                                    </label>
-                                    <textarea name="message" id="message" class="form-control" rows="6" required placeholder="Tell us how we can help you...">{{ old('message') }}</textarea>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <button type="submit" class="btn-submit-contact">
-                                        <i class="fas fa-paper-plane"></i> Send Message
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Follow Us Section -->
-                    <div class="col-lg-4">
-                        <div class="social-card">
-                            <h3 class="social-title">Follow Us</h3>
-                            <p class="social-subtitle">Stay connected with us on social media</p>
-                            <div class="social-icons">
-                                <a href="#" class="social-icon facebook" title="Facebook">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="#" class="social-icon twitter" title="Twitter">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="#" class="social-icon linkedin" title="LinkedIn">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a href="#" class="social-icon instagram" title="Instagram">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
+        <div class="contact-content">
+            <div class="row g-4">
+                <!-- Contact Form -->
+                <div class="col-lg-8">
+                    <div class="contact-form-card">
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
+                        @endif
+
+                        @if($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <ul class="mb-0">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        <form action="{{ route('contact.submit') }}" method="POST" class="contact-form">
+                            @csrf
+                            <div class="form-row">
+                                <div class="form-group-half">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">
+                                            <i class="fas fa-user"></i> Your Name <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required placeholder="Enter your full name">
+                                    </div>
+                                </div>
+                                <div class="form-group-half">
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">
+                                            <i class="fas fa-envelope"></i> Email Address <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required placeholder="your.email@example.com">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone" class="form-label">
+                                    <i class="fas fa-phone"></i> Phone Number
+                                </label>
+                                <input type="tel" name="phone" id="phone" class="form-control" value="{{ old('phone') }}" placeholder="+971 50 123 4567">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject" class="form-label">
+                                    <i class="fas fa-tag"></i> Subject <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" name="subject" id="subject" class="form-control" value="{{ old('subject') }}" required placeholder="What is this regarding?">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="form-label">
+                                    <i class="fas fa-comment"></i> Message <span class="text-danger">*</span>
+                                </label>
+                                <textarea name="message" id="message" class="form-control" rows="6" required placeholder="Tell us how we can help you...">{{ old('message') }}</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn-submit-contact">
+                                    <i class="fas fa-paper-plane"></i> Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Follow Us Section -->
+                <div class="col-lg-4">
+                    <div class="social-card">
+                        <h3 class="social-title">Follow Us</h3>
+                        <p class="social-subtitle">Stay connected with us on social media</p>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon facebook" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-icon twitter" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-icon linkedin" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-icon instagram" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
