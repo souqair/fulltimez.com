@@ -490,7 +490,7 @@ button svg{
 
 .jobs-wrap .job_price {
     font-size: 15px !important;
-    color: #059669 !important;
+    color: #000 !important;
 }
 
 .jobs-wrap .job_price span {
@@ -745,7 +745,7 @@ button svg{
 
 .candidate-rate {
     font-size: 16px;
-    color: #0077f6;
+    color: #000 !important;
     margin: 0 0 8px 0;
 }
 
