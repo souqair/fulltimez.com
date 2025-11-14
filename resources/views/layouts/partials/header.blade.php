@@ -121,8 +121,8 @@
     background: #0056b3;
 }
 
-/* Mobile Only Styles */
-@media (max-width: 991px) {
+/* Mobile Only Styles - Works in Browser Responsive Mode Too */
+@media (max-width: 991.98px) {
     /* Mobile Menu Overlay */
     .mobile-menu-overlay {
         position: fixed;
@@ -160,16 +160,27 @@
     .mobile-nav-menu.show {
         right: 0;
     }
+    
+    /* Ensure menu is visible when shown */
+    .mobile-nav-menu.show {
+        display: block !important;
+    }
 }
 
 @media (min-width: 992px) {
     .mobile-menu-overlay,
     .mobile-nav-menu {
         display: none !important;
+        visibility: hidden !important;
+    }
+    
+    .mobile-menu-overlay.show,
+    .mobile-nav-menu.show {
+        display: none !important;
     }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991.98px) {
     .mobile-nav-menu-header {
         display: flex;
         justify-content: space-between;
@@ -249,7 +260,7 @@
     }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991.98px) {
     .mobile-auth-btn {
         display: flex;
         align-items: center;
@@ -273,7 +284,7 @@
     }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991.98px) {
     .mobile-auth-btn.login-btn {
         background: #007bff;
         color: #ffffff;
@@ -337,8 +348,8 @@
     }
 }
 
-/* Toggle Buttons Styling - Mobile Only */
-@media (max-width: 991px) {
+/* Toggle Buttons Styling - Mobile Only (Browser Responsive Mode Too) */
+@media (max-width: 991.98px) {
     .toggle-btns {
         display: flex;
         gap: 8px;
@@ -418,8 +429,8 @@
     color: #ffffff;
 }
 
-/* Mobile Search Toggle */
-@media (max-width: 991px) {
+/* Mobile Search Toggle - Works in Browser Responsive Mode */
+@media (max-width: 991.98px) {
     .search-wrap {
         display: none !important;
     }
@@ -805,6 +816,36 @@
                     closeMobileMenu();
                 }
             });
+        }
+        
+        // Close menu when window is resized to desktop size (Browser Responsive Mode)
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                if (window.innerWidth >= 992) {
+                    // Desktop view - close mobile menu if open
+                    if (mobileNavMenu && mobileNavMenu.classList.contains('show')) {
+                        closeMobileMenu();
+                    }
+                }
+            }, 100);
+        });
+        
+        // Check on page load if mobile view (Browser Responsive Mode)
+        function checkMobileView() {
+            return window.innerWidth < 992;
+        }
+        
+        // Initialize menu state based on viewport
+        if (checkMobileView()) {
+            // Mobile view - menu should be hidden by default
+            if (mobileNavMenu) {
+                mobileNavMenu.classList.remove('show');
+            }
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.classList.remove('show');
+            }
         }
         
         // Dynamic city loading based on country selection
