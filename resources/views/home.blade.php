@@ -54,10 +54,10 @@ body {
 }
 
 .featured-job-card {
-    background: #2772e8 !important;
-    border: none !important;
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
     border-radius: 12px !important;
-    box-shadow: 0 4px 12px rgba(39, 114, 232, 0.25) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     position: relative !important;
     overflow: hidden !important;
@@ -67,28 +67,17 @@ body {
     cursor: pointer !important;
 }
 
-.featured-job-card::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%) !important;
-    pointer-events: none !important;
-    z-index: 1 !important;
-}
-
 .featured-job-card:hover {
-    box-shadow: 0 8px 24px rgba(39, 114, 232, 0.4) !important;
-    transform: translateY(-6px) scale(1.02) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    transform: translateY(-4px) !important;
+    border-color: #cbd5e1 !important;
 }
 
 .job-card-header {
-    padding: 12px 14px 10px !important;
-    background: transparent !important;
+    padding: 14px 16px 12px !important;
+    background: #2772e8 !important;
     position: relative !important;
-    z-index: 2 !important;
+    border-radius: 12px 12px 0 0 !important;
 }
 
 .company-header {
@@ -99,11 +88,11 @@ body {
 }
 
 .company-logo {
-    width: 36px !important;
-    height: 36px !important;
+    width: 40px !important;
+    height: 40px !important;
     border-radius: 8px !important;
-    background: rgba(255, 255, 255, 0.95) !important;
-    border: 2px solid rgba(255, 255, 255, 0.5) !important;
+    background: #ffffff !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -112,8 +101,8 @@ body {
 }
 
 .company-logo img {
-    width: 24px !important;
-    height: 24px !important;
+    width: 28px !important;
+    height: 28px !important;
     object-fit: cover !important;
     filter: brightness(0) saturate(100%) invert(27%) sepia(87%) saturate(2837%) hue-rotate(230deg) brightness(95%) contrast(96%) !important;
 }
@@ -124,35 +113,33 @@ body {
 }
 
 .company-name h3 {
-    font-size: 11px !important;
-    color: rgba(255, 255, 255, 0.95) !important;
+    font-size: 13px !important;
+    color: #ffffff !important;
     margin: 0 !important;
-    line-height: 1.3 !important;
+    line-height: 1.4 !important;
     word-wrap: break-word !important;
-    letter-spacing: 0.1px !important;
+    letter-spacing: 0.2px !important;
     font-weight: 600 !important;
-    text-transform: uppercase !important;
 }
 
 .job-card-body {
-    padding: 10px 14px 12px !important;
+    padding: 14px 16px 12px !important;
     flex: 1 !important;
     display: flex !important;
     flex-direction: column !important;
-    background: transparent !important;
+    background: #ffffff !important;
     position: relative !important;
-    z-index: 2 !important;
 }
 
 .job-title {
-    margin-bottom: 8px !important;
+    margin-bottom: 10px !important;
 }
 
 .job-title a {
-    font-size: 13px !important;
-    color: #ffffff !important;
+    font-size: 15px !important;
+    color: #111827 !important;
     text-decoration: none !important;
-    line-height: 1.4 !important;
+    line-height: 1.5 !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 2 !important;
     -webkit-box-orient: vertical !important;
@@ -164,7 +151,7 @@ body {
 }
 
 .job-title a:hover {
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: #2772e8 !important;
     text-decoration: none !important;
 }
 
@@ -180,74 +167,70 @@ button svg{
 }
 
 .category-badge-top {
-    background: rgba(255, 255, 255, 0.25) !important;
+    background: #2772e8 !important;
     color: #ffffff !important;
-    font-size: 9px !important;
-    padding: 4px 8px !important;
-    border-radius: 4px !important;
+    font-size: 10px !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
     text-transform: uppercase !important;
     letter-spacing: 0.3px !important;
     border: none !important;
     display: inline-block !important;
     font-weight: 600 !important;
-    backdrop-filter: blur(10px) !important;
 }
 
 .meta-badge {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 4px !important;
-    padding: 3px 8px !important;
-    background: rgba(255, 255, 255, 0.15) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    border-radius: 4px !important;
-    font-size: 9px !important;
-    color: rgba(255, 255, 255, 0.95) !important;
+    gap: 5px !important;
+    padding: 4px 10px !important;
+    background: #f9fafb !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 5px !important;
+    font-size: 10px !important;
+    color: #6b7280 !important;
     transition: all 0.2s ease !important;
-    backdrop-filter: blur(10px) !important;
 }
 
 .meta-badge:hover {
-    background: rgba(255, 255, 255, 0.25) !important;
-    border-color: rgba(255, 255, 255, 0.3) !important;
+    background: #f3f4f6 !important;
+    border-color: #d1d5db !important;
 }
 
 .meta-badge span {
     font-weight: 600 !important;
-    color: #ffffff !important;
+    color: #374151 !important;
 }
 
 .location-info {
     display: flex !important;
     align-items: center !important;
     gap: 6px !important;
-    color: rgba(255, 255, 255, 0.9) !important;
-    font-size: 10px !important;
-    margin-bottom: 10px !important;
+    color: #6b7280 !important;
+    font-size: 11px !important;
+    margin-bottom: 12px !important;
 }
 
 .location-info img {
-    width: 12px !important;
-    height: 12px !important;
-    opacity: 0.9 !important;
-    filter: brightness(0) invert(1) !important;
+    width: 14px !important;
+    height: 14px !important;
+    opacity: 0.7 !important;
 }
 
 .job-card-footer {
-    padding: 10px 14px 12px !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 12px 16px 14px !important;
+    border-top: 1px solid #f3f4f6 !important;
     margin-top: auto !important;
-    background: transparent !important;
+    background: #ffffff !important;
     flex-shrink: 0 !important;
     position: relative !important;
-    z-index: 2 !important;
 }
 
 .price-ad {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    gap: 4px !important;
+    gap: 5px !important;
     flex-wrap: nowrap !important;
 }
 
@@ -257,10 +240,10 @@ button svg{
     display: flex !important;
     align-items: center !important;
     flex-wrap: nowrap !important;
-    gap: 3px !important;
-    font-size: 12px !important;
-    color: #ffffff !important;
-    line-height: 1.2 !important;
+    gap: 4px !important;
+    font-size: 14px !important;
+    color: #059669 !important;
+    line-height: 1.3 !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
@@ -268,22 +251,22 @@ button svg{
 }
 
 .price-ad p span.price-amount {
-    font-size: 12px !important;
-    color: #ffffff !important;
+    font-size: 14px !important;
+    color: #374151 !important;
     white-space: nowrap !important;
     font-weight: 700 !important;
 }
 
 .price-ad p span.price-period {
-    font-size: 10px !important;
+    font-size: 12px !important;
     font-weight: 500 !important;
-    color: rgba(255, 255, 255, 0.85) !important;
+    color: #6b7280 !important;
     white-space: nowrap !important;
 }
 
 .price-ad p span.price-negotiable {
-    font-size: 12px !important;
-    color: #ffffff !important;
+    font-size: 14px !important;
+    color: #007bff !important;
     white-space: nowrap !important;
     font-weight: 600 !important;
 }
