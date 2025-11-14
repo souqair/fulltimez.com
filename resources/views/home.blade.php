@@ -14,6 +14,29 @@ body {
 }
 
 /* Modern Compact Featured Jobs Design */
+.category-wrap.jobwrp .main_title {
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    text-align: center !important;
+    margin-bottom: 25px !important;
+    letter-spacing: -0.5px !important;
+    position: relative !important;
+    padding-bottom: 15px !important;
+}
+
+.category-wrap.jobwrp .main_title::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 60px !important;
+    height: 4px !important;
+    background: #2772e8 !important;
+    border-radius: 2px !important;
+}
+
 .featured-jobs-grid {
     padding: 15px 0 !important;
 }
