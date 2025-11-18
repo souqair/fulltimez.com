@@ -3,18 +3,20 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\JobPosting;
+use Illuminate\Support\Collection;
 
-class DailyJobAlerts extends Notification implements ShouldQueue
+class DailyJobAlerts extends Notification
 {
     use Queueable;
 
-    public function __construct(
-        public readonly array $jobs
-    ) {}
+    public Collection $jobs;
+
+    public function __construct(Collection $jobs)
+    {
+        $this->jobs = $jobs;
+    }
 
     public function via(object $notifiable): array
     {
@@ -24,22 +26,28 @@ class DailyJobAlerts extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         $mailMessage = (new MailMessage)
-            ->subject('New Job Opportunities - ' . now()->format('F j, Y'))
-            ->greeting('Hello ' . $notifiable->name . '!')
-            ->line('We found ' . count($this->jobs) . ' new job opportunities that might interest you:');
+            ->subject('Your Daily Job Alerts from FullTimez!')
+            ->greeting('Hello ' . $notifiable->name . ',')
+            ->line('Here are some new job postings that might interest you:');
 
-        // Add job listings
         foreach ($this->jobs as $job) {
-            $mailMessage->line('')
-                       ->line('**' . $job->title . '**')
-                       ->line('Company: ' . ($job->employer->employerProfile->company_name ?? 'N/A'))
-                       ->line('Location: ' . $job->location_city . ', ' . $job->location_country)
-                       ->line('Salary: ' . ($job->salary_range ?? 'Negotiable'))
-                       ->action('View Job', route('jobs.show', $job->slug));
+            $companyName = 'N/A';
+            if ($job->employer && $job->employer->employerProfile) {
+                $companyName = $job->employer->employerProfile->company_name ?? 'N/A';
+            }
+            
+            $location = trim(($job->location_city ?? '') . ', ' . ($job->location_country ?? ''), ', ');
+            $salary = $job->salary_min ? 'AED ' . number_format($job->salary_min) . ($job->salary_period ? '/' . $job->salary_period : '') : 'Negotiable';
+            
+            $mailMessage->line('**' . $job->title . '** at ' . $companyName)
+                       ->line('Location: ' . ($location ?: 'N/A'))
+                       ->line('Salary: ' . $salary)
+                       ->action('View Job', route('jobs.show', $job->slug))
+                       ->line('---');
         }
 
         $mailMessage->line('')
-                   ->line('Browse more jobs on FullTimez and find your perfect match!')
+                   ->line('Log in to your dashboard to explore more opportunities!')
                    ->action('Browse All Jobs', route('jobs.index'))
                    ->line('Thank you for using FullTimez!');
 
@@ -50,10 +58,10 @@ class DailyJobAlerts extends Notification implements ShouldQueue
     {
         return [
             'title' => 'New job opportunities',
-            'message' => 'We found ' . count($this->jobs) . ' new job opportunities for you.',
+            'message' => 'We found ' . $this->jobs->count() . ' new job opportunities for you.',
             'action_text' => 'Browse Jobs',
             'action_url' => route('jobs.index'),
-            'jobs_count' => count($this->jobs),
+            'jobs_count' => $this->jobs->count(),
         ];
     }
 }
