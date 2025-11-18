@@ -379,6 +379,10 @@ Route::middleware(['auth', 'verified', 'role:employer'])->prefix('employer')->na
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     
+    // Manual Daily Job Alerts
+    Route::get('/send-daily-job-alerts', [App\Http\Controllers\Admin\JobAlertController::class, 'sendDailyAlerts'])->name('send-daily-job-alerts');
+    Route::post('/send-daily-job-alerts', [App\Http\Controllers\Admin\JobAlertController::class, 'sendDailyAlerts'])->name('send-daily-job-alerts.post');
+    
     Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
     Route::get('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('users.show');
     Route::put('/users/{user}/status', [App\Http\Controllers\Admin\UserController::class, 'updateStatus'])->name('users.update-status');

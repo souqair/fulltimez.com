@@ -157,6 +157,37 @@
     </div>
 </div>
 
+<!-- Daily Job Alerts Section -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h5><i class="fas fa-envelope"></i> Daily Job Alerts</h5>
+            </div>
+            <div class="admin-card-body">
+                <p>Send daily job alerts to all registered job seekers manually.</p>
+                <form action="{{ route('admin.send-daily-job-alerts.post') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to send daily job alerts to all registered job seekers?')">
+                        <i class="fas fa-paper-plane"></i> Send Daily Job Alerts Now
+                    </button>
+                </form>
+                <p class="mt-3 text-muted">
+                    <small>
+                        <strong>Direct URL (GET):</strong> 
+                        <a href="{{ route('admin.send-daily-job-alerts') }}" target="_blank" class="text-primary">
+                            {{ route('admin.send-daily-job-alerts') }}
+                        </a>
+                        <br>
+                        <strong>Direct URL (POST):</strong> 
+                        <code>{{ route('admin.send-daily-job-alerts.post') }}</code>
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Pending Approvals Section -->
 <div class="row mt-4">
     <div class="col-12">

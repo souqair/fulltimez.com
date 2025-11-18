@@ -65,7 +65,7 @@ class SendDailyJobAlerts extends Command
 
         foreach ($users as $user) {
             try {
-                $user->notify(new DailyJobAlerts($newJobs->toArray()));
+                $user->notify(new DailyJobAlerts($newJobs));
                 $sentCount++;
                 
                 if ($sentCount % 10 == 0) {
