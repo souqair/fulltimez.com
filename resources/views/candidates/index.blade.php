@@ -259,7 +259,7 @@
                                 <!-- Rating -->
                                 <div class="candidate-rating">
                                     @php
-                                        $rating = 4.5;
+                                        $rating = 5;
                                     @endphp
                                     <div class="rating-stars">
                                         @for($i = 1; $i <= 5; $i++)
@@ -346,7 +346,7 @@
                                 <!-- Rating -->
                                 <div class="candidate-rating">
                                     @php
-                                        $rating = 4.5; // Default rating, you can calculate this based on reviews if you have them
+                                        $rating = 5; // Default rating, you can calculate this based on reviews if you have them
                                     @endphp
                                     <div class="rating-stars">
                                         @for($i = 1; $i <= 5; $i++)
@@ -520,7 +520,7 @@
 
 .candidate-rate {
     font-size: 16px;
-    color: #22c55e;
+    color: #000;
     margin: 0 0 8px 0;
     font-weight: 600;
 }

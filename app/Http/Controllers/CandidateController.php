@@ -133,7 +133,10 @@ class CandidateController extends Controller
             ->take(8)
             ->get();
 
-        // Get Recommended Resumes (not featured, but approved and verified)
+        // Get Featured candidate IDs to exclude from Recommended
+        $featuredCandidateIds = $featuredCandidates->pluck('id')->toArray();
+
+        // Get Recommended Resumes (not featured, but approved and verified, excluding featured ones)
         $recommendedCandidates = User::whereHas('role', function($q) {
                 $q->where('slug', 'seeker');
             })
@@ -141,6 +144,7 @@ class CandidateController extends Controller
             ->where('status', 'active')
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
+            ->whereNotIn('id', $featuredCandidateIds) // Exclude featured candidates
             ->whereHas('seekerProfile', function($q) {
                 $q->where('approval_status', 'approved')
                   ->where(function($subQ) {
