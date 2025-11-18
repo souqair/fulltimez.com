@@ -144,17 +144,26 @@ class CandidateController extends Controller
             ->where('status', 'active')
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
-            ->whereNotIn('id', $featuredCandidateIds) // Exclude featured candidates
             ->whereHas('seekerProfile', function($q) {
                 $q->where('approval_status', 'approved')
                   ->where(function($subQ) {
+                      // Only get non-featured OR featured but expired
                       $subQ->where('is_featured', false)
-                           ->orWhereNull('featured_expires_at')
-                           ->orWhere('featured_expires_at', '<=', now());
+                           ->orWhere(function($expiredQ) {
+                               $expiredQ->where('is_featured', true)
+                                       ->where(function($expQ) {
+                                           $expQ->whereNotNull('featured_expires_at')
+                                               ->where('featured_expires_at', '<=', now());
+                                       });
+                           });
                   })
                   ->whereNotNull('full_name')
                   ->whereNotNull('current_position')
                   ->whereNotNull('expected_salary');
+            })
+            ->when(!empty($featuredCandidateIds), function($q) use ($featuredCandidateIds) {
+                // Exclude featured candidates by ID (active featured ones)
+                $q->whereNotIn('id', $featuredCandidateIds);
             })
             ->orderBy('created_at', 'desc')
             ->take(6)
