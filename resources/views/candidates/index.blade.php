@@ -27,179 +27,9 @@
     <div class="container">
         <div class="main_title">Browse Candidates</div>
         
-        @if($featuredCandidates && $featuredCandidates->count() > 0)
-        <div class="featured-jobs-section-wrapper">
-            <div class="section-title">
-                <h2>Featured Resumes</h2>
-            </div>
-            <div class="featured-jobs-grid row g-4">
-                @foreach($featuredCandidates as $candidate)
-                @php
-                    $profile = $candidate->seekerProfile;
-                    $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
-                    $initial = strtoupper(mb_substr($displayName, 0, 1));
-                    $rawPhoto = $profile->profile_picture ?? null;
-                    $hasImage = false;
-                    $avatarPath = null;
-
-                    if ($rawPhoto) {
-                        if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
-                            $hasImage = true;
-                            $avatarPath = $rawPhoto;
-                        } else {
-                            $normalized = ltrim($rawPhoto, '/');
-                            if (file_exists(public_path($normalized))) {
-                                $hasImage = true;
-                                $avatarPath = asset($normalized);
-                            }
-                        }
-                    }
-                @endphp
-                <div class="col-lg-4 col-md-6 wow fadeInUp">
-                    <div class="featured-job-card">
-                        <div class="job-card-header">
-                            <div class="company-header">
-                                <div class="company-logo">
-                                    @if($hasImage)
-                                        <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="border-radius: 8px; object-fit: cover;">
-                                    @else
-                                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #2772e8; color: #ffffff; font-weight: 700; font-size: 18px; border-radius: 8px;">
-                                            {{ $initial }}
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="company-name">
-                                    <h3>{{ $displayName }}</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-card-body">
-                            <div class="job-title">
-                                <a href="{{ route('candidates.show', $candidate->id) }}">{{ $profile->current_position ?? 'Job Seeker' }}</a>
-                            </div>
-                            <div class="job-meta">
-                                <div class="category-badge-top">Featured</div>
-                                <div class="meta-badge">
-                                    Experience: <span>{{ $profile->experience_years ?? 'N/A' }}</span>
-                                </div>
-                                <div class="meta-badge">
-                                    Location: <span>{{ $profile->city ?? 'N/A' }}</span>
-                                </div>
-                            </div>
-                            <div class="location-info">
-                                <img src="{{ asset('images/location.svg') }}" alt="location">
-                                <span>{{ $profile->city ?? 'N/A' }}, {{ $profile->country ?? 'N/A' }}</span>
-                            </div>
-                        </div>
-                        <div class="job-card-footer">
-                            <div class="price-ad">
-                                <p>
-                                    @php
-                                        $salary = $profile->expected_salary ?? 'Negotiable';
-                                        if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
-                                            $amount = str_replace(',', '', $matches[1]);
-                                            echo '<span class="price-amount">AED ' . number_format((float)$amount) . '</span>';
-                                        } else {
-                                            echo '<span class="price-negotiable">' . $salary . '</span>';
-                                        }
-                                    @endphp
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-        @endif
-
-        @if($recommendedCandidates && $recommendedCandidates->count() > 0)
-        <div class="mt-4 mb-3 d-flex justify-content-between align-items-center">
-            <strong>Recommended Resumes</strong>
-        </div>
-        <div class="recommended-jobs-grid row g-4">
-            @foreach($recommendedCandidates as $candidate)
-            @php
-                $profile = $candidate->seekerProfile;
-                $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
-                $initial = strtoupper(mb_substr($displayName, 0, 1));
-                $rawPhoto = $profile->profile_picture ?? null;
-                $hasImage = false;
-                $avatarPath = null;
-
-                if ($rawPhoto) {
-                    if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
-                        $hasImage = true;
-                        $avatarPath = $rawPhoto;
-                    } else {
-                        $normalized = ltrim($rawPhoto, '/');
-                        if (file_exists(public_path($normalized))) {
-                            $hasImage = true;
-                            $avatarPath = asset($normalized);
-                        }
-                    }
-                }
-            @endphp
-            <div class="col-lg-4 col-md-6 wow fadeInUp">
-                <div class="featured-job-card">
-                    <div class="job-card-header">
-                        <div class="company-header">
-                            <div class="company-logo">
-                                @if($hasImage)
-                                    <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="border-radius: 8px; object-fit: cover;">
-                                @else
-                                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #2772e8; color: #ffffff; font-weight: 700; font-size: 18px; border-radius: 8px;">
-                                        {{ $initial }}
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="company-name">
-                                <h3>{{ $displayName }}</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="job-card-body">
-                        <div class="job-title">
-                            <a href="{{ route('candidates.show', $candidate->id) }}">{{ $profile->current_position ?? 'Job Seeker' }}</a>
-                        </div>
-                        <div class="job-meta">
-                            <div class="category-badge-top">Recommended</div>
-                            <div class="meta-badge">
-                                Experience: <span>{{ $profile->experience_years ?? 'N/A' }}</span>
-                            </div>
-                            <div class="meta-badge">
-                                Location: <span>{{ $profile->city ?? 'N/A' }}</span>
-                            </div>
-                        </div>
-                        <div class="location-info">
-                            <img src="{{ asset('images/location.svg') }}" alt="location">
-                            <span>{{ $profile->city ?? 'N/A' }}, {{ $profile->country ?? 'N/A' }}</span>
-                        </div>
-                    </div>
-                    <div class="job-card-footer">
-                        <div class="price-ad">
-                            <p>
-                                @php
-                                    $salary = $profile->expected_salary ?? 'Negotiable';
-                                    if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
-                                        $amount = str_replace(',', '', $matches[1]);
-                                        echo '<span class="price-amount">AED ' . number_format((float)$amount) . '</span>';
-                                    } else {
-                                        echo '<span class="price-negotiable">' . $salary . '</span>';
-                                    }
-                                @endphp
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-        @endif
-        
         <div class="row">
             <!-- Sidebar Filters -->
-            <div class="col-lg-3 fadeInLeft">
+            <div class="col-lg-3 fadeInLeft d-none d-lg-block">
                 <div class="filters">
                     <h3>Filters</h3>
                     
@@ -288,12 +118,183 @@
                 </div>
             </div>
 
-            <!-- Candidates Grid -->
+            <!-- Main Content -->
             <div class="col-lg-9 fadeInLeft">
-                <div class="candidates-grid-wrapper">
-                    <div class="mb-3">
-                        <strong>{{ $candidates->total() }} candidates found</strong>
+                <div class="cate_list m-0">
+                    @if($featuredCandidates && $featuredCandidates->count() > 0)
+                    <div class="featured-jobs-section-wrapper">
+                        <div class="section-title">
+                            <h2>Featured Resumes</h2>
+                        </div>
+                        <div class="featured-jobs-grid row g-4">
+                            @foreach($featuredCandidates as $candidate)
+                            @php
+                                $profile = $candidate->seekerProfile;
+                                $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
+                                $initial = strtoupper(mb_substr($displayName, 0, 1));
+                                $rawPhoto = $profile->profile_picture ?? null;
+                                $hasImage = false;
+                                $avatarPath = null;
+
+                                if ($rawPhoto) {
+                                    if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
+                                        $hasImage = true;
+                                        $avatarPath = $rawPhoto;
+                                    } else {
+                                        $normalized = ltrim($rawPhoto, '/');
+                                        if (file_exists(public_path($normalized))) {
+                                            $hasImage = true;
+                                            $avatarPath = asset($normalized);
+                                        }
+                                    }
+                                }
+                            @endphp
+                            <div class="col-lg-4 col-md-6 wow fadeInUp">
+                                <div class="featured-job-card">
+                                    <div class="job-card-header">
+                                        <div class="company-header">
+                                            <div class="company-logo">
+                                                @if($hasImage)
+                                                    <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="border-radius: 8px; object-fit: cover;">
+                                                @else
+                                                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #2772e8; color: #ffffff; font-weight: 700; font-size: 18px; border-radius: 8px;">
+                                                        {{ $initial }}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div class="company-name">
+                                                <h3>{{ $displayName }}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="job-card-body">
+                                        <div class="job-title">
+                                            <a href="{{ route('candidates.show', $candidate->id) }}">{{ $profile->current_position ?? 'Job Seeker' }}</a>
+                                        </div>
+                                        <div class="job-meta">
+                                            <div class="category-badge-top">Featured</div>
+                                            <div class="meta-badge">
+                                                Experience: <span>{{ $profile->experience_years ?? 'N/A' }}</span>
+                                            </div>
+                                            <div class="meta-badge">
+                                                Location: <span>{{ $profile->city ?? 'N/A' }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="location-info">
+                                            <img src="{{ asset('images/location.svg') }}" alt="location">
+                                            <span>{{ $profile->city ?? 'N/A' }}, {{ $profile->country ?? 'N/A' }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-card-footer">
+                                        <div class="price-ad">
+                                            <p>
+                                                @php
+                                                    $salary = $profile->expected_salary ?? 'Negotiable';
+                                                    if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
+                                                        $amount = str_replace(',', '', $matches[1]);
+                                                        echo '<span class="price-amount">AED ' . number_format((float)$amount) . '</span>';
+                                                    } else {
+                                                        echo '<span class="price-negotiable">' . $salary . '</span>';
+                                                    }
+                                                @endphp
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
+                    @endif
+
+                    @if($recommendedCandidates && $recommendedCandidates->count() > 0)
+                    <div class="mt-4 mb-3 d-flex justify-content-between align-items-center">
+                        <strong>Recommended Resumes</strong>
+                    </div>
+                    <div class="recommended-jobs-grid row g-4">
+                        @foreach($recommendedCandidates as $candidate)
+                        @php
+                            $profile = $candidate->seekerProfile;
+                            $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
+                            $initial = strtoupper(mb_substr($displayName, 0, 1));
+                            $rawPhoto = $profile->profile_picture ?? null;
+                            $hasImage = false;
+                            $avatarPath = null;
+
+                            if ($rawPhoto) {
+                                if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
+                                    $hasImage = true;
+                                    $avatarPath = $rawPhoto;
+                                } else {
+                                    $normalized = ltrim($rawPhoto, '/');
+                                    if (file_exists(public_path($normalized))) {
+                                        $hasImage = true;
+                                        $avatarPath = asset($normalized);
+                                    }
+                                }
+                            }
+                        @endphp
+                        <div class="col-lg-4 col-md-6 wow fadeInUp">
+                            <div class="featured-job-card">
+                                <div class="job-card-header">
+                                    <div class="company-header">
+                                        <div class="company-logo">
+                                            @if($hasImage)
+                                                <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="border-radius: 8px; object-fit: cover;">
+                                            @else
+                                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #2772e8; color: #ffffff; font-weight: 700; font-size: 18px; border-radius: 8px;">
+                                                    {{ $initial }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="company-name">
+                                            <h3>{{ $displayName }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="job-card-body">
+                                    <div class="job-title">
+                                        <a href="{{ route('candidates.show', $candidate->id) }}">{{ $profile->current_position ?? 'Job Seeker' }}</a>
+                                    </div>
+                                    <div class="job-meta">
+                                        <div class="category-badge-top">Recommended</div>
+                                        <div class="meta-badge">
+                                            Experience: <span>{{ $profile->experience_years ?? 'N/A' }}</span>
+                                        </div>
+                                        <div class="meta-badge">
+                                            Location: <span>{{ $profile->city ?? 'N/A' }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="location-info">
+                                        <img src="{{ asset('images/location.svg') }}" alt="location">
+                                        <span>{{ $profile->city ?? 'N/A' }}, {{ $profile->country ?? 'N/A' }}</span>
+                                    </div>
+                                </div>
+                                <div class="job-card-footer">
+                                    <div class="price-ad">
+                                        <p>
+                                            @php
+                                                $salary = $profile->expected_salary ?? 'Negotiable';
+                                                if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
+                                                    $amount = str_replace(',', '', $matches[1]);
+                                                    echo '<span class="price-amount">AED ' . number_format((float)$amount) . '</span>';
+                                                } else {
+                                                    echo '<span class="price-negotiable">' . $salary . '</span>';
+                                                }
+                                            @endphp
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    @endif
+
+                    <div class="candidates-grid-wrapper">
+                        <div class="mb-3">
+                            <strong>{{ $candidates->total() }} candidates found</strong>
+                        </div>
                     
                     <div class="candidates-grid">
                         @forelse($candidates as $candidate)
@@ -386,6 +387,7 @@
                         {{ $candidates->links() }}
                     </div>
                     @endif
+                    </div>
                 </div>
             </div>
         </div>
