@@ -385,6 +385,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     
     Route::get('/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
     Route::get('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('users.show');
+    Route::post('/users/bulk-approve', [App\Http\Controllers\Admin\UserController::class, 'bulkApprove'])->name('users.bulk-approve');
     Route::put('/users/{user}/status', [App\Http\Controllers\Admin\UserController::class, 'updateStatus'])->name('users.update-status');
     Route::post('/users/{user}/reset-password', [App\Http\Controllers\Admin\UserController::class, 'resetPassword'])->name('users.reset-password');
     Route::post('/users/{user}/approve-employer', [App\Http\Controllers\Admin\UserController::class, 'approveEmployer'])->name('users.approve-employer');

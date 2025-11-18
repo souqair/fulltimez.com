@@ -209,6 +209,76 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Resume rejected successfully.');
     }
 
+    /**
+     * Bulk approve users
+     */
+    public function bulkApprove(Request $request)
+    {
+        $request->validate([
+            'user_ids' => 'required|array',
+            'user_ids.*' => 'exists:users,id',
+        ]);
+
+        $userIds = $request->user_ids;
+        $approvedCount = 0;
+        $failedCount = 0;
+
+        foreach ($userIds as $userId) {
+            try {
+                $user = User::findOrFail($userId);
+                
+                // Skip admins
+                if ($user->isAdmin()) {
+                    continue;
+                }
+
+                if ($user->isSeeker() && $user->seekerProfile) {
+                    // Approve seeker
+                    $profile = $user->seekerProfile;
+                    $wasAlreadyApproved = $profile->approval_status === 'approved';
+
+                    $profile->update([
+                        'verification_status' => 'verified',
+                        'approval_status' => 'approved'
+                    ]);
+                    $user->update(['is_approved' => true]);
+
+                    if (!$wasAlreadyApproved) {
+                        $user->notify(new ResumeApproved());
+                    }
+
+                    try {
+                        $user->notify(new \App\Notifications\AccountApproved('seeker'));
+                    } catch (\Exception $e) {
+                        \Log::error('Failed to send approval email to seeker: ' . $e->getMessage());
+                    }
+                } elseif ($user->isEmployer() && $user->employerProfile) {
+                    // Approve employer
+                    $user->employerProfile->update(['verification_status' => 'verified']);
+                    $user->update(['is_approved' => true]);
+
+                    try {
+                        $user->notify(new \App\Notifications\AccountApproved('employer'));
+                    } catch (\Exception $e) {
+                        \Log::error('Failed to send approval email to employer: ' . $e->getMessage());
+                    }
+                }
+
+                $approvedCount++;
+            } catch (\Exception $e) {
+                $failedCount++;
+                \Log::error('Failed to approve user ' . $userId . ': ' . $e->getMessage());
+            }
+        }
+
+        $message = "Successfully approved {$approvedCount} user(s).";
+        if ($failedCount > 0) {
+            $message .= " {$failedCount} user(s) failed to approve.";
+        }
+
+        return redirect()->back()->with('success', $message);
+    }
+
     protected function clearResumeReapprovalNotifications(User $user): void
     {
         $adminRole = Role::where('slug', 'admin')->first();

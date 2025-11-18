@@ -98,6 +98,13 @@
                     </li>
                     
                     <li class="nav-item">
+                        <a href="{{ route('admin.users.index', ['status' => 'pending']) }}" class="nav-link {{ request()->routeIs('admin.users.*') && request('status') == 'pending' ? 'active' : '' }}">
+                            <i class="fas fa-clock"></i>
+                            <span>Pending Approvals</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
                         <a href="{{ route('admin.categories.index') }}" class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                             <i class="fas fa-tags"></i>
                             <span>Job Categories</span>

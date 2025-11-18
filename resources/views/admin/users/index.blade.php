@@ -99,11 +99,40 @@
                             </div>
                         </div>
 
-    <!-- Users Grid -->
-    <div class="row g-4">
-                                    @forelse($users as $user)
-        <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="user-card">
+    <!-- Bulk Actions & Users Grid -->
+    <form id="bulkApproveForm" action="{{ route('admin.users.bulk-approve') }}" method="POST">
+        @csrf
+        @if(request('status') == 'pending' || !request()->has('status'))
+        <div class="admin-card mb-4">
+            <div class="admin-card-body">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="selectAllUsers">
+                            <label class="form-check-label" for="selectAllUsers">
+                                <strong>Select All</strong>
+                            </label>
+                        </div>
+                        <span class="text-muted" id="selectedCount">0 selected</span>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success" id="bulkApproveBtn" disabled>
+                            <i class="fas fa-check-circle"></i> Approve Selected
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+        <div class="row g-4">
+                                        @forelse($users as $user)
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="user-card">
+                    @if((request('status') == 'pending' || !request()->has('status')) && !$user->isAdmin())
+                    <div class="user-card-checkbox">
+                        <input type="checkbox" class="form-check-input user-checkbox" name="user_ids[]" value="{{ $user->id }}" id="user_{{ $user->id }}">
+                    </div>
+                    @endif
                 <div class="user-card-header">
                     <div class="user-avatar-wrapper">
                         @if($user->isSeeker() && $user->seekerProfile && $user->seekerProfile->profile_picture)
@@ -364,6 +393,7 @@
         </div>
                                     @endforelse
                         </div>
+    </form>
 
     <!-- Pagination -->
         <div class="row mt-4">
@@ -662,6 +692,25 @@
     border-top: 1px solid #e9ecef;
 }
 
+/* User Card Checkbox */
+.user-card {
+    position: relative;
+}
+
+.user-card-checkbox {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+}
+
+.user-card-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #2772e8;
+}
+
 /* Empty State */
 .empty-state {
     text-align: center;
@@ -699,5 +748,77 @@
     margin-left: 0;
 }
 </style>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAllCheckbox = document.getElementById('selectAllUsers');
+    const userCheckboxes = document.querySelectorAll('.user-checkbox');
+    const bulkApproveBtn = document.getElementById('bulkApproveBtn');
+    const selectedCount = document.getElementById('selectedCount');
+    const bulkApproveForm = document.getElementById('bulkApproveForm');
+    
+    // Select All functionality
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', function() {
+            userCheckboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+            updateSelectedCount();
+        });
+    }
+    
+    // Individual checkbox change
+    userCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            updateSelectedCount();
+            updateSelectAllState();
+        });
+    });
+    
+    // Update selected count
+    function updateSelectedCount() {
+        const checked = document.querySelectorAll('.user-checkbox:checked').length;
+        if (selectedCount) {
+            selectedCount.textContent = checked + ' selected';
+        }
+        if (bulkApproveBtn) {
+            bulkApproveBtn.disabled = checked === 0;
+        }
+    }
+    
+    // Update select all checkbox state
+    function updateSelectAllState() {
+        if (selectAllCheckbox && userCheckboxes.length > 0) {
+            const allChecked = Array.from(userCheckboxes).every(cb => cb.checked);
+            const someChecked = Array.from(userCheckboxes).some(cb => cb.checked);
+            selectAllCheckbox.checked = allChecked;
+            selectAllCheckbox.indeterminate = someChecked && !allChecked;
+        }
+    }
+    
+    // Bulk approve form submission
+    if (bulkApproveForm) {
+        bulkApproveForm.addEventListener('submit', function(e) {
+            const checked = document.querySelectorAll('.user-checkbox:checked');
+            if (checked.length === 0) {
+                e.preventDefault();
+                alert('Please select at least one user to approve.');
+                return false;
+            }
+            
+            if (!confirm(`Are you sure you want to approve ${checked.length} selected user(s)?`)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+    
+    // Initialize
+    updateSelectedCount();
+    updateSelectAllState();
+});
+</script>
+@endpush
 
 @endsection
