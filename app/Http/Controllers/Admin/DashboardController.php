@@ -26,12 +26,35 @@ class DashboardController extends Controller
             'pending_jobs' => JobPosting::where('status', 'draft')->orWhere('status', 'pending')->count(),
             'total_applications' => JobApplication::count(),
             'pending_applications' => JobApplication::where('status', 'pending')->count(),
-            'pending_users' => User::where('is_approved', false)
-                ->orWhereHas('seekerProfile', function($q) {
-                    $q->where('approval_status', 'pending');
+            'pending_users' => User::whereHas('role', function($q) {
+                    // Exclude admins
+                    $q->where('slug', '!=', 'admin');
                 })
-                ->orWhereHas('employerProfile', function($q) {
-                    $q->where('approval_status', 'pending');
+                ->where(function($q) {
+                    // Show users who are inactive OR not approved OR have pending profile approval
+                    $q->where('status', 'inactive')
+                      ->orWhere('is_approved', false)
+                      ->orWhereHas('seekerProfile', function($sq) {
+                          $sq->where('approval_status', 'pending');
+                      })
+                      ->orWhereHas('employerProfile', function($eq) {
+                          $eq->where('approval_status', 'pending');
+                      });
+                })
+                // Exclude fully approved users: active + approved + profile approved
+                ->where(function($q) {
+                    $q->where('status', '!=', 'active')
+                      ->orWhere('is_approved', false)
+                      ->orWhere(function($subQ) {
+                          $subQ->whereHas('seekerProfile', function($sq) {
+                              $sq->where('approval_status', '!=', 'approved');
+                          })
+                          ->orWhereHas('employerProfile', function($eq) {
+                              $eq->where('approval_status', '!=', 'approved');
+                          })
+                          ->orWhereDoesntHave('seekerProfile')
+                          ->orWhereDoesntHave('employerProfile');
+                      });
                 })
                 ->count(),
             'pending_documents' => EmployerDocument::where('status', 'pending')->count(),

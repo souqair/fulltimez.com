@@ -503,6 +503,9 @@ class CVController extends Controller
             // Set approval_status to pending when CV is updated (mandatory re-approval)
             $profileData['approval_status'] = 'pending';
             
+            // Set user status to inactive when CV is changed
+            $user->update(['status' => 'inactive']);
+            
             $user->seekerProfile()->update($profileData);
             
             // Notify all admins if CV was previously approved and now needs re-approval
@@ -709,6 +712,8 @@ class CVController extends Controller
 
         if ($profile->approval_status !== 'pending') {
             $profile->approval_status = 'pending';
+            // Set user status to inactive when CV is changed
+            $user->update(['status' => 'inactive']);
         }
 
         if (empty($profile->verification_status)) {

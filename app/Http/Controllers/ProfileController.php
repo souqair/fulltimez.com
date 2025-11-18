@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Notifications\UserActionNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class ProfileController extends Controller
 {
@@ -142,16 +143,19 @@ class ProfileController extends Controller
                 }
             }
 
-            // If profile was changed, CV uploaded, or picture uploaded, set approval_status to pending
+            // If profile was changed, CV uploaded, or picture uploaded, set approval_status to pending and user status to inactive
             if ($profileDataChanged || $request->hasFile('cv_file') || $request->hasFile('profile_picture')) {
                 $profileData['approval_status'] = 'pending';
+                // Set user status to inactive when profile/CV is changed
+                $user->update(['status' => 'inactive']);
             }
 
             if ($user->seekerProfile) {
                 $user->seekerProfile()->update($profileData);
             } else {
-                // New profile - default to pending
+                // New profile - default to pending and inactive
                 $profileData['approval_status'] = 'pending';
+                $user->update(['status' => 'inactive']);
                 $user->seekerProfile()->create($profileData);
             }
         }
@@ -272,9 +276,22 @@ class ProfileController extends Controller
                 $profileDataChanged = true;
             }
 
+            // If employer profile was changed, set approval_status to pending and user status to inactive
+            if ($profileDataChanged || $request->hasFile('profile_picture') || $request->hasFile('company_logo')) {
+                if (Schema::hasColumn('employer_profiles', 'approval_status')) {
+                    $profileData['approval_status'] = 'pending';
+                }
+                // Set user status to inactive when profile is changed
+                $user->update(['status' => 'inactive']);
+            }
+
             if ($user->employerProfile) {
                 $user->employerProfile()->update($profileData);
             } else {
+                if (Schema::hasColumn('employer_profiles', 'approval_status')) {
+                    $profileData['approval_status'] = 'pending';
+                }
+                $user->update(['status' => 'inactive']);
                 $user->employerProfile()->create($profileData);
             }
         }

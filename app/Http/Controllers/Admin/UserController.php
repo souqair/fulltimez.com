@@ -25,14 +25,37 @@ class UserController extends Controller
 
         if ($request->has('status') && $request->status != '') {
             if ($request->status === 'pending') {
-                // Show pending users (not approved OR has pending profile approval)
-                $query->where(function($q) {
-                    $q->where('is_approved', false)
+                // Show only pending/inactive users
+                // Exclude admins and fully approved users
+                $query->whereHas('role', function($q) {
+                    // Exclude admins
+                    $q->where('slug', '!=', 'admin');
+                })
+                ->where(function($q) {
+                    // Show users who are inactive OR not approved OR have pending profile approval
+                    $q->where('status', 'inactive')
+                      ->orWhere('is_approved', false)
                       ->orWhereHas('seekerProfile', function($sq) {
                           $sq->where('approval_status', 'pending');
                       })
                       ->orWhereHas('employerProfile', function($eq) {
                           $eq->where('approval_status', 'pending');
+                      });
+                })
+                // Exclude fully approved users: active + approved + profile approved
+                ->where(function($q) {
+                    $q->where('status', '!=', 'active')
+                      ->orWhere('is_approved', false)
+                      ->orWhere(function($subQ) {
+                          // Profile not approved or doesn't exist
+                          $subQ->whereHas('seekerProfile', function($sq) {
+                              $sq->where('approval_status', '!=', 'approved');
+                          })
+                          ->orWhereHas('employerProfile', function($eq) {
+                              $eq->where('approval_status', '!=', 'approved');
+                          })
+                          ->orWhereDoesntHave('seekerProfile')
+                          ->orWhereDoesntHave('employerProfile');
                       });
                 });
             } else {
