@@ -24,7 +24,20 @@ class UserController extends Controller
         }
 
         if ($request->has('status') && $request->status != '') {
-            $query->where('status', $request->status);
+            if ($request->status === 'pending') {
+                // Show pending users (not approved OR has pending profile approval)
+                $query->where(function($q) {
+                    $q->where('is_approved', false)
+                      ->orWhereHas('seekerProfile', function($sq) {
+                          $sq->where('approval_status', 'pending');
+                      })
+                      ->orWhereHas('employerProfile', function($eq) {
+                          $eq->where('approval_status', 'pending');
+                      });
+                });
+            } else {
+                $query->where('status', $request->status);
+            }
         }
 
         if ($request->has('search') && $request->search != '') {

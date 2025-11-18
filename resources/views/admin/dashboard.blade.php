@@ -219,7 +219,7 @@
                             <div class="pending-content">
                                 <h4>{{ $stats['pending_users'] }}</h4>
                                 <p>Pending Users</p>
-                                <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('admin.users.index', ['status' => 'pending']) }}" class="btn btn-sm btn-primary">
                                     <i class="fas fa-eye"></i> View All
                                 </a>
                             </div>
