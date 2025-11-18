@@ -110,6 +110,52 @@ class CandidateController extends Controller
 
         $candidates = $query->latest()->paginate(12)->withQueryString();
 
+        // Get Featured Resumes (featured, approved, and verified seekers with complete profiles)
+        $featuredCandidates = User::whereHas('role', function($q) {
+                $q->where('slug', 'seeker');
+            })
+            ->with('seekerProfile')
+            ->where('status', 'active')
+            ->where('is_approved', true)
+            ->whereNotNull('email_verified_at')
+            ->whereHas('seekerProfile', function($q) {
+                $q->where('approval_status', 'approved')
+                  ->where('is_featured', true)
+                  ->where(function($subQ) {
+                      $subQ->whereNull('featured_expires_at')
+                           ->orWhere('featured_expires_at', '>', now());
+                  })
+                  ->whereNotNull('full_name')
+                  ->whereNotNull('current_position')
+                  ->whereNotNull('expected_salary');
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
+
+        // Get Recommended Resumes (not featured, but approved and verified)
+        $recommendedCandidates = User::whereHas('role', function($q) {
+                $q->where('slug', 'seeker');
+            })
+            ->with('seekerProfile')
+            ->where('status', 'active')
+            ->where('is_approved', true)
+            ->whereNotNull('email_verified_at')
+            ->whereHas('seekerProfile', function($q) {
+                $q->where('approval_status', 'approved')
+                  ->where(function($subQ) {
+                      $subQ->where('is_featured', false)
+                           ->orWhereNull('featured_expires_at')
+                           ->orWhere('featured_expires_at', '<=', now());
+                  })
+                  ->whereNotNull('full_name')
+                  ->whereNotNull('current_position')
+                  ->whereNotNull('expected_salary');
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
+
         // Get countries and cities for filter dropdowns
         $countries = Country::where('is_active', true)->orderBy('name')->get();
         $cities = City::where('is_active', true)
@@ -121,7 +167,7 @@ class CandidateController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('candidates.index', compact('candidates', 'countries', 'cities'));
+        return view('candidates.index', compact('candidates', 'featuredCandidates', 'recommendedCandidates', 'countries', 'cities'));
     }
 
     public function show($id)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\JobPosting;
 use App\Models\JobApplication;
+use App\Models\EmployerDocument;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -22,9 +23,18 @@ class DashboardController extends Controller
             })->count(),
             'total_jobs' => JobPosting::count(),
             'published_jobs' => JobPosting::where('status', 'published')->count(),
-            'pending_jobs' => JobPosting::where('status', 'draft')->count(),
+            'pending_jobs' => JobPosting::where('status', 'draft')->orWhere('status', 'pending')->count(),
             'total_applications' => JobApplication::count(),
             'pending_applications' => JobApplication::where('status', 'pending')->count(),
+            'pending_users' => User::where('is_approved', false)
+                ->orWhereHas('seekerProfile', function($q) {
+                    $q->where('approval_status', 'pending');
+                })
+                ->orWhereHas('employerProfile', function($q) {
+                    $q->where('approval_status', 'pending');
+                })
+                ->count(),
+            'pending_documents' => EmployerDocument::where('status', 'pending')->count(),
         ];
 
         $recent_users = User::with('role')->latest()->take(5)->get();

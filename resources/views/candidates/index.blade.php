@@ -26,6 +26,177 @@
 <section class="category-wrap innerseeker popular-items mt-5">
     <div class="container">
         <div class="main_title">Browse Candidates</div>
+        
+        @if($featuredCandidates && $featuredCandidates->count() > 0)
+        <!-- Featured Resumes Section -->
+        <section class="featured-resumes-section mt-4 mb-4">
+            <div class="featured-resumes-header">
+                <h2 class="featured-resumes-title">FEATURED RESUMES</h2>
+                <p class="featured-resumes-subtitle">Top featured candidates ready to join your team</p>
+            </div>
+            
+            <div class="featured-resumes-carousel-wrapper">
+                <ul class="owl-carousel jobs_list featured-resumes-carousel">
+                    @foreach($featuredCandidates as $candidate)
+                    @php
+                        $profile = $candidate->seekerProfile;
+                        $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
+                        $initial = strtoupper(mb_substr($displayName, 0, 1));
+                        $rawPhoto = $profile->profile_picture ?? null;
+                        $hasImage = false;
+                        $avatarPath = null;
+
+                        if ($rawPhoto) {
+                            if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
+                                $hasImage = true;
+                                $avatarPath = $rawPhoto;
+                            } else {
+                                $normalized = ltrim($rawPhoto, '/');
+                                if (file_exists(public_path($normalized))) {
+                                    $hasImage = true;
+                                    $avatarPath = asset($normalized);
+                                }
+                            }
+                        }
+                    @endphp
+                    <li class="item">
+                        <div class="featured-candidate-card">
+                            <div class="featured-badge">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            
+                            <div class="candidate-profile-picture">
+                                @if($hasImage)
+                                    <img src="{{ $avatarPath }}" alt="{{ $displayName }}">
+                                @else
+                                    <div class="candidate-avatar-default">
+                                        {{ $initial }}
+                                    </div>
+                                @endif
+                            </div>
+                            
+                            <div class="candidate-card-body">
+                                <h5 class="candidate-name">{{ $displayName }}</h5>
+                                
+                                <div class="candidate-rate">
+                                    @php
+                                        $salary = $profile->expected_salary ?? 'Negotiable';
+                                        if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
+                                            $amount = str_replace(',', '', $matches[1]);
+                                            echo 'AED ' . number_format((float)$amount);
+                                        } else {
+                                            echo $salary;
+                                        }
+                                    @endphp
+                                </div>
+                                
+                                <p class="candidate-profession">{{ $profile->current_position ?? 'Job Seeker' }}</p>
+                                
+                                <div class="candidate-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ $profile->city ?? 'N/A' }}, {{ $profile->country ?? 'N/A' }}</span>
+                                </div>
+                                
+                                <div class="candidate-rating">
+                                    <span class="rating-stars">★★★★★</span>
+                                    <span class="rating-value">4.5</span>
+                                </div>
+                                
+                                <a href="{{ route('candidates.show', $candidate->id) }}" class="btn btn-primary btn-sm w-100 mt-3">
+                                    <i class="fas fa-user"></i> View Profile
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+        </section>
+        @endif
+
+        @if($recommendedCandidates && $recommendedCandidates->count() > 0)
+        <!-- Recommended Resumes Section -->
+        <section class="recommended-resumes-section mt-4 mb-4">
+            <div class="recommended-resumes-header">
+                <h2 class="recommended-resumes-title">RECOMMENDED RESUMES</h2>
+                <p class="recommended-resumes-subtitle">Handpicked candidates matching your requirements</p>
+            </div>
+            
+            <div class="recommended-resumes-carousel-wrapper">
+                <ul class="owl-carousel jobs_list recommended-resumes-carousel">
+                    @foreach($recommendedCandidates as $candidate)
+                    @php
+                        $profile = $candidate->seekerProfile;
+                        $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
+                        $initial = strtoupper(mb_substr($displayName, 0, 1));
+                        $rawPhoto = $profile->profile_picture ?? null;
+                        $hasImage = false;
+                        $avatarPath = null;
+
+                        if ($rawPhoto) {
+                            if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
+                                $hasImage = true;
+                                $avatarPath = $rawPhoto;
+                            } else {
+                                $normalized = ltrim($rawPhoto, '/');
+                                if (file_exists(public_path($normalized))) {
+                                    $hasImage = true;
+                                    $avatarPath = asset($normalized);
+                                }
+                            }
+                        }
+                    @endphp
+                    <li class="item">
+                        <div class="featured-candidate-card">
+                            <div class="candidate-profile-picture">
+                                @if($hasImage)
+                                    <img src="{{ $avatarPath }}" alt="{{ $displayName }}">
+                                @else
+                                    <div class="candidate-avatar-default">
+                                        {{ $initial }}
+                                    </div>
+                                @endif
+                            </div>
+                            
+                            <div class="candidate-card-body">
+                                <h5 class="candidate-name">{{ $displayName }}</h5>
+                                
+                                <div class="candidate-rate">
+                                    @php
+                                        $salary = $profile->expected_salary ?? 'Negotiable';
+                                        if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
+                                            $amount = str_replace(',', '', $matches[1]);
+                                            echo 'AED ' . number_format((float)$amount);
+                                        } else {
+                                            echo $salary;
+                                        }
+                                    @endphp
+                                </div>
+                                
+                                <p class="candidate-profession">{{ $profile->current_position ?? 'Job Seeker' }}</p>
+                                
+                                <div class="candidate-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ $profile->city ?? 'N/A' }}, {{ $profile->country ?? 'N/A' }}</span>
+                                </div>
+                                
+                                <div class="candidate-rating">
+                                    <span class="rating-stars">★★★★★</span>
+                                    <span class="rating-value">4.5</span>
+                                </div>
+                                
+                                <a href="{{ route('candidates.show', $candidate->id) }}" class="btn btn-primary btn-sm w-100 mt-3">
+                                    <i class="fas fa-user"></i> View Profile
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+        </section>
+        @endif
+        
         <div class="row">
             <!-- Sidebar Filters -->
             <div class="col-lg-3 fadeInLeft">
@@ -529,7 +700,109 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Featured & Recommended Resumes Sections */
+.featured-resumes-section,
+.recommended-resumes-section {
+    margin: 40px 0;
+}
+
+.featured-resumes-header,
+.recommended-resumes-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.featured-resumes-title,
+.recommended-resumes-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.featured-resumes-subtitle,
+.recommended-resumes-subtitle {
+    font-size: 16px;
+    color: #718096;
+    margin: 0;
+}
+
+.featured-resumes-carousel-wrapper,
+.recommended-resumes-carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.featured-resumes-carousel .featured-candidate-card,
+.recommended-resumes-carousel .featured-candidate-card {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+@media (max-width: 991.98px) {
+    .featured-resumes-carousel .featured-candidate-card,
+    .recommended-resumes-carousel .featured-candidate-card {
+        max-width: 100%;
+    }
+}
+
+.rating-value {
+    font-size: 14px;
+    color: #4a5568;
+    font-weight: 600;
+}
 </style>
+@push('scripts')
+<script>
+$(document).ready(function() {
+    // Initialize Featured Resumes Carousel
+    if ($('.featured-resumes-carousel').length) {
+        $('.featured-resumes-carousel').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            responsive: {
+                0: { items: 1 },
+                480: { items: 2 },
+                768: { items: 3 },
+                992: { items: 4 },
+                1200: { items: 4 }
+            },
+            navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>']
+        });
+    }
+
+    // Initialize Recommended Resumes Carousel
+    if ($('.recommended-resumes-carousel').length) {
+        $('.recommended-resumes-carousel').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            responsive: {
+                0: { items: 1 },
+                480: { items: 2 },
+                768: { items: 3 },
+                992: { items: 3 },
+                1200: { items: 3 }
+            },
+            navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>']
+        });
+    }
+});
+</script>
+@endpush
 
 <script>
 // Dynamic city loading based on country selection

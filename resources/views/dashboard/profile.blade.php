@@ -503,7 +503,8 @@
                                     <input type="hidden" id="cropped_image_data" name="cropped_image_data">
                                     <input type="file" id="profile_picture" name="profile_picture" style="display: none;">
                                 </div>
-                                <div class="col-lg-6">
+                                {{-- Resume upload hidden to prevent saving issues --}}
+                                {{-- <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Upload CV</label>
                                         <input type="file" name="cv_file" class="form-control @error('cv_file') is-invalid @enderror" accept=".pdf,.doc,.docx">
@@ -517,7 +518,7 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         @endif

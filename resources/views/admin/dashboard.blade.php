@@ -3,6 +3,61 @@
 @section('title', 'Admin Dashboard')
 @section('page-title', 'Dashboard')
 
+@push('styles')
+<style>
+.pending-approval-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s;
+}
+
+.pending-approval-item:hover {
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.pending-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2773e8 0%, #1e5bb8 100%);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.pending-content {
+    flex: 1;
+}
+
+.pending-content h4 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0 0 5px 0;
+}
+
+.pending-content p {
+    font-size: 14px;
+    color: #718096;
+    margin: 0 0 10px 0;
+}
+
+.pending-content .btn {
+    margin-top: 8px;
+}
+</style>
+@endpush
+
 @section('content')
 <div class="row">
     <div class="col-xl-3 col-md-6 mb-4">
@@ -97,6 +152,77 @@
             <div class="stat-content">
                 <h3>{{ $stats['pending_applications'] }}</h3>
                 <p>Pending Apps</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pending Approvals Section -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h5><i class="fas fa-clock"></i> Pending Approvals</h5>
+            </div>
+            <div class="admin-card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="pending-approval-item">
+                            <div class="pending-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="pending-content">
+                                <h4>{{ $stats['pending_jobs'] }}</h4>
+                                <p>Pending Jobs</p>
+                                <a href="{{ route('admin.jobs.index', ['status' => 'pending']) }}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-eye"></i> View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="pending-approval-item">
+                            <div class="pending-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="pending-content">
+                                <h4>{{ $stats['pending_users'] }}</h4>
+                                <p>Pending Users</p>
+                                <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-eye"></i> View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="pending-approval-item">
+                            <div class="pending-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="pending-content">
+                                <h4>{{ $stats['pending_documents'] }}</h4>
+                                <p>Pending Documents</p>
+                                <a href="{{ route('admin.documents.index', ['status' => 'pending']) }}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-eye"></i> View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="pending-approval-item">
+                            <div class="pending-icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                            <div class="pending-content">
+                                <h4>{{ $stats['pending_applications'] }}</h4>
+                                <p>Pending Applications</p>
+                                <a href="{{ route('admin.applications.index', ['status' => 'pending']) }}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-eye"></i> View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

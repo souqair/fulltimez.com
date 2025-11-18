@@ -28,6 +28,126 @@
     border-bottom: 2px solid #f3f4f6;
 }
 
+.share-job-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.share-job-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.share-job-btn:hover {
+    background: #e5e7eb;
+    color: #111827;
+    transform: translateY(-1px);
+}
+
+.share-social-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.share-social-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    color: #374151;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.share-social-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.share-social-btn.facebook:hover {
+    background: #1877f2;
+    color: #ffffff;
+    border-color: #1877f2;
+}
+
+.share-social-btn.twitter:hover {
+    background: #1da1f2;
+    color: #ffffff;
+    border-color: #1da1f2;
+}
+
+.share-social-btn.linkedin:hover {
+    background: #0077b5;
+    color: #ffffff;
+    border-color: #0077b5;
+}
+
+.share-social-btn.whatsapp:hover {
+    background: #25d366;
+    color: #ffffff;
+    border-color: #25d366;
+}
+
+.share-social-btn.email:hover {
+    background: #2773e8;
+    color: #ffffff;
+    border-color: #2773e8;
+}
+
+.copy-link-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #10b981;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.copy-link-toast.show {
+    display: flex;
+    animation: slideInUp 0.3s ease;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 .job-title-section h1 {
     font-size: 32px;
     font-weight: 700;
@@ -370,6 +490,50 @@
                     <p><i class="fas fa-map-marker-alt"></i> {{ $job->location_city }}, {{ $job->location_country }}</p>
                 </div>
             </div>
+            
+            <!-- Share Job Section -->
+            <div class="share-job-section">
+                <button type="button" class="share-job-btn" onclick="copyJobLink()">
+                    <i class="fas fa-link"></i> Copy Job Link
+                </button>
+                <div class="share-social-buttons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('jobs.show', $job->slug)) }}" 
+                       target="_blank" 
+                       class="share-social-btn facebook" 
+                       title="Share on Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('jobs.show', $job->slug)) }}&text={{ urlencode($job->title) }}" 
+                       target="_blank" 
+                       class="share-social-btn twitter" 
+                       title="Share on Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('jobs.show', $job->slug)) }}" 
+                       target="_blank" 
+                       class="share-social-btn linkedin" 
+                       title="Share on LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://wa.me/?text={{ urlencode($job->title . ' - ' . route('jobs.show', $job->slug)) }}" 
+                       target="_blank" 
+                       class="share-social-btn whatsapp" 
+                       title="Share on WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:?subject={{ urlencode($job->title) }}&body={{ urlencode('Check out this job: ' . route('jobs.show', $job->slug)) }}" 
+                       class="share-social-btn email" 
+                       title="Share via Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copy Link Toast -->
+        <div id="copyLinkToast" class="copy-link-toast">
+            <i class="fas fa-check-circle"></i>
+            <span>Job link copied to clipboard!</span>
         </div>
         
         <div class="row">
@@ -574,5 +738,64 @@
     </div>
     @endif
 @endauth
+
+@push('scripts')
+<script>
+function copyJobLink() {
+    const jobUrl = '{{ route('jobs.show', $job->slug) }}';
+    
+    // Create a temporary input element
+    const tempInput = document.createElement('input');
+    tempInput.value = jobUrl;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999); // For mobile devices
+    
+    try {
+        // Copy to clipboard
+        document.execCommand('copy');
+        
+        // Show toast notification
+        const toast = document.getElementById('copyLinkToast');
+        toast.classList.add('show');
+        
+        // Hide toast after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    } catch (err) {
+        console.error('Failed to copy:', err);
+        // Fallback: show URL in alert
+        alert('Job Link:\n' + jobUrl);
+    }
+    
+    // Remove temporary input
+    document.body.removeChild(tempInput);
+}
+
+// Modern clipboard API fallback
+if (navigator.clipboard) {
+    const originalCopyJobLink = copyJobLink;
+    copyJobLink = async function() {
+        try {
+            await navigator.clipboard.writeText('{{ route('jobs.show', $job->slug) }}');
+            
+            // Show toast notification
+            const toast = document.getElementById('copyLinkToast');
+            toast.classList.add('show');
+            
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        } catch (err) {
+            // Fallback to original method
+            originalCopyJobLink();
+        }
+    };
+}
+</script>
+@endpush
+
 @endsection
 
