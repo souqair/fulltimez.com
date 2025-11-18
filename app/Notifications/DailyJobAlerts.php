@@ -38,11 +38,12 @@ class DailyJobAlerts extends Notification
             
             $location = trim(($job->location_city ?? '') . ', ' . ($job->location_country ?? ''), ', ');
             $salary = $job->salary_min ? 'AED ' . number_format($job->salary_min) . ($job->salary_period ? '/' . $job->salary_period : '') : 'Negotiable';
+            $jobUrl = route('jobs.show', $job->slug);
             
             $mailMessage->line('**' . $job->title . '** at ' . $companyName)
                        ->line('Location: ' . ($location ?: 'N/A'))
                        ->line('Salary: ' . $salary)
-                       ->action('View Job', route('jobs.show', $job->slug))
+                       ->line('<a href="' . $jobUrl . '" style="color: #2772e8; text-decoration: underline; font-weight: bold;">View Job Details →</a>')
                        ->line('---');
         }
 
