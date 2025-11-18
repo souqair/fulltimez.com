@@ -179,7 +179,7 @@
                                     <!-- Rating -->
                                     <div class="candidate-rating">
                                         @php
-                                            $rating = 4.5;
+                                            $rating = 5;
                                         @endphp
                                         <div class="rating-stars">
                                             @for($i = 1; $i <= 5; $i++)
@@ -261,17 +261,7 @@
                                     @php
                                         $rating = 5;
                                     @endphp
-                                    <div class="rating-stars">
-                                        @for($i = 1; $i <= 5; $i++)
-                                            @if($i <= floor($rating))
-                                                <i class="fas fa-star"></i>
-                                            @elseif($i - 0.5 <= $rating)
-                                                <i class="fas fa-star-half-alt"></i>
-                                            @else
-                                                <i class="far fa-star"></i>
-                                            @endif
-                                        @endfor
-                                    </div>
+                                   
                                     <span class="rating-number">{{ number_format($rating, 1) }}</span>
                                 </div>
                             </div>
