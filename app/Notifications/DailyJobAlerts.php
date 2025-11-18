@@ -43,7 +43,7 @@ class DailyJobAlerts extends Notification
             $mailMessage->line('**' . $job->title . '** at ' . $companyName)
                        ->line('Location: ' . ($location ?: 'N/A'))
                        ->line('Salary: ' . $salary)
-                       ->line('<a href="' . $jobUrl . '" style="color: #2772e8; text-decoration: underline; font-weight: bold;">View Job Details →</a>')
+                       ->line('View Job: ' . $jobUrl)
                        ->line('---');
         }
 
