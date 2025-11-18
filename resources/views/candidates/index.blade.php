@@ -396,6 +396,14 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 24px;
     padding: 20px 0;
+    justify-items: center;
+}
+
+/* Web/Desktop - Fixed Width */
+@media (min-width: 992px) {
+    .featured-candidate-card {
+        width: 280px !important;
+    }
 }
 
 .featured-candidate-card {
@@ -408,6 +416,8 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    width: 280px;
+    margin: 0 auto;
 }
 
 .featured-candidate-card:hover {
@@ -667,17 +677,14 @@
     cursor: not-allowed;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 991.98px) {
     .candidates-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-template-columns: 1fr;
         gap: 20px;
     }
-}
-
-@media (max-width: 768px) {
-    .candidates-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 16px;
+    
+    .featured-candidate-card {
+        width: 100% !important;
     }
     
     .candidate-profile-picture img,
@@ -689,12 +696,6 @@
     
     .candidate-name {
         font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .candidates-grid {
-        grid-template-columns: 1fr;
     }
 }
 
