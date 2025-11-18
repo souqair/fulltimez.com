@@ -208,11 +208,29 @@
                     @endif
 
                     @if($recommendedCandidates && $recommendedCandidates->count() > 0)
+                    @php
+                        // Get Featured candidate IDs to exclude from Recommended display
+                        $featuredCandidateIds = $featuredCandidates ? $featuredCandidates->pluck('id')->toArray() : [];
+                    @endphp
                     <div class="mt-4 mb-3 d-flex justify-content-between align-items-center">
                         <strong>Recommended Resumes</strong>
                     </div>
                     <div class="candidates-grid">
                         @foreach($recommendedCandidates as $candidate)
+                        @php
+                            // Skip if candidate is in Featured section
+                            if (in_array($candidate->id, $featuredCandidateIds)) {
+                                continue;
+                            }
+                            // Also check if candidate is currently featured (double check)
+                            $isCurrentlyFeatured = $candidate->seekerProfile && 
+                                $candidate->seekerProfile->is_featured && 
+                                ($candidate->seekerProfile->featured_expires_at === null || 
+                                 $candidate->seekerProfile->featured_expires_at > now());
+                            if ($isCurrentlyFeatured) {
+                                continue;
+                            }
+                        @endphp
                         <div class="featured-candidate-card">
                             <!-- Favorite Icon -->
                             <div class="favorite-icon">
@@ -256,14 +274,7 @@
                                     <span>{{ $candidate->seekerProfile->city ?? 'UAE' }}, {{ $candidate->seekerProfile->country ?? 'UAE' }}</span>
                                 </div>
                                 
-                                <!-- Rating -->
-                                <div class="candidate-rating">
-                                    @php
-                                        $rating = 5;
-                                    @endphp
-                                   
-                                    <span class="rating-number">{{ number_format($rating, 1) }}</span>
-                                </div>
+                              
                             </div>
                             
                             <!-- Action Buttons -->
