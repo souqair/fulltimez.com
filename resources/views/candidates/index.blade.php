@@ -394,7 +394,7 @@
 .candidates-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
+    gap: 10px;
     padding: 20px 0;
     justify-items: center;
 }
@@ -680,7 +680,7 @@
 @media (max-width: 991.98px) {
     .candidates-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 10px;
     }
     
     .featured-candidate-card {
