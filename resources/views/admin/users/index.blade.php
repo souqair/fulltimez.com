@@ -804,6 +804,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (bulkApproveForm) {
         bulkApproveForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             
             const checked = document.querySelectorAll('.user-checkbox:checked');
             if (checked.length === 0) {
@@ -831,8 +832,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            // Submit form
-            this.submit();
+            // Ensure form method is POST
+            this.method = 'POST';
+            
+            // Create a new form to submit
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = this.action;
+            
+            // Add CSRF token
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = document.querySelector('input[name="_token"]').value;
+            form.appendChild(csrfInput);
+            
+            // Add user IDs
+            userIds.forEach(userId => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'user_ids[]';
+                input.value = userId;
+                form.appendChild(input);
+            });
+            
+            // Append to body and submit
+            document.body.appendChild(form);
+            form.submit();
         });
     }
     
