@@ -99,12 +99,13 @@
                             </div>
                         </div>
 
-    <!-- Bulk Actions & Users Grid -->
-    <form id="bulkApproveForm" action="{{ route('admin.users.bulk-approve') }}" method="POST">
-        @csrf
-        @if(request('status') == 'pending' || !request()->has('status'))
-        <div class="admin-card mb-4">
-            <div class="admin-card-body">
+    <!-- Bulk Actions -->
+    @if(request('status') == 'pending' || !request()->has('status'))
+    <div class="admin-card mb-4">
+        <div class="admin-card-body">
+            <form id="bulkApproveForm" action="{{ route('admin.users.bulk-approve') }}" method="POST">
+                @csrf
+                <div id="bulkApproveCheckboxes" style="display: none;"></div>
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                     <div class="d-flex align-items-center gap-3">
                         <div class="form-check">
@@ -121,16 +122,19 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-        @endif
-        <div class="row g-4">
+    </div>
+    @endif
+
+    <!-- Users Grid -->
+    <div class="row g-4">
                                         @forelse($users as $user)
             <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="user-card">
                     @if((request('status') == 'pending' || !request()->has('status')) && !$user->isAdmin())
                     <div class="user-card-checkbox">
-                        <input type="checkbox" class="form-check-input user-checkbox" name="user_ids[]" value="{{ $user->id }}" id="user_{{ $user->id }}">
+                        <input type="checkbox" class="form-check-input user-checkbox" name="user_ids[]" value="{{ $user->id }}" id="user_{{ $user->id }}" form="bulkApproveForm">
                     </div>
                     @endif
                 <div class="user-card-header">
@@ -393,7 +397,6 @@
         </div>
                                     @endforelse
                         </div>
-    </form>
 
     <!-- Pagination -->
         <div class="row mt-4">
@@ -800,17 +803,36 @@ document.addEventListener('DOMContentLoaded', function() {
     // Bulk approve form submission
     if (bulkApproveForm) {
         bulkApproveForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
             const checked = document.querySelectorAll('.user-checkbox:checked');
             if (checked.length === 0) {
-                e.preventDefault();
                 alert('Please select at least one user to approve.');
                 return false;
             }
             
             if (!confirm(`Are you sure you want to approve ${checked.length} selected user(s)?`)) {
-                e.preventDefault();
                 return false;
             }
+            
+            // Collect checked user IDs
+            const userIds = Array.from(checked).map(cb => cb.value);
+            
+            // Create hidden inputs for selected user IDs
+            const checkboxesContainer = document.getElementById('bulkApproveCheckboxes');
+            if (checkboxesContainer) {
+                checkboxesContainer.innerHTML = '';
+                userIds.forEach(userId => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'user_ids[]';
+                    input.value = userId;
+                    checkboxesContainer.appendChild(input);
+                });
+            }
+            
+            // Submit form
+            this.submit();
         });
     }
     
