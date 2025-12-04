@@ -67,7 +67,7 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     position: relative !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
@@ -78,6 +78,10 @@ body {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
     transform: translateY(-4px) !important;
     border-color: #cbd5e1 !important;
+}
+
+.featured-job-card a:hover {
+    color: #2772e8 !important;
 }
 
 .job-card-header {
@@ -1468,7 +1472,27 @@ button svg{
     }
     
     .hero-search-bar {
-        padding: 20px !important;
+        padding: 16px !important;
+    }
+    
+    .hero-search-bar .row.g-0 > div {
+        border-right: none !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        border-radius: 0 !important;
+    }
+    
+    .hero-search-bar .row.g-0 > div:first-child {
+        border-radius: 12px 12px 0 0 !important;
+    }
+    
+    .hero-search-bar .row.g-0 > div:last-child {
+        border-bottom: none !important;
+        border-radius: 0 0 12px 12px !important;
+    }
+    
+    .hero-search-bar .row.g-0 > div button {
+        border-radius: 0 0 12px 12px !important;
+        width: 100% !important;
     }
     
     .stat-number {
@@ -1526,26 +1550,26 @@ button svg{
         <!-- Hero Search Bar -->
         <div class="row">
             <div class="col-12">
-                <div class="hero-search-bar" style="background: #f8f9fa; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); max-width: 1000px; margin: 0 auto;">
+                <div class="hero-search-bar" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); max-width: 1100px; margin: 0 auto;">
                     <form action="{{ route('jobs.index') }}" method="GET" class="hero-search-form">
-                        <div class="row g-3 align-items-end">
-                            <div class="col-md-4">
-                                <label class="form-label" style="font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px;">
-                                    <i class="fas fa-building" style="margin-right: 6px; color: #6b7280;"></i>Job Title
-                                </label>
-                                <input type="text" class="form-control" name="title" placeholder="e.g. Developer, Designer" value="{{ request('title') }}" style="padding: 14px 16px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 15px;">
+                        <div class="row g-0 align-items-center" style="background: #ffffff; border-radius: 12px;">
+                            <div class="col-md-4" style="position: relative;">
+                                <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 10; color: #6b7280;">
+                                    <i class="fas fa-building" style="font-size: 16px;"></i>
+                                </div>
+                                <input type="text" class="form-control" name="title" placeholder="e.g. Developer, Designer" value="{{ request('title') }}" style="padding: 16px 16px 16px 45px; border: none; border-right: 1px solid #e5e7eb; border-radius: 12px 0 0 12px; font-size: 15px; background: transparent;">
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label" style="font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px;">
-                                    <i class="fas fa-map-marker-alt" style="margin-right: 6px; color: #6b7280;"></i>Location
-                                </label>
-                                <input type="text" class="form-control" name="location" placeholder="City or Country" value="{{ request('location') }}" style="padding: 14px 16px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 15px;">
+                            <div class="col-md-4" style="position: relative;">
+                                <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 10; color: #6b7280;">
+                                    <i class="fas fa-map-marker-alt" style="font-size: 16px;"></i>
+                                </div>
+                                <input type="text" class="form-control" name="location" placeholder="City or Country" value="{{ request('location') }}" style="padding: 16px 16px 16px 45px; border: none; border-right: 1px solid #e5e7eb; font-size: 15px; background: transparent;">
                             </div>
-                            <div class="col-md-3">
-                                <label class="form-label" style="font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 14px;">
-                                    <i class="fas fa-briefcase" style="margin-right: 6px; color: #6b7280;"></i>Category
-                                </label>
-                                <select class="form-control" name="category" style="padding: 14px 16px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 15px;">
+                            <div class="col-md-3" style="position: relative;">
+                                <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 10; color: #6b7280;">
+                                    <i class="fas fa-briefcase" style="font-size: 16px;"></i>
+                                </div>
+                                <select class="form-control" name="category" style="padding: 16px 16px 16px 45px; border: none; border-right: 1px solid #e5e7eb; font-size: 15px; background: transparent; appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%236b7280\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><polyline points=\'6 9 12 15 18 9\'></polyline></svg>'); background-repeat: no-repeat; background-position: right 16px center; background-size: 16px; padding-right: 40px;">
                                     <option value="">All Categories</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -1553,8 +1577,8 @@ button svg{
                                 </select>
                             </div>
                             <div class="col-md-1">
-                                <button type="submit" class="btn btn-primary w-100" style="padding: 14px; background: #1a1a1a; border: none; border-radius: 8px; color: #ffffff; font-weight: 600; height: 100%;">
-                                    <i class="fas fa-search"></i>
+                                <button type="submit" class="btn btn-primary w-100" style="padding: 16px; background: #1a1a1a; border: none; border-radius: 0 12px 12px 0; color: #ffffff; font-weight: 600; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-search" style="font-size: 18px;"></i>
                                 </button>
                             </div>
                         </div>
@@ -1623,48 +1647,63 @@ button svg{
             <ul class="owl-carousel jobs_list featured-jobs-carousel">
             @foreach($featuredJobs as $job)
             <li class="item wow fadeInUp">
-                  <div class="featured-job-card">
-                     <div class="job-card-header">
-                        <div class="company-header">
-                           <div class="company-logo">
-                              <img src="{{ asset('images/job.svg') }}" alt="company-logo">
-                        </div>
-                           <div class="company-name">
-                              <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</h3>
+                  <div class="featured-job-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column; position: relative;">
+                     <!-- Category Badge at Top Right -->
+                     <div style="position: absolute; top: 20px; right: 20px;">
+                        <span style="display: inline-block; padding: 6px 12px; background: #f3f4f6; color: #374151; border-radius: 6px; font-size: 12px; font-weight: 600; text-transform: uppercase;">
+                           {{ optional($job->category)->name ?? 'N/A' }}
+                        </span>
+                     </div>
+                     
+                     <!-- Building Icon at Top Left -->
+                     <div style="margin-bottom: 16px;">
+                        <div style="width: 48px; height: 48px; background: #f3f4f6; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                           <i class="fas fa-building" style="font-size: 24px; color: #6b7280;"></i>
                         </div>
                      </div>
-                  </div>
-                     <div class="job-card-body">
-                        <div class="job-title">
-                           <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
-                        </div>
-                        <div class="job-meta">
-                           <div class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</div>
-                           <div class="meta-badge">
-                              Type: <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span>
+                     
+                     <!-- Job Title -->
+                     <div style="margin-bottom: 12px;">
+                        <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: #1a1a1a; line-height: 1.4;">
+                           <a href="{{ route('jobs.show', $job->slug) }}" style="color: #1a1a1a; text-decoration: none;">{{ $job->title }}</a>
+                        </h3>
                      </div>
-                           <div class="meta-badge">
-                              Experience: <span>{{ $job->experience_years ?? 'N/A' }}</span>
-                     </div>
-                        </div>
-                        <div class="location-info">
-                           <img src="{{ asset('images/location.svg') }}" alt="location">
-                           <span>{{ $job->location_city }}</span>
-                        </div>
-                     </div>
-                     <div class="job-card-footer">
-                     <div class="price-ad">
-                        <p>
-                            @if(!empty($job->salary_min) && !empty($job->salary_max))
-                                  <span class="price-amount">{{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}</span>
-                                  <span class="price-period">/ {{ ucfirst($job->salary_period ?? 'monthly') }}</span>
-                            @else
-                                  <span class="price-negotiable">Negotiable</span>
-                            @endif
+                     
+                     <!-- Company Name -->
+                     <div style="margin-bottom: 16px;">
+                        <p style="margin: 0; font-size: 15px; color: #6b7280; font-weight: 500;">
+                           {{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
                         </p>
                      </div>
+                     
+                     <!-- Location -->
+                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #6b7280; font-size: 14px;">
+                        <i class="fas fa-map-marker-alt" style="font-size: 14px;"></i>
+                        <span>{{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}</span>
+                     </div>
+                     
+                     <!-- Employment Type and Experience -->
+                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px; color: #6b7280; font-size: 14px;">
+                        <i class="far fa-clock" style="font-size: 14px;"></i>
+                        <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience</span>
+                     </div>
+                     
+                     <!-- Salary -->
+                     <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid #f3f4f6;">
+                        <div style="display: flex; flex-direction: column;">
+                           @if(!empty($job->salary_min) && !empty($job->salary_max))
+                              <span style="font-size: 18px; font-weight: 700; color: #1a1a1a;">
+                                 {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
+                              </span>
+                              <span style="font-size: 13px; color: #6b7280; margin-top: 2px;">
+                                 / {{ ucfirst($job->salary_period ?? 'Monthly') }}
+                              </span>
+                           @else
+                              <span style="font-size: 16px; font-weight: 600; color: #6b7280;">Negotiable</span>
+                           @endif
+                        </div>
+                     </div>
                   </div>
-               </div>
             </li>
             @endforeach
          </ul>
@@ -2215,3 +2254,4 @@ $(document).ready(function() {
 </style>
 @endpush
 @endsection
+

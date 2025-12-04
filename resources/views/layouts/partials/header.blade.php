@@ -774,7 +774,6 @@
                 <div class="col-lg-6">
                     <nav class="top-nav">
                         <ul class="tabs">
-                            <li class="tab"><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
                             <li class="tab"><a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">Browse Jobs</a></li>
                             <li class="tab"><a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">Browse Resumes</a></li>
                             <li class="tab"><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact Us</a></li>
@@ -784,19 +783,21 @@
 
                 <!-- Desktop Auth Links -->
                 <div class="col-lg-3">
-                    <div class="d-flex gap-2 justify-content-end">
-                        <div class="auth-buttons">
-                            @auth
-                            <a href="{{ route('dashboard') }}" class="auth-btn dashboard-btn">Dashboard</a>
-                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                                @csrf
-                                <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="auth-btn logout-btn">Logout</a>
-                            </form>
-                            @else
-                            <div class="login"><a href="{{ route('login') }}">Login</a></div>
-                            <div class="login"><a href="{{ route('choose.role') }}">Register</a></div>
-                            @endauth
-                        </div>
+                    <div class="d-flex gap-2 justify-content-end align-items-center">
+                        @auth
+                        <a href="{{ route('dashboard') }}" class="auth-btn dashboard-btn">Dashboard</a>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="auth-btn logout-btn">Logout</a>
+                        </form>
+                        @else
+                        <a href="{{ route('login') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #1a1a1a; text-decoration: none; font-size: 14px; font-weight: 500; padding: 8px 16px;">
+                            <i class="fas fa-user" style="font-size: 14px;"></i> Login
+                        </a>
+                        <a href="{{ route('choose.role') }}" style="display: inline-block; background: #1a1a1a; color: #ffffff; padding: 10px 24px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.3s ease;">
+                            Get Started
+                        </a>
+                        @endauth
                     </div>
                 </div>
             </div>
