@@ -1,221 +1,4 @@
 <style>
-/* Header CSS - Simple Design from home.html */
-header { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 20px 60px; 
-    background: #fff;
-}
-
-header .logo {
-    font-weight: 700;
-    font-size: 18px;
-    color: #000;
-}
-
-header .logo a {
-    color: #000;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-}
-
-header .logo img {
-    max-height: 30px;
-    vertical-align: middle;
-}
-
-header nav {
-    display: flex;
-    align-items: center;
-}
-
-header nav a {
-    text-decoration: none; 
-    color: #000; 
-    margin: 0 15px; 
-    font-size: 14px;
-}
-
-header > div:last-child {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-header > div:last-child a {
-    text-decoration: none; 
-    color: #000; 
-    margin: 0 15px; 
-    font-size: 14px;
-}
-
-.btn-small { 
-    background: #000; 
-    color: #fff; 
-    padding: 6px 14px; 
-    border-radius: 6px; 
-    font-size: 12px;
-    text-decoration: none;
-    margin: 0;
-}
-
-/* Mobile Header */
-.mobile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background: #fff;
-}
-
-.mobile-logo img {
-    max-height: 30px;
-}
-
-.mobile-header-btn {
-    background: transparent;
-    border: none;
-    font-size: 24px;
-    color: #000;
-    cursor: pointer;
-    padding: 5px;
-}
-
-/* Mobile Menu */
-.mobile-menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    display: none;
-}
-
-.mobile-menu-overlay.active {
-    display: block;
-}
-
-.mobile-nav-menu {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    max-width: 80%;
-    height: 100%;
-    background: #fff;
-    z-index: 1000;
-    transition: right 0.3s ease;
-    overflow-y: auto;
-}
-
-.mobile-nav-menu.active {
-    right: 0;
-}
-
-.mobile-nav-menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid #eee;
-}
-
-.mobile-menu-close {
-    background: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #000;
-}
-
-.mobile-nav-menu-content {
-    padding: 20px 0;
-}
-
-.mobile-nav-menu-content a {
-    display: block;
-    padding: 15px 20px;
-    color: #000;
-    text-decoration: none;
-    font-size: 16px;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.mobile-nav-menu-content a:hover {
-    background: #f8f8f8;
-}
-
-.mobile-nav-menu-content hr {
-    margin: 10px 0;
-    border: none;
-    border-top: 1px solid #eee;
-}
-
-.mobile-auth-btn {
-    display: block;
-    padding: 12px 20px;
-    margin: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.mobile-auth-btn.login-btn {
-    background: #f0f0f0;
-    color: #000;
-}
-
-.mobile-auth-btn.register-btn {
-    background: #000;
-    color: #fff;
-}
-
-.mobile-auth-btn.dashboard-btn {
-    background: #22c55e;
-    color: #fff;
-}
-
-.mobile-auth-btn.logout-btn {
-    background: #dc3545;
-    color: #fff;
-}
-
-/* Responsive Header */
-@media (max-width: 991px) {
-    header {
-        padding: 15px 20px;
-    }
-    
-    header nav a,
-    header > div:last-child a {
-        margin: 0 10px;
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 768px) {
-    header {
-        padding: 12px 15px;
-    }
-    
-    header nav a,
-    header > div:last-child a {
-        margin: 0 8px;
-        font-size: 12px;
-    }
-    
-    .btn-small {
-        padding: 5px 12px;
-        font-size: 11px;
-    }
-}
-
 /* Top Navigation Menu Styling - Simple */
 .top-nav {
     padding: 8px 6px 10px; !implements
@@ -973,42 +756,48 @@ header > div:last-child a {
 }
 </style>
 
-<!-- Desktop Header - Simple Design -->
-<header class="desktop-header d-none d-lg-block">
-    <div class="logo">
-        <a href="{{ route('home') }}">
-            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez">
+<!-- Desktop Header - Only shows on desktop -->
+<header class="desktop-header d-none d-lg-block" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; background: #fff;">
+    <div class="logo" style="font-weight: 700; font-size: 18px; color: #000;">
+        <a href="{{ route('home') }}" style="color: #000; text-decoration: none;">
+            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez" style="max-height: 30px; vertical-align: middle;">
         </a>
     </div>
-    <nav>
-        <a href="{{ route('jobs.index') }}">Browse Jobs</a>
-        <a href="{{ route('candidates.index') }}">Browse Resumes</a>
-        <a href="{{ route('contact') }}">Contact Us</a>
+    <nav style="display: flex; align-items: center;">
+        <a href="{{ route('jobs.index') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Browse Jobs</a>
+        <a href="{{ route('candidates.index') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Browse Resumes</a>
+        <a href="{{ route('contact') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Contact Us</a>
     </nav>
-    <div>
+    <div style="display: flex; align-items: center; gap: 15px;">
         @auth
-        <a href="{{ route('dashboard') }}">Dashboard</a>
+        <a href="{{ route('dashboard') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Dashboard</a>
         <form action="{{ route('logout') }}" method="POST" style="display: inline;">
             @csrf
-            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
+            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Logout</a>
         </form>
         @else
-        <a href="{{ route('login') }}">Login</a>
-        <a href="{{ route('choose.role') }}" class="btn-small">Get Started</a>
+        <a href="{{ route('login') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Login</a>
+        <a href="{{ route('choose.role') }}" class="btn-small" style="background: #000; color: #fff; padding: 6px 14px; border-radius: 6px; font-size: 12px; text-decoration: none; margin: 0;">Get Started</a>
         @endauth
     </div>
 </header>
 
-<!-- Mobile Header - Simple Design -->
+<!-- Mobile Header - Only shows on mobile -->
 <div class="mobile-header d-lg-none">
-    <div class="mobile-logo">
-        <a href="{{ route('home') }}">
-            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez">
-        </a>
+    <div class="container-fluid py-3" style="padding-left: 15px; padding-right: 15px;">
+        <div class="mobile-header-inner">
+            <div class="mobile-logo">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo">
+                </a>
+            </div>
+            <div class="mobile-header-buttons">
+                <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
     </div>
-    <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
-        <i class="fa-solid fa-bars"></i>
-    </button>
 </div>
 
 <!-- Mobile Menu Overlay -->
@@ -1040,7 +829,7 @@ header > div:last-child a {
         <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">
             <i class="fa-solid fa-chart-line"></i> Dashboard
         </a>
-        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); closeMobileMenu();" class="mobile-auth-btn logout-btn">
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mobile-auth-btn logout-btn">
             <i class="fa-solid fa-sign-out-alt"></i> Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -1059,53 +848,4 @@ header > div:last-child a {
 </div>
 
 </div>
-
-<!-- Simple Mobile Menu JavaScript -->
-<script>
-function closeMobileMenu() {
-    const mobileNavMenu = document.getElementById('mobileNavMenu');
-    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-    if (mobileNavMenu) mobileNavMenu.classList.remove('active');
-    if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const mobileNavMenu = document.getElementById('mobileNavMenu');
-    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-    const mobileMenuClose = document.getElementById('mobileMenuClose');
-
-    if (mobileMenuToggle) {
-        mobileMenuToggle.addEventListener('click', function() {
-            if (mobileNavMenu) mobileNavMenu.classList.add('active');
-            if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    }
-
-    if (mobileMenuClose) {
-        mobileMenuClose.addEventListener('click', closeMobileMenu);
-    }
-
-    if (mobileMenuOverlay) {
-        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
-    }
-
-    // Close menu on link click
-    const mobileLinks = document.querySelectorAll('.mobile-nav-menu-content a:not(.logout-btn)');
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            setTimeout(closeMobileMenu, 200);
-        });
-    });
-
-    // Close menu on resize
-    window.addEventListener('resize', function() {
-        if (window.innerWidth >= 992) {
-            closeMobileMenu();
-        }
-    });
-});
-</script>
 
