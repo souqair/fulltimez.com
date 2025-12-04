@@ -1,4 +1,25 @@
 <style>
+/* Header CSS from HTML Design */
+header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 20px 60px; 
+}
+header a { 
+    text-decoration: none; 
+    color: #000; 
+    margin: 0 15px; 
+    font-size: 14px; 
+}
+.btn-small { 
+    background: #000; 
+    color: #fff; 
+    padding: 6px 14px; 
+    border-radius: 6px; 
+    font-size: 12px; 
+}
+
 /* Top Navigation Menu Styling - Simple */
 .top-nav {
     padding: 8px 6px 10px; !implements
