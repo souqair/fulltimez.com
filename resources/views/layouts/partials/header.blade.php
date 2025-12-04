@@ -1,235 +1,89 @@
 <style>
-/* ============================================
-   MODERN PROFESSIONAL NAVBAR - COMPLETE REDESIGN
-   ============================================ */
-
-/* Desktop Header - Professional Design */
-.desktop-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    width: 100%;
+/* Header CSS - Simple Design from home.html */
+header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 20px 60px; 
+    background: #fff;
 }
 
-.desktop-header.scrolled {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    padding: 12px 60px;
+header .logo {
+    font-weight: 700;
+    font-size: 18px;
+    color: #000;
 }
 
-.desktop-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 60px;
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-/* Logo Section */
-.desktop-header .logo {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.desktop-header .logo a {
-    display: flex;
-    align-items: center;
+header .logo a {
+    color: #000;
     text-decoration: none;
-    transition: transform 0.3s ease;
-}
-
-.desktop-header .logo a:hover {
-    transform: scale(1.05);
-}
-
-.desktop-header .logo img {
-    max-height: 40px;
-    width: auto;
-    object-fit: contain;
-}
-
-/* Navigation Links */
-.desktop-header nav {
     display: flex;
     align-items: center;
-    gap: 8px;
-    flex: 1;
-    justify-content: center;
 }
 
-.desktop-header nav a {
-    position: relative;
-    text-decoration: none;
-    color: #1a1a1a;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 10px 18px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    white-space: nowrap;
+header .logo img {
+    max-height: 30px;
+    vertical-align: middle;
 }
 
-.desktop-header nav a::before {
-    content: '';
-    position: absolute;
-    bottom: 6px;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 80%;
-    height: 2px;
-    background: #1a1a1a;
-    border-radius: 2px;
-    transition: transform 0.3s ease;
-}
-
-.desktop-header nav a:hover {
-    color: #1a1a1a;
-    background: #f8f9fa;
-}
-
-.desktop-header nav a:hover::before {
-    transform: translateX(-50%) scaleX(1);
-}
-
-.desktop-header nav a.active {
-    color: #1a1a1a;
-    background: #f0f0f0;
-}
-
-.desktop-header nav a.active::before {
-    transform: translateX(-50%) scaleX(1);
-}
-
-/* Auth Buttons Container */
-.desktop-header .header-actions {
+header nav {
     display: flex;
     align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
 }
 
-.desktop-header .header-actions a {
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 10px 20px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.desktop-header .header-actions a.login-link {
-    color: #1a1a1a;
-    background: transparent;
-}
-
-.desktop-header .header-actions a.login-link:hover {
-    color: #1a1a1a;
-    background: #f8f9fa;
-}
-
-.desktop-header .header-actions a.dashboard-link {
-    color: #1a1a1a;
-    background: transparent;
-}
-
-.desktop-header .header-actions a.dashboard-link:hover {
-    color: #1a1a1a;
-    background: #f8f9fa;
-}
-
-.desktop-header .header-actions a.logout-link {
-    color: #dc3545;
-    background: transparent;
-}
-
-.desktop-header .header-actions a.logout-link:hover {
-    color: #fff;
-    background: #dc3545;
-}
-
-/* Get Started Button */
-.desktop-header .btn-primary {
-    background: #1a1a1a;
-    color: #ffffff;
-    padding: 10px 24px;
-    border-radius: 8px;
+header nav a {
+    text-decoration: none; 
+    color: #000; 
+    margin: 0 15px; 
     font-size: 14px;
-    font-weight: 600;
+}
+
+header > div:last-child {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+header > div:last-child a {
+    text-decoration: none; 
+    color: #000; 
+    margin: 0 15px; 
+    font-size: 14px;
+}
+
+.btn-small { 
+    background: #000; 
+    color: #fff; 
+    padding: 6px 14px; 
+    border-radius: 6px; 
+    font-size: 12px;
     text-decoration: none;
-    transition: all 0.3s ease;
-    border: 2px solid #1a1a1a;
-    display: inline-block;
-    box-shadow: 0 2px 8px rgba(26, 26, 26, 0.15);
+    margin: 0;
 }
 
-.desktop-header .btn-primary:hover {
-    background: #333333;
-    border-color: #333333;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(26, 26, 26, 0.25);
-}
-
-.desktop-header .btn-primary:active {
-    transform: translateY(0);
-}
-
-/* Mobile Header - Modern Design */
+/* Mobile Header */
 .mobile-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    padding: 12px 20px;
-}
-
-.mobile-header-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 100%;
-}
-
-.mobile-logo a {
-    display: flex;
-    align-items: center;
+    padding: 15px 20px;
+    background: #fff;
 }
 
 .mobile-logo img {
-    max-height: 35px;
-    width: auto;
+    max-height: 30px;
 }
 
 .mobile-header-btn {
     background: transparent;
-    border: 2px solid #1a1a1a;
-    border-radius: 8px;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: none;
+    font-size: 24px;
+    color: #000;
     cursor: pointer;
-    transition: all 0.3s ease;
-    color: #1a1a1a;
-    font-size: 20px;
+    padding: 5px;
 }
 
-.mobile-header-btn:hover {
-    background: #1a1a1a;
-    color: #ffffff;
-}
-
-.mobile-header-btn:active {
-    transform: scale(0.95);
-}
-
-/* Mobile Menu Overlay */
+/* Mobile Menu */
 .mobile-menu-overlay {
     position: fixed;
     top: 0;
@@ -238,27 +92,22 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
+    display: none;
 }
 
 .mobile-menu-overlay.active {
-    opacity: 1;
-    visibility: visible;
+    display: block;
 }
 
-/* Mobile Navigation Menu */
 .mobile-nav-menu {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 320px;
-    max-width: 85%;
+    width: 280px;
+    max-width: 80%;
     height: 100%;
-    background: #ffffff;
-    z-index: 1001;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    background: #fff;
+    z-index: 1000;
     transition: right 0.3s ease;
     overflow-y: auto;
 }
@@ -272,35 +121,15 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    border-bottom: 1px solid #e5e7eb;
-    background: #1a1a1a;
-    color: #ffffff;
-}
-
-.mobile-nav-menu-header h3 {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 700;
+    border-bottom: 1px solid #eee;
 }
 
 .mobile-menu-close {
     background: transparent;
-    border: 2px solid #ffffff;
-    border-radius: 8px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: none;
+    font-size: 24px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    color: #ffffff;
-    font-size: 18px;
-}
-
-.mobile-menu-close:hover {
-    background: #ffffff;
-    color: #1a1a1a;
+    color: #000;
 }
 
 .mobile-nav-menu-content {
@@ -308,163 +137,83 @@
 }
 
 .mobile-nav-menu-content a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 20px;
-    color: #1a1a1a;
+    display: block;
+    padding: 15px 20px;
+    color: #000;
     text-decoration: none;
     font-size: 16px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
-}
-
-.mobile-nav-menu-content a i {
-    font-size: 18px;
-    width: 24px;
-    text-align: center;
-    color: #666;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .mobile-nav-menu-content a:hover {
-    background: #f8f9fa;
-    border-left-color: #1a1a1a;
-    color: #1a1a1a;
-}
-
-.mobile-nav-menu-content a:hover i {
-    color: #1a1a1a;
-}
-
-.mobile-nav-menu-content a.active {
-    background: #f0f0f0;
-    border-left-color: #1a1a1a;
-    color: #1a1a1a;
-    font-weight: 600;
-}
-
-.mobile-nav-menu-content a.active i {
-    color: #1a1a1a;
+    background: #f8f8f8;
 }
 
 .mobile-nav-menu-content hr {
-    margin: 20px 0;
+    margin: 10px 0;
     border: none;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid #eee;
 }
 
 .mobile-auth-btn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 20px;
-    margin: 8px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 600;
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 20px;
     text-align: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .mobile-auth-btn.login-btn {
-    background: #f8f9fa;
-    color: #1a1a1a;
-    border: 2px solid #e5e7eb;
-}
-
-.mobile-auth-btn.login-btn:hover {
-    background: #e9ecef;
-    border-color: #1a1a1a;
+    background: #f0f0f0;
+    color: #000;
 }
 
 .mobile-auth-btn.register-btn {
-    background: #1a1a1a;
-    color: #ffffff;
-    border: 2px solid #1a1a1a;
-}
-
-.mobile-auth-btn.register-btn:hover {
-    background: #333333;
-    border-color: #333333;
+    background: #000;
+    color: #fff;
 }
 
 .mobile-auth-btn.dashboard-btn {
     background: #22c55e;
-    color: #ffffff;
-    border: 2px solid #22c55e;
-}
-
-.mobile-auth-btn.dashboard-btn:hover {
-    background: #16a34a;
-    border-color: #16a34a;
+    color: #fff;
 }
 
 .mobile-auth-btn.logout-btn {
     background: #dc3545;
-    color: #ffffff;
-    border: 2px solid #dc3545;
+    color: #fff;
 }
 
-.mobile-auth-btn.logout-btn:hover {
-    background: #c82333;
-    border-color: #c82333;
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .desktop-header {
-        padding: 16px 40px;
-    }
-    
-    .desktop-header nav a {
-        padding: 10px 14px;
-        font-size: 14px;
-    }
-}
-
+/* Responsive Header */
 @media (max-width: 991px) {
-    .desktop-header {
-        padding: 14px 30px;
+    header {
+        padding: 15px 20px;
     }
     
-    .desktop-header nav {
-        gap: 4px;
-    }
-    
-    .desktop-header nav a {
-        padding: 8px 12px;
-        font-size: 14px;
-    }
-    
-    .desktop-header .header-actions a {
-        padding: 8px 16px;
-        font-size: 14px;
-    }
-    
-    .desktop-header .btn-primary {
-        padding: 8px 20px;
+    header nav a,
+    header > div:last-child a {
+        margin: 0 10px;
         font-size: 13px;
     }
 }
 
 @media (max-width: 768px) {
-    .mobile-nav-menu {
-        width: 100%;
-        max-width: 100%;
+    header {
+        padding: 12px 15px;
     }
-}
-
-/* Smooth Scroll Behavior */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Prevent Body Scroll when Mobile Menu is Open */
-body.menu-open {
-    overflow: hidden;
+    
+    header nav a,
+    header > div:last-child a {
+        margin: 0 8px;
+        font-size: 12px;
+    }
+    
+    .btn-small {
+        padding: 5px 12px;
+        font-size: 11px;
+    }
 }
 
 /* Top Navigation Menu Styling - Simple */
@@ -1224,44 +973,42 @@ body.menu-open {
 }
 </style>
 
-<!-- Desktop Header - Professional Modern Design -->
-<header class="desktop-header d-none d-lg-block" id="mainHeader">
+<!-- Desktop Header - Simple Design -->
+<header class="desktop-header d-none d-lg-block">
     <div class="logo">
         <a href="{{ route('home') }}">
-            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo">
+            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez">
         </a>
     </div>
     <nav>
-        <a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">Browse Jobs</a>
-        <a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">Browse Resumes</a>
-        <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact Us</a>
+        <a href="{{ route('jobs.index') }}">Browse Jobs</a>
+        <a href="{{ route('candidates.index') }}">Browse Resumes</a>
+        <a href="{{ route('contact') }}">Contact Us</a>
     </nav>
-    <div class="header-actions">
+    <div>
         @auth
-        <a href="{{ route('dashboard') }}" class="dashboard-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">Dashboard</a>
+        <a href="{{ route('dashboard') }}">Dashboard</a>
         <form action="{{ route('logout') }}" method="POST" style="display: inline;">
             @csrf
-            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="logout-link">Logout</a>
+            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
         </form>
         @else
-        <a href="{{ route('login') }}" class="login-link">Login</a>
-        <a href="{{ route('choose.role') }}" class="btn-primary">Get Started</a>
+        <a href="{{ route('login') }}">Login</a>
+        <a href="{{ route('choose.role') }}" class="btn-small">Get Started</a>
         @endauth
     </div>
 </header>
 
-<!-- Mobile Header - Modern Design -->
+<!-- Mobile Header - Simple Design -->
 <div class="mobile-header d-lg-none">
-    <div class="mobile-header-inner">
-        <div class="mobile-logo">
-            <a href="{{ route('home') }}">
-                <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo">
-            </a>
-        </div>
-        <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Toggle Menu">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+    <div class="mobile-logo">
+        <a href="{{ route('home') }}">
+            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez">
+        </a>
     </div>
+    <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
 </div>
 
 <!-- Mobile Menu Overlay -->
@@ -1313,48 +1060,28 @@ body.menu-open {
 
 </div>
 
-<!-- Navbar JavaScript -->
+<!-- Simple Mobile Menu JavaScript -->
 <script>
-// Make closeMobileMenu globally available
 function closeMobileMenu() {
     const mobileNavMenu = document.getElementById('mobileNavMenu');
     const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-    const body = document.body;
-    
     if (mobileNavMenu) mobileNavMenu.classList.remove('active');
     if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
-    if (body) body.classList.remove('menu-open');
+    document.body.style.overflow = '';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Sticky Header on Scroll
-    const header = document.getElementById('mainHeader');
-    if (header) {
-        window.addEventListener('scroll', function() {
-            const currentScroll = window.pageYOffset;
-            if (currentScroll > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-    }
-
-    // Mobile Menu Toggle
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mobileNavMenu = document.getElementById('mobileNavMenu');
     const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
     const mobileMenuClose = document.getElementById('mobileMenuClose');
-    const body = document.body;
-
-    function openMobileMenu() {
-        if (mobileNavMenu) mobileNavMenu.classList.add('active');
-        if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
-        if (body) body.classList.add('menu-open');
-    }
 
     if (mobileMenuToggle) {
-        mobileMenuToggle.addEventListener('click', openMobileMenu);
+        mobileMenuToggle.addEventListener('click', function() {
+            if (mobileNavMenu) mobileNavMenu.classList.add('active');
+            if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
     }
 
     if (mobileMenuClose) {
@@ -1365,36 +1092,19 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileMenuOverlay.addEventListener('click', closeMobileMenu);
     }
 
-    // Close mobile menu when clicking on a link (except logout)
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav-menu-content a:not(.logout-btn)');
-    mobileNavLinks.forEach(link => {
+    // Close menu on link click
+    const mobileLinks = document.querySelectorAll('.mobile-nav-menu-content a:not(.logout-btn)');
+    mobileLinks.forEach(link => {
         link.addEventListener('click', function() {
-            setTimeout(closeMobileMenu, 300);
+            setTimeout(closeMobileMenu, 200);
         });
     });
 
-    // Close mobile menu on window resize (if resized to desktop)
+    // Close menu on resize
     window.addEventListener('resize', function() {
         if (window.innerWidth >= 992) {
             closeMobileMenu();
         }
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href !== '#' && href.length > 1) {
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            }
-        });
     });
 });
 </script>
