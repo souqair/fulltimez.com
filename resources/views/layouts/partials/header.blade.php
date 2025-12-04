@@ -3,6 +3,16 @@
    MODERN NAVBAR - COMPLETE REDESIGN
    ============================================ */
 
+/* Global Font Family for All Text */
+.desktop-header,
+.desktop-header *,
+.mobile-header,
+.mobile-header *,
+.mobile-nav-menu,
+.mobile-nav-menu * {
+    font-family: sans-serif;
+}
+
 /* Desktop Header - Modern Design */
 .desktop-header {
     background: #ffffff;
@@ -12,6 +22,7 @@
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
     transition: all 0.3s ease;
+    font-family: sans-serif;
 }
 
 .desktop-header.scrolled {
@@ -40,6 +51,7 @@
     font-weight: 700;
     font-size: 20px;
     transition: all 0.3s ease;
+    font-family: sans-serif;
 }
 
 .desktop-header .logo a:hover {
@@ -69,6 +81,7 @@
     border-radius: 8px;
     transition: all 0.3s ease;
     position: relative;
+    font-family: sans-serif;
 }
 
 .desktop-header nav a::after {
@@ -117,6 +130,7 @@
     padding: 10px 20px;
     border-radius: 8px;
     transition: all 0.3s ease;
+    font-family: sans-serif;
 }
 
 .desktop-header .header-actions .login-link {
@@ -172,6 +186,7 @@
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
     padding: 12px 20px;
+    font-family: sans-serif;
 }
 
 .mobile-header-inner {
@@ -209,6 +224,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-family: sans-serif;
 }
 
 .mobile-header-btn:hover {
@@ -255,6 +271,7 @@
     transform: translateX(100%);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
+    font-family: sans-serif;
 }
 
 .mobile-nav-menu.show {
@@ -271,12 +288,14 @@
     position: sticky;
     top: 0;
     z-index: 10;
+    font-family: sans-serif;
 }
 
 .mobile-nav-menu-header h3 {
     margin: 0;
     font-size: 20px;
     font-weight: 700;
+    font-family: sans-serif;
 }
 
 .mobile-menu-close {
@@ -292,6 +311,7 @@
     font-size: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-family: sans-serif;
 }
 
 .mobile-menu-close:hover {
@@ -313,6 +333,7 @@
     font-weight: 500;
     transition: all 0.3s ease;
     border-left: 4px solid transparent;
+    font-family: sans-serif;
 }
 
 .mobile-nav-menu-content a i {
@@ -353,6 +374,7 @@
     font-size: 15px;
     font-weight: 600;
     transition: all 0.3s ease;
+    font-family: sans-serif;
 }
 
 .mobile-auth-btn.login-btn {
