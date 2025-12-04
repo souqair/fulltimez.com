@@ -1898,7 +1898,7 @@ button svg{
 
 @if($recommendedJobs && $recommendedJobs->count() > 0)
 <!-- Recommended Jobs Section -->
-<section class="recommended-jobs-section mt-5 mb-5" style="background: #f8f9fa; padding: 60px 0;">
+<section class="recommended-jobs-section mt-5 mb-5" style="background: #f5f5f5; padding: 60px 0;">
    <div class="container">
        <div class="text-center mb-5">
          <h2 style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px;">Recommended Jobs</h2>
@@ -1908,60 +1908,60 @@ button svg{
       <div class="row g-4">
          @foreach($recommendedJobs as $job)
          <div class="col-lg-6 col-md-6">
-            <div class="recommended-job-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column; position: relative; cursor: pointer;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
+            <div class="recommended-job-card" style="background: #ffffff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 24px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column; position: relative; cursor: pointer;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
                <!-- Category Badge at Top Right -->
-               <div style="position: absolute; top: 24px; right: 24px;">
-                  <span style="display: inline-block; padding: 6px 12px; background: #f3f4f6; color: #374151; border-radius: 6px; font-size: 12px; font-weight: 600;">
+               <div style="position: absolute; top: 20px; right: 20px; z-index: 1;">
+                  <span style="display: inline-block; padding: 4px 10px; background: #f0f0f0; color: #000000; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: capitalize;">
                      {{ optional($job->category)->name ?? 'N/A' }}
                   </span>
                </div>
                
-               <!-- Icon and Job Title Row -->
-               <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; padding-right: 100px;">
-                  <!-- Document/List Icon -->
-                  <div style="width: 40px; height: 40px; background: #f3f4f6; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                     <i class="fas fa-list" style="font-size: 20px; color: #6b7280;"></i>
+               <!-- Icon and Job Title - Same Row -->
+               <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; padding-right: 100px;">
+                  <!-- Small Dark Grey Icon on Far Left -->
+                  <div style="width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 4px;">
+                     <i class="fas fa-list" style="font-size: 16px; color: #4a4a4a;"></i>
                   </div>
                   
-                  <!-- Job Title -->
-                  <div style="flex: 1;">
-                     <h3 style="margin: 0; font-size: 20px; font-weight: 700; color: #1a1a1a; line-height: 1.3;">
-                        <a href="{{ route('jobs.show', $job->slug) }}" style="color: #1a1a1a; text-decoration: none; display: block;">{{ $job->title }}</a>
+                  <!-- Job Title - Large Bold Black -->
+                  <div style="flex: 1; min-width: 0;">
+                     <h3 style="margin: 0; font-size: 20px; font-weight: 700; color: #000000; line-height: 1.4;">
+                        <a href="{{ route('jobs.show', $job->slug) }}" style="color: #000000; text-decoration: none; display: block;">{{ $job->title }}</a>
                      </h3>
                   </div>
                </div>
                
-               <!-- Company Name -->
-               <div style="margin-bottom: 16px; padding-left: 52px;">
-                  <p style="margin: 0; font-size: 15px; color: #6b7280; font-weight: 500;">
+               <!-- Company Name - Below Job Title -->
+               <div style="margin-bottom: 12px; padding-left: 32px;">
+                  <p style="margin: 0; font-size: 14px; color: #666666; font-weight: 400;">
                      {{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
                   </p>
                </div>
                
-               <!-- Location -->
-               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-left: 52px; color: #6b7280; font-size: 14px;">
-                  <i class="fas fa-map-marker-alt" style="font-size: 14px;"></i>
-                  <span>{{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}</span>
+               <!-- Location with Pin Icon -->
+               <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 10px; padding-left: 32px;">
+                  <i class="fas fa-map-marker-alt" style="font-size: 12px; color: #000000;"></i>
+                  <span style="font-size: 13px; color: #666666;">{{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}</span>
                </div>
                
-               <!-- Employment Type and Experience -->
-               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px; padding-left: 52px; color: #6b7280; font-size: 14px;">
-                  <i class="far fa-clock" style="font-size: 14px;"></i>
-                  <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience</span>
+               <!-- Employment Type and Experience with Clock Icon -->
+               <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 18px; padding-left: 32px;">
+                  <i class="far fa-clock" style="font-size: 12px; color: #000000;"></i>
+                  <span style="font-size: 13px; color: #666666;">{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience</span>
                </div>
                
-               <!-- Salary Range -->
-               <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid #f3f4f6; padding-left: 52px;">
-                  <div style="display: flex; align-items: baseline; gap: 6px;">
+               <!-- Salary Range - At Bottom, Bold -->
+               <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid #e8e8e8; padding-left: 32px;">
+                  <div style="display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px;">
                      @if(!empty($job->salary_min) && !empty($job->salary_max))
-                        <span style="font-size: 20px; font-weight: 700; color: #1a1a1a;">
+                        <span style="font-size: 20px; font-weight: 700; color: #000000;">
                            {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
                         </span>
-                        <span style="font-size: 14px; color: #6b7280; font-weight: 400;">
+                        <span style="font-size: 12px; color: #666666; font-weight: 400;">
                            / {{ ucfirst($job->salary_period ?? 'Monthly') }}
                         </span>
                      @else
-                        <span style="font-size: 18px; font-weight: 600; color: #6b7280;">Negotiable</span>
+                        <span style="font-size: 18px; font-weight: 700; color: #666666;">Negotiable</span>
                      @endif
                   </div>
                </div>
