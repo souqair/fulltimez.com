@@ -847,9 +847,5 @@
     </div>
 </div>
 
-<!-- HR Separator - Only for Desktop -->
-<hr class="mt-4 d-none d-lg-block">
-    
-  </div>
 </div>
 
