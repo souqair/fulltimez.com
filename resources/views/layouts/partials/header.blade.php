@@ -869,27 +869,27 @@ header > div:last-child a:hover {
 </style>
 
 <!-- Desktop Header - Only shows on desktop -->
-<header class="desktop-header d-none d-lg-block" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; background: #fff;">
-    <div class="logo" style="font-weight: 700; font-size: 18px; color: #000;">
-        <a href="{{ route('home') }}" style="color: #000; text-decoration: none;">
-            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez" style="max-height: 30px; vertical-align: middle;">
+<header class="desktop-header d-none d-lg-block">
+    <div class="logo">
+        <a href="{{ route('home') }}">
+            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez">
         </a>
     </div>
-    <nav style="display: flex; align-items: center;">
-        <a href="{{ route('jobs.index') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Browse Jobs</a>
-        <a href="{{ route('candidates.index') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Browse Resumes</a>
-        <a href="{{ route('contact') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Contact Us</a>
+    <nav>
+        <a href="{{ route('jobs.index') }}">Browse Jobs</a>
+        <a href="{{ route('candidates.index') }}">Browse Resumes</a>
+        <a href="{{ route('contact') }}">Contact Us</a>
     </nav>
-    <div style="display: flex; align-items: center; gap: 15px;">
+    <div>
         @auth
-        <a href="{{ route('dashboard') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Dashboard</a>
+        <a href="{{ route('dashboard') }}">Dashboard</a>
         <form action="{{ route('logout') }}" method="POST" style="display: inline;">
             @csrf
-            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Logout</a>
+            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
         </form>
         @else
-        <a href="{{ route('login') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Login</a>
-        <a href="{{ route('choose.role') }}" class="btn-small" style="background: #000; color: #fff; padding: 6px 14px; border-radius: 6px; font-size: 12px; text-decoration: none; margin: 0;">Get Started</a>
+        <a href="{{ route('login') }}">Login</a>
+        <a href="{{ route('choose.role') }}" class="btn-small">Get Started</a>
         @endauth
     </div>
 </header>
