@@ -1528,38 +1528,81 @@ button svg{
     }
 }
 
-/* Recommended Jobs Section Styling */
-.recommended-job-card:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
-    transform: translateY(-4px) !important;
-    border-color: #cbd5e1 !important;
-}
-
-.recommended-job-card a:hover {
-    color: #2772e8 !important;
-}
-
-.recommended-jobs-section {
-    background: #f8f9fa !important;
-}
-
+/* Responsive Styles for New Design */
 @media (max-width: 768px) {
-    .recommended-jobs-section {
+    .hero {
+        padding: 60px 20px !important;
+    }
+    
+    .hero h1 {
+        font-size: 32px !important;
+    }
+    
+    .search-box {
+        width: 95% !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+    
+    .stats {
+        gap: 40px !important;
         padding: 40px 0 !important;
     }
     
-    .recommended-job-card {
+    .section-title {
+        margin-left: 20px !important;
+        font-size: 20px !important;
+    }
+    
+    .section-sub {
+        margin-left: 20px !important;
+    }
+    
+    .jobs-grid {
+        grid-template-columns: 1fr !important;
+        width: 95% !important;
+        gap: 20px !important;
+    }
+    
+    .job-card {
         padding: 20px !important;
     }
     
-    .recommended-job-card h3 {
-        font-size: 18px !important;
+    .two-box {
+        flex-direction: column !important;
+        width: 95% !important;
+        gap: 20px !important;
     }
     
-    .recommended-job-card .category-badge {
-        top: 20px !important;
-        right: 20px !important;
+    .candidates-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        width: 95% !important;
+        gap: 15px !important;
+        padding: 30px 0 !important;
     }
+    
+    footer {
+        flex-direction: column !important;
+        padding: 40px 20px !important;
+    }
+    
+    footer div {
+        width: 100% !important;
+    }
+}
+
+.job-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    transform: translateY(-2px);
+}
+
+.job-card a:hover {
+    color: #2772e8 !important;
+}
+
+.cand:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    transform: translateY(-2px);
 }
 
     
@@ -1568,90 +1611,47 @@ button svg{
 
 @section('hero')
 <!-- Hero Section -->
-<section class="hero-section" style="background: #ffffff; padding: 80px 0 60px 0;">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center mb-5">
-                <h1 class="hero-title" style="font-size: 48px; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; line-height: 1.2;">
-                    Empowering Your Career Journey
-                </h1>
-                <p class="hero-description" style="font-size: 18px; color: #6b7280; max-width: 800px; margin: 0 auto 40px; line-height: 1.6;">
-                    Whether you're searching for your first job or your next big opportunity, we connect you with employers who value your talent.
-                </p>
-            </div>
-        </div>
-        
-        <!-- Hero Search Bar -->
-        <div class="row">
-            <div class="col-12">
-                <div class="hero-search-bar" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); max-width: 1100px; margin: 0 auto;">
-                    <form action="{{ route('jobs.index') }}" method="GET" class="hero-search-form">
-                        <div class="row g-0 align-items-center" style="background: #ffffff; border-radius: 12px;">
-                            <div class="col-md-4" style="position: relative;">
-                                <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 10; color: #6b7280;">
-                                    <i class="fas fa-building" style="font-size: 16px;"></i>
-                                </div>
-                                <input type="text" class="form-control" name="title" placeholder="e.g. Developer, Designer" value="{{ request('title') }}" style="padding: 16px 16px 16px 45px; border: none; border-right: 1px solid #e5e7eb; border-radius: 12px 0 0 12px; font-size: 15px; background: transparent;">
-                            </div>
-                            <div class="col-md-4" style="position: relative;">
-                                <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 10; color: #6b7280;">
-                                    <i class="fas fa-map-marker-alt" style="font-size: 16px;"></i>
-                                </div>
-                                <input type="text" class="form-control" name="location" placeholder="City or Country" value="{{ request('location') }}" style="padding: 16px 16px 16px 45px; border: none; border-right: 1px solid #e5e7eb; font-size: 15px; background: transparent;">
-                            </div>
-                            <div class="col-md-3" style="position: relative;">
-                                <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); z-index: 10; color: #6b7280;">
-                                    <i class="fas fa-briefcase" style="font-size: 16px;"></i>
-                                </div>
-                                <select class="form-control" name="category" style="padding: 16px 16px 16px 45px; border: none; border-right: 1px solid #e5e7eb; font-size: 15px; background: transparent; appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%236b7280\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><polyline points=\'6 9 12 15 18 9\'></polyline></svg>'); background-repeat: no-repeat; background-position: right 16px center; background-size: 16px; padding-right: 40px;">
-                                    <option value="">All Categories</option>
-                                    @foreach($categories as $category)
-                                        <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-1">
-                                <button type="submit" class="btn btn-primary w-100" style="padding: 16px; background: #1a1a1a; border: none; border-radius: 0 12px 12px 0; color: #ffffff; font-weight: 600; height: 100%; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-search" style="font-size: 18px;"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+<section class="hero" style="text-align: center; padding: 120px 20px; background: #fafafa;">
+    <h1 style="font-size: 48px; font-weight: 800; line-height: 1.2; color: #000; margin: 0;">
+        Empowering Your<br>Career Journey
+    </h1>
+    <p style="margin-top: 20px; font-size: 16px; color: #555;">
+        Whether you're searching for your first job or your next big opportunity,<br>we connect you with employers who value your talent.
+    </p>
+    
+    <!-- Search Box -->
+    <div class="search-box" style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 3px 15px rgba(0,0,0,0.05); width: 80%; margin: 40px auto; display: flex; gap: 20px; max-width: 1000px;">
+        <form action="{{ route('jobs.index') }}" method="GET" style="display: flex; gap: 20px; width: 100%; flex-wrap: wrap;">
+            <input type="text" name="title" placeholder="Job Title" value="{{ request('title') }}" style="flex: 1; min-width: 200px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+            <input type="text" name="location" placeholder="Location" value="{{ request('location') }}" style="flex: 1; min-width: 200px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+            <select name="category" style="flex: 1; min-width: 200px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
+                <option value="">All Categories</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="search-btn" style="background: #000; color: #fff; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; white-space: nowrap;">Search</button>
+        </form>
     </div>
 </section>
 
 <!-- Statistics Section -->
-<section class="statistics-section" style="background: #ffffff; padding: 60px 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;">
-    <div class="container">
-        <div class="row">
-            <div class="col-6 col-md-3 text-center mb-4 mb-md-0">
-                <div class="stat-item">
-                    <h2 class="stat-number" style="font-size: 42px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px;">10,000+</h2>
-                    <p class="stat-label" style="font-size: 16px; color: #6b7280; margin: 0;">Active Jobs</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 text-center mb-4 mb-md-0">
-                <div class="stat-item">
-                    <h2 class="stat-number" style="font-size: 42px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px;">5,000+</h2>
-                    <p class="stat-label" style="font-size: 16px; color: #6b7280; margin: 0;">Companies</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 text-center mb-4 mb-md-0">
-                <div class="stat-item">
-                    <h2 class="stat-number" style="font-size: 42px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px;">50,000+</h2>
-                    <p class="stat-label" style="font-size: 16px; color: #6b7280; margin: 0;">Candidates</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3 text-center mb-4 mb-md-0">
-                <div class="stat-item">
-                    <h2 class="stat-number" style="font-size: 42px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px;">95%</h2>
-                    <p class="stat-label" style="font-size: 16px; color: #6b7280; margin: 0;">Success Rate</p>
-                </div>
-            </div>
-        </div>
+<section class="stats" style="display: flex; justify-content: center; gap: 120px; padding: 80px 0; flex-wrap: wrap;">
+    <div style="text-align: center;">
+        <h2 style="font-size: 32px; font-weight: 700; color: #000; margin: 0;">10,000+</h2>
+        <p style="font-size: 13px; color: #666; margin-top: 5px; margin: 0;">Active Jobs</p>
+    </div>
+    <div style="text-align: center;">
+        <h2 style="font-size: 32px; font-weight: 700; color: #000; margin: 0;">5,000+</h2>
+        <p style="font-size: 13px; color: #666; margin-top: 5px; margin: 0;">Companies</p>
+    </div>
+    <div style="text-align: center;">
+        <h2 style="font-size: 32px; font-weight: 700; color: #000; margin: 0;">50,000+</h2>
+        <p style="font-size: 13px; color: #666; margin-top: 5px; margin: 0;">Candidates</p>
+    </div>
+    <div style="text-align: center;">
+        <h2 style="font-size: 32px; font-weight: 700; color: #000; margin: 0;">95%</h2>
+        <p style="font-size: 13px; color: #666; margin-top: 5px; margin: 0;">Success Rate</p>
     </div>
 </section>
 @endsection
@@ -1664,287 +1664,33 @@ button svg{
 
 
    <!-- Featured Jobs Section -->
-   <section class="category-wrap jobwrp popular-items mt-5">
-      <div class="container">
-         <div class="d-flex justify-content-between align-items-center mb-4" style="flex-wrap: wrap; gap: 15px;">
-            <div>
-               <h2 class="main_title" style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px;">Featured Jobs</h2>
-               <p style="font-size: 16px; color: #6b7280; margin: 0;">Discover exciting opportunities from top employers.</p>
-            </div>
-            <div>
-               <a href="{{ route('jobs.index') }}" style="display: inline-flex; align-items: center; gap: 8px; color: #1a1a1a; text-decoration: none; font-weight: 600; font-size: 16px;">
-                  Browse All Jobs <i class="fas fa-arrow-right"></i>
-               </a>
-            </div>
-         </div>
-         <div class="featured-jobs-grid">
-            <ul class="owl-carousel jobs_list featured-jobs-carousel">
-            @foreach($featuredJobs as $job)
-            <li class="item wow fadeInUp">
-                  <div class="featured-job-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column; position: relative;">
-                     <!-- Category Badge at Top Right -->
-                     <div style="position: absolute; top: 20px; right: 20px;">
-                        <span style="display: inline-block; padding: 6px 12px; background: #f3f4f6; color: #374151; border-radius: 6px; font-size: 12px; font-weight: 600; text-transform: uppercase;">
-                           {{ optional($job->category)->name ?? 'N/A' }}
-                        </span>
-                     </div>
-                     
-                     <!-- Building Icon at Top Left -->
-                     <div style="margin-bottom: 16px;">
-                        <div style="width: 48px; height: 48px; background: #f3f4f6; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                           <i class="fas fa-building" style="font-size: 24px; color: #6b7280;"></i>
-                        </div>
-                     </div>
-                     
-                     <!-- Job Title -->
-                     <div style="margin-bottom: 12px;">
-                        <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: #1a1a1a; line-height: 1.4;">
-                           <a href="{{ route('jobs.show', $job->slug) }}" style="color: #1a1a1a; text-decoration: none;">{{ $job->title }}</a>
-                        </h3>
-                     </div>
-                     
-                     <!-- Company Name -->
-                     <div style="margin-bottom: 16px;">
-                        <p style="margin: 0; font-size: 15px; color: #6b7280; font-weight: 500;">
-                           {{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
-                        </p>
-                     </div>
-                     
-                     <!-- Location -->
-                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #6b7280; font-size: 14px;">
-                        <i class="fas fa-map-marker-alt" style="font-size: 14px;"></i>
-                        <span>{{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}</span>
-                     </div>
-                     
-                     <!-- Employment Type and Experience -->
-                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px; color: #6b7280; font-size: 14px;">
-                        <i class="far fa-clock" style="font-size: 14px;"></i>
-                        <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience</span>
-                     </div>
-                     
-                     <!-- Salary -->
-                     <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid #f3f4f6;">
-                        <div style="display: flex; flex-direction: column;">
-                           @if(!empty($job->salary_min) && !empty($job->salary_max))
-                              <span style="font-size: 18px; font-weight: 700; color: #1a1a1a;">
-                                 {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
-                              </span>
-                              <span style="font-size: 13px; color: #6b7280; margin-top: 2px;">
-                                 / {{ ucfirst($job->salary_period ?? 'Monthly') }}
-                              </span>
-                           @else
-                              <span style="font-size: 16px; font-weight: 600; color: #6b7280;">Negotiable</span>
-                           @endif
-                        </div>
-                     </div>
-                  </div>
-            </li>
-            @endforeach
-         </ul>
-      </div> 
-      </div> 
-   </section>
- 
-<div class="ads_ text-center mb-4"><p style="font-size: 12px; color: #6b7280; margin: 0; padding: 10px 0;">ADVERTISEMENT</p></div>
-<!-- Call to Action Section: Jobseeker & Employer -->
-<section class="cta-section mt-5 mb-5">
-    <div class="container">
-        <div class="row g-4">
-            <!-- Job Seeker Card -->
-            <div class="col-lg-6 col-md-6">
-                <div class="cta-card jobseeker-card" style="background: #1a1a1a; border-radius: 16px; padding: 40px; min-height: 350px; display: flex; flex-direction: column; position: relative; overflow: hidden;">
-                    <div class="cta-icon" style="position: absolute; top: 30px; left: 30px; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-building" style="font-size: 24px; color: #ffffff;"></i>
-                    </div>
-                    <div class="cta-content" style="margin-top: auto; color: #ffffff;">
-                        <h2 class="cta-title" style="font-size: 32px; font-weight: 700; color: #ffffff; margin-bottom: 20px;">I Am a Job Seeker</h2>
-                        <p class="cta-description" style="font-size: 16px; color: rgba(255, 255, 255, 0.9); margin-bottom: 30px; line-height: 1.6;">
-                            Create your professional resume with our online builder and start applying for the best jobs.
-                        </p>
-                        <a href="{{ route('jobseeker.login') }}" class="cta-btn" style="display: inline-flex; align-items: center; gap: 10px; background: #ffffff; color: #1a1a1a; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease;">
-                            Get Started <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Employer Card -->
-            <div class="col-lg-6 col-md-6">
-                <div class="cta-card employer-card" style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 16px; padding: 40px; min-height: 350px; display: flex; flex-direction: column; position: relative; overflow: hidden;">
-                    <div class="cta-icon" style="position: absolute; top: 30px; left: 30px; width: 50px; height: 50px; background: #f3f4f6; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-users" style="font-size: 24px; color: #1a1a1a;"></i>
-                    </div>
-                    <div class="cta-content" style="margin-top: auto; color: #1a1a1a;">
-                        <h2 class="cta-title" style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 20px;">I Am an Employer</h2>
-                        <p class="cta-description" style="font-size: 16px; color: #6b7280; margin-bottom: 30px; line-height: 1.6;">
-                            Post jobs and access our online resume database to find the best talent for your company.
-                        </p>
-                        <a href="{{ route('employer.login') }}" class="cta-btn" style="display: inline-flex; align-items: center; gap: 10px; background: #1a1a1a; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease;">
-                            Get Started <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-@if($featuredCandidates && $featuredCandidates->count() > 0)
-<!-- Featured Candidates Section -->
-<section class="featured-candidates-section mt-5 mb-5">
-<div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4" style="flex-wrap: wrap; gap: 15px;">
-            <div>
-                <h2 class="featured-candidates-title" style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px;">Featured Candidates</h2>
-                <p class="featured-candidates-subtitle" style="font-size: 16px; color: #6b7280; margin: 0;">Connect with top talent ready for their next opportunity.</p>
-            </div>
-            <div>
-                <a href="{{ route('candidates.index') }}" style="display: inline-flex; align-items: center; gap: 8px; color: #1a1a1a; text-decoration: none; font-weight: 600; font-size: 16px;">
-                    View All Candidates <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </div>
-        
-        <div class="featured-candidates-carousel-wrapper">
-            <ul class="owl-carousel jobs_list featured-candidates-carousel">
-                @foreach($featuredCandidates as $candidate)
-                @php
-                    $profile = $candidate->seekerProfile;
-                    $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
-                    $initial = strtoupper(mb_substr($displayName, 0, 1));
-                    $rawPhoto = $profile->profile_picture ?? null;
-                    $hasImage = false;
-                    $avatarPath = null;
-
-                    if ($rawPhoto) {
-                        if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
-                            $hasImage = true;
-                            $avatarPath = $rawPhoto;
-                        } else {
-                            $normalized = ltrim($rawPhoto, '/');
-                            if (file_exists(public_path($normalized))) {
-                                $hasImage = true;
-                                $avatarPath = asset($normalized);
-                            }
-                        }
-                    }
-                @endphp
-                <li class="item wow fadeInUp">
-                    <div class="featured-candidate-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transition: all 0.3s ease;">
-                        <!-- Profile Picture with Star Badge -->
-                        <div style="position: relative; display: inline-block; margin-bottom: 20px;">
-                            <div style="width: 80px; height: 80px; border-radius: 50%; background: #2772e8; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #ffffff; font-weight: 600; position: relative;">
-                                @if($hasImage && $avatarPath)
-                                    <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
-                                @else
-                                    {{ $initial }}
-                                @endif
-                                <div style="position: absolute; top: -5px; right: -5px; width: 24px; height: 24px; background: #fbbf24; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #ffffff;">
-                                    <i class="fas fa-star" style="font-size: 12px; color: #ffffff;"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Candidate Info -->
-                        <div class="candidate-card-body" style="text-align: left;">
-                            <h5 class="candidate-name" style="font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 8px;">{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h5>
-                            
-                            <!-- Job Title -->
-                            <p class="candidate-profession" style="font-size: 14px; color: #6b7280; margin-bottom: 12px;">{{ $candidate->seekerProfile->current_position ?? 'Job Seeker' }}</p>
-                            
-                            <!-- Location -->
-                            <div class="candidate-location" style="display: flex; align-items: center; gap: 6px; color: #6b7280; font-size: 13px; margin-bottom: 16px;">
-                                <i class="fas fa-map-marker-alt" style="font-size: 12px;"></i>
-                                <span>{{ $candidate->seekerProfile->city ?? 'UAE' }}, {{ $candidate->seekerProfile->country ?? 'UAE' }}</span>
-                            </div>
-                            
-                            <!-- Skills Tags -->
-                            @php
-                                $skills = [];
-                                if($candidate->seekerProfile && $candidate->seekerProfile->skills) {
-                                    $skillsData = is_string($candidate->seekerProfile->skills) ? json_decode($candidate->seekerProfile->skills, true) : $candidate->seekerProfile->skills;
-                                    if(is_array($skillsData)) {
-                                        $skills = array_slice($skillsData, 0, 3);
-                                    }
-                                }
-                            @endphp
-                            @if(count($skills) > 0)
-                            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;">
-                                @foreach($skills as $skill)
-                                    <span style="display: inline-block; padding: 4px 10px; background: #f3f4f6; color: #374151; border-radius: 6px; font-size: 11px; font-weight: 500;">{{ $skill }}</span>
-                                @endforeach
-                            </div>
-                            @endif
-                            
-                            <!-- Experience and Rating -->
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
-                                <div style="font-size: 13px; color: #6b7280;">
-                                    {{ $candidate->seekerProfile->experience_years ?? 'N/A' }} Years
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 4px;">
-                                    <i class="fas fa-star" style="color: #fbbf24; font-size: 14px;"></i>
-                                    <span style="font-size: 14px; font-weight: 600; color: #1a1a1a;">4.9</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-</section>
-@endif
-
-@if($recommendedJobs && $recommendedJobs->count() > 0)
-<!-- Recommended Jobs Section -->
-<section class="recommended-jobs-section mt-5 mb-5" style="background: #f6f6f6; padding: 60px 40px;">
-   <div class="container" style="max-width: 1400px; margin: auto;">
-       <div class="text-center mb-5">
-         <h2 style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px;">Recommended Jobs</h2>
-         <p style="font-size: 16px; color: #6b7280; margin: 0;">Discover more opportunities tailored for you</p>
-      </div>
+   <section style="margin-top: 40px; margin-bottom: 40px;">
+      <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Jobs</h2>
+      <p class="section-sub" style="margin-left: 60px; color: #777; font-size: 14px; margin-bottom: 30px;">Discover exciting opportunities from top employers</p>
       
-      <div class="recommended-jobs-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px;">
-         @foreach($recommendedJobs as $job)
-         <div class="recommended-job-card" style="background: #fff; padding: 28px; border-radius: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); border: 1px solid #eee; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
-            <!-- Card Header: Icon, Title/Company, Tag -->
-            <div class="card-header" style="display: flex; gap: 15px; align-items: center;">
-               <!-- Icon -->
-               <div class="icon" style="width: 48px; height: 48px; background: #f4f4f4; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 24px; flex-shrink: 0;">
-                  <i class="fas fa-building" style="color: #666;"></i>
-               </div>
-               
-               <!-- Title and Company -->
-               <div style="flex: 1; min-width: 0;">
-                  <p class="title" style="font-size: 20px; font-weight: bold; margin: 0; color: #000;">
+      <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 85%; margin: auto;">
+         @foreach($featuredJobs->take(4) as $job)
+         <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
+            <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+               <div style="flex: 1;">
+                  <div class="jc-title" style="font-size: 14px; font-weight: 700; margin-bottom: 5px; color: #000;">
                      <a href="{{ route('jobs.show', $job->slug) }}" style="color: #000; text-decoration: none;">{{ $job->title }}</a>
-                  </p>
-                  <p class="company" style="margin: 0; margin-top: 4px; color: #444; font-size: 14px;">
+                  </div>
+                  <div class="jc-company" style="font-size: 12px; color: #666; margin-bottom: 15px;">
                      {{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
-                  </p>
+                  </div>
                </div>
-               
-               <!-- Category Tag -->
-               <div class="tag" style="margin-left: auto; background: #f2f2f2; padding: 4px 12px; border-radius: 20px; font-size: 12px; color: #000; white-space: nowrap; flex-shrink: 0;">
+               <div class="jc-tag" style="font-size: 11px; background: #eee; padding: 4px 10px; border-radius: 20px; color: #000; white-space: nowrap; margin-left: 15px;">
                   {{ optional($job->category)->name ?? 'N/A' }}
                </div>
             </div>
-            
-            <!-- Details: Location and Employment -->
-            <div class="details" style="margin-top: 20px; color: #555; font-size: 14px; line-height: 1.8;">
-               <div style="margin-bottom: 4px;">
-                  <i class="fas fa-map-marker-alt" style="margin-right: 6px;"></i>{{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}
-               </div>
-               <div>
-                  <i class="far fa-clock" style="margin-right: 6px;"></i>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience
-               </div>
+            <div class="jc-info" style="font-size: 12px; color: #444; line-height: 1.7; margin-bottom: 15px;">
+               📍 {{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}<br/>
+               ⏰ {{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience
             </div>
-            
-            <!-- Salary -->
-            <div class="salary" style="margin-top: 25px; font-size: 18px; font-weight: bold; color: #000;">
+            <div class="jc-salary" style="font-size: 14px; font-weight: 700; margin-top: 15px; color: #000;">
                @if(!empty($job->salary_min) && !empty($job->salary_max))
-                  {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span class="monthly" style="color: #777; font-size: 13px; margin-left: 5px; font-weight: normal;">/ {{ ucfirst($job->salary_period ?? 'Monthly') }}</span>
+                  {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span class="jc-monthly" style="font-size: 11px; color: #777; font-weight: normal;">/ {{ ucfirst($job->salary_period ?? 'Monthly') }}</span>
                @else
                   <span style="color: #777; font-weight: normal;">Negotiable</span>
                @endif
@@ -1952,12 +1698,123 @@ button svg{
          </div>
          @endforeach
       </div>
+   </section>
+ 
+<div class="ad-box" style="width: 70%; margin: 70px auto; text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; color: #777; font-size: 12px;">ADVERTISEMENT</div>
+
+<!-- Call to Action Section: Jobseeker & Employer -->
+<div class="two-box" style="display: flex; justify-content: center; gap: 40px; margin: 80px auto; width: 85%; flex-wrap: wrap;">
+   <!-- Job Seeker Box -->
+   <div class="box box-dark" style="flex: 1; padding: 40px; border-radius: 14px; background: #0f0f11; color: white; min-width: 300px;">
+      <h3 style="font-size: 20px; margin-top: 10px; margin-bottom: 10px; color: white;">I Am a Job Seeker</h3>
+      <p style="font-size: 13px; color: #bbb; margin-bottom: 20px; line-height: 1.5;">Create your professional resume with our online builder and apply for the best jobs.</p>
+      <a href="{{ route('jobseeker.login') }}" class="btn-arrow" style="background: #fff; color: #000; padding: 10px 20px; border-radius: 6px; font-size: 12px; display: inline-block; margin-top: 10px; text-decoration: none; font-weight: 600;">Get Started →</a>
+   </div>
+   
+   <!-- Employer Box -->
+   <div class="box box-light" style="flex: 1; padding: 40px; border-radius: 14px; background: white; border: 1px solid #eee; min-width: 300px;">
+      <h3 style="font-size: 20px; margin-top: 10px; margin-bottom: 10px; color: #000;">I Am an Employer</h3>
+      <p style="font-size: 13px; color: #666; margin-bottom: 20px; line-height: 1.5;">Post jobs and access our online resume database to find the best talent.</p>
+      <a href="{{ route('employer.login') }}" class="btn-arrow" style="background: #000; color: #fff; padding: 10px 20px; border-radius: 6px; font-size: 12px; display: inline-block; margin-top: 10px; text-decoration: none; font-weight: 600;">Get Started →</a>
+   </div>
+</div>
+
+@if($featuredCandidates && $featuredCandidates->count() > 0)
+<!-- Featured Candidates Section -->
+<h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Candidates</h2>
+<p class="section-sub" style="margin-left: 60px; color: #777; font-size: 14px; margin-bottom: 30px;">Connect with top talent ready for their next opportunity</p>
+
+<div class="candidates-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 85%; margin: auto; padding: 50px 0;">
+   @foreach($featuredCandidates as $candidate)
+   @php
+      $profile = $candidate->seekerProfile;
+      $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
+      $initials = strtoupper(mb_substr($displayName, 0, 1) . (mb_substr($displayName, strpos($displayName, ' ') + 1, 1) ?? ''));
+      $rawPhoto = $profile->profile_picture ?? null;
+      $hasImage = false;
+      $avatarPath = null;
+
+      if ($rawPhoto) {
+          if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
+              $hasImage = true;
+              $avatarPath = $rawPhoto;
+          } else {
+              $normalized = ltrim($rawPhoto, '/');
+              if (file_exists(public_path($normalized))) {
+                  $hasImage = true;
+                  $avatarPath = asset($normalized);
+              }
+          }
+      }
       
-      <div class="text-center mt-5">
-         <a href="{{ route('jobs.index') }}" style="display: inline-flex; align-items: center; gap: 10px; background: #1a1a1a; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease;">
-            <i class="fas fa-search"></i> Browse All Jobs
-         </a>
+      $skills = [];
+      if($profile && $profile->skills) {
+          $skillsData = is_string($profile->skills) ? json_decode($profile->skills, true) : $profile->skills;
+          if(is_array($skillsData)) {
+              $skills = array_slice($skillsData, 0, 3);
+          }
+      }
+   @endphp
+   <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 25px; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
+      <div class="circle" style="width: 50px; height: 50px; border-radius: 50%; background: #f5f5f5; margin: auto; font-size: 18px; display: flex; justify-content: center; align-items: center; color: #666; font-weight: 600;">
+         @if($hasImage && $avatarPath)
+            <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+         @else
+            {{ $initials }}
+         @endif
       </div>
+      <div class="cand-name" style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #000;">{{ $displayName }}</div>
+      <div class="cand-role" style="font-size: 11px; color: #666; margin-bottom: 10px;">{{ $profile->current_position ?? 'Job Seeker' }}</div>
+      @if(count($skills) > 0)
+      <div class="cand-tags" style="margin-bottom: 10px;">
+         @foreach($skills as $skill)
+            <span style="font-size: 10px; background: #eee; padding: 3px 7px; margin: 2px; border-radius: 6px; display: inline-block; color: #444;">{{ $skill }}</span>
+         @endforeach
+      </div>
+      @endif
+      <div class="cand-info" style="font-size: 11px; color: #666; margin-top: 10px;">
+         {{ $profile->experience_years ?? 'N/A' }} Years • ⭐ 4.9
+      </div>
+   </div>
+   @endforeach
+</div>
+@endif
+
+@if($recommendedJobs && $recommendedJobs->count() > 0)
+<!-- Recommended Jobs Section -->
+<section style="margin-top: 40px; margin-bottom: 40px;">
+   <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Recommended Jobs</h2>
+   <p class="section-sub" style="margin-left: 60px; color: #777; font-size: 14px; margin-bottom: 30px;">Discover more opportunities tailored for you</p>
+   
+   <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 85%; margin: auto;">
+      @foreach($recommendedJobs as $job)
+      <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
+         <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+            <div style="flex: 1;">
+               <div class="jc-title" style="font-size: 14px; font-weight: 700; margin-bottom: 5px; color: #000;">
+                  <a href="{{ route('jobs.show', $job->slug) }}" style="color: #000; text-decoration: none;">{{ $job->title }}</a>
+               </div>
+               <div class="jc-company" style="font-size: 12px; color: #666; margin-bottom: 15px;">
+                  {{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
+               </div>
+            </div>
+            <div class="jc-tag" style="font-size: 11px; background: #eee; padding: 4px 10px; border-radius: 20px; color: #000; white-space: nowrap; margin-left: 15px;">
+               {{ optional($job->category)->name ?? 'N/A' }}
+            </div>
+         </div>
+         <div class="jc-info" style="font-size: 12px; color: #444; line-height: 1.7; margin-bottom: 15px;">
+            📍 {{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}<br/>
+            ⏰ {{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience
+         </div>
+         <div class="jc-salary" style="font-size: 14px; font-weight: 700; margin-top: 15px; color: #000;">
+            @if(!empty($job->salary_min) && !empty($job->salary_max))
+               {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span class="jc-monthly" style="font-size: 11px; color: #777; font-weight: normal;">/ {{ ucfirst($job->salary_period ?? 'Monthly') }}</span>
+            @else
+               <span style="color: #777; font-weight: normal;">Negotiable</span>
+            @endif
+         </div>
+      </div>
+      @endforeach
    </div>
 </section>
 
