@@ -1,23 +1,114 @@
 <style>
-/* Header CSS from HTML Design */
+/* Header CSS from HTML Design - Complete */
 header { 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
     padding: 20px 60px; 
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
 }
-header a { 
+
+header .logo {
+    font-weight: 700;
+    font-size: 18px;
+    color: #000;
+}
+
+header .logo a {
+    color: #000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    max-height: 30px;
+    vertical-align: middle;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+}
+
+header nav a {
     text-decoration: none; 
     color: #000; 
     margin: 0 15px; 
-    font-size: 14px; 
+    font-size: 14px;
+    transition: color 0.3s ease;
 }
+
+header nav a:hover {
+    color: #333;
+}
+
+header > div:last-child {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+header > div:last-child a {
+    text-decoration: none; 
+    color: #000; 
+    margin: 0 15px; 
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+header > div:last-child a:hover {
+    color: #333;
+}
+
 .btn-small { 
     background: #000; 
     color: #fff; 
     padding: 6px 14px; 
     border-radius: 6px; 
-    font-size: 12px; 
+    font-size: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-small:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* Responsive Header */
+@media (max-width: 991px) {
+    header {
+        padding: 15px 20px;
+    }
+    
+    header nav a,
+    header > div:last-child a {
+        margin: 0 10px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 12px 15px;
+    }
+    
+    header nav a,
+    header > div:last-child a {
+        margin: 0 8px;
+        font-size: 12px;
+    }
+    
+    .btn-small {
+        padding: 5px 12px;
+        font-size: 11px;
+    }
 }
 
 /* Top Navigation Menu Styling - Simple */
