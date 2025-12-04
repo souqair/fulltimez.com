@@ -1528,6 +1528,40 @@ button svg{
     }
 }
 
+/* Recommended Jobs Section Styling */
+.recommended-job-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    transform: translateY(-4px) !important;
+    border-color: #cbd5e1 !important;
+}
+
+.recommended-job-card a:hover {
+    color: #2772e8 !important;
+}
+
+.recommended-jobs-section {
+    background: #f8f9fa !important;
+}
+
+@media (max-width: 768px) {
+    .recommended-jobs-section {
+        padding: 40px 0 !important;
+    }
+    
+    .recommended-job-card {
+        padding: 20px !important;
+    }
+    
+    .recommended-job-card h3 {
+        font-size: 18px !important;
+    }
+    
+    .recommended-job-card .category-badge {
+        top: 20px !important;
+        right: 20px !important;
+    }
+}
+
     
 </style>
 @endpush
@@ -1863,65 +1897,86 @@ button svg{
 @endif
 
 @if($recommendedJobs && $recommendedJobs->count() > 0)
-<div class="jobs-wrap">
+<!-- Recommended Jobs Section -->
+<section class="recommended-jobs-section mt-5 mb-5" style="background: #f8f9fa; padding: 60px 0;">
    <div class="container">
-       <div class="title title_center">
-         <h1>Recommended Jobs</h1>
+       <div class="text-center mb-5">
+         <h2 style="font-size: 32px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px;">Recommended Jobs</h2>
+         <p style="font-size: 16px; color: #6b7280; margin: 0;">Discover more opportunities tailored for you</p>
       </div>
-      <div class="row">
-         
-
-         <div class="col-lg-12">
-<div class="row">
-@foreach($recommendedJobs as $job)
-<div class="col-lg-4 col-md-6">
-<div class="jobs" style="height: 100%; display: flex; flex-direction: column;">
-   <div class="job-content" style="flex: 1;">
-      <div class="jobdate">{{ $job->created_at->format('d/m/y') }}</div>
-      <p class="m-0">{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</p>
-   <h3><a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a></h3>
-   <ul class="tags">
-              @php
-                  $skills = null;
-                  if ($job->skills_required) {
-                      if (is_array($job->skills_required)) {
-                          $skills = $job->skills_required;
-                      } elseif (is_string($job->skills_required)) {
-                          $decoded = json_decode($job->skills_required, true);
-                          $skills = is_array($decoded) ? $decoded : null;
-                      }
-                  }
-              @endphp
-              @if($skills && is_array($skills) && count($skills) > 0)
-                  @foreach(array_slice($skills, 0, 4) as $skill)
-                      @if(!empty($skill))
-                          <li><a href="#">{{ $skill }}</a></li>
-                      @endif
-                  @endforeach
-              @endif
-            </ul>
+      
+      <div class="row g-4">
+         @foreach($recommendedJobs as $job)
+         <div class="col-lg-6 col-md-6">
+            <div class="recommended-job-card" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column; position: relative; cursor: pointer;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
+               <!-- Category Badge at Top Right -->
+               <div style="position: absolute; top: 24px; right: 24px;">
+                  <span style="display: inline-block; padding: 6px 12px; background: #f3f4f6; color: #374151; border-radius: 6px; font-size: 12px; font-weight: 600;">
+                     {{ optional($job->category)->name ?? 'N/A' }}
+                  </span>
+               </div>
+               
+               <!-- Icon and Job Title Row -->
+               <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; padding-right: 100px;">
+                  <!-- Document/List Icon -->
+                  <div style="width: 40px; height: 40px; background: #f3f4f6; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                     <i class="fas fa-list" style="font-size: 20px; color: #6b7280;"></i>
+                  </div>
+                  
+                  <!-- Job Title -->
+                  <div style="flex: 1;">
+                     <h3 style="margin: 0; font-size: 20px; font-weight: 700; color: #1a1a1a; line-height: 1.3;">
+                        <a href="{{ route('jobs.show', $job->slug) }}" style="color: #1a1a1a; text-decoration: none; display: block;">{{ $job->title }}</a>
+                     </h3>
+                  </div>
+               </div>
+               
+               <!-- Company Name -->
+               <div style="margin-bottom: 16px; padding-left: 52px;">
+                  <p style="margin: 0; font-size: 15px; color: #6b7280; font-weight: 500;">
+                     {{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
+                  </p>
+               </div>
+               
+               <!-- Location -->
+               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-left: 52px; color: #6b7280; font-size: 14px;">
+                  <i class="fas fa-map-marker-alt" style="font-size: 14px;"></i>
+                  <span>{{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}</span>
+               </div>
+               
+               <!-- Employment Type and Experience -->
+               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px; padding-left: 52px; color: #6b7280; font-size: 14px;">
+                  <i class="far fa-clock" style="font-size: 14px;"></i>
+                  <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience</span>
+               </div>
+               
+               <!-- Salary Range -->
+               <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid #f3f4f6; padding-left: 52px;">
+                  <div style="display: flex; align-items: baseline; gap: 6px;">
+                     @if(!empty($job->salary_min) && !empty($job->salary_max))
+                        <span style="font-size: 20px; font-weight: 700; color: #1a1a1a;">
+                           {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
+                        </span>
+                        <span style="font-size: 14px; color: #6b7280; font-weight: 400;">
+                           / {{ ucfirst($job->salary_period ?? 'Monthly') }}
+                        </span>
+                     @else
+                        <span style="font-size: 18px; font-weight: 600; color: #6b7280;">Negotiable</span>
+                     @endif
+                  </div>
+               </div>
+            </div>
          </div>
-
-         <div class="d-flex align-items-center justify-content-between">
-         <div class="job_price">AED {{ number_format((float)($job->salary_min ?? 250)) }}/{{ $job->salary_period ?? 'hr' }} <span>{{ $job->location_city }}</span></div>
-         <div class="readmore m-0"><a href="{{ route('jobs.show', $job->slug) }}">Details</a></div>
+         @endforeach
       </div>
-
-</div>
-</div>
-@endforeach
-</div>
-</div>
-<div class="text-center mt-4 mb-4">
-   <a href="{{ route('jobs.index') }}" class="btn-browse-jobs">
-      <i class="fas fa-search"></i> Browse All Jobs
-   </a>
-</div>
-
-</div>
-
-                        </div>
-                        </div>
+      
+      <div class="text-center mt-5">
+         <a href="{{ route('jobs.index') }}" style="display: inline-flex; align-items: center; gap: 10px; background: #1a1a1a; color: #ffffff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease;">
+            <i class="fas fa-search"></i> Browse All Jobs
+         </a>
+      </div>
+   </div>
+</section>
 @endif
 
 
