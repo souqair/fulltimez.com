@@ -757,53 +757,30 @@
 </style>
 
 <!-- Desktop Header - Only shows on desktop -->
-<div class="desktop-header d-none d-lg-block">
-    <div class="container py-3">
-        <div class="app">
-            <div class="row align-items-center">
-                <!-- Logo -->
-                <div class="col-lg-3">
-                    <div class="fulltimez-logo">
-                        <a href="{{ route('home') }}">
-                            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo">
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="col-lg-6">
-                    <nav class="top-nav">
-                        <ul class="tabs">
-                            <li class="tab"><a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">Browse Jobs</a></li>
-                            <li class="tab"><a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">Browse Resumes</a></li>
-                            <li class="tab"><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact Us</a></li>
-                        </ul>
-                    </nav>
-                </div>
-
-                <!-- Desktop Auth Links -->
-                <div class="col-lg-3">
-                    <div class="d-flex gap-2 justify-content-end align-items-center">
-                        @auth
-                        <a href="{{ route('dashboard') }}" class="auth-btn dashboard-btn">Dashboard</a>
-                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                            @csrf
-                            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="auth-btn logout-btn">Logout</a>
-                        </form>
-                        @else
-                        <a href="{{ route('login') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #1a1a1a; text-decoration: none; font-size: 14px; font-weight: 500; padding: 8px 16px;">
-                            <i class="fas fa-user" style="font-size: 14px;"></i> Login
-                        </a>
-                        <a href="{{ route('choose.role') }}" style="display: inline-block; background: #1a1a1a; color: #ffffff; padding: 10px 24px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.3s ease;">
-                            Get Started
-                        </a>
-                        @endauth
-                    </div>
-                </div>
-            </div>
-        </div>
+<header class="desktop-header d-none d-lg-block" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; background: #fff;">
+    <div class="logo" style="font-weight: 700; font-size: 18px; color: #000;">
+        <a href="{{ route('home') }}" style="color: #000; text-decoration: none;">
+            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez" style="max-height: 30px; vertical-align: middle;">
+        </a>
     </div>
-</div>
+    <nav style="display: flex; align-items: center;">
+        <a href="{{ route('jobs.index') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Browse Jobs</a>
+        <a href="{{ route('candidates.index') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Browse Resumes</a>
+        <a href="{{ route('contact') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Contact Us</a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        @auth
+        <a href="{{ route('dashboard') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Dashboard</a>
+        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+            @csrf
+            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Logout</a>
+        </form>
+        @else
+        <a href="{{ route('login') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Login</a>
+        <a href="{{ route('choose.role') }}" class="btn-small" style="background: #000; color: #fff; padding: 6px 14px; border-radius: 6px; font-size: 12px; text-decoration: none; margin: 0;">Get Started</a>
+        @endauth
+    </div>
+</header>
 
 <!-- Mobile Header - Only shows on mobile -->
 <div class="mobile-header d-lg-none">
