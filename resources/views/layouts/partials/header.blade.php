@@ -1,802 +1,483 @@
 <style>
-/* Top Navigation Menu Styling - Simple */
-.top-nav {
-    padding: 8px 6px 10px; !implements
+/* ============================================
+   MODERN NAVBAR - COMPLETE REDESIGN
+   ============================================ */
+
+/* Desktop Header - Modern Design */
+.desktop-header {
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
 }
 
-.top-nav .tabs {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.desktop-header.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.desktop-header .header-container {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
+    padding: 18px 60px;
+    max-width: 100%;
 }
 
-.top-nav .tab {
-    margin: 0;
-    padding: 0;
+.desktop-header .logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
-.top-nav .tab a {
-    display: inline-block;
-    padding: 8px 10px;
-    color: #4a5568;
+.desktop-header .logo a {
+    display: flex;
+    align-items: center;
     text-decoration: none;
+    color: #000;
+    font-weight: 700;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.desktop-header .logo a:hover {
+    transform: scale(1.05);
+}
+
+.desktop-header .logo img {
+    max-height: 35px;
+    width: auto;
+    margin-right: 8px;
+}
+
+.desktop-header nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+}
+
+.desktop-header nav a {
+    text-decoration: none;
+    color: #333;
     font-size: 15px;
     font-weight: 500;
-    border-radius: 6px;
-    transition: all 0.2s ease;
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.top-nav .tab a:hover {
-    color: #007bff;
-    background: #f0f4ff;
+.desktop-header nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 6px;
+    height: 6px;
+    background: #000;
+    border-radius: 50%;
+    transition: all 0.3s ease;
 }
 
-/* Active state */
-.top-nav .tab a.active {
-    color: #007bff;
-    background: #f0f4ff;
+.desktop-header nav a:hover {
+    color: #000;
+    background: #f8f8f8;
 }
 
-/* Auth Buttons Styling - Simple */
-.auth-buttons {
+.desktop-header nav a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.desktop-header nav a.active {
+    color: #000;
+    background: #f0f0f0;
+    font-weight: 600;
+}
+
+.desktop-header nav a.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.desktop-header .header-actions {
     display: flex;
-    gap: 8px;
     align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
 }
 
-.auth-btn {
-    display: inline-block;
-    padding: 8px 18px;
-    border-radius: 6px;
+.desktop-header .header-actions a {
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
-    transition: all 0.2s ease;
-    white-space: nowrap;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
-.auth-btn.login-btn {
-    background: #007bff;
-    color: #ffffff;
+.desktop-header .header-actions .login-link {
+    color: #333;
+    background: transparent;
 }
 
-.auth-btn.login-btn:hover {
-    background: #0056b3;
-    color: #ffffff;
+.desktop-header .header-actions .login-link:hover {
+    color: #000;
+    background: #f8f8f8;
 }
 
-.auth-btn.register-btn {
-    background: #ffffff;
-    color: #007bff;
-    border: 1px solid #007bff;
+.desktop-header .header-actions .get-started-btn {
+    background: #000;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.auth-btn.register-btn:hover {
-    background: #007bff;
-    color: #ffffff;
+.desktop-header .header-actions .get-started-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.auth-btn.dashboard-btn {
-    background: #22c55e;
-    color: #ffffff;
+.desktop-header .header-actions .dashboard-link {
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+    font-weight: 600;
 }
 
-.auth-btn.dashboard-btn:hover {
-    background: #16a34a;
-    color: #ffffff;
+.desktop-header .header-actions .dashboard-link:hover {
+    background: rgba(34, 197, 94, 0.15);
+    color: #16a34a;
 }
 
-.auth-btn.logout-btn {
-    background: #ffffff;
+.desktop-header .header-actions .logout-link {
     color: #ef4444;
-    border: 1px solid #ef4444;
+    background: rgba(239, 68, 68, 0.1);
 }
 
-.auth-btn.logout-btn:hover {
-    background: #ef4444;
-    color: #ffffff;
+.desktop-header .header-actions .logout-link:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #dc2626;
 }
 
-/* Mobile Navigation Toggle */
-.mobile-nav-toggle {
-    background: #007bff;
-    color: #ffffff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
+/* Mobile Header - Modern Design */
+.mobile-header {
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    padding: 12px 20px;
+}
+
+.mobile-header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.mobile-logo {
+    flex: 1;
+}
+
+.mobile-logo a {
     display: flex;
     align-items: center;
-    gap: 8px;
-    transition: all 0.2s ease;
 }
 
-.mobile-nav-toggle:hover {
-    background: #0056b3;
+.mobile-logo img {
+    max-height: 32px;
+    width: auto;
 }
 
-/* Mobile Only Styles - Works in Browser Responsive Mode Too */
-@media (max-width: 991.98px) {
-    /* Mobile Menu Overlay */
-    .mobile-menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(4px);
-        z-index: 9998;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-        display: block !important;
-    }
-
-    .mobile-menu-overlay.show {
-        opacity: 1;
-        visibility: visible;
-        display: block !important;
-    }
-
-    /* Mobile Navigation Drawer - Clean Implementation */
-    .mobile-nav-menu {
-        position: fixed !important;
-        top: 0 !important;
-        right: 0 !important;
-        width: 320px !important;
-        max-width: 85vw !important;
-        height: 100vh !important;
-        background: #ffffff !important;
-        box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2) !important;
-        padding: 0 !important;
-        z-index: 99999 !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        transform: translateX(100%) !important;
-        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        will-change: transform;
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-
-    .mobile-nav-menu.show {
-        transform: translateX(0) !important;
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-    
-    /* Custom Scrollbar for Mobile Menu */
-    .mobile-nav-menu::-webkit-scrollbar {
-        width: 6px;
-    }
-    
-    .mobile-nav-menu::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-    
-    .mobile-nav-menu::-webkit-scrollbar-thumb {
-        background: #007bff;
-        border-radius: 3px;
-    }
-    
-    .mobile-nav-menu::-webkit-scrollbar-thumb:hover {
-        background: #0056b3;
-    }
+.mobile-header-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-@media (min-width: 992px) {
-    .mobile-menu-overlay,
-    .mobile-nav-menu {
-        display: none !important;
-        visibility: hidden !important;
-    }
-    
-    .mobile-menu-overlay.show,
-    .mobile-nav-menu.show {
-        display: none !important;
-    }
+.mobile-header-btn:hover {
+    background: #333;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 991.98px) {
-    /* Mobile Menu Header */
-    .mobile-nav-menu-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 24px;
-        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-        color: #ffffff;
-        margin-bottom: 0;
-        box-shadow: 0 2px 10px rgba(0, 123, 255, 0.2);
-        position: sticky;
-        top: 0;
-        z-index: 10;
-    }
-
-    .mobile-nav-menu-header h3 {
-        margin: 0;
-        font-size: 22px;
-        font-weight: 700;
-        color: #ffffff;
-        letter-spacing: 0.5px;
-    }
-
-    .mobile-menu-close {
-        background: rgba(255, 255, 255, 0.25);
-        border: none;
-        font-size: 22px;
-        color: #ffffff;
-        cursor: pointer;
-        padding: 10px;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        flex-shrink: 0;
-    }
-
-    .mobile-menu-close:hover,
-    .mobile-menu-close:active {
-        background: rgba(255, 255, 255, 0.4);
-        transform: rotate(90deg) scale(1.1);
-    }
-
-    /* Mobile Menu Content */
-    .mobile-nav-menu-content {
-        padding: 24px 20px;
-        background: #ffffff;
-    }
-
-    .mobile-nav-menu a {
-        display: flex;
-        align-items: center;
-        padding: 16px 20px;
-        color: #1f2937;
-        text-decoration: none;
-        border-radius: 12px;
-        margin-bottom: 8px;
-        transition: all 0.25s ease;
-        font-weight: 600;
-        font-size: 16px;
-        border-left: 4px solid transparent;
-        background: #f8fafc;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .mobile-nav-menu a::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 4px;
-        background: #007bff;
-        transform: scaleY(0);
-        transition: transform 0.25s ease;
-    }
-
-    .mobile-nav-menu a i {
-        margin-right: 16px;
-        width: 24px;
-        text-align: center;
-        font-size: 20px;
-        color: #6b7280;
-        transition: all 0.25s ease;
-    }
-
-    .mobile-nav-menu a:hover,
-    .mobile-nav-menu a.active {
-        background: linear-gradient(90deg, #e3f2fd 0%, #f0f7ff 100%);
-        color: #007bff;
-        border-left-color: #007bff;
-        transform: translateX(8px);
-        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
-    }
-    
-    .mobile-nav-menu a:hover::before,
-    .mobile-nav-menu a.active::before {
-        transform: scaleY(1);
-    }
-    
-    .mobile-nav-menu a:hover i,
-    .mobile-nav-menu a.active i {
-        color: #007bff;
-        transform: scale(1.1);
-    }
-
-    .mobile-nav-menu hr {
-        margin: 24px 0;
-        border: none;
-        border-top: 2px solid #e5e7eb;
-        opacity: 0.6;
-    }
+.mobile-header-btn:active {
+    transform: scale(0.95);
 }
 
-@media (max-width: 991.98px) {
-    .mobile-auth-btn {
-        display: flex;
-        align-items: center;
-        padding: 16px 18px;
-        border-radius: 10px;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 600;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        transition: all 0.2s ease;
-        border-left: 4px solid transparent;
-        justify-content: center;
-    }
-
-    .mobile-auth-btn i {
-        margin-right: 14px;
-        width: 22px;
-        text-align: center;
-        font-size: 18px;
-    }
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
 }
 
-@media (max-width: 991.98px) {
-    .mobile-auth-btn.login-btn {
-        background: #007bff;
-        color: #ffffff;
-    }
+.mobile-menu-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
 
-    .mobile-auth-btn.login-btn:hover {
-        background: #0056b3;
-    }
+/* Mobile Navigation Menu */
+.mobile-nav-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    max-width: 85vw;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+}
 
-    .mobile-auth-btn.register-btn {
-        background: #ffffff;
-        color: #007bff;
-        border: 2px solid #007bff;
-    }
+.mobile-nav-menu.show {
+    transform: translateX(0);
+}
 
-    .mobile-auth-btn.register-btn:hover {
-        background: #007bff;
-        color: #ffffff;
-    }
+.mobile-nav-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #000 0%, #333 100%);
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
 
-    .mobile-auth-btn.dashboard-btn {
-        background: #22c55e;
-        color: #ffffff;
-    }
+.mobile-nav-menu-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+}
 
-    .mobile-auth-btn.dashboard-btn:hover {
-        background: #16a34a;
-    }
+.mobile-menu-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-    .mobile-auth-btn.logout-btn {
-        background: #ffffff;
-        color: #ef4444;
-        border: 2px solid #ef4444;
-    }
+.mobile-menu-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
 
-    .mobile-auth-btn.logout-btn:hover {
-        background: #ef4444;
-        color: #ffffff;
+.mobile-nav-menu-content {
+    padding: 20px 0;
+}
+
+.mobile-nav-menu-content a {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.mobile-nav-menu-content a i {
+    margin-right: 16px;
+    width: 24px;
+    font-size: 18px;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-menu-content a:hover,
+.mobile-nav-menu-content a.active {
+    background: #f8f8f8;
+    color: #000;
+    border-left-color: #000;
+    padding-left: 28px;
+}
+
+.mobile-nav-menu-content a:hover i,
+.mobile-nav-menu-content a.active i {
+    color: #000;
+}
+
+.mobile-nav-menu-content hr {
+    margin: 20px 24px;
+    border: none;
+    border-top: 1px solid #e5e7eb;
+}
+
+.mobile-auth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 20px;
+    margin: 8px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.mobile-auth-btn.login-btn {
+    background: #000;
+    color: #fff;
+}
+
+.mobile-auth-btn.login-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-auth-btn.register-btn {
+    background: #f0f0f0;
+    color: #000;
+}
+
+.mobile-auth-btn.register-btn:hover {
+    background: #e0e0e0;
+}
+
+.mobile-auth-btn.dashboard-btn {
+    background: #22c55e;
+    color: #fff;
+}
+
+.mobile-auth-btn.dashboard-btn:hover {
+    background: #16a34a;
+}
+
+.mobile-auth-btn.logout-btn {
+    background: #ef4444;
+    color: #fff;
+}
+
+.mobile-auth-btn.logout-btn:hover {
+    background: #dc2626;
+}
+
+/* Responsive Design */
+@media (max-width: 1199px) {
+    .desktop-header .header-container {
+        padding: 18px 40px;
+    }
+    
+    .desktop-header nav a {
+        padding: 10px 14px;
+        font-size: 14px;
     }
 }
 
 @media (max-width: 991px) {
-    .top-nav .tabs {
-        gap: 8px;
-    }
-    
-    .top-nav .tab a {
-        padding: 6px 12px;
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 768px) {
-    .auth-buttons {
-        gap: 6px;
-    }
-    
-    .auth-btn {
-        padding: 6px 14px;
-        font-size: 13px;
-    }
-}
-
-/* Mobile Header - Completely Separate - Mobile Only */
-@media (max-width: 991.98px) {
-    .mobile-header {
-        background: #ffffff;
-        border-bottom: 1px solid #e5e7eb;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        padding: 0;
-        width: 100%;
-        max-width: 100vw;
-        margin: 0;
-        left: 0;
-        right: 0;
-    }
-    
-    .mobile-header .container,
-    .mobile-header .container-fluid {
-        width: 100%;
-        max-width: 100%;
-        padding-left: 15px;
-        padding-right: 15px;
-        margin: 0;
-    }
-    
-    .mobile-header .py-3 {
-        padding-top: 12px !important;
-        padding-bottom: 12px !important;
-    }
-
-    .mobile-header-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        gap: 12px;
-        max-width: 100%;
-    }
-
-    .mobile-logo {
-        flex: 1 1 auto;
-        display: flex;
-        align-items: center;
-        min-width: 0;
-        overflow: hidden;
-    }
-
-    .mobile-logo a {
-        display: flex;
-        align-items: center;
-        max-width: 100%;
-    }
-
-    .mobile-logo img {
-        max-height: 40px;
-        width: auto;
-        height: auto;
-        max-width: 100%;
-        object-fit: contain;
-    }
-
-    .mobile-header-buttons {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        flex-shrink: 0;
-    }
-
-    .mobile-header-btn {
-        background: #007bff;
-        color: #ffffff;
-        border: none;
-        padding: 0;
-        border-radius: 8px;
-        font-size: 18px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 44px;
-        width: 44px;
-        height: 44px;
-        position: relative;
-        z-index: 1001;
-        pointer-events: auto;
-        -webkit-tap-highlight-color: transparent;
-        box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
-        flex-shrink: 0;
-    }
-    
-    .mobile-header-btn i {
-        font-size: 18px;
-    }
-    
-    .mobile-header-btn:hover {
-        background: #0056b3;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
-    }
-
-    .mobile-header-btn:active {
-        transform: translateY(0);
-        box-shadow: 0 1px 3px rgba(0, 123, 255, 0.2);
-    }
-}
-
-@media (min-width: 992px) {
-    .mobile-header {
+    .desktop-header {
         display: none !important;
     }
 }
 
-/* Desktop Header - Completely Separate */
-.desktop-header {
-    background: #ffffff;
-}
-
-/* Login/Register Links Styling */
-.login {
-    display: inline-block;
-}
-
-.login a {
-    display: inline-block;
-    padding: 8px 18px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-
-.login:first-child a {
-    background: #007bff;
-    color: #ffffff;
-}
-
-.login:first-child a:hover {
-    background: #0056b3;
-    color: #ffffff;
-}
-
-.login:last-child a {
-    background: #ffffff;
-    color: #007bff;
-    border: 1px solid #007bff;
-}
-
-.login:last-child a:hover {
-    background: #007bff;
-    color: #ffffff;
-}
-
-/* Mobile Search Toggle - Beautiful Design */
-@media (max-width: 991.98px) {
-    .search-wrap {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-        z-index: 10000;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        display: block !important;
-        padding: 0 !important;
-        max-height: 100vh;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    
-    .search-wrap.show {
-        transform: translateY(0) !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        display: block !important;
-    }
-    
-    /* Search Box Close Button - Beautiful Design */
-    .mobile-search-close {
-        background: rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: #ffffff;
-        font-size: 20px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        flex-shrink: 0;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    
-    .mobile-search-close:hover,
-    .mobile-search-close:active {
-        background: rgba(255, 255, 255, 0.5);
-        transform: rotate(90deg) scale(1.05);
-        color: #ffffff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-    
-    /* Search Box Header - Beautiful Gradient */
-    .mobile-search-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px 16px 18px 16px;
-        background: linear-gradient(135deg, #007bff 0%, #0056b3 50%, #004085 100%);
-        color: #ffffff;
-        box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        border-bottom: 3px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .mobile-search-header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
-        pointer-events: none;
-    }
-    
-    .mobile-search-header h3 {
-        margin: 0;
-        font-size: 22px;
-        font-weight: 700;
-        color: #ffffff;
-        letter-spacing: 0.5px;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        position: relative;
-        z-index: 1;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .mobile-search-header h3 i {
-        font-size: 20px;
-        margin-right: 8px;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-    }
-    
-    /* Search form padding for mobile - Beautiful spacing */
-    .search-wrap form {
-        padding: 20px 16px 24px 16px;
-        background: transparent;
-    }
-    
-    /* Search form fields styling */
-    .search-wrap .search-barwrp {
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 20px 16px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-        border: 1px solid #e5e7eb;
-    }
-    
-    .search-wrap .field {
-        margin-bottom: 20px;
-    }
-    
-    .search-wrap .field:last-child {
-        margin-bottom: 0;
-    }
-    
-    .search-wrap .label {
-        display: block;
-        font-weight: 600;
-        color: #1f2937;
-        margin-bottom: 8px;
-        font-size: 14px;
-        letter-spacing: 0.3px;
-    }
-    
-    .search-wrap .form-control {
-        width: 100%;
-        padding: 12px 16px;
-        border: 2px solid #e5e7eb;
-        border-radius: 10px;
-        font-size: 15px;
-        transition: all 0.3s ease;
-        background: #ffffff;
-        color: #1f2937;
-    }
-    
-    .search-wrap .form-control:focus {
-        outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-        transform: translateY(-1px);
-    }
-    
-    .search-wrap .btn.primary {
-        width: 100%;
-        padding: 14px 24px;
-        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-        color: #ffffff;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-        margin-top: 10px;
-    }
-    
-    .search-wrap .btn.primary:hover {
-        background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
-    }
-    
-    .search-wrap .btn.primary:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
-    }
-}
-
 @media (min-width: 992px) {
-    .search-wrap {
-        display: block !important;
-        opacity: 1;
-        visibility: visible;
+    .mobile-header,
+    .mobile-menu-overlay,
+    .mobile-nav-menu {
+        display: none !important;
     }
+}
+
+/* Custom Scrollbar for Mobile Menu */
+.mobile-nav-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.mobile-nav-menu::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.mobile-nav-menu::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.mobile-nav-menu::-webkit-scrollbar-thumb:hover {
+    background: #999;
 }
 </style>
 
-<!-- Desktop Header - Only shows on desktop -->
-<header class="desktop-header d-none d-lg-block" style="display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; background: #fff;">
-    <div class="logo" style="font-weight: 700; font-size: 18px; color: #000;">
-        <a href="{{ route('home') }}" style="color: #000; text-decoration: none;">
-            <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez" style="max-height: 30px; vertical-align: middle;">
-        </a>
-    </div>
-    <nav style="display: flex; align-items: center;">
-        <a href="{{ route('jobs.index') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Browse Jobs</a>
-        <a href="{{ route('candidates.index') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Browse Resumes</a>
-        <a href="{{ route('contact') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Contact Us</a>
-    </nav>
-    <div style="display: flex; align-items: center; gap: 15px;">
-        @auth
-        <a href="{{ route('dashboard') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Dashboard</a>
-        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-            @csrf
-            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Logout</a>
-        </form>
-        @else
-        <a href="{{ route('login') }}" style="text-decoration: none; color: #000; margin: 0 15px; font-size: 14px;">Login</a>
-        <a href="{{ route('choose.role') }}" class="btn-small" style="background: #000; color: #fff; padding: 6px 14px; border-radius: 6px; font-size: 12px; text-decoration: none; margin: 0;">Get Started</a>
-        @endauth
+<!-- Desktop Header -->
+<header class="desktop-header d-none d-lg-block" id="desktopHeader">
+    <div class="header-container">
+        <div class="logo">
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez">
+                <span>FullTimez</span>
+            </a>
+        </div>
+        <nav>
+            <a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">Browse Jobs</a>
+            <a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">Browse Resumes</a>
+            <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact Us</a>
+        </nav>
+        <div class="header-actions">
+            @auth
+            <a href="{{ route('dashboard') }}" class="dashboard-link">Dashboard</a>
+            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                @csrf
+                <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="logout-link">Logout</a>
+            </form>
+            @else
+            <a href="{{ route('login') }}" class="login-link">Login</a>
+            <a href="{{ route('choose.role') }}" class="get-started-btn">Get Started</a>
+            @endauth
+        </div>
     </div>
 </header>
 
-<!-- Mobile Header - Only shows on mobile -->
+<!-- Mobile Header -->
 <div class="mobile-header d-lg-none">
-    <div class="container-fluid py-3" style="padding-left: 15px; padding-right: 15px;">
-        <div class="mobile-header-inner">
-            <div class="mobile-logo">
-                <a href="{{ route('home') }}">
-                    <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez Logo">
-                </a>
-            </div>
-            <div class="mobile-header-buttons">
-                <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
+    <div class="mobile-header-inner">
+        <div class="mobile-logo">
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez">
+            </a>
         </div>
+        <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
     </div>
 </div>
 
@@ -829,7 +510,7 @@
         <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">
             <i class="fa-solid fa-chart-line"></i> Dashboard
         </a>
-        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="mobile-auth-btn logout-btn">
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); closeMobileMenu();" class="mobile-auth-btn logout-btn">
             <i class="fa-solid fa-sign-out-alt"></i> Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -837,15 +518,78 @@
         </form>
         @else
         <a href="{{ route('login') }}" class="mobile-auth-btn login-btn">
-            <i class="fa-solid fa-sign-in-alt"></i> LOGIN
+            <i class="fa-solid fa-sign-in-alt"></i> Login
         </a>
         <a href="{{ route('choose.role') }}" class="mobile-auth-btn register-btn">
-            <i class="fa-solid fa-user-plus"></i> REGISTER
+            <i class="fa-solid fa-user-plus"></i> Get Started
         </a>
         @endauth
     </div>
-    </div>
 </div>
 
-</div>
+<script>
+// Mobile Menu Toggle
+function openMobileMenu() {
+    const menu = document.getElementById('mobileNavMenu');
+    const overlay = document.getElementById('mobileMenuOverlay');
+    if (menu) menu.classList.add('show');
+    if (overlay) overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
 
+function closeMobileMenu() {
+    const menu = document.getElementById('mobileNavMenu');
+    const overlay = document.getElementById('mobileMenuOverlay');
+    if (menu) menu.classList.remove('show');
+    if (overlay) overlay.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('mobileMenuToggle');
+    const menuClose = document.getElementById('mobileMenuClose');
+    const overlay = document.getElementById('mobileMenuOverlay');
+    
+    if (menuToggle) {
+        menuToggle.addEventListener('click', openMobileMenu);
+    }
+    
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMobileMenu);
+    }
+    
+    if (overlay) {
+        overlay.addEventListener('click', closeMobileMenu);
+    }
+    
+    // Close menu on link click
+    const menuLinks = document.querySelectorAll('.mobile-nav-menu-content a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            setTimeout(closeMobileMenu, 200);
+        });
+    });
+    
+    // Close menu on window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 992) {
+            closeMobileMenu();
+        }
+    });
+    
+    // Desktop header scroll effect
+    const desktopHeader = document.getElementById('desktopHeader');
+    if (desktopHeader) {
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 50) {
+                desktopHeader.classList.add('scrolled');
+            } else {
+                desktopHeader.classList.remove('scrolled');
+            }
+            lastScroll = currentScroll;
+        });
+    }
+});
+</script>
