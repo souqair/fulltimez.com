@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JobPosting;
 use App\Models\User;
+use App\Models\JobCategory;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -87,7 +88,10 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
-        return view('home', compact('featuredJobs', 'recommendedJobs', 'jobSeekers', 'featuredJobSeeker', 'featuredCandidates'));
+        // Get categories for search dropdown
+        $categories = JobCategory::where('is_active', true)->orderBy('name')->get();
+
+        return view('home', compact('featuredJobs', 'recommendedJobs', 'jobSeekers', 'featuredJobSeeker', 'featuredCandidates', 'categories'));
     }
 }
 

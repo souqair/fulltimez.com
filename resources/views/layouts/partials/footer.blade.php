@@ -39,54 +39,90 @@ when applying and communicating with potential employers.
 <div class="ads_ text-center py-5"><img src="images/ads2.jpg" alt=""></div>
 
 
-<footer class="section desktop-footer">
+<footer class="section desktop-footer" style="background: #1a1a1a; color: #ffffff; padding: 60px 0 20px 0;">
   <div class="container">
-    <div class="row">
-      <div class="col-md-4 col-sm-6 col-12">
+    <div class="row mb-5">
+      <!-- Left Column: Logo and Description -->
+      <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
         <div class="footer__item">
-          <p class="special_p">Modules</p>
-          <p>
-            <a href="{{ route('jobs.index') }}">Browse Jobs</a>
-            <a href="https://fulltimez.com/candidates">Browse Jobseekers</a>
-            <a href="#">Browse Employers</a>
-            <a class="logo d-none d-md-block mt-5" href="{{ route('home') }}"><img src="images/full-timez-logo-white.png" alt="" loading="lazy">&nbsp;</a>
+          <a href="{{ route('home') }}" class="mb-3 d-inline-block">
+            <img src="{{ asset('images/full-timez-logo-white.png') }}" alt="FullTimez" style="max-height: 40px;">
+          </a>
+          <p style="color: rgba(255, 255, 255, 0.8); font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
+            Empowering careers and connecting talent with opportunity across the globe.
           </p>
-          
+          <div class="social-icons" style="display: flex; gap: 12px;">
+            <a href="#" style="width: 36px; height: 36px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; text-decoration: none; transition: all 0.3s ease;">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" style="width: 36px; height: 36px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; text-decoration: none; transition: all 0.3s ease;">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" style="width: 36px; height: 36px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; text-decoration: none; transition: all 0.3s ease;">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" style="width: 36px; height: 36px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; text-decoration: none; transition: all 0.3s ease;">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
         </div>
       </div>
-      <div class="col-md-4 col-sm-6 col-12">
-        <div class="footer__item">
-          <p class="special_p">Sitemap</p>
-          <p>
-            <a href="https://fulltimez.com/get-started">sign Up</a>
-            <a href="https://fulltimez.com/login">Login</a>
-            <a href="https://fulltimez.com/login">Prices</a>
-           <a href="https://fulltimez.com/contact"> Contact Us</a>
-           <a href="https://fulltimez.com/login">Prepare ATS Resume</a>
-            <a href="https://fulltimez.com/login">Post Ad</a>
-            <a href="https://fulltimez.com/login">Book Appointment</a>
-          </p>
-           
+      
+      <!-- Middle Columns: Navigation Links -->
+      <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+        <div class="row">
+          <div class="col-6">
+            <div class="footer__item">
+              <h5 style="color: #ffffff; font-size: 16px; font-weight: 600; margin-bottom: 20px;">For Job Seekers</h5>
+              <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 10px;"><a href="{{ route('jobs.index') }}" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease;">Browse Jobs</a></li>
+                <li style="margin-bottom: 10px;"><a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease;">Companies</a></li>
+                <li style="margin-bottom: 10px;"><a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease;">Create Resume</a></li>
+                <li style="margin-bottom: 10px;"><a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease;">Career Advice</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="footer__item">
+              <h5 style="color: #ffffff; font-size: 16px; font-weight: 600; margin-bottom: 20px;">For Employers</h5>
+              <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 10px;"><a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease;">Post a Job</a></li>
+                <li style="margin-bottom: 10px;"><a href="{{ route('candidates.index') }}" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease;">Browse Resumes</a></li>
+                <li style="margin-bottom: 10px;"><a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease;">Pricing</a></li>
+                <li style="margin-bottom: 10px;"><a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease;">Resources</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-4 col-sm-6 col-12">
+      
+      <!-- Right Column: Newsletter -->
+      <div class="col-lg-4 col-md-12 col-12">
         <div class="footer__item">
-          <p class="special_p">Industries</p>
-          <p>
-            <a href="https://fulltimez.com/login">Subscribe Now</a>
-            <a href="#">About us</a>
-            <a href="{{ route('home') }}">Home</a>
-            
+          <h5 style="color: #ffffff; font-size: 16px; font-weight: 600; margin-bottom: 12px;">Stay Updated</h5>
+          <p style="color: rgba(255, 255, 255, 0.8); font-size: 14px; margin-bottom: 20px; line-height: 1.5;">
+            Subscribe to get latest jobs and career tips.
           </p>
+          <form action="#" method="POST" style="display: flex; gap: 8px; flex-wrap: wrap;">
+            @csrf
+            <input type="email" name="email" placeholder="Your email" required style="flex: 1; min-width: 200px; padding: 12px 16px; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; background: rgba(255, 255, 255, 0.1); color: #ffffff; font-size: 14px;">
+            <button type="submit" style="padding: 12px 24px; background: #1a1a1a; border: 2px solid #ffffff; border-radius: 8px; color: #ffffff; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease; white-space: nowrap;">
+              Subscribe
+            </button>
+          </form>
         </div>
       </div>
     </div> 
-    <div class="footer-bottom">
-      <div class="copyright">
-        ©2025 Full Timez. All rights reserved. 
+    
+    <!-- Bottom Bar -->
+    <div class="footer-bottom" style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+      <div class="copyright" style="color: rgba(255, 255, 255, 0.8); font-size: 14px;">
+        © 2025 FullTimez. All rights reserved.
       </div>
-      <div class="terms">
-        Powered by <a href="#">CoreMedia & Business Management (FZC) </a> 
+      <div class="terms" style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease;">Privacy Policy</a>
+        <a href="#" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease;">Terms of Service</a>
+        <a href="{{ route('contact') }}" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 14px; transition: color 0.3s ease;">Contact</a>
       </div>
     </div>
   </div>
