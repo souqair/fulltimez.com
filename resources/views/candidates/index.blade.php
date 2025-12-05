@@ -2,30 +2,182 @@
 
 @section('title', 'Candidates')
 
+@push('styles')
+<style>
+body {
+    overflow-x: hidden !important;
+}
+
+/* Simple Filters Styling */
+.filters {
+    background: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.filters h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.filters .input-group {
+    margin-bottom: 20px;
+}
+
+.filters label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.filters .form-control,
+.filters select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #333;
+    background: #fff;
+}
+
+.filters .form-control:focus,
+.filters select:focus {
+    outline: none;
+    border-color: #2772e8;
+}
+
+.filters .apply_btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.filters .apply_btn:hover {
+    background: #333;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 991px) {
+    /* Hide desktop filters on mobile */
+    .col-lg-3 {
+        display: none !important;
+    }
+    
+    /* Full width for candidates column on mobile */
+    .col-lg-9 {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Container adjustments */
+    section.category-wrap > div {
+        width: 95% !important;
+        padding: 0 15px !important;
+    }
+    
+    /* Breadcrumb mobile */
+    div[style*="width: 90%"] {
+        width: 95% !important;
+        padding: 0 15px !important;
+        margin: 20px auto 15px !important;
+    }
+    
+    /* Section titles mobile */
+    h2.section-title {
+        margin-left: 0 !important;
+        font-size: 20px !important;
+        padding: 0 15px !important;
+    }
+    
+    /* Candidates grid mobile */
+    .candidates-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        width: 100% !important;
+        gap: 20px !important;
+        padding: 20px 0 !important;
+    }
+    
+    /* Row adjustments */
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .cate_list {
+        padding: 0px 0px !important;
+    }
+    
+    .candidates-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+        padding: 20px 0 !important;
+    }
+    
+    .candidates-grid-wrapper {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    .candidates-grid-wrapper .mb-3 {
+        margin-left: 0 !important;
+        padding: 0 15px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Extra small devices */
+    section.category-wrap > div {
+        width: 100% !important;
+        padding: 0 10px !important;
+    }
+    
+    div[style*="width: 90%"] {
+        width: 100% !important;
+        padding: 0 10px !important;
+        margin: 15px auto 10px !important;
+    }
+    
+    h2.section-title {
+        font-size: 18px !important;
+        padding: 0 10px !important;
+    }
+    
+    .candidates-grid {
+        gap: 15px !important;
+    }
+}
+</style>
+@endpush
+
 @section('content')
-<section class="breadcrumb-section">
-    <div class="container-auto">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-12">
-                <div class="page-title">
-                    <h1>Candidates</h1>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-12">
-                <nav aria-label="breadcrumb" class="theme-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Candidates</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- Simple Breadcrumb -->
+<div style="width: 90%; margin: 40px auto 20px; padding: 0 20px;">
+    <nav style="font-size: 13px; color: #666;">
+        <a href="{{ route('home') }}" style="color: #666; text-decoration: none;">Home</a> / 
+        <span style="color: #000;">Candidates</span>
+    </nav>
+</div>
 
 <section class="category-wrap innerseeker popular-items mt-5">
-    <div class="container">
-        <div class="main_title">Browse Candidates</div>
+    <div class="" style="max-width: 100%; width: 90%; margin: 0 auto; padding: 0 20px;">
         
         <div class="row">
             <!-- Sidebar Filters -->
@@ -122,84 +274,57 @@
             <div class="col-lg-9 fadeInLeft">
                 <div class="cate_list m-0">
                     @if($featuredCandidates && $featuredCandidates->count() > 0)
-                    <div class="featured-jobs-section-wrapper">
-                        <div class="section-title">
-                            <h2>Featured Resumes</h2>
-                        </div>
-                        <div class="candidates-grid">
+                    <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Resumes</h2>
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
                             @foreach($featuredCandidates as $candidate)
-                            <div class="featured-candidate-card">
-                                <!-- Featured Badge -->
-                                <div class="featured-badge">
-                                    <i class="fas fa-star"></i>
-                                </div>
+                            @php
+                                $profile = $candidate->seekerProfile;
+                                $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
+                                $initials = strtoupper(mb_substr($displayName, 0, 1) . (mb_substr($displayName, strpos($displayName, ' ') + 1, 1) ?? ''));
+                                $rawPhoto = $profile->profile_picture ?? null;
+                                $hasImage = false;
+                                $avatarPath = null;
+
+                                if ($rawPhoto) {
+                                    if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
+                                        $hasImage = true;
+                                        $avatarPath = $rawPhoto;
+                                    } else {
+                                        $normalized = ltrim($rawPhoto, '/');
+                                        if (file_exists(public_path($normalized))) {
+                                            $hasImage = true;
+                                            $avatarPath = asset($normalized);
+                                        }
+                                    }
+                                }
                                 
-                                <!-- Favorite Icon -->
-                                <div class="favorite-icon">
-                                    <i class="far fa-heart"></i>
-                                </div>
-                                
-                                <!-- Profile Picture -->
-                                <div class="candidate-profile-picture">
-                                    @if($candidate->seekerProfile && $candidate->seekerProfile->profile_picture)
-                                        <img src="{{ asset($candidate->seekerProfile->profile_picture) }}" alt="{{ $candidate->seekerProfile->full_name ?? $candidate->name }}">
+                                $skills = [];
+                                if($profile && $profile->skills) {
+                                    $skillsData = is_string($profile->skills) ? json_decode($profile->skills, true) : $profile->skills;
+                                    if(is_array($skillsData)) {
+                                        $skills = array_slice($skillsData, 0, 3);
+                                    }
+                                }
+                            @endphp
+                            <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 25px 0; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
+                                <div class="circle" style="width: 50px; height: 50px; border-radius: 50%; background: #f5f5f5; margin: auto; font-size: 18px; display: flex; justify-content: center; align-items: center; color: #666; font-weight: 600;">
+                                    @if($hasImage && $avatarPath)
+                                        <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                                     @else
-                                        <div class="candidate-avatar-default">
-                                            {{ strtoupper(substr($candidate->seekerProfile->full_name ?? $candidate->name ?? 'U', 0, 1)) }}
-                                        </div>
+                                        {{ $initials }}
                                     @endif
                                 </div>
-                                
-                                <!-- Candidate Info -->
-                                <div class="candidate-card-body">
-                                    <h5 class="candidate-name">{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h5>
-                                    
-                                    <!-- Rate -->
-                                    <div class="candidate-rate">
-                                        @php
-                                            $salary = $candidate->seekerProfile->expected_salary ?? 'Negotiable';
-                                            if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
-                                                $amount = str_replace(',', '', $matches[1]);
-                                                echo 'AED ' . number_format((float)$amount);
-                                            } else {
-                                                echo $salary;
-                                            }
-                                        @endphp
-                                    </div>
-                                    
-                                    <!-- Profession -->
-                                    <p class="candidate-profession">{{ $candidate->seekerProfile->current_position ?? 'Job Seeker' }}</p>
-                                    
-                                    <!-- Location -->
-                                    <div class="candidate-location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <span>{{ $candidate->seekerProfile->city ?? 'UAE' }}, {{ $candidate->seekerProfile->country ?? 'UAE' }}</span>
-                                    </div>
-                                    
-                                    <!-- Rating -->
-                                    <div class="candidate-rating">
-                                        @php
-                                            $rating = 5;
-                                        @endphp
-                                        <div class="rating-stars">
-                                            @for($i = 1; $i <= 5; $i++)
-                                                @if($i <= floor($rating))
-                                                    <i class="fas fa-star"></i>
-                                                @elseif($i - 0.5 <= $rating)
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                @else
-                                                    <i class="far fa-star"></i>
-                                                @endif
-                                            @endfor
-                                        </div>
-                                        <span class="rating-number">{{ number_format($rating, 1) }}</span>
-                                    </div>
+                                <div class="cand-name" style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #000;">{{ $displayName }}</div>
+                                <div class="cand-role" style="font-size: 11px; color: #666; margin-bottom: 10px;">{{ $profile->current_position ?? 'Job Seeker' }}</div>
+                                @if(count($skills) > 0)
+                                <div class="cand-tags" style="margin-bottom: 10px;">
+                                    @foreach($skills as $skill)
+                                        <span style="font-size: 10px; background: #eee; padding: 3px 7px; margin: 2px; border-radius: 6px; display: inline-block; color: #444;">{{ $skill }}</span>
+                                    @endforeach
                                 </div>
-                                
-                                <!-- Action Buttons -->
-                                <div class="candidate-card-footer">
-                                    <a href="{{ route('candidates.show', $candidate->id) }}" class="btn-view-profile">Profile</a>
-                                    <a href="#" class="btn-hire-me">Hire Me</a>
+                                @endif
+                                <div class="cand-info" style="font-size: 11px; color: #666; margin-top: 10px;">
+                                    {{ $profile->experience_years ?? 'N/A' }} Years • ⭐ 4.9
                                 </div>
                             </div>
                             @endforeach
@@ -212,10 +337,8 @@
                         // Get Featured candidate IDs to exclude from Recommended display
                         $featuredCandidateIds = $featuredCandidates ? $featuredCandidates->pluck('id')->toArray() : [];
                     @endphp
-                    <div class="mt-4 mb-3 d-flex justify-content-between align-items-center">
-                        <strong>Recommended Resumes</strong>
-                    </div>
-                    <div class="candidates-grid">
+                    <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Recommended Resumes</h2>
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
                         @foreach($recommendedCandidates as $candidate)
                         @php
                             // Skip if candidate is in Featured section
@@ -231,56 +354,54 @@
                                 continue;
                             }
                         @endphp
-                        <div class="featured-candidate-card">
-                            <!-- Favorite Icon -->
-                            <div class="favorite-icon">
-                                <i class="far fa-heart"></i>
-                            </div>
+                        @php
+                            $profile = $candidate->seekerProfile;
+                            $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
+                            $initials = strtoupper(mb_substr($displayName, 0, 1) . (mb_substr($displayName, strpos($displayName, ' ') + 1, 1) ?? ''));
+                            $rawPhoto = $profile->profile_picture ?? null;
+                            $hasImage = false;
+                            $avatarPath = null;
+
+                            if ($rawPhoto) {
+                                if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
+                                    $hasImage = true;
+                                    $avatarPath = $rawPhoto;
+                                } else {
+                                    $normalized = ltrim($rawPhoto, '/');
+                                    if (file_exists(public_path($normalized))) {
+                                        $hasImage = true;
+                                        $avatarPath = asset($normalized);
+                                    }
+                                }
+                            }
                             
-                            <!-- Profile Picture -->
-                            <div class="candidate-profile-picture">
-                                @if($candidate->seekerProfile && $candidate->seekerProfile->profile_picture)
-                                    <img src="{{ asset($candidate->seekerProfile->profile_picture) }}" alt="{{ $candidate->seekerProfile->full_name ?? $candidate->name }}">
+                            $skills = [];
+                            if($profile && $profile->skills) {
+                                $skillsData = is_string($profile->skills) ? json_decode($profile->skills, true) : $profile->skills;
+                                if(is_array($skillsData)) {
+                                    $skills = array_slice($skillsData, 0, 3);
+                                }
+                            }
+                        @endphp
+                        <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 25px 0; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
+                            <div class="circle" style="width: 50px; height: 50px; border-radius: 50%; background: #f5f5f5; margin: auto; font-size: 18px; display: flex; justify-content: center; align-items: center; color: #666; font-weight: 600;">
+                                @if($hasImage && $avatarPath)
+                                    <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                                 @else
-                                    <div class="candidate-avatar-default">
-                                        {{ strtoupper(substr($candidate->seekerProfile->full_name ?? $candidate->name ?? 'U', 0, 1)) }}
-                                    </div>
+                                    {{ $initials }}
                                 @endif
                             </div>
-                            
-                            <!-- Candidate Info -->
-                            <div class="candidate-card-body">
-                                <h5 class="candidate-name">{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h5>
-                                
-                                <!-- Rate -->
-                                <div class="candidate-rate">
-                                    @php
-                                        $salary = $candidate->seekerProfile->expected_salary ?? 'Negotiable';
-                                        if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
-                                            $amount = str_replace(',', '', $matches[1]);
-                                            echo 'AED ' . number_format((float)$amount);
-                                        } else {
-                                            echo $salary;
-                                        }
-                                    @endphp
-                                </div>
-                                
-                                <!-- Profession -->
-                                <p class="candidate-profession">{{ $candidate->seekerProfile->current_position ?? 'Job Seeker' }}</p>
-                                
-                                <!-- Location -->
-                                <div class="candidate-location">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ $candidate->seekerProfile->city ?? 'UAE' }}, {{ $candidate->seekerProfile->country ?? 'UAE' }}</span>
-                                </div>
-                                
-                              
+                            <div class="cand-name" style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #000;">{{ $displayName }}</div>
+                            <div class="cand-role" style="font-size: 11px; color: #666; margin-bottom: 10px;">{{ $profile->current_position ?? 'Job Seeker' }}</div>
+                            @if(count($skills) > 0)
+                            <div class="cand-tags" style="margin-bottom: 10px;">
+                                @foreach($skills as $skill)
+                                    <span style="font-size: 10px; background: #eee; padding: 3px 7px; margin: 2px; border-radius: 6px; display: inline-block; color: #444;">{{ $skill }}</span>
+                                @endforeach
                             </div>
-                            
-                            <!-- Action Buttons -->
-                            <div class="candidate-card-footer">
-                                <a href="{{ route('candidates.show', $candidate->id) }}" class="btn-view-profile">Profile</a>
-                                <a href="#" class="btn-hire-me">Hire Me</a>
+                            @endif
+                            <div class="cand-info" style="font-size: 11px; color: #666; margin-top: 10px;">
+                                {{ $profile->experience_years ?? 'N/A' }} Years • ⭐ 4.9
                             </div>
                         </div>
                         @endforeach
@@ -288,69 +409,60 @@
                     @endif
 
                     <div class="candidates-grid-wrapper">
-                        <div class="mb-3">
-                            <strong>{{ $candidates->total() }} candidates found</strong>
+                        <div class="mb-3" style="margin-left: 60px;">
+                            <strong style="font-size: 16px; color: #000;">{{ $candidates->total() }} candidates found</strong>
                         </div>
                     
-                    <div class="candidates-grid">
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
                         @forelse($candidates as $candidate)
-                        <div class="featured-candidate-card">
-                            <!-- Featured Badge -->
-                            <div class="featured-badge">
-                                <i class="fas fa-star"></i>
-                            </div>
+                        @php
+                            $profile = $candidate->seekerProfile;
+                            $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
+                            $initials = strtoupper(mb_substr($displayName, 0, 1) . (mb_substr($displayName, strpos($displayName, ' ') + 1, 1) ?? ''));
+                            $rawPhoto = $profile->profile_picture ?? null;
+                            $hasImage = false;
+                            $avatarPath = null;
+
+                            if ($rawPhoto) {
+                                if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
+                                    $hasImage = true;
+                                    $avatarPath = $rawPhoto;
+                                } else {
+                                    $normalized = ltrim($rawPhoto, '/');
+                                    if (file_exists(public_path($normalized))) {
+                                        $hasImage = true;
+                                        $avatarPath = asset($normalized);
+                                    }
+                                }
+                            }
                             
-                            <!-- Favorite Icon -->
-                            <div class="favorite-icon">
-                                <i class="far fa-heart"></i>
-                            </div>
-                            
-                            <!-- Profile Picture -->
-                            <div class="candidate-profile-picture">
-                                @if($candidate->seekerProfile && $candidate->seekerProfile->profile_picture)
-                                    <img src="{{ asset($candidate->seekerProfile->profile_picture) }}" alt="{{ $candidate->seekerProfile->full_name ?? $candidate->name }}">
+                            $skills = [];
+                            if($profile && $profile->skills) {
+                                $skillsData = is_string($profile->skills) ? json_decode($profile->skills, true) : $profile->skills;
+                                if(is_array($skillsData)) {
+                                    $skills = array_slice($skillsData, 0, 3);
+                                }
+                            }
+                        @endphp
+                        <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 25px 0; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
+                            <div class="circle" style="width: 50px; height: 50px; border-radius: 50%; background: #f5f5f5; margin: auto; font-size: 18px; display: flex; justify-content: center; align-items: center; color: #666; font-weight: 600;">
+                                @if($hasImage && $avatarPath)
+                                    <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                                 @else
-                                    <div class="candidate-avatar-default">
-                                        {{ strtoupper(substr($candidate->seekerProfile->full_name ?? $candidate->name ?? 'U', 0, 1)) }}
-                                    </div>
+                                    {{ $initials }}
                                 @endif
                             </div>
-                            
-                            <!-- Candidate Info -->
-                            <div class="candidate-card-body">
-                                <h5 class="candidate-name">{{ $candidate->seekerProfile->full_name ?? $candidate->name }}</h5>
-                                
-                                <!-- Rate -->
-                                <div class="candidate-rate">
-                                    @php
-                                        $salary = $candidate->seekerProfile->expected_salary ?? 'Negotiable';
-                                        // Try to extract number from salary string
-                                        if (preg_match('/(\d+[\d,]+)/', $salary, $matches)) {
-                                            $amount = str_replace(',', '', $matches[1]);
-                                            // Format as currency
-                                            echo 'AED ' . number_format((float)$amount);
-                                        } else {
-                                            echo $salary;
-                                        }
-                                    @endphp
-                                </div>
-                                
-                                <!-- Profession -->
-                                <p class="candidate-profession">{{ $candidate->seekerProfile->current_position ?? 'Job Seeker' }}</p>
-                                
-                                <!-- Location -->
-                                <div class="candidate-location">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ $candidate->seekerProfile->city ?? 'UAE' }}, {{ $candidate->seekerProfile->country ?? 'UAE' }}</span>
-                                </div>
-                                
-                              
+                            <div class="cand-name" style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #000;">{{ $displayName }}</div>
+                            <div class="cand-role" style="font-size: 11px; color: #666; margin-bottom: 10px;">{{ $profile->current_position ?? 'Job Seeker' }}</div>
+                            @if(count($skills) > 0)
+                            <div class="cand-tags" style="margin-bottom: 10px;">
+                                @foreach($skills as $skill)
+                                    <span style="font-size: 10px; background: #eee; padding: 3px 7px; margin: 2px; border-radius: 6px; display: inline-block; color: #444;">{{ $skill }}</span>
+                                @endforeach
                             </div>
-                            
-                            <!-- Action Buttons -->
-                            <div class="candidate-card-footer">
-                                <a href="{{ route('candidates.show', $candidate->id) }}" class="btn-view-profile">Profile</a>
-                                <a href="#" class="btn-hire-me">Hire Me</a>
+                            @endif
+                            <div class="cand-info" style="font-size: 11px; color: #666; margin-top: 10px;">
+                                {{ $profile->experience_years ?? 'N/A' }} Years • ⭐ 4.9
                             </div>
                         </div>
                         @empty
@@ -374,236 +486,14 @@
 </section>
 
 <style>
-/* Featured Candidate Card Styles */
-.candidates-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 10px;
-    padding: 20px 0;
-    justify-items: center;
-}
-
-/* Web/Desktop - Fixed Width */
-@media (min-width: 992px) {
-    .featured-candidate-card {
-        width: 280px !important;
-    }
-}
-
-.featured-candidate-card {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    width: 280px;
-    margin: 0 auto;
-}
-
-.featured-candidate-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
-
-.featured-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
-    background: #fbbf24;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
-}
-
-.featured-badge i {
-    color: #ffffff;
-    font-size: 14px;
-}
-
-.favorite-icon {
-    position: absolute;
-    top: 16px;
-    right: 50px;
-    width: 32px;
-    height: 32px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    cursor: pointer;
+/* Simple Candidate Card Styles - Same as Home Page */
+.cand {
     transition: all 0.3s ease;
 }
 
-.favorite-icon:hover {
-    background: #fff;
-    transform: scale(1.1);
-}
-
-.favorite-icon i {
-    color: #9ca3af;
-    font-size: 16px;
-}
-
-.favorite-icon:hover i {
-    color: #ef4444;
-}
-
-.candidate-profile-picture {
-    padding: 30px 20px 20px;
-    display: flex;
-    justify-content: center;
-    background: #f8f9fa;
-}
-
-.candidate-profile-picture img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.candidate-avatar-default {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 48px;
-    color: #ffffff;
-    border: 4px solid #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.candidate-card-body {
-    padding: 0 20px 20px;
-    text-align: center;
-    flex: 1;
-}
-
-.candidate-name {
-    font-size: 18px;
-    color: #2d3748;
-    margin: 14px 0 10px 0 !important;
-    font-weight: 600;
-}
-
-.candidate-rate {
-    font-size: 16px;
-    color: #000;
-    margin: 0 0 8px 0;
-    font-weight: 600;
-}
-
-.candidate-profession {
-    font-size: 14px;
-    color: #4a5568;
-    margin: 0 0 12px 0;
-}
-
-.candidate-location {
-    font-size: 14px;
-    color: #000;
-    margin: 0 0 16px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-}
-
-.candidate-location i {
-    font-size: 12px;
-}
-
-.candidate-rating {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 0 0 20px 0;
-}
-
-.rating-stars {
-    display: flex;
-    gap: 2px;
-}
-
-.rating-stars i {
-    font-size: 14px;
-    color: #fbbf24;
-}
-
-.rating-number {
-    background: #22c55e;
-    color: #ffffff;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.candidate-card-footer {
-    padding: 16px 20px;
-    background: #f8f9fa;
-    border-top: 1px solid #e9ecef;
-    display: flex;
-    gap: 8px;
-}
-
-.btn-view-profile {
-    flex: 1;
-    background: #2d3748;
-    color: #ffffff;
-    text-align: center;
-    padding: 10px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-view-profile:hover {
-    background: #1a202c;
-    color: #ffffff;
+.cand:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(45, 55, 72, 0.2);
-    text-decoration: none;
-}
-
-.btn-hire-me {
-    flex: 1;
-    background: #e5e7eb;
-    color: #4a5568;
-    text-align: center;
-    padding: 10px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-hire-me:hover {
-    background: #d1d5db;
-    color: #2d3748;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
 }
 
 .no-candidates {
@@ -661,47 +551,6 @@
     cursor: not-allowed;
 }
 
-@media (max-width: 991.98px) {
-    .candidates-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
-    .featured-candidate-card {
-        width: 100% !important;
-    }
-    
-    .candidate-profile-picture img,
-    .candidate-avatar-default {
-        width: 100px;
-        height: 100px;
-        font-size: 40px;
-    }
-    
-    .candidate-name {
-        font-size: 16px;
-    }
-}
-
-/* Featured & Recommended Resumes Sections */
-.featured-jobs-section-wrapper {
-    background: transparent;
-    margin-bottom: 32px;
-}
-
-.featured-jobs-section-wrapper .section-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-}
-
-.featured-jobs-section-wrapper .section-title h2 {
-    font-size: 26px;
-    font-weight: 700;
-    color: #1f2937;
-    margin: 0;
-}
 </style>
 
 <script>
