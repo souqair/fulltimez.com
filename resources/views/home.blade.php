@@ -1547,6 +1547,7 @@ button svg{
     .stats {
         gap: 40px !important;
         padding: 40px 0 !important;
+        width: 95% !important;
     }
     
     .section-title {
@@ -1636,7 +1637,7 @@ button svg{
 </section>
 
 <!-- Statistics Section -->
-<section class="stats" style="display: flex; justify-content: center; gap: 120px; padding: 80px 0; flex-wrap: wrap;">
+<section class="stats" style="display: flex; justify-content: center; gap: 120px; padding: 80px 0; flex-wrap: wrap; width: 85%; margin: 0 auto;">
     <div style="text-align: center;">
         <h2 style="font-size: 32px; font-weight: 700; color: #000; margin: 0;">10,000+</h2>
         <p style="font-size: 13px; color: #666; margin-top: 5px; margin: 0;">Active Jobs</p>
@@ -1700,7 +1701,7 @@ button svg{
       </div>
    </section>
  
-<div class="ad-box" style="width: 70%; margin: 70px auto; text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; color: #777; font-size: 12px;">ADVERTISEMENT</div>
+<div class="ad-box" style="width: 85%; margin: 70px auto; text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; color: #777; font-size: 12px;">ADVERTISEMENT</div>
 
 <!-- Call to Action Section: Jobseeker & Employer -->
 <style>
@@ -1709,7 +1710,7 @@ button svg{
     justify-content: center;
     gap: 30px;
     margin: 100px auto;
-    width: 90%;
+    width: 85%;
     max-width: 1200px;
     flex-wrap: wrap;
     padding: 0 20px;
