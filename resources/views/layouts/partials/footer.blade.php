@@ -42,7 +42,7 @@ when applying and communicating with potential employers.
 <style>
 footer {
     background: #000000;
-    padding: 70px 60px 40px;
+    padding: 70px 180px 40px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -171,7 +171,7 @@ footer button:hover {
 
 @media (max-width: 991px) {
     footer {
-        padding: 50px 30px 30px;
+        padding: 50px 50px 30px;
     }
     
     footer div {
@@ -182,7 +182,7 @@ footer button:hover {
 
 @media (max-width: 576px) {
     footer {
-        padding: 40px 20px 25px;
+        padding: 40px 30px 25px;
     }
     
     footer div {
