@@ -113,6 +113,13 @@ body {
         padding: 20px 0 !important;
     }
     
+    /* Desktop - 3 columns for wider cards */
+    @media (min-width: 992px) {
+        .candidates-grid[style*="grid-template-columns: repeat(3"] {
+            grid-template-columns: repeat(3, 1fr) !important;
+        }
+    }
+    
     /* Row adjustments */
     .row {
         margin-left: 0 !important;
@@ -275,7 +282,7 @@ body {
                 <div class="cate_list m-0">
                     @if($featuredCandidates && $featuredCandidates->count() > 0)
                     <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Resumes</h2>
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
                             @foreach($featuredCandidates as $candidate)
                             @php
                                 $profile = $candidate->seekerProfile;
@@ -338,7 +345,7 @@ body {
                         $featuredCandidateIds = $featuredCandidates ? $featuredCandidates->pluck('id')->toArray() : [];
                     @endphp
                     <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Recommended Resumes</h2>
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
                         @foreach($recommendedCandidates as $candidate)
                         @php
                             // Skip if candidate is in Featured section
@@ -413,7 +420,7 @@ body {
                             <strong style="font-size: 16px; color: #000;">{{ $candidates->total() }} candidates found</strong>
                         </div>
                     
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
                         @forelse($candidates as $candidate)
                         @php
                             $profile = $candidate->seekerProfile;
