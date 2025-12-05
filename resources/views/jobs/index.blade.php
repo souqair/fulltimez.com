@@ -517,6 +517,9 @@ body {
 }
 
 @media (max-width: 768px) {
+    .cate_list {
+        padding: 0px 0px !important;
+    }
     .featured-jobs-section-wrapper .section-title h2 {
         font-size: 22px !important;
     }
