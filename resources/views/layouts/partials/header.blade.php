@@ -241,10 +241,11 @@
 }
 
 .mobile-header-btn .menu-icon-fallback {
-    display: none;
+    display: inline-block !important;
     color: #fff !important;
     font-size: 20px !important;
     line-height: 1;
+    font-weight: bold;
 }
 
 .mobile-header-btn:hover {
@@ -521,8 +522,7 @@
             </a>
         </div>
         <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
-            <i class="fa-solid fa-bars" style="display: inline-block;"></i>
-            <span class="menu-icon-fallback" style="display: none; font-size: 20px; font-weight: bold; line-height: 1;">☰</span>
+            <span class="menu-icon-fallback" style="font-size: 20px; font-weight: bold; line-height: 1;">☰</span>
         </button>
     </div>
 </div>
@@ -597,20 +597,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const overlay = document.getElementById('mobileMenuOverlay');
     const menu = document.getElementById('mobileNavMenu');
     
-    // Check if Font Awesome loaded, show fallback if not
-    setTimeout(function() {
-        if (menuToggle) {
-            const icon = menuToggle.querySelector('i.fa-bars');
-            const fallback = menuToggle.querySelector('.menu-icon-fallback');
-            if (icon && fallback) {
-                const fontFamily = window.getComputedStyle(icon).fontFamily;
-                if (!fontFamily.includes('Font Awesome') && !fontFamily.includes('FontAwesome')) {
-                    icon.style.display = 'none';
-                    fallback.style.display = 'inline-block';
-                }
-            }
-        }
-    }, 1000);
     
     if (menuToggle) {
         menuToggle.addEventListener('click', function(e) {
