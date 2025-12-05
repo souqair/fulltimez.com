@@ -535,39 +535,39 @@
     <div class="mobile-nav-menu-header">
         <h3>Menu</h3>
         <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close Menu">
-            <i class="fa-solid fa-times"></i>
+            <span style="font-size: 24px; font-weight: bold; line-height: 1;">✕</span>
         </button>
     </div>
     <div class="mobile-nav-menu-content">
         <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
-            <i class="fa-solid fa-home"></i> Home
+            <span style="margin-right: 10px; font-size: 18px;">🏠</span> Home
         </a>
         <a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-briefcase"></i> Browse Jobs
+            <span style="margin-right: 10px; font-size: 18px;">💼</span> Browse Jobs
         </a>
         <a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">
-            <i class="fa-solid fa-users"></i> Browse Resumes
+            <span style="margin-right: 10px; font-size: 18px;">👥</span> Browse Resumes
         </a>
         <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">
-            <i class="fa-solid fa-envelope"></i> Contact Us
+            <span style="margin-right: 10px; font-size: 18px;">✉️</span> Contact Us
         </a>
         <hr>
         @auth
         <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">
-            <i class="fa-solid fa-chart-line"></i> Dashboard
+            <span style="margin-right: 10px; font-size: 18px;">📊</span> Dashboard
         </a>
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); closeMobileMenu();" class="mobile-auth-btn logout-btn">
-            <i class="fa-solid fa-sign-out-alt"></i> Logout
+            <span style="margin-right: 10px; font-size: 18px;">🚪</span> Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
         @else
         <a href="{{ route('login') }}" class="mobile-auth-btn login-btn">
-            <i class="fa-solid fa-sign-in-alt"></i> Login
+            <span style="margin-right: 10px; font-size: 18px;">🔑</span> Login
         </a>
         <a href="{{ route('choose.role') }}" class="mobile-auth-btn register-btn">
-            <i class="fa-solid fa-user-plus"></i> Get Started
+            <span style="margin-right: 10px; font-size: 18px;">➕</span> Get Started
         </a>
         @endauth
     </div>
