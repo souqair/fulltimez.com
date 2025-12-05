@@ -183,7 +183,7 @@
     border-bottom: 1px solid #f0f0f0;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 10000;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
     padding: 12px 20px;
     font-family: sans-serif;
@@ -225,6 +225,8 @@
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     font-family: sans-serif;
+    position: relative;
+    z-index: 10001;
 }
 
 .mobile-header-btn:hover {
@@ -246,7 +248,7 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
-    z-index: 9998;
+    z-index: 10001;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -267,7 +269,7 @@
     height: 100vh;
     background: #ffffff;
     box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15);
-    z-index: 9999;
+    z-index: 10002;
     transform: translateX(100%);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
