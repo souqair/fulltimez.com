@@ -230,37 +230,21 @@
     flex-shrink: 0;
 }
 
-.mobile-header-btn i {
-    display: block !important;
-    color: #fff !important;
-    font-size: 18px !important;
-}
-
 /* Ensure icon is visible */
 .mobile-header-btn i {
     display: inline-block !important;
     color: #fff !important;
     font-size: 18px !important;
-    width: 18px;
-    height: 18px;
-}
-
-/* Fallback if Font Awesome doesn't load */
-.mobile-header-btn i:empty::after,
-.mobile-header-btn:not(:has(i.fa-bars)) .menu-icon-text {
-    content: "☰";
-    display: inline-block !important;
-    font-size: 20px !important;
+    width: auto;
+    height: auto;
     line-height: 1;
 }
 
-/* Show text fallback if icon not loaded */
-.mobile-header-btn .menu-icon-text {
+.mobile-header-btn .menu-icon-fallback {
     display: none;
-}
-
-.mobile-header-btn:not(:has(i.fa-bars)) .menu-icon-text {
-    display: inline-block !important;
+    color: #fff !important;
+    font-size: 20px !important;
+    line-height: 1;
 }
 
 .mobile-header-btn:hover {
@@ -611,17 +595,47 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.getElementById('mobileMenuToggle');
     const menuClose = document.getElementById('mobileMenuClose');
     const overlay = document.getElementById('mobileMenuOverlay');
+    const menu = document.getElementById('mobileNavMenu');
+    
+    // Check if Font Awesome loaded, show fallback if not
+    setTimeout(function() {
+        if (menuToggle) {
+            const icon = menuToggle.querySelector('i.fa-bars');
+            const fallback = menuToggle.querySelector('.menu-icon-fallback');
+            if (icon && fallback) {
+                const fontFamily = window.getComputedStyle(icon).fontFamily;
+                if (!fontFamily.includes('Font Awesome') && !fontFamily.includes('FontAwesome')) {
+                    icon.style.display = 'none';
+                    fallback.style.display = 'inline-block';
+                }
+            }
+        }
+    }, 1000);
     
     if (menuToggle) {
-        menuToggle.addEventListener('click', openMobileMenu);
+        menuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Menu toggle clicked');
+            openMobileMenu();
+        });
+    } else {
+        console.error('Menu toggle button not found!');
     }
     
     if (menuClose) {
-        menuClose.addEventListener('click', closeMobileMenu);
+        menuClose.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeMobileMenu();
+        });
     }
     
     if (overlay) {
-        overlay.addEventListener('click', closeMobileMenu);
+        overlay.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeMobileMenu();
+        });
     }
     
     // Close menu on link click
