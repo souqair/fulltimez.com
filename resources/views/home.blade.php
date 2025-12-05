@@ -1924,7 +1924,7 @@ button svg{
           }
       }
    @endphp
-   <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 25px; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
+   <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 25px 0; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
       <div class="circle" style="width: 50px; height: 50px; border-radius: 50%; background: #f5f5f5; margin: auto; font-size: 18px; display: flex; justify-content: center; align-items: center; color: #666; font-weight: 600;">
          @if($hasImage && $avatarPath)
             <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
