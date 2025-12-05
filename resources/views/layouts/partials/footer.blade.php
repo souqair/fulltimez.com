@@ -41,12 +41,13 @@ when applying and communicating with potential employers.
 
 <style>
 footer {
-    background: #f8f8f8;
-    padding: 50px 60px;
+    background: #000000;
+    padding: 70px 60px 40px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    font-family: sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    border-top: 3px solid #1a73e8;
 }
 
 footer div {
@@ -55,89 +56,146 @@ footer div {
 }
 
 footer h4 {
-    font-size: 14px;
-    margin-bottom: 15px;
-    color: #000;
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #ffffff;
     font-weight: 700;
     font-family: sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 footer p {
-    font-size: 12px;
-    color: #666;
-    line-height: 1.6;
-    margin: 0;
+    font-size: 13px;
+    color: #b0b0b0;
+    line-height: 1.8;
+    margin: 0 0 20px 0;
     font-family: sans-serif;
 }
 
 footer a {
     display: block;
     text-decoration: none;
-    font-size: 12px;
-    color: #444;
-    margin: 6px 0;
+    font-size: 13px;
+    color: #d0d0d0;
+    margin: 10px 0;
     font-family: sans-serif;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 0;
 }
 
 footer a:hover {
-    color: #000;
+    color: #1a73e8;
+    padding-left: 8px;
+}
+
+footer a::before {
+    content: '→';
+    position: absolute;
+    left: -15px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    color: #1a73e8;
+}
+
+footer a:hover::before {
+    opacity: 1;
+    left: -10px;
 }
 
 footer input[type="email"] {
-    padding: 8px;
-    border: 1px solid #ccc;
+    padding: 12px 15px;
+    border: 1px solid #333;
     border-radius: 6px;
-    width: 150px;
-    font-size: 12px;
+    width: 100%;
+    max-width: 250px;
+    font-size: 13px;
     font-family: sans-serif;
+    background: #1a1a1a;
+    color: #fff;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+footer input[type="email"]:focus {
+    outline: none;
+    border-color: #1a73e8;
+    background: #252525;
+}
+
+footer input[type="email"]::placeholder {
+    color: #666;
 }
 
 footer button {
-    padding: 8px 12px;
-    background: #000;
+    padding: 12px 24px;
+    background: #1a73e8;
     color: white;
     border: none;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 13px;
     cursor: pointer;
-    margin-left: 6px;
     font-family: sans-serif;
-    transition: background 0.3s ease;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 footer button:hover {
-    background: #333;
+    background: #1557b0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
 }
 
 .footer-bottom {
     text-align: center;
-    padding: 20px;
-    font-size: 12px;
-    color: #777;
-    background: #f8f8f8;
+    padding: 25px 20px;
+    font-size: 13px;
+    color: #888;
+    background: #0a0a0a;
     font-family: sans-serif;
+    border-top: 1px solid #1a1a1a;
+}
+
+.footer-bottom a {
+    color: #1a73e8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    color: #4a9eff;
 }
 
 @media (max-width: 991px) {
     footer {
-        padding: 40px 30px;
+        padding: 50px 30px 30px;
     }
     
     footer div {
         width: 48%;
-        margin-bottom: 30px;
+        margin-bottom: 35px;
     }
 }
 
 @media (max-width: 576px) {
     footer {
-        padding: 30px 20px;
+        padding: 40px 20px 25px;
     }
     
     footer div {
         width: 100%;
-        margin-bottom: 25px;
+        margin-bottom: 30px;
+    }
+    
+    footer input[type="email"] {
+        max-width: 100%;
+    }
+    
+    footer button {
+        width: 100%;
     }
 }
 </style>
