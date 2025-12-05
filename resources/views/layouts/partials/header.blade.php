@@ -466,7 +466,6 @@
         <div class="logo">
             <a href="{{ route('home') }}">
                 <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez">
-                <span>FullTimez</span>
             </a>
         </div>
         <nav>
