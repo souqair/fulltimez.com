@@ -623,13 +623,13 @@ body {
 
 <section class="category-wrap innerseeker popular-items mt-5">
       <div class="" style="max-width: 100%; width: 90%; margin: 0 auto; padding: 0 20px;">
-         <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Current Jobs</h2>
+         
          <div class="mobile-search-wrapper d-lg-none">
             <details class="mobile-search-card" {{ $filtersActive ? 'open' : '' }}>
                 <summary>
                     <span>Refine Search</span>
                     @if($jobCount)
-                    <span class="summary-meta">{{ number_format($jobCount) }} jobs</span>
+                    <span class="summary-meta">{{ number_format(jobCount) }} jobs</span>
                     @endif
                 </summary>
                 <form action="{{ route('jobs.index') }}" method="GET">
