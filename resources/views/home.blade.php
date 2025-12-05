@@ -1637,7 +1637,7 @@ button svg{
 </section>
 
 <!-- Statistics Section -->
-<section class="stats" style="display: flex; justify-content: center; gap: 120px; padding: 80px 0; flex-wrap: wrap; width: 85%; margin: 0 auto;">
+<section class="stats" style="display: flex; justify-content: center; gap: 120px; padding: 80px 0; flex-wrap: wrap; width: 90%; margin: 0 auto;">
     <div style="text-align: center;">
         <h2 style="font-size: 32px; font-weight: 700; color: #000; margin: 0;">10,000+</h2>
         <p style="font-size: 13px; color: #666; margin-top: 5px; margin: 0;">Active Jobs</p>
@@ -1669,7 +1669,7 @@ button svg{
       <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Jobs</h2>
       <p class="section-sub" style="margin-left: 60px; color: #777; font-size: 14px; margin-bottom: 30px;">Discover exciting opportunities from top employers</p>
       
-      <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 85%; margin: auto;">
+      <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto;">
          @foreach($featuredJobs->take(4) as $job)
          <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
             <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
@@ -1701,7 +1701,7 @@ button svg{
       </div>
    </section>
  
-<div class="ad-box" style="width: 85%; margin: 70px auto; text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; color: #777; font-size: 12px;">ADVERTISEMENT</div>
+<div class="ad-box" style="width: 90%; margin: 70px auto; text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; color: #777; font-size: 12px;">ADVERTISEMENT</div>
 
 <!-- Call to Action Section: Jobseeker & Employer -->
 <style>
@@ -1710,7 +1710,7 @@ button svg{
     justify-content: center;
     gap: 30px;
     margin: 100px auto;
-    width: 85%;
+    width: 90%;
     max-width: 1200px;
     flex-wrap: wrap;
     padding: 0 20px;
@@ -1894,7 +1894,7 @@ button svg{
 <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Candidates</h2>
 <p class="section-sub" style="margin-left: 60px; color: #777; font-size: 14px; margin-bottom: 30px;">Connect with top talent ready for their next opportunity</p>
 
-<div class="candidates-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 85%; margin: auto; padding: 50px 0;">
+<div class="candidates-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
    @foreach($featuredCandidates as $candidate)
    @php
       $profile = $candidate->seekerProfile;
@@ -1956,7 +1956,7 @@ button svg{
    <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Recommended Jobs</h2>
    <p class="section-sub" style="margin-left: 60px; color: #777; font-size: 14px; margin-bottom: 30px;">Discover more opportunities tailored for you</p>
    
-   <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 85%; margin: auto;">
+   <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto;">
       @foreach($recommendedJobs as $job)
       <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
          <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
