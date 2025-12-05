@@ -809,7 +809,7 @@ body {
                 
 </div>
 
- <div class="col-lg-9 fadeInLeft">
+ <div class="col-lg-9 fadeInLeft" style="margin-top: -20px; !important">
 <div class="cate_list m-0">
         @if($featuredJobs->count())
         <div class="featured-jobs-section-wrapper">
