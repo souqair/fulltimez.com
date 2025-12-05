@@ -1726,7 +1726,7 @@ button svg{
 
 .cta-box {
     flex: 1 1 calc(50% - 15px);
-    min-width: 320px;
+    min-width: 400px;
     padding: 50px 40px;
     border-radius: 20px;
     position: relative;
