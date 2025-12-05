@@ -1544,6 +1544,15 @@ button svg{
         gap: 15px !important;
     }
     
+    .search-box form {
+        flex-direction: column !important;
+    }
+    
+    .search-box .search-btn {
+        width: 100% !important;
+        padding: 14px 20px !important;
+    }
+    
     .stats {
         gap: 40px !important;
         padding: 40px 0 !important;
