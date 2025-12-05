@@ -236,6 +236,33 @@
     font-size: 18px !important;
 }
 
+/* Ensure icon is visible */
+.mobile-header-btn i {
+    display: inline-block !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    width: 18px;
+    height: 18px;
+}
+
+/* Fallback if Font Awesome doesn't load */
+.mobile-header-btn i:empty::after,
+.mobile-header-btn:not(:has(i.fa-bars)) .menu-icon-text {
+    content: "☰";
+    display: inline-block !important;
+    font-size: 20px !important;
+    line-height: 1;
+}
+
+/* Show text fallback if icon not loaded */
+.mobile-header-btn .menu-icon-text {
+    display: none;
+}
+
+.mobile-header-btn:not(:has(i.fa-bars)) .menu-icon-text {
+    display: inline-block !important;
+}
+
 .mobile-header-btn:hover {
     background: #333;
     transform: scale(1.05);
@@ -268,23 +295,27 @@
 
 /* Mobile Navigation Menu */
 .mobile-nav-menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 320px;
-    max-width: 85vw;
-    height: 100vh;
-    background: #ffffff;
-    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15);
-    z-index: 10002;
-    transform: translateX(100%);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow-y: auto;
-    font-family: sans-serif;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 320px !important;
+    max-width: 85vw !important;
+    height: 100vh !important;
+    background: #ffffff !important;
+    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15) !important;
+    z-index: 10002 !important;
+    transform: translateX(100%) !important;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    overflow-y: auto !important;
+    font-family: sans-serif !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .mobile-nav-menu.show {
-    transform: translateX(0);
+    transform: translateX(0) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .mobile-nav-menu-header {
@@ -507,6 +538,7 @@
         </div>
         <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
             <i class="fa-solid fa-bars"></i>
+            <span class="menu-icon-text" style="display: none; font-size: 20px; font-weight: bold;">☰</span>
         </button>
     </div>
 </div>
