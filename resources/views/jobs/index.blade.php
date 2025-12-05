@@ -587,15 +587,126 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+/* Mobile Responsive Styles */
+@media (max-width: 991px) {
+    /* Hide desktop filters on mobile */
+    .col-lg-3 {
+        display: none !important;
+    }
+    
+    /* Full width for jobs column on mobile */
+    .col-lg-9 {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Row adjustments */
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    /* Container adjustments */
+    section.category-wrap > div {
+        width: 95% !important;
+        padding: 0 15px !important;
+    }
+    
+    /* Breadcrumb mobile */
+    div[style*="width: 90%"] {
+        width: 95% !important;
+        padding: 0 15px !important;
+        margin: 20px auto 15px !important;
+    }
+    
+    /* Section titles mobile */
+    .section-title {
+        margin-left: 0 !important;
+        font-size: 20px !important;
+        padding: 0 15px !important;
+    }
+    
+    /* Jobs grid mobile */
     .jobs-grid {
         grid-template-columns: 1fr !important;
-        width: 95% !important;
+        width: 100% !important;
         gap: 20px !important;
+        padding: 0 !important;
+    }
+    
+    /* Job cards mobile */
+    .job-card {
+        padding: 20px !important;
+        margin: 0 !important;
+    }
+    
+    /* Job card content mobile */
+    .jc-top {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    
+    .jc-tag {
+        margin-left: 0 !important;
+        align-self: flex-start !important;
+    }
+    
+    .jc-info {
+        font-size: 11px !important;
+    }
+    
+    .jc-salary {
+        font-size: 13px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Extra small devices */
+    section.category-wrap > div {
+        width: 100% !important;
+        padding: 0 10px !important;
+    }
+    
+    div[style*="width: 90%"] {
+        width: 100% !important;
+        padding: 0 10px !important;
+        margin: 15px auto 10px !important;
+    }
+    
+    .section-title {
+        font-size: 18px !important;
+        padding: 0 10px !important;
+    }
+    
+    .jobs-grid {
+        gap: 15px !important;
     }
     
     .job-card {
-        padding: 20px !important;
+        padding: 15px !important;
+    }
+    
+    .jc-title {
+        font-size: 13px !important;
+    }
+    
+    .jc-company {
+        font-size: 11px !important;
+    }
+    
+    .jc-info {
+        font-size: 10px !important;
+        line-height: 1.5 !important;
+    }
+    
+    .jc-salary {
+        font-size: 12px !important;
+    }
+    
+    .jc-monthly {
+        font-size: 10px !important;
     }
 }
 </style>
@@ -809,7 +920,7 @@ body {
                 
 </div>
 
- <div class="col-lg-9 fadeInLeft" style="margin-top: -20px; !important">
+ <div class="col-lg-9 fadeInLeft" style="margin-top: -20px;">
 <div class="cate_list m-0">
         @if($featuredJobs->count())
         <div class="featured-jobs-section-wrapper">
