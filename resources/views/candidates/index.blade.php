@@ -108,6 +108,7 @@ body {
     /* Candidates grid mobile */
     .candidates-grid {
         display: block !important;
+        grid-template-columns: none !important;
         width: 100% !important;
         gap: 0 !important;
         padding: 0 !important;
@@ -138,6 +139,7 @@ body {
     
     .candidates-grid {
         display: block !important;
+        grid-template-columns: none !important;
         gap: 0 !important;
         padding: 0 !important;
     }
@@ -177,6 +179,7 @@ body {
     
     .candidates-grid {
         display: block !important;
+        grid-template-columns: none !important;
         gap: 0 !important;
         padding: 0 !important;
     }
@@ -199,8 +202,8 @@ body {
     <nav style="font-size: 13px; color: #666;">
         <a href="{{ route('home') }}" style="color: #666; text-decoration: none;">Home</a> / 
         <span style="color: #000;">Candidates</span>
-    </nav>
-</div>
+                </nav>
+            </div>
 
 <section class="category-wrap innerseeker popular-items mt-5">
     <div class="" style="max-width: 100%; width: 90%; margin: 0 auto; padding: 0 20px;">
