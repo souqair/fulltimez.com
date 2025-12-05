@@ -107,10 +107,14 @@ body {
     
     /* Candidates grid mobile */
     .candidates-grid {
-        grid-template-columns: 1fr !important;
+        display: block !important;
         width: 100% !important;
-        gap: 20px !important;
+        gap: 0 !important;
         padding: 0 !important;
+    }
+    
+    .candidates-grid .cand {
+        margin-bottom: 20px !important;
     }
     
     /* Desktop - 3 columns for wider cards */
@@ -133,9 +137,13 @@ body {
     }
     
     .candidates-grid {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
+        display: block !important;
+        gap: 0 !important;
         padding: 0 !important;
+    }
+    
+    .candidates-grid .cand {
+        margin-bottom: 20px !important;
     }
     
     .candidates-grid-wrapper {
@@ -168,8 +176,13 @@ body {
     }
     
     .candidates-grid {
-        gap: 20px !important;
+        display: block !important;
+        gap: 0 !important;
         padding: 0 !important;
+    }
+    
+    .candidates-grid .cand {
+        margin-bottom: 20px !important;
     }
     
     .cand {
