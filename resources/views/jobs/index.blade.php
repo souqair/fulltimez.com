@@ -8,6 +8,68 @@ body {
     overflow-x: hidden !important;
 }
 
+/* Simple Filters Styling */
+.filters {
+    background: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.filters h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 20px;
+}
+
+.filters .input-group {
+    margin-bottom: 20px;
+}
+
+.filters label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.filters .form-control,
+.filters select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #333;
+    background: #fff;
+}
+
+.filters .form-control:focus,
+.filters select:focus {
+    outline: none;
+    border-color: #2772e8;
+}
+
+.filters .apply_btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.filters .apply_btn:hover {
+    background: #333;
+}
+
 .featured-jobs-section-wrapper {
     background: transparent;
     margin-bottom: 32px;
@@ -45,10 +107,10 @@ body {
 
 .featured-job-card {
     background: #ffffff !important;
-    border: 1px solid #e5e7eb !important;
-    border-radius: 12px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid #eee !important;
+    border-radius: 14px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.3s ease !important;
     position: relative !important;
     overflow: hidden !important;
     height: 100% !important;
@@ -58,16 +120,16 @@ body {
 }
 
 .featured-job-card:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
-    transform: translateY(-4px) !important;
-    border-color: #cbd5e1 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    transform: translateY(-2px) !important;
+    border-color: #ddd !important;
 }
 
 .job-card-header {
-    padding: 14px 16px 12px !important;
-    background: #2772e8 !important;
+    padding: 20px 25px 15px !important;
+    background: #ffffff !important;
     position: relative !important;
-    border-radius: 12px 12px 0 0 !important;
+    border-bottom: 1px solid #eee !important;
 }
 
 .company-header {
@@ -103,17 +165,17 @@ body {
 }
 
 .company-name h3 {
-    font-size: 13px !important;
-    color: #ffffff !important;
+    font-size: 12px !important;
+    color: #666 !important;
     margin: 0 !important;
     line-height: 1.4 !important;
     word-wrap: break-word !important;
     letter-spacing: 0.2px !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
 }
 
 .job-card-body {
-    padding: 14px 16px 12px !important;
+    padding: 20px 25px 15px !important;
     flex: 1 !important;
     display: flex !important;
     flex-direction: column !important;
@@ -126,8 +188,8 @@ body {
 }
 
 .job-title a {
-    font-size: 15px !important;
-    color: #111827 !important;
+    font-size: 14px !important;
+    color: #000 !important;
     text-decoration: none !important;
     line-height: 1.5 !important;
     display: -webkit-box !important;
@@ -137,7 +199,7 @@ body {
     transition: color 0.2s ease !important;
     letter-spacing: -0.2px !important;
     margin-bottom: 0 !important;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
 }
 
 .job-title a:hover {
@@ -153,16 +215,16 @@ body {
 }
 
 .category-badge-top {
-    background: #2772e8 !important;
-    color: #ffffff !important;
-    font-size: 10px !important;
-    padding: 5px 10px !important;
-    border-radius: 5px !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.3px !important;
+    background: #eee !important;
+    color: #000 !important;
+    font-size: 11px !important;
+    padding: 4px 10px !important;
+    border-radius: 20px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
     border: none !important;
     display: inline-block !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
 }
 
 .meta-badge {
@@ -210,8 +272,8 @@ body {
 }
 
 .job-card-footer {
-    padding: 12px 16px 14px !important;
-    border-top: 1px solid #f3f4f6 !important;
+    padding: 15px 25px 20px !important;
+    border-top: 1px solid #eee !important;
     margin-top: auto !important;
     background: #ffffff !important;
     flex-shrink: 0 !important;
@@ -266,7 +328,10 @@ body {
 .featured-jobs-grid,
 .recommended-jobs-grid {
     margin-bottom: 36px;
-    row-gap: 24px;
+    row-gap: 25px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .featured-jobs-grid .col-lg-4,
@@ -574,25 +639,13 @@ body {
 @endpush
 
 @section('content')
- <section class="breadcrumb-section">
-        <div class="container-auto">
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="page-title">
-                        <h1>Browse Jobs</h1>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-12">
-                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Browse Jobs</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Simple Breadcrumb -->
+<div style="width: 90%; margin: 40px auto 20px; padding: 0 20px;">
+    <nav style="font-size: 13px; color: #666;">
+        <a href="{{ route('home') }}" style="color: #666; text-decoration: none;">Home</a> / 
+        <span style="color: #000;">Browse Jobs</span>
+    </nav>
+</div>
 
 @php
     $filtersActive = request()->filled('posted_as')
@@ -606,8 +659,8 @@ body {
 @endphp
 
 <section class="category-wrap innerseeker popular-items mt-5">
-      <div class="container">
-         <div class="main_title">Current Jobs</div>
+      <div class="container" style="max-width: 100%; width: 90%; margin: 0 auto; padding: 0 20px;">
+         <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Current Jobs</h2>
          <div class="mobile-search-wrapper d-lg-none">
             <details class="mobile-search-card" {{ $filtersActive ? 'open' : '' }}>
                 <summary>
@@ -797,9 +850,7 @@ body {
 <div class="cate_list m-0">
         @if($featuredJobs->count())
         <div class="featured-jobs-section-wrapper">
-            <div class="section-title">
-                <h2>Featured Jobs</h2>
-            </div>
+            <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Jobs</h2>
             <div class="featured-jobs-grid row g-4">
                 @foreach($featuredJobs as $job)
                 <div class="col-lg-4 col-md-6 wow fadeInUp">
@@ -854,9 +905,7 @@ body {
         @php
             $listHeading = ($postedAs ?? null) === 'featured' ? 'Featured Jobs' : 'Recommended Jobs';
         @endphp
-        <div class="mt-4 mb-3 d-flex justify-content-between align-items-center">
-            <strong>{{ $listHeading }}</strong>
-        </div>
+        <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">{{ $listHeading }}</h2>
         <div class="recommended-jobs-grid row g-4">
             @foreach($recommendedJobs as $job)
             <div class="col-lg-4 col-md-6 wow fadeInUp">
