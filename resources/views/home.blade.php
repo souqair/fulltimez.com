@@ -1568,10 +1568,10 @@ button svg{
         padding: 20px !important;
     }
     
-    .two-box {
+    .two-box-container {
         flex-direction: column !important;
         width: 95% !important;
-        gap: 20px !important;
+        gap: 25px !important;
     }
     
     .candidates-grid {
@@ -1703,19 +1703,188 @@ button svg{
 <div class="ad-box" style="width: 70%; margin: 70px auto; text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; color: #777; font-size: 12px;">ADVERTISEMENT</div>
 
 <!-- Call to Action Section: Jobseeker & Employer -->
-<div class="two-box" style="display: flex; justify-content: center; gap: 40px; margin: 80px auto; width: 85%; flex-wrap: wrap;">
+<style>
+.two-box-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 100px auto;
+    width: 90%;
+    max-width: 1200px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+}
+
+.cta-box {
+    flex: 1;
+    min-width: 320px;
+    max-width: 500px;
+    padding: 50px 40px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.cta-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 20px;
+}
+
+.cta-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.cta-box:hover::before {
+    opacity: 1;
+}
+
+.cta-box-jobseeker {
+    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    color: white;
+}
+
+.cta-box-employer {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    color: #000;
+    border: 2px solid #e0e0e0;
+}
+
+.cta-box-employer:hover {
+    border-color: #1a73e8;
+}
+
+.cta-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+    backdrop-filter: blur(10px);
+}
+
+.cta-box-employer .cta-icon {
+    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    color: white;
+}
+
+.cta-box h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 15px 0;
+    color: inherit;
+    letter-spacing: -0.5px;
+}
+
+.cta-box p {
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0 0 30px 0;
+    color: inherit;
+    opacity: 0.9;
+}
+
+.cta-box-employer p {
+    opacity: 0.8;
+    color: #555;
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-btn-jobseeker {
+    background: #ffffff;
+    color: #1a73e8;
+}
+
+.cta-btn-jobseeker:hover {
+    background: #f0f0f0;
+    transform: translateX(5px);
+    color: #0d47a1;
+}
+
+.cta-btn-employer {
+    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    color: #ffffff;
+}
+
+.cta-btn-employer:hover {
+    background: linear-gradient(135deg, #0d47a1 0%, #1a73e8 100%);
+    transform: translateX(5px);
+    box-shadow: 0 8px 20px rgba(26, 115, 232, 0.4);
+}
+
+.cta-btn::after {
+    content: '→';
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.cta-btn:hover::after {
+    transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    .two-box-container {
+        width: 95%;
+        margin: 60px auto;
+        gap: 25px;
+    }
+    
+    .cta-box {
+        min-width: 100%;
+        padding: 40px 30px;
+    }
+    
+    .cta-box h3 {
+        font-size: 24px;
+    }
+    
+    .cta-box p {
+        font-size: 14px;
+    }
+}
+</style>
+
+<div class="two-box-container">
    <!-- Job Seeker Box -->
-   <div class="box box-dark" style="flex: 1; padding: 40px; border-radius: 14px; background: #0f0f11; color: white; min-width: 300px;">
-      <h3 style="font-size: 20px; margin-top: 10px; margin-bottom: 10px; color: white;">I Am a Job Seeker</h3>
-      <p style="font-size: 13px; color: #bbb; margin-bottom: 20px; line-height: 1.5;">Create your professional resume with our online builder and apply for the best jobs.</p>
-      <a href="{{ route('jobseeker.login') }}" class="btn-arrow" style="background: #fff; color: #000; padding: 10px 20px; border-radius: 6px; font-size: 12px; display: inline-block; margin-top: 10px; text-decoration: none; font-weight: 600;">Get Started →</a>
+   <div class="cta-box cta-box-jobseeker">
+      <div class="cta-icon">👤</div>
+      <h3>I Am a Job Seeker</h3>
+      <p>Create your professional resume with our online builder and apply for the best jobs. Start your career journey today!</p>
+      <a href="{{ route('jobseeker.login') }}" class="cta-btn cta-btn-jobseeker">Get Started</a>
    </div>
    
    <!-- Employer Box -->
-   <div class="box box-light" style="flex: 1; padding: 40px; border-radius: 14px; background: white; border: 1px solid #eee; min-width: 300px;">
-      <h3 style="font-size: 20px; margin-top: 10px; margin-bottom: 10px; color: #000;">I Am an Employer</h3>
-      <p style="font-size: 13px; color: #666; margin-bottom: 20px; line-height: 1.5;">Post jobs and access our online resume database to find the best talent.</p>
-      <a href="{{ route('employer.login') }}" class="btn-arrow" style="background: #000; color: #fff; padding: 10px 20px; border-radius: 6px; font-size: 12px; display: inline-block; margin-top: 10px; text-decoration: none; font-weight: 600;">Get Started →</a>
+   <div class="cta-box cta-box-employer">
+      <div class="cta-icon">🏢</div>
+      <h3>I Am an Employer</h3>
+      <p>Post jobs and access our online resume database to find the best talent. Connect with qualified candidates instantly!</p>
+      <a href="{{ route('employer.login') }}" class="cta-btn cta-btn-employer">Get Started</a>
    </div>
 </div>
 
