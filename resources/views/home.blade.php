@@ -1749,7 +1749,7 @@ button svg{
 }
 
 .cta-box-jobseeker {
-    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    background: #000000;
     color: white;
 }
 
