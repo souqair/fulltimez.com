@@ -325,13 +325,8 @@ body {
     font-weight: 600 !important;
 }
 
-.featured-jobs-grid,
-.recommended-jobs-grid {
-    margin-bottom: 36px;
-    row-gap: 25px;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+.jobs-grid {
+    margin-bottom: 40px;
 }
 
 .featured-jobs-grid .col-lg-4,
@@ -592,47 +587,15 @@ body {
     }
 }
 
-@media (max-width: 480px) {
-    .job-card-header {
-        padding: 10px 12px 8px !important;
+@media (max-width: 768px) {
+    .jobs-grid {
+        grid-template-columns: 1fr !important;
+        width: 95% !important;
+        gap: 20px !important;
     }
-
-    .company-logo {
-        width: 32px !important;
-        height: 32px !important;
-    }
-
-    .company-logo img {
-        width: 20px !important;
-        height: 20px !important;
-    }
-
-    .company-name h3 {
-        font-size: 11px !important;
-    }
-
-    .job-card-body {
-        padding: 10px 12px 8px !important;
-    }
-
-    .job-title a {
-        font-size: 13px !important;
-    }
-
-    .job-card-footer {
-        padding: 10px 12px 12px !important;
-    }
-
-    .price-ad p {
-        font-size: 13px !important;
-    }
-
-    .price-ad p span.price-amount {
-        font-size: 13px !important;
-    }
-
-    .price-ad p span.price-period {
-        font-size: 11px !important;
+    
+    .job-card {
+        padding: 20px !important;
     }
 }
 </style>
@@ -851,50 +814,32 @@ body {
         @if($featuredJobs->count())
         <div class="featured-jobs-section-wrapper">
             <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Jobs</h2>
-            <div class="featured-jobs-grid row g-4">
+            <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto;">
                 @foreach($featuredJobs as $job)
-                <div class="col-lg-4 col-md-6 wow fadeInUp">
-                    <div class="featured-job-card">
-                        <div class="job-card-header">
-                            <div class="company-header">
-                                <div class="company-logo">
-                                    <img src="{{ asset('images/job.svg') }}" alt="company-logo">
-                                </div>
-                                <div class="company-name">
-                                    <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</h3>
-                                </div>
+                <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
+                    <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                        <div style="flex: 1;">
+                            <div class="jc-title" style="font-size: 14px; font-weight: 700; margin-bottom: 5px; color: #000;">
+                                <a href="{{ route('jobs.show', $job->slug) }}" style="color: #000; text-decoration: none;">{{ $job->title }}</a>
+                            </div>
+                            <div class="jc-company" style="font-size: 12px; color: #666; margin-bottom: 15px;">
+                                {{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
                             </div>
                         </div>
-                        <div class="job-card-body">
-                            <div class="job-title">
-                                <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
-                            </div>
-                            <div class="job-meta">
-                                <div class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</div>
-                                <div class="meta-badge">
-                                    Type: <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span>
-                                </div>
-                                <div class="meta-badge">
-                                    Experience: <span>{{ $job->experience_years ?? 'N/A' }}</span>
-                                </div>
-                            </div>
-                            <div class="location-info">
-                                <img src="{{ asset('images/location.svg') }}" alt="location">
-                                <span>{{ $job->location_city }}</span>
-                            </div>
+                        <div class="jc-tag" style="font-size: 11px; background: #eee; padding: 4px 10px; border-radius: 20px; color: #000; white-space: nowrap; margin-left: 15px;">
+                            {{ optional($job->category)->name ?? 'N/A' }}
                         </div>
-                        <div class="job-card-footer">
-                            <div class="price-ad">
-                                <p>
-                                    @if(!empty($job->salary_min) && !empty($job->salary_max))
-                                        <span class="price-amount">{{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}</span>
-                                        <span class="price-period">/ {{ ucfirst($job->salary_period ?? 'monthly') }}</span>
-                                    @else
-                                        <span class="price-negotiable">Negotiable</span>
-                                    @endif
-                                </p>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="jc-info" style="font-size: 12px; color: #444; line-height: 1.7; margin-bottom: 15px;">
+                        📍 {{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}<br/>
+                        ⏰ {{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience
+                    </div>
+                    <div class="jc-salary" style="font-size: 14px; font-weight: 700; margin-top: 15px; color: #000;">
+                        @if(!empty($job->salary_min) && !empty($job->salary_max))
+                            {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span class="jc-monthly" style="font-size: 11px; color: #777; font-weight: normal;">/ {{ ucfirst($job->salary_period ?? 'Monthly') }}</span>
+                        @else
+                            <span style="color: #777; font-weight: normal;">Negotiable</span>
+                        @endif
                     </div>
                 </div>
                 @endforeach
@@ -906,71 +851,32 @@ body {
             $listHeading = ($postedAs ?? null) === 'featured' ? 'Featured Jobs' : 'Recommended Jobs';
         @endphp
         <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">{{ $listHeading }}</h2>
-        <div class="recommended-jobs-grid row g-4">
+        <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto;">
             @foreach($recommendedJobs as $job)
-            <div class="col-lg-4 col-md-6 wow fadeInUp">
-                <div class="featured-job-card">
-                    <div class="job-card-header">
-                        @php
-                            $badgeLabel = 'Recommended';
-                            $badgeClass = 'recommended';
-
-                            $priorityValue = strtolower($job->priority ?? '');
-                            $labelLower = strtolower($badgeLabel);
-
-                            if ($job->isFeatured()) {
-                                $badgeLabel = 'Featured';
-                                $badgeClass = 'featured';
-                            } elseif (!empty($job->priority) && $priorityValue !== 'normal') {
-                                $badgeLabel = ucfirst(str_replace('_', ' ', $job->priority));
-                                $badgeClass = str_contains($priorityValue, 'premium') ? 'premium' : 'recommended';
-                            } elseif (($postedAs ?? null) === 'featured') {
-                                $badgeLabel = 'Featured';
-                                $badgeClass = 'featured';
-                            }
-                        @endphp
-                        <div class="company-header">
-                            <div class="company-logo">
-                                <img src="{{ asset('images/job.svg') }}" alt="company-logo">
-                            </div>
-                            <div class="company-name">
-                                <h3>{{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}</h3>
-                            </div>
+            <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
+                <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                    <div style="flex: 1;">
+                        <div class="jc-title" style="font-size: 14px; font-weight: 700; margin-bottom: 5px; color: #000;">
+                            <a href="{{ route('jobs.show', $job->slug) }}" style="color: #000; text-decoration: none;">{{ $job->title }}</a>
+                        </div>
+                        <div class="jc-company" style="font-size: 12px; color: #666; margin-bottom: 15px;">
+                            {{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
                         </div>
                     </div>
-                    <div class="job-card-body">
-                        <div class="job-title">
-                            <a href="{{ route('jobs.show', $job->slug) }}">{{ $job->title }}</a>
-                        </div>
-                        <div class="job-meta">
-                            <div class="category-badge-top">{{ optional($job->category)->name ?? 'N/A' }}</div>
-                            <div class="meta-badge">
-                                Type: <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</span>
-                            </div>
-                            <div class="meta-badge">
-                                Experience: <span>{{ $job->experience_years ?? 'N/A' }}</span>
-                            </div>
-                            <div class="meta-badge">
-                                Education: <span>{{ $job->education_level ?? 'N/A' }}</span>
-                            </div>
-                        </div>
-                        <div class="location-info">
-                            <img src="{{ asset('images/location.svg') }}" alt="location">
-                            <span>{{ $job->location_city }}</span>
-                        </div>
+                    <div class="jc-tag" style="font-size: 11px; background: #eee; padding: 4px 10px; border-radius: 20px; color: #000; white-space: nowrap; margin-left: 15px;">
+                        {{ optional($job->category)->name ?? 'N/A' }}
                     </div>
-                    <div class="job-card-footer">
-                        <div class="price-ad">
-                            <p>
-                                @if(!empty($job->salary_min) && !empty($job->salary_max))
-                                    <span class="price-amount">{{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}</span>
-                                    <span class="price-period">/ {{ ucfirst($job->salary_period ?? 'monthly') }}</span>
-                                @else
-                                    <span class="price-negotiable">Negotiable</span>
-                                @endif
-                            </p>
-                        </div>
-                    </div>
+                </div>
+                <div class="jc-info" style="font-size: 12px; color: #444; line-height: 1.7; margin-bottom: 15px;">
+                    📍 {{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}<br/>
+                    ⏰ {{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience
+                </div>
+                <div class="jc-salary" style="font-size: 14px; font-weight: 700; margin-top: 15px; color: #000;">
+                    @if(!empty($job->salary_min) && !empty($job->salary_max))
+                        {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span class="jc-monthly" style="font-size: 11px; color: #777; font-weight: normal;">/ {{ ucfirst($job->salary_period ?? 'Monthly') }}</span>
+                    @else
+                        <span style="color: #777; font-weight: normal;">Negotiable</span>
+                    @endif
                 </div>
             </div>
             @endforeach
