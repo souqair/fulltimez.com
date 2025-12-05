@@ -285,7 +285,8 @@
     right: 0 !important;
     width: 320px !important;
     max-width: 85vw !important;
-    height: 100vh !important;
+    height: 100% !important;
+    min-height: 100vh !important;
     background: #ffffff !important;
     box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15) !important;
     z-index: 10002 !important;
@@ -295,6 +296,8 @@
     font-family: sans-serif !important;
     visibility: visible !important;
     opacity: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 .mobile-nav-menu.show {
