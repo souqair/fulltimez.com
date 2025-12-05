@@ -622,7 +622,7 @@ body {
 @endphp
 
 <section class="category-wrap innerseeker popular-items mt-5">
-      <div class="container" style="max-width: 100%; width: 90%; margin: 0 auto; padding: 0 20px;">
+      <div class="" style="max-width: 100%; width: 90%; margin: 0 auto; padding: 0 20px;">
          <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Current Jobs</h2>
          <div class="mobile-search-wrapper d-lg-none">
             <details class="mobile-search-card" {{ $filtersActive ? 'open' : '' }}>
