@@ -1707,17 +1707,16 @@ button svg{
 <style>
 .two-box-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 30px;
     margin: 100px auto;
     width: 90%;
-    max-width: 1200px;
     flex-wrap: wrap;
-    padding: 0 20px;
+    padding: 0;
 }
 
 .cta-box {
-    flex: 1;
+    flex: 1 1 calc(50% - 15px);
     min-width: 320px;
     padding: 50px 40px;
     border-radius: 20px;
@@ -1725,6 +1724,7 @@ button svg{
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 .cta-box::before {
