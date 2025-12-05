@@ -537,8 +537,8 @@
             </a>
         </div>
         <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
-            <i class="fa-solid fa-bars"></i>
-            <span class="menu-icon-text" style="display: none; font-size: 20px; font-weight: bold;">☰</span>
+            <i class="fa-solid fa-bars" style="display: inline-block;"></i>
+            <span class="menu-icon-fallback" style="display: none; font-size: 20px; font-weight: bold; line-height: 1;">☰</span>
         </button>
     </div>
 </div>
