@@ -1600,6 +1600,13 @@ button svg{
     .candidates-grid .cand {
         margin-bottom: 20px !important;
     }
+}
+
+/* Desktop/Web Version - Display Grid */
+@media (min-width: 992px) {
+    .candidates-grid {
+        display: grid !important;
+    }
     
     footer {
         flex-direction: column !important;
