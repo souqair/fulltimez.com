@@ -5108,8 +5108,8 @@ tbody, td, tfoot, th, thead, tr{border-top: none;}
 }
 .section__title span{color: #1a73e8;} 
 footer {
-    background-color: #000000;
-    padding: 100px 0 30px !important;
+    background-color: #0053BD;
+    padding: 100px 30px 30px 56px !important;
 }
 footer .footer__item a {
     display: block;
