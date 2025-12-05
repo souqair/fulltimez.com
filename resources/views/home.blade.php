@@ -1671,7 +1671,7 @@ button svg{
       
       <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto;">
          @foreach($featuredJobs->take(4) as $job)
-         <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
+         <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px 0; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
             <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
                <div style="flex: 1;">
                   <div class="jc-title" style="font-size: 14px; font-weight: 700; margin-bottom: 5px; color: #000;">
@@ -1957,7 +1957,7 @@ button svg{
    
    <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto;">
       @foreach($recommendedJobs as $job)
-      <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
+      <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px 0; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
          <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
             <div style="flex: 1;">
                <div class="jc-title" style="font-size: 14px; font-weight: 700; margin-bottom: 5px; color: #000;">
