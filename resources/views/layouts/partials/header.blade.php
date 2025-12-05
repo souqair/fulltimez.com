@@ -217,7 +217,7 @@
     width: 44px;
     height: 44px;
     border-radius: 10px;
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     font-size: 18px;
@@ -227,6 +227,13 @@
     font-family: sans-serif;
     position: relative;
     z-index: 10001;
+    flex-shrink: 0;
+}
+
+.mobile-header-btn i {
+    display: block !important;
+    color: #fff !important;
+    font-size: 18px !important;
 }
 
 .mobile-header-btn:hover {
