@@ -41,7 +41,7 @@ when applying and communicating with potential employers.
 
 <style>
 footer {
-    background-color: #0053BD;
+    background-color: #000000;
     padding: 100px 30px 30px 56px !important;
     display: flex;
     justify-content: space-between;
