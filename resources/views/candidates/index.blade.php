@@ -107,10 +107,10 @@ body {
     
     /* Candidates grid mobile */
     .candidates-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: 1fr !important;
         width: 100% !important;
         gap: 20px !important;
-        padding: 20px 0 !important;
+        padding: 0 !important;
     }
     
     /* Desktop - 3 columns for wider cards */
@@ -134,8 +134,8 @@ body {
     
     .candidates-grid {
         grid-template-columns: 1fr !important;
-        gap: 15px !important;
-        padding: 20px 0 !important;
+        gap: 20px !important;
+        padding: 0 !important;
     }
     
     .candidates-grid-wrapper {
@@ -168,7 +168,13 @@ body {
     }
     
     .candidates-grid {
-        gap: 15px !important;
+        gap: 20px !important;
+        padding: 0 !important;
+    }
+    
+    .cand {
+        padding: 20px !important;
+        margin: 0 !important;
     }
 }
 </style>
