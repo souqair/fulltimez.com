@@ -1569,9 +1569,14 @@ button svg{
     }
     
     .jobs-grid {
-        grid-template-columns: 1fr !important;
+        display: block !important;
+        grid-template-columns: none !important;
         width: 95% !important;
-        gap: 20px !important;
+        gap: 0 !important;
+    }
+    
+    .jobs-grid .job-card {
+        margin-bottom: 20px !important;
     }
     
     .job-card {
@@ -1585,10 +1590,15 @@ button svg{
     }
     
     .candidates-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        display: block !important;
+        grid-template-columns: none !important;
         width: 95% !important;
-        gap: 15px !important;
+        gap: 0 !important;
         padding: 30px 0 !important;
+    }
+    
+    .candidates-grid .cand {
+        margin-bottom: 20px !important;
     }
     
     footer {
@@ -1902,7 +1912,7 @@ button svg{
 <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Candidates</h2>
 <p class="section-sub" style="margin-left: 60px; color: #777; font-size: 14px; margin-bottom: 30px;">Connect with top talent ready for their next opportunity</p>
 
-<div class="candidates-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
+<div class="candidates-grid" style="grid-template-columns: repeat(4, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
    @foreach($featuredCandidates as $candidate)
    @php
       $profile = $candidate->seekerProfile;
@@ -2004,8 +2014,13 @@ button svg{
    }
    
    .recommended-jobs-grid {
-      grid-template-columns: 1fr !important;
-      gap: 20px !important;
+      display: block !important;
+      grid-template-columns: none !important;
+      gap: 0 !important;
+   }
+   
+   .recommended-jobs-grid .job-card {
+      margin-bottom: 20px !important;
    }
    
    .recommended-job-card {
