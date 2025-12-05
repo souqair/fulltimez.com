@@ -1607,15 +1607,6 @@ button svg{
     .candidates-grid {
         display: grid !important;
     }
-    
-    footer {
-        flex-direction: column !important;
-        padding: 40px 20px !important;
-    }
-    
-    footer div {
-        width: 100% !important;
-    }
 }
 
 .job-card:hover {
