@@ -1496,12 +1496,19 @@ button svg{
         justify-content: center !important;
     }
     
-    .stat-number {
-        font-size: 32px !important;
+    .stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 30px !important;
+        padding: 60px 0 !important;
+        width: 95% !important;
     }
     
-    .stat-label {
-        font-size: 14px !important;
+    .stats h2 {
+        font-size: 2rem !important;
+    }
+    
+    .stats p {
+        font-size: 13px !important;
     }
     
     .cta-title {
@@ -1510,6 +1517,17 @@ button svg{
     
     .cta-description {
         font-size: 14px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+    
+    .stats h2 {
+        font-size: 2rem !important;
     }
 }
 
@@ -1699,22 +1717,24 @@ button svg{
 </section>
 
 <!-- Statistics Section -->
-<section class="stats" style="display: flex; justify-content: center; gap: 120px; padding: 80px 0; flex-wrap: wrap; width: 90%; margin: 0 auto;">
+<section class="stats" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 80px 0; width: 90%; max-width: 1200px; margin: 0 auto;">
     <div style="text-align: center;">
-        <h2 style="font-size: 32px; font-weight: 700; color: #000; margin: 0;">10,000+</h2>
-        <p style="font-size: 13px; color: #666; margin-top: 5px; margin: 0;">Active Jobs</p>
+        <h2 style="font-size: 3rem; font-weight: 700; color: #000; margin: 0; line-height: 1.2;">
+            <span style="background: #e3f2fd; padding: 4px 8px; border-radius: 4px; display: inline-block;">10,000</span><span>+</span>
+        </h2>
+        <p style="font-size: 14px; color: #777; margin-top: 12px; margin-bottom: 0; font-weight: 400;">Active Jobs</p>
     </div>
     <div style="text-align: center;">
-        <h2 style="font-size: 32px; font-weight: 700; color: #000; margin: 0;">5,000+</h2>
-        <p style="font-size: 13px; color: #666; margin-top: 5px; margin: 0;">Companies</p>
+        <h2 style="font-size: 3rem; font-weight: 700; color: #000; margin: 0; line-height: 1.2;">5,000+</h2>
+        <p style="font-size: 14px; color: #777; margin-top: 12px; margin-bottom: 0; font-weight: 400;">Companies</p>
     </div>
     <div style="text-align: center;">
-        <h2 style="font-size: 32px; font-weight: 700; color: #000; margin: 0;">50,000+</h2>
-        <p style="font-size: 13px; color: #666; margin-top: 5px; margin: 0;">Candidates</p>
+        <h2 style="font-size: 3rem; font-weight: 700; color: #000; margin: 0; line-height: 1.2;">50,000+</h2>
+        <p style="font-size: 14px; color: #777; margin-top: 12px; margin-bottom: 0; font-weight: 400;">Candidates</p>
     </div>
     <div style="text-align: center;">
-        <h2 style="font-size: 32px; font-weight: 700; color: #000; margin: 0;">95%</h2>
-        <p style="font-size: 13px; color: #666; margin-top: 5px; margin: 0;">Success Rate</p>
+        <h2 style="font-size: 3rem; font-weight: 700; color: #000; margin: 0; line-height: 1.2;">95%</h2>
+        <p style="font-size: 14px; color: #777; margin-top: 12px; margin-bottom: 0; font-weight: 400;">Success Rate</p>
     </div>
 </section>
 @endsection
