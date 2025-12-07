@@ -547,7 +547,7 @@
         <div class="logo">
             <a href="{{ route('home') }}">
                 <span class="logo-text">
-                    <span class="logo-full">Full</span><span class="logo-timez">Timez</span>
+                    <span class="logo-timez">Full</span><span class="logo-timez">Timez</span>
                 </span>
             </a>
         </div>
