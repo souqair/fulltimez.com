@@ -2080,39 +2080,39 @@ button svg{
       </div>
    </div>
 
-   <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; width: 90%; max-width: 1200px; margin: 0 auto; padding: 0;">
+   <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; width: 90%; max-width: 1200px; margin: 0 auto; padding: 0; align-items: stretch;">
       @foreach($featuredCandidates->take(4) as $candidate)
-   @php
-      $profile = $candidate->seekerProfile;
-      $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
+      @php
+         $profile = $candidate->seekerProfile;
+         $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
          $nameParts = explode(' ', $displayName);
          $initials = strtoupper(($nameParts[0][0] ?? '') . ($nameParts[1][0] ?? $nameParts[0][1] ?? ''));
-      $rawPhoto = $profile->profile_picture ?? null;
-      $hasImage = false;
-      $avatarPath = null;
+         $rawPhoto = $profile->profile_picture ?? null;
+         $hasImage = false;
+         $avatarPath = null;
 
-      if ($rawPhoto) {
-          if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
-              $hasImage = true;
-              $avatarPath = $rawPhoto;
-          } else {
-              $normalized = ltrim($rawPhoto, '/');
-              if (file_exists(public_path($normalized))) {
-                  $hasImage = true;
-                  $avatarPath = asset($normalized);
-              }
-          }
-      }
-      
-      $skills = [];
-      if($profile && $profile->skills) {
-          $skillsData = is_string($profile->skills) ? json_decode($profile->skills, true) : $profile->skills;
-          if(is_array($skillsData)) {
-              $skills = array_slice($skillsData, 0, 3);
-          }
-      }
-   @endphp
-      <div class="cand" style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); text-align: center; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.12)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.08)'; this.style.transform='translateY(0)';" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
+         if ($rawPhoto) {
+             if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
+                 $hasImage = true;
+                 $avatarPath = $rawPhoto;
+             } else {
+                 $normalized = ltrim($rawPhoto, '/');
+                 if (file_exists(public_path($normalized))) {
+                     $hasImage = true;
+                     $avatarPath = asset($normalized);
+                 }
+             }
+         }
+         
+         $skills = [];
+         if($profile && $profile->skills) {
+             $skillsData = is_string($profile->skills) ? json_decode($profile->skills, true) : $profile->skills;
+             if(is_array($skillsData)) {
+                 $skills = array_slice($skillsData, 0, 3);
+             }
+         }
+      @endphp
+      <div class="cand" style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); text-align: center; cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; height: 100%; min-height: 380px;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.12)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.08)'; this.style.transform='translateY(0)';" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
          <!-- Avatar with Featured Star -->
          <div style="position: relative; display: inline-block; margin-bottom: 16px;">
             <div class="circle" style="width: 64px; height: 64px; border-radius: 50%; background: #f3f4f6; margin: auto; font-size: 20px; display: flex; justify-content: center; align-items: center; color: #000; font-weight: 700;">
@@ -2147,15 +2147,17 @@ button svg{
          
          <!-- Skills Tags -->
       @if(count($skills) > 0)
-         <div class="cand-tags" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 20px;">
+         <div class="cand-tags" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: auto;">
          @foreach($skills as $skill)
                <span style="font-size: 12px; background: #f3f4f6; padding: 4px 10px; border-radius: 12px; color: #1a1a1a; font-weight: 500;">{{ $skill }}</span>
          @endforeach
       </div>
+      @else
+         <div style="flex: 1;"></div>
       @endif
          
          <!-- Experience and Rating -->
-         <div class="cand-info" style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #6b7280; padding-top: 16px; border-top: 1px solid #e5e7eb;">
+         <div class="cand-info" style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #6b7280; padding-top: 16px; border-top: 1px solid #e5e7eb; margin-top: auto;">
             <span style="font-weight: 500;">{{ $profile->experience_years ?? 'N/A' }} Years</span>
             <div style="display: flex; align-items: center; gap: 4px;">
                <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24" stroke="none">
