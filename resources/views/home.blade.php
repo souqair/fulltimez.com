@@ -1676,17 +1676,16 @@ button svg{
 
 @section('hero')
 <!-- Hero Section -->
-<section class="hero" style="text-align: center; padding: 80px 0 60px; background: #fafafa;">
-    <div style="width: 90%; max-width: 1200px; margin: 0 auto;">
-        <h1 style="font-size: 4.5rem; font-weight: 700; line-height: 1.2; color: #000; margin: 60px 0 24px 0; letter-spacing: -0.5px;">
-            Empowering Your<br>Career Journey
-        </h1>
-        <p style="margin: 0 0 50px 0; font-size: 18px; color: #6b7280; line-height: 1.6;">
-            Whether you're searching for your first job or your next big opportunity,<br>we connect you with employers who value your talent.
-        </p>
-        
-        <!-- Search Box -->
-        <div class="search-box" style="background: #fff; padding: 30px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); width: 100%; margin: 0 auto;">
+<section class="hero" style="text-align: center; padding: 80px 20px 60px; background: #fafafa;">
+    <h1 style="font-size: 4.5rem; font-weight: 700; line-height: 1.2; color: #000; margin: 60px 0 24px 0; letter-spacing: -0.5px; max-width: 800px; margin-left: auto; margin-right: auto;">
+        Empowering Your<br>Career Journey
+    </h1>
+    <p style="margin: 0 0 130px 0; font-size: 18px; color: #6b7280; line-height: 1.6; max-width: 700px; margin-left: auto; margin-right: auto;">
+        Whether you're searching for your first job or your next big opportunity,<br>we connect you with employers who value your talent.
+    </p>
+    
+    <!-- Search Box -->
+    <div class="search-box" style="background: #fff; padding: 30px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); width: 90%; margin: 0 auto; max-width: 1000px;">
         <form action="{{ route('jobs.index') }}" method="GET" style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 20px; align-items: end;">
             <!-- Job Title Field -->
             <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -1742,7 +1741,6 @@ button svg{
                 </button>
             </div>
         </form>
-        </div>
     </div>
 </section>
 
@@ -1781,9 +1779,8 @@ button svg{
 
 
    <!-- Featured Jobs Section -->
-   <section style="margin-top: 60px; margin-bottom: 60px;">
-      <div style="width: 90%; max-width: 1200px; margin: 0 auto;">
-         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px;">
+   <section style="margin-top: 60px; margin-bottom: 60px; padding: 0 5%;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto;">
          <div>
             <h2 class="section-title" style="font-size: 32px; font-weight: 700; margin: 0 0 8px 0; color: #000; line-height: 1.2;">Featured Jobs</h2>
             <p class="section-sub" style="margin: 0; color: #6b7280; font-size: 15px; line-height: 1.5;">Discover exciting opportunities from top employers</p>
@@ -1797,7 +1794,9 @@ button svg{
                </svg>
             </a>
          </div>
-         <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 100%; margin: 0;">
+      </div>
+      
+      <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; max-width: 1200px; margin: 0 auto;">
          @foreach($featuredJobs->take(4) as $job)
          <div class="job-card" style="background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.12)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.08)'; this.style.transform='translateY(0)';" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
             <div class="jc-top" style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; position: relative;">
@@ -1860,15 +1859,12 @@ button svg{
             </div>
          </div>
          @endforeach
-         </div>
       </div>
    </section>
 
 <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 60px auto; width: 90%; max-width: 1200px;">
  
-<div style="width: 90%; max-width: 1200px; margin: 70px auto;">
-   <div class="ad-box" style="width: 70%; max-width: 800px; margin: 0 auto; text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; color: #777; font-size: 12px;">ADVERTISEMENT</div>
-</div>
+<div class="ad-box" style="width: 70%; max-width: 800px; margin: 70px auto; text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; color: #777; font-size: 12px;">ADVERTISEMENT</div>
 
 <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 60px auto; width: 90%; max-width: 1200px;">
 
@@ -2077,9 +2073,8 @@ button svg{
 
 @if($featuredCandidates && $featuredCandidates->count() > 0)
 <!-- Featured Candidates Section -->
-<section style="margin-top: 60px; margin-bottom: 60px;">
-   <div style="width: 90%; max-width: 1200px; margin: 0 auto;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px;">
+<section style="margin-top: 60px; margin-bottom: 60px; padding: 0 5%;">
+   <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto;">
       <div>
          <h2 class="section-title" style="font-size: 32px; font-weight: 700; margin: 0 0 8px 0; color: #000; line-height: 1.2;">Featured Candidates</h2>
          <p class="section-sub" style="margin: 0; color: #6b7280; font-size: 15px; line-height: 1.5;">Connect with top talent ready for their next opportunity</p>
@@ -2181,9 +2176,8 @@ button svg{
                <span style="font-weight: 600; color: #1a1a1a;">4.9</span>
             </div>
       </div>
-      </div>
-      @endforeach
-      </div>
+   </div>
+   @endforeach
    </div>
 </section>
 @endif
@@ -2192,9 +2186,8 @@ button svg{
 
 @if($recommendedJobs && $recommendedJobs->count() > 0)
 <!-- Recommended Jobs Section -->
-<section style="margin-top: 60px; margin-bottom: 60px;">
-   <div style="width: 90%; max-width: 1200px; margin: 0 auto;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px;">
+<section style="margin-top: 60px; margin-bottom: 60px; padding: 0 5%;">
+   <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto;">
       <div>
          <h2 class="section-title" style="font-size: 32px; font-weight: 700; margin: 0 0 8px 0; color: #000; line-height: 1.2;">Recommended Jobs</h2>
          <p class="section-sub" style="margin: 0; color: #6b7280; font-size: 15px; line-height: 1.5;">Discover more opportunities tailored for you</p>
@@ -2208,7 +2201,9 @@ button svg{
             </svg>
          </a>
       </div>
-      <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 100%; margin: 0;">
+   </div>
+   
+   <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; max-width: 1200px; margin: 0 auto;">
       @foreach($recommendedJobs as $job)
       <div class="job-card" style="background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
          <div class="jc-top" style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; position: relative;">
@@ -2271,7 +2266,6 @@ button svg{
          </div>
       </div>
       @endforeach
-      </div>
    </div>
 </section>
 
