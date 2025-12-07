@@ -20,30 +20,29 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     font-family: sans-serif;
 }
 
 .desktop-header.scrolled {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .desktop-header .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 60px;
+    padding: 14px 60px;
     max-width: 100%;
-    height: auto;
+    min-height: 60px;
 }
 
 .desktop-header .logo {
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    height: auto;
-    line-height: 1;
+    height: 32px;
 }
 
 .desktop-header .logo a {
@@ -52,12 +51,12 @@
     text-decoration: none;
     color: #000;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 22px;
     transition: all 0.3s ease;
     font-family: sans-serif;
     letter-spacing: -0.5px;
     line-height: 1;
-    height: auto;
+    height: 32px;
 }
 
 .desktop-header .logo a:hover {
@@ -69,6 +68,7 @@
     color: #000;
     display: inline-block;
     line-height: 1;
+    vertical-align: middle;
 }
 
 .desktop-header .logo-text .logo-full {
@@ -86,8 +86,7 @@
     flex: 1;
     justify-content: flex-start;
     margin-left: 40px;
-    height: auto;
-    line-height: 1;
+    height: 32px;
 }
 
 .desktop-header nav a {
@@ -102,6 +101,9 @@
     font-family: sans-serif;
     line-height: 1;
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
 }
 
 .desktop-header nav a::after {
@@ -124,8 +126,7 @@
     align-items: center;
     gap: 20px;
     flex-shrink: 0;
-    height: auto;
-    line-height: 1;
+    height: 32px;
 }
 
 .desktop-header .header-actions a {
@@ -141,6 +142,7 @@
     gap: 8px;
     line-height: 1;
     white-space: nowrap;
+    height: 32px;
 }
 
 .desktop-header .header-actions .login-link {
@@ -166,11 +168,14 @@
     background: #1a1a1a;
     color: #fff;
     font-weight: 500;
-    padding: 8px 18px;
+    padding: 6px 16px;
     border-radius: 12px;
     box-shadow: none;
     font-size: 14px;
     line-height: 1;
+    height: auto;
+    display: inline-flex;
+    align-items: center;
 }
 
 .desktop-header .header-actions .get-started-btn:hover {
@@ -480,7 +485,8 @@
 /* Responsive Design */
 @media (max-width: 1199px) {
     .desktop-header .header-container {
-        padding: 20px 40px;
+        padding: 14px 40px;
+        min-height: 60px;
     }
     
     .desktop-header nav {
