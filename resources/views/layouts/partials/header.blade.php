@@ -39,10 +39,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 14px 5%;
-    max-width: 1200px;
+    max-width: 100%;
+    width: 90%;
     margin: 0 auto;
     min-height: 60px;
-    width: 100%;
 }
 
 .desktop-header .logo {
