@@ -15,25 +15,25 @@
 
 /* Desktop Header - Modern Design */
 .desktop-header {
-    background: #ffffff;
-    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+    border-bottom: none;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    box-shadow: none;
     transition: all 0.3s ease;
     font-family: sans-serif;
 }
 
 .desktop-header.scrolled {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .desktop-header .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 60px;
+    padding: 20px 60px;
     max-width: 100%;
 }
 
@@ -49,13 +49,27 @@
     text-decoration: none;
     color: #000;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 24px;
     transition: all 0.3s ease;
     font-family: sans-serif;
+    letter-spacing: -0.5px;
 }
 
 .desktop-header .logo a:hover {
-    transform: scale(1.05);
+    transform: none;
+}
+
+.desktop-header .logo-text {
+    font-weight: 700;
+    color: #000;
+}
+
+.desktop-header .logo-text .logo-full {
+    font-weight: 500;
+}
+
+.desktop-header .logo-text .logo-timez {
+    font-weight: 700;
 }
 
 .desktop-header .logo img {
@@ -67,93 +81,90 @@
 .desktop-header nav {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 32px;
     flex: 1;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-left: 40px;
 }
 
 .desktop-header nav a {
     text-decoration: none;
-    color: #333;
+    color: #6b7280;
     font-size: 15px;
-    font-weight: 500;
-    padding: 10px 18px;
-    border-radius: 8px;
+    font-weight: 400;
+    padding: 0;
+    border-radius: 0;
     transition: all 0.3s ease;
     position: relative;
     font-family: sans-serif;
 }
 
 .desktop-header nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 6px;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 6px;
-    height: 6px;
-    background: #000;
-    border-radius: 50%;
-    transition: all 0.3s ease;
+    display: none;
 }
 
 .desktop-header nav a:hover {
-    color: #000;
-    background: #f8f8f8;
-}
-
-.desktop-header nav a:hover::after {
-    transform: translateX(-50%) scaleX(1);
+    color: #1a1a1a;
+    background: transparent;
 }
 
 .desktop-header nav a.active {
-    color: #000;
-    background: #f0f0f0;
-    font-weight: 600;
-}
-
-.desktop-header nav a.active::after {
-    transform: translateX(-50%) scaleX(1);
+    color: #1a1a1a;
+    background: transparent;
+    font-weight: 500;
 }
 
 .desktop-header .header-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 20px;
     flex-shrink: 0;
 }
 
 .desktop-header .header-actions a {
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 10px 20px;
-    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 0;
+    border-radius: 0;
     transition: all 0.3s ease;
     font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .desktop-header .header-actions .login-link {
-    color: #333;
+    color: #1a1a1a;
     background: transparent;
 }
 
 .desktop-header .header-actions .login-link:hover {
-    color: #000;
-    background: #f8f8f8;
+    color: #1a1a1a;
+    background: transparent;
+}
+
+.desktop-header .header-actions .login-link .login-icon {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
 }
 
 .desktop-header .header-actions .get-started-btn {
-    background: #000;
+    background: #1a1a1a;
     color: #fff;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 12px;
+    box-shadow: none;
 }
 
 .desktop-header .header-actions .get-started-btn:hover {
-    background: #333;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: #2d2d2d;
+    transform: none;
+    box-shadow: none;
 }
 
 .desktop-header .header-actions .dashboard-link {
@@ -446,12 +457,20 @@
 /* Responsive Design */
 @media (max-width: 1199px) {
     .desktop-header .header-container {
-        padding: 18px 40px;
+        padding: 20px 40px;
+    }
+    
+    .desktop-header nav {
+        gap: 24px;
+        margin-left: 30px;
     }
     
     .desktop-header nav a {
-        padding: 10px 14px;
         font-size: 14px;
+    }
+    
+    .desktop-header .header-actions {
+        gap: 16px;
     }
 }
 
@@ -493,7 +512,9 @@
     <div class="header-container">
         <div class="logo">
             <a href="{{ route('home') }}">
-                <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez">
+                <span class="logo-text">
+                    <span class="logo-full">Full</span><span class="logo-timez">Timez</span>
+                </span>
             </a>
         </div>
         <nav>
@@ -509,7 +530,13 @@
                 <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="logout-link">Logout</a>
             </form>
             @else
-            <a href="{{ route('login') }}" class="login-link">Login</a>
+            <a href="{{ route('login') }}" class="login-link">
+                <svg class="login-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                Login
+            </a>
             <a href="{{ route('choose.role') }}" class="get-started-btn">Get Started</a>
             @endauth
         </div>
