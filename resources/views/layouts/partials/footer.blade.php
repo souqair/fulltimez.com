@@ -139,8 +139,8 @@ footer {
 
 .footer-bottom {
     background-color: #000000;
-    max-width: 100%;
-    margin: 0;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 24px 5%;
     border-top: 1px solid #374151;
     display: flex;

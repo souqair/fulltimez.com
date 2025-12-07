@@ -38,9 +38,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 60px;
-    max-width: 100%;
+    padding: 14px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
     min-height: 60px;
+    width: 100%;
 }
 
 .desktop-header .logo {
