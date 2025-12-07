@@ -38,7 +38,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 5%;
+    padding: 14px 65px;
     max-width: 100%;
     width: 90%;
     margin: 0 auto;
