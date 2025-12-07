@@ -35,12 +35,15 @@
     align-items: center;
     padding: 20px 60px;
     max-width: 100%;
+    height: auto;
 }
 
 .desktop-header .logo {
     display: flex;
     align-items: center;
     flex-shrink: 0;
+    height: auto;
+    line-height: 1;
 }
 
 .desktop-header .logo a {
@@ -53,6 +56,8 @@
     transition: all 0.3s ease;
     font-family: sans-serif;
     letter-spacing: -0.5px;
+    line-height: 1;
+    height: auto;
 }
 
 .desktop-header .logo a:hover {
@@ -62,6 +67,8 @@
 .desktop-header .logo-text {
     font-weight: 700;
     color: #000;
+    display: inline-block;
+    line-height: 1;
 }
 
 .desktop-header .logo-text .logo-full {
@@ -72,12 +79,6 @@
     font-weight: 700;
 }
 
-.desktop-header .logo img {
-    max-height: 35px;
-    width: auto;
-    margin-right: 8px;
-}
-
 .desktop-header nav {
     display: flex;
     align-items: center;
@@ -85,6 +86,8 @@
     flex: 1;
     justify-content: flex-start;
     margin-left: 40px;
+    height: auto;
+    line-height: 1;
 }
 
 .desktop-header nav a {
@@ -97,6 +100,8 @@
     transition: all 0.3s ease;
     position: relative;
     font-family: sans-serif;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 .desktop-header nav a::after {
@@ -119,6 +124,8 @@
     align-items: center;
     gap: 20px;
     flex-shrink: 0;
+    height: auto;
+    line-height: 1;
 }
 
 .desktop-header .header-actions a {
@@ -132,6 +139,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 .desktop-header .header-actions .login-link {
@@ -150,15 +159,18 @@
     stroke: currentColor;
     fill: none;
     stroke-width: 2;
+    flex-shrink: 0;
 }
 
 .desktop-header .header-actions .get-started-btn {
     background: #1a1a1a;
     color: #fff;
     font-weight: 500;
-    padding: 10px 24px;
+    padding: 8px 18px;
     border-radius: 12px;
     box-shadow: none;
+    font-size: 14px;
+    line-height: 1;
 }
 
 .desktop-header .header-actions .get-started-btn:hover {
@@ -216,9 +228,20 @@
     align-items: center;
 }
 
-.mobile-logo img {
-    max-height: 32px;
-    width: auto;
+.mobile-logo .logo-text {
+    font-weight: 700;
+    color: #000;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    line-height: 1;
+}
+
+.mobile-logo .logo-text .logo-full {
+    font-weight: 500;
+}
+
+.mobile-logo .logo-text .logo-timez {
+    font-weight: 700;
 }
 
 .mobile-header-btn {
@@ -548,7 +571,9 @@
     <div class="mobile-header-inner">
         <div class="mobile-logo">
             <a href="{{ route('home') }}">
-                <img src="{{ asset('images/full-timez-logo.png') }}" alt="FullTimez">
+                <span class="logo-text">
+                    <span class="logo-full">Full</span><span class="logo-timez">Timez</span>
+                </span>
             </a>
         </div>
         <button class="mobile-header-btn" id="mobileMenuToggle" type="button" aria-label="Menu">
