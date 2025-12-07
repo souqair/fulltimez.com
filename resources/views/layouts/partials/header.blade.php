@@ -168,7 +168,7 @@
     background: #1a1a1a;
     color: #fff;
     font-weight: 500;
-    padding: 6px 16px;
+    padding: 10px 16px;
     border-radius: 12px;
     box-shadow: none;
     font-size: 14px;
