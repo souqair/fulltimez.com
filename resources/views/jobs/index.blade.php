@@ -716,14 +716,6 @@ body {
 @endpush
 
 @section('content')
-<!-- Simple Breadcrumb -->
-<div style="width: 90%; margin: 40px auto 20px; padding: 0 20px;">
-    <nav style="font-size: 13px; color: #666;">
-        <a href="{{ route('home') }}" style="color: #666; text-decoration: none;">Home</a> / 
-        <span style="color: #000;">Browse Jobs</span>
-    </nav>
-</div>
-
 @php
     $filtersActive = request()->filled('posted_as')
         || request()->filled('location')
@@ -926,23 +918,30 @@ body {
  <div class="col-lg-9 fadeInLeft" style="margin-top: -20px;">
 <div class="cate_list m-0">
         @if($featuredJobs->count())
-        <div class="featured-jobs-section-wrapper" style="margin-top: 40px; margin-bottom: 60px; padding: 0 5%;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto;">
-                <div>
-                    <h2 class="section-title" style="font-size: 32px; font-weight: 700; margin: 0 0 8px 0; color: #000; line-height: 1.2;">Featured Jobs</h2>
-                    <p class="section-sub" style="margin: 0; color: #6b7280; font-size: 15px; line-height: 1.5;">Discover exciting opportunities from top employers</p>
+        <div class="featured-jobs-section-wrapper" style="margin-top: 40px; margin-bottom: 60px;">
+            <div style="width: 90%; max-width: 1200px; margin: 0 auto;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <nav style="font-size: 32px; font-weight: 700; color: #000; line-height: 1.2;">
+                            <a href="{{ route('home') }}" style="color: #6b7280; text-decoration: none; font-weight: 400;">Home</a> / 
+                            <span style="color: #000; font-weight: 700;">Browse Jobs</span>
+                        </nav>
+                        <span style="color: #6b7280; font-size: 32px; font-weight: 400;">•</span>
+                        <h2 class="section-title" style="font-size: 32px; font-weight: 700; margin: 0; color: #000; line-height: 1.2;">Featured Jobs</h2>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <a href="{{ route('jobs.index') }}" style="display: flex; align-items: center; gap: 6px; color: #4b5563; font-size: 15px; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#1a1a1a';" onmouseout="this.style.color='#4b5563';">
+                            Browse All Jobs
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-                <div style="display: flex; align-items: center;">
-                    <a href="{{ route('jobs.index') }}" style="display: flex; align-items: center; gap: 6px; color: #4b5563; font-size: 15px; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#1a1a1a';" onmouseout="this.style.color='#4b5563';">
-                        Browse All Jobs
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </a>
-                </div>
+                <p class="section-sub" style="margin: 0 0 30px 0; color: #6b7280; font-size: 15px; line-height: 1.5;">Discover exciting opportunities from top employers</p>
             </div>
-            <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; max-width: 1200px; margin: 0 auto;">
+            <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 100%; margin: 0;">
                 @foreach($featuredJobs as $job)
                 <div class="job-card" style="background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.12)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.08)'; this.style.transform='translateY(0)';" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
                     <div class="jc-top" style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; position: relative;">
