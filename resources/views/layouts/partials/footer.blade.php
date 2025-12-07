@@ -147,7 +147,7 @@ footer {
     background-color: #000000;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 24px 5%;
+    padding: 24px 0;
     border-top: 1px solid #374151;
     display: flex;
     justify-content: space-between;
