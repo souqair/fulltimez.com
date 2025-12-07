@@ -1853,7 +1853,7 @@ button svg{
       </div>
    </section>
  
-<div class="ad-box" style="width: 90%; margin: 70px auto; text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; color: #777; font-size: 12px;">ADVERTISEMENT</div>
+<div class="ad-box" style="width: 70%; max-width: 800px; margin: 70px auto; text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; color: #777; font-size: 12px;">ADVERTISEMENT</div>
 
 <!-- Call to Action Section: Jobseeker & Employer -->
 <style>
