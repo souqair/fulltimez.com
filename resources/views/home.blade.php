@@ -1468,12 +1468,12 @@ button svg{
     }
     
     .hero h1 {
-        font-size: 32px !important;
+        font-size: 36px !important;
         margin-bottom: 16px !important;
     }
     
     .hero p {
-        font-size: 14px !important;
+        font-size: 16px !important;
         margin-bottom: 40px !important;
     }
     
@@ -1631,10 +1631,10 @@ button svg{
 @section('hero')
 <!-- Hero Section -->
 <section class="hero" style="text-align: center; padding: 80px 20px 60px; background: #fafafa;">
-    <h1 style="font-size: 48px; font-weight: 700; line-height: 1.2; color: #000; margin: 0 0 20px 0; letter-spacing: -0.5px;">
+    <h1 style="font-size: 56px; font-weight: 700; line-height: 1.2; color: #000; margin: 0 0 24px 0; letter-spacing: -0.5px;">
         Empowering Your Career Journey
     </h1>
-    <p style="margin: 0 0 50px 0; font-size: 16px; color: #6b7280; line-height: 1.6;">
+    <p style="margin: 0 0 50px 0; font-size: 18px; color: #6b7280; line-height: 1.6;">
         Whether you're searching for your first job or your next big opportunity, we connect you with employers who value your talent.
     </p>
     

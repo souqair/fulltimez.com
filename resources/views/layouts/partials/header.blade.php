@@ -15,7 +15,7 @@
 
 /* Desktop Header - Modern Design */
 .desktop-header {
-    background: #fafafa;
+    background: rgba(250, 250, 250, 0.8);
     border-bottom: none;
     position: sticky;
     top: 0;
@@ -23,10 +23,15 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     font-family: sans-serif;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .desktop-header.scrolled {
+    background: rgba(250, 250, 250, 0.95);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .desktop-header .header-container {
