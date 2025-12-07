@@ -1,197 +1,280 @@
 
 
-
 <style>
 footer {
-    background-color: #000000;
-    padding: 100px 30px 30px 56px !important;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    border-top: 3px solid #1a73e8;
+    background-color: #1a1a1a;
+    padding: 60px 5%;
+    font-family: sans-serif;
 }
 
-footer div {
-    width: 22%;
-    min-width: 200px;
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
 }
 
-footer h4 {
+.footer-column h4 {
     font-size: 16px;
     margin-bottom: 20px;
     color: #ffffff;
     font-weight: 700;
     font-family: sans-serif;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
 }
 
-footer p {
-    font-size: 13px;
-    color: #b0b0b0;
-    line-height: 1.8;
-    margin: 0 0 20px 0;
-    font-family: sans-serif;
+.footer-brand h4 {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: #ffffff;
+    font-weight: 700;
 }
 
-footer a {
+.footer-brand p {
+    font-size: 14px;
+    color: #d1d5db;
+    line-height: 1.6;
+    margin: 0 0 24px 0;
+}
+
+.social-icons {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.social-icons a:hover {
+    opacity: 0.7;
+}
+
+.social-icons svg {
+    width: 20px;
+    height: 20px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 12px;
+}
+
+.footer-column ul li a {
     display: block;
     text-decoration: none;
-    font-size: 13px;
-    color: #d0d0d0;
-    margin: 10px 0;
+    font-size: 14px;
+    color: #d1d5db;
+    transition: color 0.2s;
+}
+
+.footer-column ul li a:hover {
+    color: #ffffff;
+}
+
+.subscribe-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.subscribe-form input[type="email"] {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    font-size: 14px;
     font-family: sans-serif;
-    transition: all 0.3s ease;
-    position: relative;
-    padding-left: 0;
-}
-
-footer a:hover {
-    color: #1a73e8;
-    padding-left: 8px;
-}
-
-footer a::before {
-    content: '→';
-    position: absolute;
-    left: -15px;
-    opacity: 0;
-    transition: all 0.3s ease;
-    color: #1a73e8;
-}
-
-footer a:hover::before {
-    opacity: 1;
-    left: -10px;
-}
-
-footer input[type="email"] {
-    padding: 12px 15px;
-    border: 1px solid #333;
-    border-radius: 6px;
-    width: 100%;
-    max-width: 250px;
-    font-size: 13px;
-    font-family: sans-serif;
-    background: #1a1a1a;
-    color: #fff;
-    margin-bottom: 10px;
-    transition: all 0.3s ease;
-}
-
-footer input[type="email"]:focus {
+    background: #2d2d2d;
+    color: #ffffff;
     outline: none;
-    border-color: #1a73e8;
-    background: #252525;
+    transition: border-color 0.2s;
 }
 
-footer input[type="email"]::placeholder {
-    color: #666;
+.subscribe-form input[type="email"]:focus {
+    border-color: #6b7280;
 }
 
-footer button {
-    padding: 12px 24px;
-    background: #1a73e8;
-    color: white;
+.subscribe-form input[type="email"]::placeholder {
+    color: #9ca3af;
+}
+
+.subscribe-form button {
+    padding: 10px 20px;
+    background: #4b5563;
+    color: #ffffff;
     border: none;
-    border-radius: 6px;
-    font-size: 13px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
     font-family: sans-serif;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    transition: background 0.2s;
+    white-space: nowrap;
 }
 
-footer button:hover {
-    background: #1557b0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+.subscribe-form button:hover {
+    background: #6b7280;
+}
+
+.footer-column p.subscribe-desc {
+    font-size: 14px;
+    color: #d1d5db;
+    line-height: 1.6;
+    margin: 0 0 0 0;
 }
 
 .footer-bottom {
-    text-align: center;
-    padding: 25px 20px;
-    font-size: 13px;
-    color: #888;
-    background: #0a0a0a;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 5%;
+    border-top: 1px solid #374151;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #9ca3af;
     font-family: sans-serif;
-    border-top: 1px solid #1a1a1a;
 }
 
-.footer-bottom a {
-    color: #1a73e8;
+.footer-bottom-links {
+    display: flex;
+    gap: 24px;
+}
+
+.footer-bottom-links a {
+    color: #d1d5db;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.2s;
 }
 
-.footer-bottom a:hover {
-    color: #4a9eff;
+.footer-bottom-links a:hover {
+    color: #ffffff;
 }
 
 @media (max-width: 991px) {
-    footer {
-        padding: 50px 50px 30px;
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
     }
     
-    footer div {
-        width: 48%;
-        margin-bottom: 35px;
+    .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
     }
 }
 
 @media (max-width: 576px) {
     footer {
-        padding: 40px 30px 25px;
+        padding: 40px 5%;
     }
     
-    footer div {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    
+    .subscribe-form {
+        flex-direction: column;
+    }
+    
+    .subscribe-form button {
         width: 100%;
-        margin-bottom: 30px;
     }
     
-    footer input[type="email"] {
-        max-width: 100%;
-    }
-    
-    footer button {
-        width: 100%;
+    .footer-bottom-links {
+        flex-direction: column;
+        gap: 12px;
     }
 }
 </style>
 
 <footer>
-  <div>
-    <h4>FullTimez</h4>
-    <p>Empowering careers and connecting talent with opportunities across the globe.</p>
-  </div>
-  <div>
-    <h4>For Job Seekers</h4>
-    <a href="{{ route('jobs.index') }}">Browse Jobs</a>
-    <a href="#">Companies</a>
-    <a href="#">Create Resume</a>
-    <a href="#">Career Advice</a>
-  </div>
-  <div>
-    <h4>For Employers</h4>
-    <a href="#">Post a Job</a>
-    <a href="{{ route('candidates.index') }}">Browse Resumes</a>
-    <a href="#">Pricing</a>
-    <a href="#">Resources</a>
-  </div>
-  <div>
-    <h4>Stay Updated</h4>
-    <form action="#" method="POST">
-      @csrf
-      <input type="email" name="email" placeholder="Your email" required>
-      <button type="submit">Subscribe</button>
-    </form>
+  <div class="footer-container">
+    <div class="footer-column footer-brand">
+      <h4>FullTimez</h4>
+      <p>Empowering careers and connecting talent with opportunity across the globe.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1h3z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="Twitter">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    
+    <div class="footer-column">
+      <h4>For Job Seekers</h4>
+      <ul>
+        <li><a href="{{ route('jobs.index') }}">Browse Jobs</a></li>
+        <li><a href="#">Companies</a></li>
+        <li><a href="#">Create Resume</a></li>
+        <li><a href="#">Career Advice</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-column">
+      <h4>For Employers</h4>
+      <ul>
+        <li><a href="#">Post a Job</a></li>
+        <li><a href="{{ route('candidates.index') }}">Browse Resumes</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Resources</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-column">
+      <h4>Stay Updated</h4>
+      <p class="subscribe-desc">Subscribe to get the latest jobs and career tips.</p>
+      <form class="subscribe-form" action="#" method="POST">
+        @csrf
+        <input type="email" name="email" placeholder="Your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
   </div>
 </footer>
 
-<div class="footer-bottom">© 2025 FullTimez. All rights reserved.</div>
+<div class="footer-bottom">
+  <div>© 2025 FullTimez. All rights reserved.</div>
+  <div class="footer-bottom-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Contact</a>
+  </div>
+</div>
 
 
 
