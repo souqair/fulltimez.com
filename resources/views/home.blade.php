@@ -2174,11 +2174,24 @@ button svg{
 
 @if($recommendedJobs && $recommendedJobs->count() > 0)
 <!-- Recommended Jobs Section -->
-<section style="margin-top: 40px; margin-bottom: 40px;">
-   <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Recommended Jobs</h2>
-   <p class="section-sub" style="margin-left: 60px; color: #777; font-size: 14px; margin-bottom: 30px;">Discover more opportunities tailored for you</p>
+<section style="margin-top: 60px; margin-bottom: 60px; padding: 0 5%;">
+   <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto;">
+      <div>
+         <h2 class="section-title" style="font-size: 32px; font-weight: 700; margin: 0 0 8px 0; color: #000; line-height: 1.2;">Recommended Jobs</h2>
+         <p class="section-sub" style="margin: 0; color: #6b7280; font-size: 15px; line-height: 1.5;">Discover more opportunities tailored for you</p>
+      </div>
+      <div style="display: flex; align-items: center;">
+         <a href="{{ route('jobs.index') }}" style="display: flex; align-items: center; gap: 6px; color: #4b5563; font-size: 15px; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#1a1a1a';" onmouseout="this.style.color='#4b5563';">
+            Browse All Jobs
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+               <line x1="5" y1="12" x2="19" y2="12"></line>
+               <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+         </a>
+      </div>
+   </div>
    
-   <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto;">
+   <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; max-width: 1200px; margin: 0 auto;">
       @foreach($recommendedJobs as $job)
       <div class="job-card" style="background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
          <div class="jc-top" style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; position: relative;">
