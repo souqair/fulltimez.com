@@ -1463,36 +1463,37 @@ button svg{
 
 /* Hero Section Responsive */
 @media (max-width: 768px) {
-    .hero-title {
+    .hero {
+        padding: 60px 20px 40px !important;
+    }
+    
+    .hero h1 {
         font-size: 32px !important;
+        margin-bottom: 16px !important;
     }
     
-    .hero-description {
-        font-size: 16px !important;
+    .hero p {
+        font-size: 14px !important;
+        margin-bottom: 40px !important;
     }
     
-    .hero-search-bar {
-        padding: 16px !important;
+    .search-box {
+        width: 95% !important;
+        padding: 20px !important;
     }
     
-    .hero-search-bar .row.g-0 > div {
-        border-right: none !important;
-        border-bottom: 1px solid #e5e7eb !important;
-        border-radius: 0 !important;
+    .search-box form {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
     }
     
-    .hero-search-bar .row.g-0 > div:first-child {
-        border-radius: 12px 12px 0 0 !important;
-    }
-    
-    .hero-search-bar .row.g-0 > div:last-child {
-        border-bottom: none !important;
-        border-radius: 0 0 12px 12px !important;
-    }
-    
-    .hero-search-bar .row.g-0 > div button {
-        border-radius: 0 0 12px 12px !important;
+    .search-box form > div {
         width: 100% !important;
+    }
+    
+    .search-btn {
+        width: 100% !important;
+        justify-content: center !important;
     }
     
     .stat-number {
@@ -1629,26 +1630,70 @@ button svg{
 
 @section('hero')
 <!-- Hero Section -->
-<section class="hero" style="text-align: center; padding: 120px 20px; background: #fafafa;">
-    <h1 style="font-size: 48px; font-weight: 800; line-height: 1.2; color: #000; margin: 0;">
-        Empowering Your<br>Career Journey
+<section class="hero" style="text-align: center; padding: 80px 20px 60px; background: #fafafa;">
+    <h1 style="font-size: 48px; font-weight: 700; line-height: 1.2; color: #000; margin: 0 0 20px 0; letter-spacing: -0.5px;">
+        Empowering Your Career Journey
     </h1>
-    <p style="margin-top: 20px; font-size: 16px; color: #555;">
-        Whether you're searching for your first job or your next big opportunity,<br>we connect you with employers who value your talent.
+    <p style="margin: 0 0 50px 0; font-size: 16px; color: #6b7280; line-height: 1.6;">
+        Whether you're searching for your first job or your next big opportunity, we connect you with employers who value your talent.
     </p>
     
     <!-- Search Box -->
-    <div class="search-box" style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 3px 15px rgba(0,0,0,0.05); width: 80%; margin: 40px auto; display: flex; gap: 20px; max-width: 1000px;">
-        <form action="{{ route('jobs.index') }}" method="GET" style="display: flex; gap: 20px; width: 100%; flex-wrap: wrap;">
-            <input type="text" name="title" placeholder="Job Title" value="{{ request('title') }}" style="flex: 1; min-width: 200px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
-            <input type="text" name="location" placeholder="Location" value="{{ request('location') }}" style="flex: 1; min-width: 200px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
-            <select name="category" style="flex: 1; min-width: 200px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
-                <option value="">All Categories</option>
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                @endforeach
-            </select>
-            <button type="submit" class="search-btn" style="background: #000; color: #fff; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; white-space: nowrap;">Search</button>
+    <div class="search-box" style="background: #fff; padding: 30px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); width: 90%; margin: 0 auto; max-width: 1000px;">
+        <form action="{{ route('jobs.index') }}" method="GET" style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 20px; align-items: end;">
+            <!-- Job Title Field -->
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <label style="font-size: 14px; font-weight: 500; color: #1a1a1a; text-align: left; margin: 0;">Job Title</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <svg style="position: absolute; left: 14px; width: 18px; height: 18px; color: #6b7280; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <input type="text" name="title" placeholder="e.g. Developer, Designer" value="{{ request('title') }}" style="width: 100%; padding: 12px 12px 12px 42px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
+                </div>
+            </div>
+            
+            <!-- Location Field -->
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <label style="font-size: 14px; font-weight: 500; color: #1a1a1a; text-align: left; margin: 0;">Location</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <svg style="position: absolute; left: 14px; width: 18px; height: 18px; color: #6b7280; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <input type="text" name="location" placeholder="City or Country" value="{{ request('location') }}" style="width: 100%; padding: 12px 12px 12px 42px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
+                </div>
+            </div>
+            
+            <!-- Category Dropdown -->
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <label style="font-size: 14px; font-weight: 500; color: #1a1a1a; text-align: left; margin: 0;">Category</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <select name="category" style="width: 100%; padding: 12px 40px 12px 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; appearance: none; cursor: pointer; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
+                        <option value="">All Categories</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    <svg style="position: absolute; right: 14px; width: 18px; height: 18px; color: #6b7280; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Search Button -->
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <label style="font-size: 14px; font-weight: 500; color: transparent; text-align: left; margin: 0; visibility: hidden;">Search</label>
+                <button type="submit" class="search-btn" style="background: #000; color: #fff; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; white-space: nowrap; display: flex; align-items: center; gap: 8px; justify-content: center; transition: background 0.2s; height: 44px;" onmouseover="this.style.background='#1a1a1a';" onmouseout="this.style.background='#000';">
+                    <svg style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    Search
+                </button>
+            </div>
         </form>
     </div>
 </section>
