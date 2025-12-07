@@ -1631,11 +1631,11 @@ button svg{
 @section('hero')
 <!-- Hero Section -->
 <section class="hero" style="text-align: center; padding: 80px 20px 60px; background: #fafafa;">
-    <h1 style="font-size: 56px; font-weight: 700; line-height: 1.2; color: #000; margin: 0 0 24px 0; letter-spacing: -0.5px;">
-        Empowering Your Career Journey
+    <h1 style="font-size: 56px; font-weight: 700; line-height: 1.2; color: #000; margin: 0 0 24px 0; letter-spacing: -0.5px; max-width: 800px; margin-left: auto; margin-right: auto;">
+        Empowering Your<br>Career Journey
     </h1>
-    <p style="margin: 0 0 50px 0; font-size: 18px; color: #6b7280; line-height: 1.6;">
-        Whether you're searching for your first job or your next big opportunity, we connect you with employers who value your talent.
+    <p style="margin: 0 0 50px 0; font-size: 18px; color: #6b7280; line-height: 1.6; max-width: 700px; margin-left: auto; margin-right: auto;">
+        Whether you're searching for your first job or your next big opportunity,<br>we connect you with employers who value your talent.
     </p>
     
     <!-- Search Box -->
