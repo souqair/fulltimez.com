@@ -1632,15 +1632,20 @@ button svg{
     }
     
     .candidates-grid {
-        display: block !important;
-        grid-template-columns: none !important;
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
         width: 95% !important;
-        gap: 0 !important;
-        padding: 30px 0 !important;
+        padding: 0 !important;
     }
     
     .candidates-grid .cand {
-        margin-bottom: 20px !important;
+        margin-bottom: 0 !important;
+    }
+    
+    section > div:first-child {
+        flex-direction: column !important;
+        gap: 16px !important;
+        align-items: flex-start !important;
     }
 }
 
@@ -2058,15 +2063,30 @@ button svg{
 
 @if($featuredCandidates && $featuredCandidates->count() > 0)
 <!-- Featured Candidates Section -->
-<h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Candidates</h2>
-<p class="section-sub" style="margin-left: 60px; color: #777; font-size: 14px; margin-bottom: 30px;">Connect with top talent ready for their next opportunity</p>
+<section style="margin-top: 60px; margin-bottom: 60px; padding: 0 5%;">
+   <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto;">
+      <div>
+         <h2 class="section-title" style="font-size: 32px; font-weight: 700; margin: 0 0 8px 0; color: #000; line-height: 1.2;">Featured Candidates</h2>
+         <p class="section-sub" style="margin: 0; color: #6b7280; font-size: 15px; line-height: 1.5;">Connect with top talent ready for their next opportunity</p>
+      </div>
+      <div style="display: flex; align-items: center;">
+         <a href="{{ route('candidates.index') }}" style="display: flex; align-items: center; gap: 6px; color: #4b5563; font-size: 15px; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#1a1a1a';" onmouseout="this.style.color='#4b5563';">
+            View All Candidates
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+               <line x1="5" y1="12" x2="19" y2="12"></line>
+               <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+         </a>
+      </div>
+   </div>
 
-<div class="candidates-grid" style="grid-template-columns: repeat(4, 1fr); gap: 20px; width: 90%; margin: auto; padding: 50px 0;">
-   @foreach($featuredCandidates as $candidate)
+   <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; width: 90%; max-width: 1200px; margin: 0 auto; padding: 0;">
+      @foreach($featuredCandidates->take(4) as $candidate)
    @php
       $profile = $candidate->seekerProfile;
       $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
-      $initials = strtoupper(mb_substr($displayName, 0, 1) . (mb_substr($displayName, strpos($displayName, ' ') + 1, 1) ?? ''));
+         $nameParts = explode(' ', $displayName);
+         $initials = strtoupper(($nameParts[0][0] ?? '') . ($nameParts[1][0] ?? $nameParts[0][1] ?? ''));
       $rawPhoto = $profile->profile_picture ?? null;
       $hasImage = false;
       $avatarPath = null;
@@ -2092,29 +2112,62 @@ button svg{
           }
       }
    @endphp
-   <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 25px 0; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
-      <div class="circle" style="width: 50px; height: 50px; border-radius: 50%; background: #f5f5f5; margin: auto; font-size: 18px; display: flex; justify-content: center; align-items: center; color: #666; font-weight: 600;">
+      <div class="cand" style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); text-align: center; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.12)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.08)'; this.style.transform='translateY(0)';" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
+         <!-- Avatar with Featured Star -->
+         <div style="position: relative; display: inline-block; margin-bottom: 16px;">
+            <div class="circle" style="width: 64px; height: 64px; border-radius: 50%; background: #f3f4f6; margin: auto; font-size: 20px; display: flex; justify-content: center; align-items: center; color: #000; font-weight: 700;">
          @if($hasImage && $avatarPath)
             <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
          @else
             {{ $initials }}
          @endif
       </div>
-      <div class="cand-name" style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #000;">{{ $displayName }}</div>
-      <div class="cand-role" style="font-size: 11px; color: #666; margin-bottom: 10px;">{{ $profile->current_position ?? 'Job Seeker' }}</div>
+            <!-- Featured Star -->
+            <div style="position: absolute; top: -4px; right: -4px; width: 24px; height: 24px; background: #fbbf24; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+               <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffffff" stroke="none">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+               </svg>
+            </div>
+         </div>
+         
+         <!-- Candidate Name -->
+         <div class="cand-name" style="margin: 0 0 8px 0; font-size: 18px; font-weight: 700; color: #000;">{{ $displayName }}</div>
+         
+         <!-- Job Title -->
+         <div class="cand-role" style="font-size: 14px; color: #6b7280; margin-bottom: 12px;">{{ $profile->current_position ?? 'Job Seeker' }}</div>
+         
+         <!-- Location -->
+         <div style="display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 14px; color: #6b7280; margin-bottom: 16px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+               <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>{{ $profile->city ?? 'UAE' }}{{ $profile->country ? ', ' . $profile->country : '' }}</span>
+         </div>
+         
+         <!-- Skills Tags -->
       @if(count($skills) > 0)
-      <div class="cand-tags" style="margin-bottom: 10px;">
+         <div class="cand-tags" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 20px;">
          @foreach($skills as $skill)
-            <span style="font-size: 10px; background: #eee; padding: 3px 7px; margin: 2px; border-radius: 6px; display: inline-block; color: #444;">{{ $skill }}</span>
+               <span style="font-size: 12px; background: #f3f4f6; padding: 4px 10px; border-radius: 12px; color: #1a1a1a; font-weight: 500;">{{ $skill }}</span>
          @endforeach
       </div>
       @endif
-      <div class="cand-info" style="font-size: 11px; color: #666; margin-top: 10px;">
-         {{ $profile->experience_years ?? 'N/A' }} Years • ⭐ 4.9
+         
+         <!-- Experience and Rating -->
+         <div class="cand-info" style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #6b7280; padding-top: 16px; border-top: 1px solid #e5e7eb;">
+            <span style="font-weight: 500;">{{ $profile->experience_years ?? 'N/A' }} Years</span>
+            <div style="display: flex; align-items: center; gap: 4px;">
+               <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24" stroke="none">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+               </svg>
+               <span style="font-weight: 600; color: #1a1a1a;">4.9</span>
+            </div>
       </div>
    </div>
    @endforeach
 </div>
+</section>
 @endif
 
 @if($recommendedJobs && $recommendedJobs->count() > 0)
