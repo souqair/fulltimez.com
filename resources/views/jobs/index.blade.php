@@ -926,33 +926,81 @@ body {
  <div class="col-lg-9 fadeInLeft" style="margin-top: -20px;">
 <div class="cate_list m-0">
         @if($featuredJobs->count())
-        <div class="featured-jobs-section-wrapper">
-            <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Jobs</h2>
-            <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto;">
+        <div class="featured-jobs-section-wrapper" style="margin-top: 40px; margin-bottom: 60px; padding: 0 5%;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto;">
+                <div>
+                    <h2 class="section-title" style="font-size: 32px; font-weight: 700; margin: 0 0 8px 0; color: #000; line-height: 1.2;">Featured Jobs</h2>
+                    <p class="section-sub" style="margin: 0; color: #6b7280; font-size: 15px; line-height: 1.5;">Discover exciting opportunities from top employers</p>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <a href="{{ route('jobs.index') }}" style="display: flex; align-items: center; gap: 6px; color: #4b5563; font-size: 15px; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#1a1a1a';" onmouseout="this.style.color='#4b5563';">
+                        Browse All Jobs
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; max-width: 1200px; margin: 0 auto;">
                 @foreach($featuredJobs as $job)
-                <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
-                    <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
-                        <div style="flex: 1;">
-                            <div class="jc-title" style="font-size: 14px; font-weight: 700; margin-bottom: 5px; color: #000;">
-                                <a href="{{ route('jobs.show', $job->slug) }}" style="color: #000; text-decoration: none;">{{ $job->title }}</a>
+                <div class="job-card" style="background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.12)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.08)'; this.style.transform='translateY(0)';" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
+                    <div class="jc-top" style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; position: relative;">
+                        <!-- Circular Document Icon -->
+                        <div style="width: 48px; height: 48px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #1a1a1a;">
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 13H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 17H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <!-- Job Title and Company -->
+                        <div style="flex: 1; min-width: 0;">
+                            <div class="jc-title" style="font-size: 18px; font-weight: 700; margin-bottom: 4px; color: #1a1a1a; line-height: 1.3;">
+                                <a href="{{ route('jobs.show', $job->slug) }}" style="color: #1a1a1a; text-decoration: none;">{{ $job->title }}</a>
                             </div>
-                            <div class="jc-company" style="font-size: 12px; color: #666; margin-bottom: 15px;">
+                            <div class="jc-company" style="font-size: 14px; color: #1a1a1a; margin-bottom: 0;">
                                 {{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
                             </div>
                         </div>
-                        <div class="jc-tag" style="font-size: 11px; background: #eee; padding: 4px 10px; border-radius: 20px; color: #000; white-space: nowrap; margin-left: 15px;">
+                        <!-- Category Tag (Top Right) -->
+                        <div class="jc-tag" style="position: absolute; top: 0; right: 0; font-size: 12px; background: #f3f4f6; padding: 6px 12px; border-radius: 20px; color: #1a1a1a; white-space: nowrap; font-weight: 500;">
                             {{ optional($job->category)->name ?? 'N/A' }}
                         </div>
                     </div>
-                    <div class="jc-info" style="font-size: 12px; color: #444; line-height: 1.7; margin-bottom: 15px;">
-                        📍 {{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}<br/>
-                        ⏰ {{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience
+                    <!-- Location -->
+                    <div class="jc-location" style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #6b7280; margin-bottom: 12px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #6b7280;">
+                            <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>{{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}</span>
                     </div>
-                    <div class="jc-salary" style="font-size: 14px; font-weight: 700; margin-top: 15px; color: #000;">
+                    <!-- Employment Type and Experience -->
+                    <div class="jc-employment" style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #6b7280; margin-bottom: 16px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #6b7280;">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience</span>
+                    </div>
+                    <!-- Separator Line -->
+                    <div style="height: 1px; background: #e5e7eb; margin-bottom: 16px;"></div>
+                    <!-- Salary -->
+                    <div class="jc-salary" style="display: flex; align-items: baseline; justify-content: space-between;">
+                        <div style="font-size: 18px; font-weight: 700; color: #1a1a1a;">
+                            @if(!empty($job->salary_min) && !empty($job->salary_max))
+                                {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
+                            @else
+                                <span style="color: #6b7280; font-weight: 500;">Negotiable</span>
+                            @endif
+                        </div>
                         @if(!empty($job->salary_min) && !empty($job->salary_max))
-                            {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span class="jc-monthly" style="font-size: 11px; color: #777; font-weight: normal;">/ {{ ucfirst($job->salary_period ?? 'Monthly') }}</span>
-                        @else
-                            <span style="color: #777; font-weight: normal;">Negotiable</span>
+                        <div style="font-size: 14px; color: #6b7280; font-weight: 400;">
+                            / {{ ucfirst($job->salary_period ?? 'Monthly') }}
+                        </div>
                         @endif
                     </div>
                 </div>
@@ -963,37 +1011,88 @@ body {
 
         @php
             $listHeading = ($postedAs ?? null) === 'featured' ? 'Featured Jobs' : 'Recommended Jobs';
+            $listSubheading = ($postedAs ?? null) === 'featured' ? 'Discover exciting opportunities from top employers' : 'Discover more opportunities tailored for you';
         @endphp
-        <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">{{ $listHeading }}</h2>
-        <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto;">
-            @foreach($recommendedJobs as $job)
-            <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
-                <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
-                    <div style="flex: 1;">
-                        <div class="jc-title" style="font-size: 14px; font-weight: 700; margin-bottom: 5px; color: #000;">
-                            <a href="{{ route('jobs.show', $job->slug) }}" style="color: #000; text-decoration: none;">{{ $job->title }}</a>
-                        </div>
-                        <div class="jc-company" style="font-size: 12px; color: #666; margin-bottom: 15px;">
-                            {{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
-                        </div>
-                    </div>
-                    <div class="jc-tag" style="font-size: 11px; background: #eee; padding: 4px 10px; border-radius: 20px; color: #000; white-space: nowrap; margin-left: 15px;">
-                        {{ optional($job->category)->name ?? 'N/A' }}
-                    </div>
+        <div style="margin-top: 60px; margin-bottom: 60px; padding: 0 5%;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto;">
+                <div>
+                    <h2 class="section-title" style="font-size: 32px; font-weight: 700; margin: 0 0 8px 0; color: #000; line-height: 1.2;">{{ $listHeading }}</h2>
+                    <p class="section-sub" style="margin: 0; color: #6b7280; font-size: 15px; line-height: 1.5;">{{ $listSubheading }}</p>
                 </div>
-                <div class="jc-info" style="font-size: 12px; color: #444; line-height: 1.7; margin-bottom: 15px;">
-                    📍 {{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}<br/>
-                    ⏰ {{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience
-                </div>
-                <div class="jc-salary" style="font-size: 14px; font-weight: 700; margin-top: 15px; color: #000;">
-                    @if(!empty($job->salary_min) && !empty($job->salary_max))
-                        {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span class="jc-monthly" style="font-size: 11px; color: #777; font-weight: normal;">/ {{ ucfirst($job->salary_period ?? 'Monthly') }}</span>
-                    @else
-                        <span style="color: #777; font-weight: normal;">Negotiable</span>
-                    @endif
+                <div style="display: flex; align-items: center;">
+                    <a href="{{ route('jobs.index') }}" style="display: flex; align-items: center; gap: 6px; color: #4b5563; font-size: 15px; font-weight: 500; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#1a1a1a';" onmouseout="this.style.color='#4b5563';">
+                        Browse All Jobs
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
                 </div>
             </div>
-            @endforeach
+            <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; max-width: 1200px; margin: 0 auto;">
+                @foreach($recommendedJobs as $job)
+                <div class="job-card" style="background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.12)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.08)'; this.style.transform='translateY(0)';" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
+                    <div class="jc-top" style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; position: relative;">
+                        <!-- Circular Document Icon -->
+                        <div style="width: 48px; height: 48px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #1a1a1a;">
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 13H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 17H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <!-- Job Title and Company -->
+                        <div style="flex: 1; min-width: 0;">
+                            <div class="jc-title" style="font-size: 18px; font-weight: 700; margin-bottom: 4px; color: #1a1a1a; line-height: 1.3;">
+                                <a href="{{ route('jobs.show', $job->slug) }}" style="color: #1a1a1a; text-decoration: none;">{{ $job->title }}</a>
+                            </div>
+                            <div class="jc-company" style="font-size: 14px; color: #1a1a1a; margin-bottom: 0;">
+                                {{ optional($job->employer->employerProfile)->company_name ?? 'Company' }}
+                            </div>
+                        </div>
+                        <!-- Category Tag (Top Right) -->
+                        <div class="jc-tag" style="position: absolute; top: 0; right: 0; font-size: 12px; background: #f3f4f6; padding: 6px 12px; border-radius: 20px; color: #1a1a1a; white-space: nowrap; font-weight: 500;">
+                            {{ optional($job->category)->name ?? 'N/A' }}
+                        </div>
+                    </div>
+                    <!-- Location -->
+                    <div class="jc-location" style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #6b7280; margin-bottom: 12px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #6b7280;">
+                            <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>{{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}</span>
+                    </div>
+                    <!-- Employment Type and Experience -->
+                    <div class="jc-employment" style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #6b7280; margin-bottom: 16px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #6b7280;">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience</span>
+                    </div>
+                    <!-- Separator Line -->
+                    <div style="height: 1px; background: #e5e7eb; margin-bottom: 16px;"></div>
+                    <!-- Salary -->
+                    <div class="jc-salary" style="display: flex; align-items: baseline; justify-content: space-between;">
+                        <div style="font-size: 18px; font-weight: 700; color: #1a1a1a;">
+                            @if(!empty($job->salary_min) && !empty($job->salary_max))
+                                {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
+                            @else
+                                <span style="color: #6b7280; font-weight: 500;">Negotiable</span>
+                            @endif
+                        </div>
+                        @if(!empty($job->salary_min) && !empty($job->salary_max))
+                        <div style="font-size: 14px; color: #6b7280; font-weight: 400;">
+                            / {{ ucfirst($job->salary_period ?? 'Monthly') }}
+                        </div>
+                        @endif
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
 
          <div class="mt-3">
