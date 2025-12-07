@@ -452,13 +452,7 @@ body {
             <div class="col-lg-9 fadeInLeft">
                 <div class="cate_list m-0">
                     
-                    <!-- Breadcrumb Section -->
-                    <div style="width: 100%; margin: 40px 0 30px 0;">
-                        <nav class="breadcrumb-nav" style="font-size: 32px; font-weight: 700; color: #000; line-height: 1.2;">
-                            <a href="{{ route('home') }}" style="color: #6b7280; text-decoration: none; font-weight: 400;">Home</a> / 
-                            <span style="color: #000; font-weight: 700;">Candidates</span>
-                        </nav>
-                    </div>
+                  
 
                     <!-- Featured Resumes Section -->
                     @if($featuredCandidates && $featuredCandidates->count() > 0)
