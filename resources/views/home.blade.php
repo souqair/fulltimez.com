@@ -1468,7 +1468,7 @@ button svg{
     }
     
     .hero h1 {
-        font-size: 36px !important;
+        font-size: 2.5rem !important;
         margin-bottom: 16px !important;
     }
     
@@ -1631,7 +1631,7 @@ button svg{
 @section('hero')
 <!-- Hero Section -->
 <section class="hero" style="text-align: center; padding: 80px 20px 60px; background: #fafafa;">
-    <h1 style="font-size: 56px; font-weight: 700; line-height: 1.2; color: #000; margin: 0 0 24px 0; letter-spacing: -0.5px; max-width: 800px; margin-left: auto; margin-right: auto;">
+    <h1 style="font-size: 4.5rem; font-weight: 700; line-height: 1.2; color: #000; margin: 0 0 24px 0; letter-spacing: -0.5px; max-width: 800px; margin-left: auto; margin-right: auto;">
         Empowering Your<br>Career Journey
     </h1>
     <p style="margin: 0 0 50px 0; font-size: 18px; color: #6b7280; line-height: 1.6; max-width: 700px; margin-left: auto; margin-right: auto;">
@@ -1672,11 +1672,11 @@ button svg{
                 <label style="font-size: 14px; font-weight: 500; color: #1a1a1a; text-align: left; margin: 0;">Category</label>
                 <div style="position: relative; display: flex; align-items: center;">
                     <select name="category" style="width: 100%; padding: 12px 40px 12px 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; appearance: none; cursor: pointer; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
-                        <option value="">All Categories</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                        @endforeach
-                    </select>
+                <option value="">All Categories</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                @endforeach
+            </select>
                     <svg style="position: absolute; right: 14px; width: 18px; height: 18px; color: #6b7280; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
@@ -1744,7 +1744,7 @@ button svg{
                      <path d="M16 17H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                      <path d="M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-               </div>
+                  </div>
                <!-- Job Title and Company -->
                <div style="flex: 1; min-width: 0;">
                   <div class="jc-title" style="font-size: 18px; font-weight: 700; margin-bottom: 4px; color: #1a1a1a; line-height: 1.3;">
@@ -1780,9 +1780,9 @@ button svg{
             <!-- Salary -->
             <div class="jc-salary" style="display: flex; align-items: baseline; justify-content: space-between;">
                <div style="font-size: 18px; font-weight: 700; color: #1a1a1a;">
-                  @if(!empty($job->salary_min) && !empty($job->salary_max))
+               @if(!empty($job->salary_min) && !empty($job->salary_max))
                      {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
-                  @else
+               @else
                      <span style="color: #6b7280; font-weight: 500;">Negotiable</span>
                   @endif
                </div>
@@ -2064,7 +2064,7 @@ button svg{
                   <path d="M16 17H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                </svg>
-            </div>
+               </div>
             <!-- Job Title and Company -->
             <div style="flex: 1; min-width: 0;">
                <div class="jc-title" style="font-size: 18px; font-weight: 700; margin-bottom: 4px; color: #1a1a1a; line-height: 1.3;">
@@ -2100,9 +2100,9 @@ button svg{
          <!-- Salary -->
          <div class="jc-salary" style="display: flex; align-items: baseline; justify-content: space-between;">
             <div style="font-size: 18px; font-weight: 700; color: #1a1a1a;">
-               @if(!empty($job->salary_min) && !empty($job->salary_max))
+            @if(!empty($job->salary_min) && !empty($job->salary_max))
                   {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
-               @else
+            @else
                   <span style="color: #6b7280; font-weight: 500;">Negotiable</span>
                @endif
             </div>
