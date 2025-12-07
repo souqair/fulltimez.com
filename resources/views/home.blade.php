@@ -1859,145 +1859,136 @@ button svg{
 <style>
 .two-box-container {
     display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    margin: 100px auto;
+    justify-content: center;
+    gap: 40px;
+    margin: 80px auto;
     width: 90%;
+    max-width: 1200px;
     flex-wrap: wrap;
     padding: 0;
 }
 
 .cta-box {
-    flex: 1 1 calc(50% - 15px);
+    flex: 1 1 calc(50% - 20px);
     min-width: 400px;
     padding: 50px 40px;
-    border-radius: 20px;
+    border-radius: 14px;
     position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
     box-sizing: border-box;
-}
-
-.cta-box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .cta-box:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-}
-
-.cta-box:hover::before {
-    opacity: 1;
+    transform: translateY(-4px);
 }
 
 .cta-box-jobseeker {
-    background: #000000;
-    color: white;
+    background: #1a1a1a;
+    color: #ffffff;
+    box-shadow: none;
 }
 
 .cta-box-employer {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    background: #ffffff;
     color: #000;
-    border: 2px solid #e0e0e0;
-}
-
-.cta-box-employer:hover {
-    border-color: #1a73e8;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .cta-icon {
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 25px;
-    font-size: 28px;
-    backdrop-filter: blur(10px);
+    margin-bottom: 24px;
+    flex-shrink: 0;
+}
+
+.cta-box-jobseeker .cta-icon {
+    background: #2d2d2d;
+    color: #ffffff;
 }
 
 .cta-box-employer .cta-icon {
-    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
-    color: white;
+    background: #f3f4f6;
+    color: #1a1a1a;
+}
+
+.cta-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
 }
 
 .cta-box h3 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
-    margin: 0 0 15px 0;
+    margin: 0 0 16px 0;
     color: inherit;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.3px;
 }
 
 .cta-box p {
     font-size: 15px;
-    line-height: 1.7;
-    margin: 0 0 30px 0;
+    line-height: 1.6;
+    margin: 0 0 32px 0;
     color: inherit;
     opacity: 0.9;
+    max-width: 100%;
 }
 
 .cta-box-employer p {
     opacity: 0.8;
-    color: #555;
+    color: #4b5563;
 }
 
 .cta-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 14px 28px;
+    padding: 12px 24px;
     border-radius: 10px;
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .cta-btn-jobseeker {
     background: #ffffff;
-    color: #1a73e8;
+    color: #000000;
 }
 
 .cta-btn-jobseeker:hover {
-    background: #f0f0f0;
-    transform: translateX(5px);
-    color: #0d47a1;
+    background: #f5f5f5;
+    color: #000000;
 }
 
 .cta-btn-employer {
-    background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+    background: #1a1a1a;
     color: #ffffff;
 }
 
 .cta-btn-employer:hover {
-    background: linear-gradient(135deg, #0d47a1 0%, #1a73e8 100%);
-    transform: translateX(5px);
-    box-shadow: 0 8px 20px rgba(26, 115, 232, 0.4);
+    background: #2d2d2d;
+    color: #ffffff;
 }
 
-.cta-btn::after {
-    content: '→';
-    transition: transform 0.3s ease;
-    display: inline-block;
-}
-
-.cta-btn:hover::after {
-    transform: translateX(5px);
+.cta-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
 }
 
 @media (max-width: 768px) {
@@ -2005,6 +1996,7 @@ button svg{
         width: 95%;
         margin: 60px auto;
         gap: 25px;
+        flex-direction: column;
     }
     
     .cta-box {
@@ -2013,7 +2005,7 @@ button svg{
     }
     
     .cta-box h3 {
-        font-size: 24px;
+        font-size: 22px;
     }
     
     .cta-box p {
@@ -2025,18 +2017,42 @@ button svg{
 <div class="two-box-container">
    <!-- Job Seeker Box -->
    <div class="cta-box cta-box-jobseeker">
-      <div class="cta-icon">👤</div>
+      <div class="cta-icon">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+         </svg>
+      </div>
       <h3>I Am a Job Seeker</h3>
-      <p>Create your professional resume with our online builder and apply for the best jobs. Start your career journey today!</p>
-      <a href="{{ route('jobseeker.login') }}" class="cta-btn cta-btn-jobseeker">Get Started</a>
+      <p>Create your professional resume with our online builder and start applying for the best jobs.</p>
+      <a href="{{ route('jobseeker.login') }}" class="cta-btn cta-btn-jobseeker">
+         Get Started
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+         </svg>
+      </a>
    </div>
    
    <!-- Employer Box -->
    <div class="cta-box cta-box-employer">
-      <div class="cta-icon">🏢</div>
+      <div class="cta-icon">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+         </svg>
+      </div>
       <h3>I Am an Employer</h3>
-      <p>Post jobs and access our online resume database to find the best talent. Connect with qualified candidates instantly!</p>
-      <a href="{{ route('employer.login') }}" class="cta-btn cta-btn-employer">Get Started</a>
+      <p>Post jobs and access our online resume database to find the best talent for your company.</p>
+      <a href="{{ route('employer.login') }}" class="cta-btn cta-btn-employer">
+         Get Started
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+         </svg>
+      </a>
    </div>
 </div>
 
