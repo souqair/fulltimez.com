@@ -2,7 +2,7 @@
 
 <style>
 footer {
-    background-color: #1a1a1a;
+    background-color: #000000;
     padding: 60px 5% 0;
     font-family: sans-serif;
 }
