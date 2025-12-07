@@ -5,6 +5,12 @@ footer {
     background-color: #000000;
     padding: 60px 5% 0;
     font-family: sans-serif;
+    width: 100%;
+}
+
+.footer-wrapper {
+    background-color: #000000;
+    width: 100%;
 }
 
 .footer-container {
@@ -268,12 +274,14 @@ footer {
   </div>
 </footer>
 
-<div class="footer-bottom">
-  <div>© 2025 FullTimez. All rights reserved.</div>
-  <div class="footer-bottom-links">
-    <a href="#">Privacy Policy</a>
-    <a href="#">Terms of Service</a>
-    <a href="#">Contact</a>
+<div class="footer-wrapper">
+  <div class="footer-bottom">
+    <div>© 2025 FullTimez. All rights reserved.</div>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact</a>
+    </div>
   </div>
 </div>
 
