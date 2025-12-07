@@ -1720,7 +1720,7 @@ button svg{
 <section class="stats" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 80px 0; width: 90%; max-width: 1200px; margin: 0 auto;">
     <div style="text-align: center;">
         <h2 style="font-size: 3rem; font-weight: 700; color: #000; margin: 0; line-height: 1.2;">
-            <span style="background: #e3f2fd; padding: 4px 8px; border-radius: 4px; display: inline-block;">10,000</span><span>+</span>
+            <span style=" padding: 4px 8px; border-radius: 4px; display: inline-block;">10,000</span><span>+</span>
         </h2>
         <p style="font-size: 14px; color: #777; margin-top: 12px; margin-bottom: 0; font-weight: 400;">Active Jobs</p>
     </div>
