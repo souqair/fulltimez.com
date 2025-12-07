@@ -1744,6 +1744,8 @@ button svg{
     </div>
 </section>
 
+<hr style="border: none; border-top: 1px solid #e5e7eb; margin: 0; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto;">
+
 <!-- Statistics Section -->
 <section class="stats" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 80px 0; width: 90%; max-width: 1200px; margin: 0 auto;">
     <div style="text-align: center;">
@@ -1765,6 +1767,8 @@ button svg{
         <p style="font-size: 14px; color: #777; margin-top: 12px; margin-bottom: 0; font-weight: 400;">Success Rate</p>
     </div>
 </section>
+
+<hr style="border: none; border-top: 1px solid #e5e7eb; margin: 60px auto; width: 90%; max-width: 1200px;">
 @endsection
 
 @section('content')
@@ -1857,8 +1861,12 @@ button svg{
          @endforeach
       </div>
    </section>
+
+<hr style="border: none; border-top: 1px solid #e5e7eb; margin: 60px auto; width: 90%; max-width: 1200px;">
  
 <div class="ad-box" style="width: 70%; max-width: 800px; margin: 70px auto; text-align: center; padding: 25px; border: 1px solid #eee; border-radius: 12px; color: #777; font-size: 12px;">ADVERTISEMENT</div>
+
+<hr style="border: none; border-top: 1px solid #e5e7eb; margin: 60px auto; width: 90%; max-width: 1200px;">
 
 <!-- Call to Action Section: Jobseeker & Employer -->
 <style>
@@ -2061,6 +2069,8 @@ button svg{
    </div>
 </div>
 
+<hr style="border: none; border-top: 1px solid #e5e7eb; margin: 60px auto; width: 90%; max-width: 1200px;">
+
 @if($featuredCandidates && $featuredCandidates->count() > 0)
 <!-- Featured Candidates Section -->
 <section style="margin-top: 60px; margin-bottom: 60px; padding: 0 5%;">
@@ -2168,9 +2178,11 @@ button svg{
       </div>
    </div>
    @endforeach
-</div>
+   </div>
 </section>
 @endif
+
+<hr style="border: none; border-top: 1px solid #e5e7eb; margin: 60px auto; width: 90%; max-width: 1200px;">
 
 @if($recommendedJobs && $recommendedJobs->count() > 0)
 <!-- Recommended Jobs Section -->
