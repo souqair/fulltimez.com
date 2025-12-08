@@ -3828,7 +3828,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 .zoom_wrap p{color: #fff; font-size: 34px; line-height: 40px; margin-bottom: 0 !important;}
 .zoom_wrap p span{display: block;}
 .contact-form button {
-  background-color: #0061da;
+  background-color: #1a1a1a;
   color: white;
   padding: 14px;
   font-size: 16px;
@@ -4480,9 +4480,9 @@ nav .highlight {
 }
 .dash_widget-sec > ul > li > a:active i, .dash_widget-sec > ul > li > a:hover i{background: #fff;}
 .change_password{text-align: center;}
-.dash_widget-sec > ul > li > a.active i, .dash_widget-sec > ul > li > a:hover i{color: #0061da; background: #fff;}
+.dash_widget-sec > ul > li > a.active i, .dash_widget-sec > ul > li > a:hover i{color: #1a1a1a; background: #fff;}
 .dash_widget-sec > ul > li > a.active, .dash_widget-sec > ul > li > a:hover {
-    background: #0061da;
+    background: #1a1a1a;
     color: #fff;
     border-right: 7px solid #0a458f;
 }
@@ -4559,7 +4559,7 @@ tbody, td, tfoot, th, thead, tr{border-top: none;}
 .item-all-card::before, .item-all-card::after {
     background: linear-gradient(
 135deg
-, #0061da 0%, #0061da 100%);
+, #1a1a1a 0%, #1a1a1a 100%);
 }
 .item-all-card:hover::before, .item-all-card:hover::after {
     width: 100%;
@@ -4579,7 +4579,7 @@ tbody, td, tfoot, th, thead, tr{border-top: none;}
  .item-all-cat .item-all-card a::before, .item-all-cat .item-all-card a::after {
     background: linear-gradient(
 135deg
-, #0061da 0%, #0061da 100%);
+, #1a1a1a 0%, #1a1a1a 100%);
 }
 .item-all-card:hover a::before, .item-all-card:hover a::after {
     height: 100%;
@@ -4601,7 +4601,7 @@ tbody, td, tfoot, th, thead, tr{border-top: none;}
 .item-all-card::before, .item-all-card::after {
     background: linear-gradient(
 135deg
-, #0061da 0%, #0061da 100%);
+, #1a1a1a 0%, #1a1a1a 100%);
 }
 .item-all-card::after {
     left: 0;
@@ -4638,7 +4638,7 @@ tbody, td, tfoot, th, thead, tr{border-top: none;}
         border: none;
     text-decoration: none;
     color: #fff;
-    background: #0061da;
+    background: #1a1a1a;
     box-shadow: 0px 10px 15px rgb(0 0 0 / 20%);
     display: inline-block;
     padding: 8px 34px;
@@ -4651,7 +4651,7 @@ tbody, td, tfoot, th, thead, tr{border-top: none;}
 .submit_btn:hover, .login a:hover{background: #000;}
 
 .sign-in-area{background: #fff; padding: 50px; max-width: 600px; margin: 0 auto;}
-.forget_pass a{color: #0061da; text-decoration: none;}
+.forget_pass a{color: #1a1a1a; text-decoration: none;}
 .forget_pass a:hover{color: #000;}
 
 

@@ -201,7 +201,7 @@
 }
 
 .contact-form .form-label i {
-    color: #0061da;
+    color: #1a1a1a;
     font-size: 14px;
 }
 
@@ -218,7 +218,7 @@
 }
 
 .contact-form .form-control:focus {
-    border-color: #0061da;
+    border-color: #1a1a1a;
     box-shadow: 0 0 0 3px rgba(0, 97, 218, 0.08);
     outline: none;
 }
@@ -234,7 +234,7 @@
 }
 
 .btn-submit-contact {
-    background: #0061da;
+    background: #1a1a1a;
     color: #ffffff;
     border: none;
     padding: 16px 50px;
