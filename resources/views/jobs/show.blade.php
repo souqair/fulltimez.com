@@ -496,37 +496,7 @@
                 <button type="button" class="share-job-btn" onclick="copyJobLink()">
                     <i class="fas fa-link"></i> Copy Job Link
                 </button>
-                <div class="share-social-buttons">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('jobs.show', $job->slug)) }}" 
-                       target="_blank" 
-                       class="share-social-btn facebook" 
-                       title="Share on Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('jobs.show', $job->slug)) }}&text={{ urlencode($job->title) }}" 
-                       target="_blank" 
-                       class="share-social-btn twitter" 
-                       title="Share on Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('jobs.show', $job->slug)) }}" 
-                       target="_blank" 
-                       class="share-social-btn linkedin" 
-                       title="Share on LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://wa.me/?text={{ urlencode($job->title . ' - ' . route('jobs.show', $job->slug)) }}" 
-                       target="_blank" 
-                       class="share-social-btn whatsapp" 
-                       title="Share on WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="mailto:?subject={{ urlencode($job->title) }}&body={{ urlencode('Check out this job: ' . route('jobs.show', $job->slug)) }}" 
-                       class="share-social-btn email" 
-                       title="Share via Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
+                
             </div>
         </div>
         
