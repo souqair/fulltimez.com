@@ -39,7 +39,7 @@
 
 .job-title-section .job-category {
     display: inline-block;
-    background: #2773e8;
+    background: #1a1a1a;
     color: #ffffff;
     font-size: 12px;
     font-weight: 700;
@@ -64,7 +64,7 @@
     width: 60px;
     height: 60px;
     border-radius: 12px;
-    background: #2773e8;
+    background: #1a1a1a;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -145,7 +145,7 @@
     content: "✓";
     position: absolute;
     left: 0;
-    color: #2773e8;
+    color: #1a1a1a;
     font-weight: 700;
     font-size: 16px;
 }
@@ -170,9 +170,9 @@
 }
 
 .skill-tag:hover {
-    background: #2773e8;
+    background: #1a1a1a;
     color: #ffffff;
-    border-color: #2773e8;
+    border-color: #1a1a1a;
     transform: translateY(-2px);
 }
 
@@ -201,7 +201,7 @@
 .apply-button-wrapper .btn-apply {
     width: 100%;
     padding: 14px 24px;
-    background: #2773e8;
+    background: #1a1a1a;
     color: #ffffff;
     font-size: 16px;
     font-weight: 700;
@@ -246,7 +246,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #2773e8;
+    color: #1a1a1a;
     font-size: 18px;
     flex-shrink: 0;
 }
@@ -290,7 +290,7 @@
 }
 
 .contact-item i {
-    color: #2773e8;
+    color: #1a1a1a;
     width: 20px;
     text-align: center;
 }

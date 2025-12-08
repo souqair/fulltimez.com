@@ -482,7 +482,7 @@ button svg{
 
 .jobs-wrap .job-content > p {
     font-size: 14px !important;
-    color: #2773e8 !important;
+    color: #1a1a1a !important;
     font-weight: 600 !important;
     margin-bottom: 12px !important;
 }
@@ -505,7 +505,7 @@ button svg{
 }
 
 .jobs-wrap .job-content h3 a:hover {
-    color: #2773e8 !important;
+    color: #1a1a1a !important;
 }
 
 .jobs-wrap .tags {
@@ -535,9 +535,9 @@ button svg{
 }
 
 .jobs-wrap .tags li a:hover {
-    background: #2773e8 !important;
+    background: #1a1a1a !important;
     color: #ffffff !important;
-    border-color: #2773e8 !important;
+    border-color: #1a1a1a !important;
 }
 
 .jobs-wrap .d-flex.align-items-center.justify-content-between {
@@ -564,7 +564,7 @@ button svg{
 
 .jobs-wrap .readmore a {
     padding: 8px 20px !important;
-    background: #2773e8 !important;
+    background: #1a1a1a !important;
     color: #ffffff !important;
     font-size: 13px !important;
     font-weight: 600 !important;
@@ -613,7 +613,7 @@ button svg{
     align-items: center;
     gap: 10px;
     padding: 14px 32px;
-    background: #2773e8;
+    background: #1a1a1a;
     color: #ffffff;
     font-size: 16px;
     border-radius: 8px;
@@ -1119,7 +1119,7 @@ button svg{
     width: 64px !important;
     height: 64px !important;
     border-radius: 50% !important;
-    background: #2773e8 !important;
+    background: #1a1a1a !important;
     border: 3px solid #e5e7eb !important;
     display: flex !important;
     align-items: center !important;
@@ -1132,7 +1132,7 @@ button svg{
 }
 
 .seekerwrp .jobs-ad-card:hover .seeker-avatar {
-    border-color: #2773e8 !important;
+    border-color: #1a1a1a !important;
     transform: scale(1.05) !important;
 }
 
@@ -1168,7 +1168,7 @@ button svg{
 }
 
 .seekerwrp .add-title a:hover {
-    color: #2773e8 !important;
+    color: #1a1a1a !important;
 }
 
 .seekerwrp .carinfo {

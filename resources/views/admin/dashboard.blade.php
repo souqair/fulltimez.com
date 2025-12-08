@@ -28,7 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #2773e8 0%, #1e5bb8 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #1e5bb8 100%);
     border-radius: 12px;
     color: #ffffff;
     font-size: 24px;
