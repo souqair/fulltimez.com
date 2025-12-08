@@ -41,7 +41,7 @@
         padding: 0 20px;
     }
     .candidate-hero {
-        background: #1a7bff;
+        background: #1a1a1a;
         border-radius: 24px;
         color: #fff;
         padding: 40px;
