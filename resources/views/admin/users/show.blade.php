@@ -305,7 +305,7 @@
 .admin-form-group { margin-bottom: 12px; }
 .admin-form-control { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; }
 .admin-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 6px; border: none; cursor: pointer; }
-.admin-btn-primary { background: #0d6efd; color: #fff; }
+.admin-btn-primary { background: #1a1a1a; color: #fff; }
 .admin-form-check { display: flex; align-items: center; gap: 8px; }
 </style>
 @endpush

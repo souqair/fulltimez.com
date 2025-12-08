@@ -45,7 +45,7 @@
 
     <style>
     .pagination .page-link{border-radius:8px;border-color:#e5e7eb;padding:.4rem .75rem;color:#374151}
-    .pagination .page-item.active .page-link{background:#0d6efd;border-color:#0d6efd;color:#fff}
+    .pagination .page-item.active .page-link{background:#1a1a1a;border-color:#1a1a1a;color:#fff}
     .pagination .page-item.disabled .page-link{color:#9ca3af;background:#f3f4f6;border-color:#e5e7eb}
     .pagination .page-link:hover{background:#f3f4f6;color:#111827}
     </style>
