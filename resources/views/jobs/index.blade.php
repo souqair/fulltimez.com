@@ -613,7 +613,7 @@ body {
     
     /* Container adjustments */
     section.category-wrap > div {
-        width: 95% !important;
+        width: 1200px !important;
         padding: 0 15px !important;
     }
     

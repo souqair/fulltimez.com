@@ -173,21 +173,35 @@ footer {
 }
 
 @media (max-width: 991px) {
+    footer {
+        padding: 50px 5% 0;
+    }
+    
     .footer-container {
         grid-template-columns: repeat(2, 1fr);
         gap: 40px;
+    }
+    
+    .footer-brand {
+        grid-column: 1 / -1;
     }
     
     .footer-bottom {
         flex-direction: column;
         gap: 16px;
         text-align: center;
+        padding: 24px 5%;
+    }
+    
+    .footer-bottom-links {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     footer {
-        padding: 40px 5%;
+        padding: 40px 4% 0;
     }
     
     .footer-container {
@@ -195,17 +209,93 @@ footer {
         gap: 32px;
     }
     
+    .footer-brand {
+        grid-column: 1;
+    }
+    
+    .footer-brand h4 {
+        font-size: 22px;
+    }
+    
+    .footer-brand p {
+        font-size: 13px;
+    }
+    
+    .footer-column h4 {
+        font-size: 15px;
+        margin-bottom: 16px;
+    }
+    
+    .footer-column ul li {
+        margin-bottom: 10px;
+    }
+    
+    .footer-column ul li a {
+        font-size: 13px;
+    }
+    
     .subscribe-form {
         flex-direction: column;
+        gap: 10px;
+    }
+    
+    .subscribe-form input[type="email"] {
+        width: 100%;
     }
     
     .subscribe-form button {
         width: 100%;
     }
     
+    .social-icons {
+        gap: 12px;
+    }
+    
+    .social-icons a {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .social-icons svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .footer-bottom {
+        padding: 20px 4%;
+        font-size: 13px;
+    }
+    
     .footer-bottom-links {
         flex-direction: column;
         gap: 12px;
+    }
+    
+    .footer-bottom-links a {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        padding: 30px 3% 0;
+    }
+    
+    .footer-container {
+        gap: 28px;
+    }
+    
+    .footer-brand h4 {
+        font-size: 20px;
+    }
+    
+    .footer-column h4 {
+        font-size: 14px;
+    }
+    
+    .footer-bottom {
+        padding: 16px 3%;
+        font-size: 12px;
     }
 }
 </style>
