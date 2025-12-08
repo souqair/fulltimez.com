@@ -2128,7 +2128,7 @@ button svg{
              }
          }
       @endphp
-      <div class="cand" style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); text-align: center; cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; height: 100%; min-height: 380px; width: 350px;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.12)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.08)'; this.style.transform='translateY(0)';" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
+      <div class="cand" style="background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); text-align: center; cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; height: 100%; min-height: 380px; width: auto;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0, 0, 0, 0.12)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.08)'; this.style.transform='translateY(0)';" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
          <!-- Avatar with Featured Star -->
          <div style="position: relative; display: inline-block; margin-bottom: 16px;">
             <div class="circle" style="width: 64px; height: 64px; border-radius: 50%; background: #f3f4f6; margin: auto; font-size: 20px; display: flex; justify-content: center; align-items: center; color: #000; font-weight: 700;">
