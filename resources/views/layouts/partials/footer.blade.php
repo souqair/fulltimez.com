@@ -6,11 +6,13 @@ footer {
     padding: 60px 5% 0;
     font-family: sans-serif;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .footer-wrapper {
     background-color: #000000;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .footer-container {
@@ -19,6 +21,9 @@ footer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
 }
 
 .footer-column h4 {
@@ -147,7 +152,7 @@ footer {
     background-color: #000000;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 24px 0;
+    padding: 24px 5%;
     border-top: 1px solid #374151;
     display: flex;
     justify-content: space-between;
@@ -155,6 +160,9 @@ footer {
     font-size: 14px;
     color: #9ca3af;
     font-family: sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
 }
 
 .footer-bottom-links {
