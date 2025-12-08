@@ -200,13 +200,12 @@ body {
 <!-- Simple Breadcrumb -->
 <div style="width: 90%; margin: 40px auto 20px; padding: 0 20px;">
     <nav style="font-size: 13px; color: #666;">
-        <a href="{{ route('home') }}" style="color: #666; text-decoration: none;">Home</a> / 
-        <span style="color: #000;">Candidates</span>
+       
                 </nav>
             </div>
 
 <section class="category-wrap innerseeker popular-items mt-5">
-    <div class="" style="max-width: 100%; width: 90%; margin: 0 auto; padding: 0 20px;">
+    <div class="" style="max-width: 100%; width: 1200px; margin: 0 auto; padding: 0 20px;">
         
         <div class="row">
             <!-- Sidebar Filters -->
