@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\JobPosting;
 use App\Models\User;
 use App\Models\JobCategory;
+use App\Models\Country;
+use App\Models\City;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -91,7 +93,11 @@ class HomeController extends Controller
         // Get categories for search dropdown
         $categories = JobCategory::where('is_active', true)->orderBy('name')->get();
 
-        return view('home', compact('featuredJobs', 'recommendedJobs', 'jobSeekers', 'featuredJobSeeker', 'featuredCandidates', 'categories'));
+        // Get countries and cities for search dropdown
+        $countries = Country::where('is_active', true)->orderBy('name')->get();
+        $cities = City::where('is_active', true)->orderBy('name')->get();
+
+        return view('home', compact('featuredJobs', 'recommendedJobs', 'jobSeekers', 'featuredJobSeeker', 'featuredCandidates', 'categories', 'countries', 'cities'));
     }
 }
 

@@ -1687,29 +1687,35 @@ button svg{
     <!-- Search Box -->
     <div class="search-box" style="background: #fff; padding: 30px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); width: 90%; margin: 0 auto; max-width: 1000px;">
         <form action="{{ route('jobs.index') }}" method="GET" style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 20px; align-items: end;">
-            <!-- Job Title Field -->
+            <!-- Country Dropdown -->
             <div style="display: flex; flex-direction: column; gap: 8px;">
-                <label style="font-size: 14px; font-weight: 500; color: #1a1a1a; text-align: left; margin: 0;">Job Title</label>
+                <label style="font-size: 14px; font-weight: 500; color: #1a1a1a; text-align: left; margin: 0;">Country</label>
                 <div style="position: relative; display: flex; align-items: center;">
-                    <svg style="position: absolute; left: 14px; width: 18px; height: 18px; color: #6b7280; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    <select name="location_country" style="width: 100%; padding: 12px 40px 12px 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; appearance: none; cursor: pointer; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
+                        <option value="">All Countries</option>
+                        @foreach($countries as $country)
+                            <option value="{{ $country->name }}" {{ request('location_country') == $country->name ? 'selected' : '' }}>{{ $country->name }}</option>
+                        @endforeach
+                    </select>
+                    <svg style="position: absolute; right: 14px; width: 18px; height: 18px; color: #6b7280; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
-                    <input type="text" name="title" placeholder="e.g. Developer, Designer" value="{{ request('title') }}" style="width: 100%; padding: 12px 12px 12px 42px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
                 </div>
             </div>
             
-            <!-- Location Field -->
+            <!-- State/City Dropdown -->
             <div style="display: flex; flex-direction: column; gap: 8px;">
-                <label style="font-size: 14px; font-weight: 500; color: #1a1a1a; text-align: left; margin: 0;">Location</label>
+                <label style="font-size: 14px; font-weight: 500; color: #1a1a1a; text-align: left; margin: 0;">State</label>
                 <div style="position: relative; display: flex; align-items: center;">
-                    <svg style="position: absolute; left: 14px; width: 18px; height: 18px; color: #6b7280; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
+                    <select name="location_city" style="width: 100%; padding: 12px 40px 12px 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; appearance: none; cursor: pointer; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
+                        <option value="">All States</option>
+                        @foreach($cities as $city)
+                            <option value="{{ $city->name }}" {{ request('location_city') == $city->name ? 'selected' : '' }}>{{ $city->name }}</option>
+                        @endforeach
+                    </select>
+                    <svg style="position: absolute; right: 14px; width: 18px; height: 18px; color: #6b7280; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
-                    <input type="text" name="location" placeholder="City or Country" value="{{ request('location') }}" style="width: 100%; padding: 12px 12px 12px 42px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
                 </div>
             </div>
             
@@ -1718,11 +1724,11 @@ button svg{
                 <label style="font-size: 14px; font-weight: 500; color: #1a1a1a; text-align: left; margin: 0;">Category</label>
                 <div style="position: relative; display: flex; align-items: center;">
                     <select name="category" style="width: 100%; padding: 12px 40px 12px 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; appearance: none; cursor: pointer; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
-                <option value="">All Categories</option>
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                @endforeach
-            </select>
+                        <option value="">All Categories</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                        @endforeach
+                    </select>
                     <svg style="position: absolute; right: 14px; width: 18px; height: 18px; color: #6b7280; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
