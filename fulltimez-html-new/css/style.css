@@ -356,9 +356,9 @@ ul.tick li:before{
 }
 
 .search-barwrp .btn.primary {
-    background: #007bff;
+    background: #1a1a1a;
     color: white;
-    border: 2px solid #007bff;
+    border: 2px solid #1a1a1a;
     padding: 12px 30px;
     border-radius: 6px;
     font-weight: 600;
@@ -4767,7 +4767,7 @@ tbody, td, tfoot, th, thead, tr{border-top: none;}
             margin-left: 15px;
         }
         .action-icons .edit-icon {
-            color: #007bff;
+            color: #1a1a1a;
         }
         .action-icons .delete-icon {
             color: #dc3545;
@@ -5579,7 +5579,7 @@ button svg{
 
 .price-ad p span.price-negotiable {
     font-size: 16px !important;
-    color: #007bff !important;
+    color: #1a1a1a !important;
     white-space: nowrap !important;
 }
 
@@ -6731,13 +6731,13 @@ button svg{
 }
 
 .top-nav .tab a:hover {
-    color: #007bff;
+    color: #1a1a1a;
     background: #f0f4ff;
 }
 
 /* Active state */
 .top-nav .tab a.active {
-    color: #007bff;
+    color: #1a1a1a;
     background: #f0f4ff;
 }
 
@@ -6760,23 +6760,23 @@ button svg{
 }
 
 .auth-btn.login-btn {
-    background: #007bff;
+    background: #1a1a1a;
     color: #ffffff;
 }
 
 .auth-btn.login-btn:hover {
-    background: #0056b3;
+    background: #1a1a1a;
     color: #ffffff;
 }
 
 .auth-btn.register-btn {
     background: #ffffff;
-    color: #007bff;
-    border: 1px solid #007bff;
+    color: #1a1a1a;
+    border: 1px solid #1a1a1a;
 }
 
 .auth-btn.register-btn:hover {
-    background: #007bff;
+    background: #1a1a1a;
     color: #ffffff;
 }
 
@@ -6803,7 +6803,7 @@ button svg{
 
 /* Mobile Navigation Toggle */
 .mobile-nav-toggle {
-    background: #007bff;
+    background: #1a1a1a;
     color: #ffffff;
     border: none;
     padding: 8px 16px;
@@ -6818,7 +6818,7 @@ button svg{
 }
 
 .mobile-nav-toggle:hover {
-    background: #0056b3;
+    background: #1a1a1a;
 }
 
 .mobile-nav-menu {
@@ -6852,7 +6852,7 @@ button svg{
 
 .mobile-nav-menu a:hover {
     background: #f0f4ff;
-    color: #007bff;
+    color: #1a1a1a;
 }
 
 .mobile-auth-btn {
@@ -6868,22 +6868,22 @@ button svg{
 }
 
 .mobile-auth-btn.login-btn {
-    background: #007bff;
+    background: #1a1a1a;
     color: #ffffff;
 }
 
 .mobile-auth-btn.login-btn:hover {
-    background: #0056b3;
+    background: #1a1a1a;
 }
 
 .mobile-auth-btn.register-btn {
     background: #ffffff;
-    color: #007bff;
-    border: 1px solid #007bff;
+    color: #1a1a1a;
+    border: 1px solid #1a1a1a;
 }
 
 .mobile-auth-btn.register-btn:hover {
-    background: #007bff;
+    background: #1a1a1a;
     color: #ffffff;
 }
 
@@ -6991,14 +6991,14 @@ footer{padding-top: 50px !important}
 
 /* ======= Buttons ======= */
 .btn.primary {
-  background: #007bff;
+  background: #1a1a1a;
   color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
 }
 .btn.primary:hover {
-  background: #0056b3;
+  background: #1a1a1a;
 }
 
 /* ======= Responsive ======= */

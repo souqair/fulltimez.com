@@ -26,7 +26,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #dc3545);
+    background: linear-gradient(90deg, #1a1a1a, #28a745, #ffc107, #dc3545);
 }
 
 .form-header {
@@ -102,7 +102,7 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(180deg, #007bff, #28a745);
+    background: linear-gradient(180deg, #1a1a1a, #28a745);
     border-radius: 0 2px 2px 0;
 }
 
@@ -120,7 +120,7 @@
 
 .auto-deadline-info i {
     font-size: 1.4rem;
-    color: #007bff;
+    color: #1a1a1a;
     margin-top: 0.15rem;
 }
 
@@ -140,7 +140,7 @@
     content: '';
     width: 4px;
     height: 30px;
-    background: linear-gradient(180deg, #007bff, #28a745);
+    background: linear-gradient(180deg, #1a1a1a, #28a745);
     border-radius: 2px;
     position: absolute;
     left: -1rem;
@@ -165,7 +165,7 @@
     content: '';
     width: 3px;
     height: 16px;
-    background: linear-gradient(180deg, #007bff, #28a745);
+    background: linear-gradient(180deg, #1a1a1a, #28a745);
     border-radius: 2px;
 }
 
@@ -180,14 +180,14 @@
 }
 
 .form-control:focus {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 0 0 0.3rem rgba(0, 123, 255, 0.1), 0 4px 12px rgba(0, 123, 255, 0.15);
     outline: none;
     transform: translateY(-1px);
 }
 
 .form-control:hover {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
 }
 
@@ -226,7 +226,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #007bff, transparent);
+    background: linear-gradient(90deg, transparent, #1a1a1a, transparent);
 }
 
 .btn {
@@ -273,13 +273,13 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #1a1a1a 100%);
     color: #ffffff;
     box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #004085 100%);
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);

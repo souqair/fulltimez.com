@@ -26,7 +26,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #007bff, #28a745, #ffc107, #dc3545);
+    background: linear-gradient(90deg, #1a1a1a, #28a745, #ffc107, #dc3545);
 }
 
 .form-header {
@@ -114,7 +114,7 @@
 }
 
 .progress-step.active::after {
-    background: #007bff;
+    background: #1a1a1a;
 }
 
 .progress-step.completed::after {
@@ -138,7 +138,7 @@
 }
 
 .progress-step.active .step-circle {
-    background: #007bff;
+    background: #1a1a1a;
     color: white;
     transform: scale(1.1);
 }
@@ -157,7 +157,7 @@
 }
 
 .progress-step.active .step-label {
-    color: #007bff;
+    color: #1a1a1a;
     font-weight: 600;
 }
 
@@ -194,7 +194,7 @@
     left: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(180deg, #007bff, #28a745);
+    background: linear-gradient(180deg, #1a1a1a, #28a745);
     border-radius: 0 2px 2px 0;
 }
 
@@ -231,7 +231,7 @@
 
 .auto-deadline-info i {
     font-size: 1.4rem;
-    color: #007bff;
+    color: #1a1a1a;
     margin-top: 0.15rem;
 }
 
@@ -251,7 +251,7 @@
     content: '';
     width: 4px;
     height: 30px;
-    background: linear-gradient(180deg, #007bff, #28a745);
+    background: linear-gradient(180deg, #1a1a1a, #28a745);
     border-radius: 2px;
     position: absolute;
     left: -1rem;
@@ -276,7 +276,7 @@
     content: '';
     width: 3px;
     height: 16px;
-    background: linear-gradient(180deg, #007bff, #28a745);
+    background: linear-gradient(180deg, #1a1a1a, #28a745);
     border-radius: 2px;
 }
 
@@ -291,14 +291,14 @@
 }
 
 .form-control:focus {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 0 0 0.3rem rgba(0, 123, 255, 0.1), 0 4px 12px rgba(0, 123, 255, 0.15);
     outline: none;
     transform: translateY(-1px);
 }
 
 .form-control:hover {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
 }
 
@@ -341,12 +341,12 @@
 }
 
 .ad-option:hover {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
 }
 
 .ad-option.selected {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     background-color: #f0f8ff;
 }
 
@@ -392,7 +392,7 @@
 }
 
 .featured-option:hover {
-    border-color: #007bff;
+    border-color: #1a1a1a;
 }
 
 .featured-option:last-child {
@@ -444,7 +444,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #007bff, transparent);
+    background: linear-gradient(90deg, transparent, #1a1a1a, transparent);
 }
 
 .btn {
@@ -491,13 +491,13 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #1a1a1a 100%);
     color: #ffffff;
     box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #004085 100%);
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
@@ -505,13 +505,13 @@
 
 .btn-outline-primary {
     background: transparent;
-    color: #007bff;
-    border: 2px solid #007bff;
+    color: #1a1a1a;
+    border: 2px solid #1a1a1a;
     box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
 }
 
 .btn-outline-primary:hover {
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #1a1a1a 100%);
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
@@ -579,13 +579,13 @@
 }
 
 .ad-option-card:hover {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 4px 20px rgba(0, 123, 255, 0.1);
     transform: translateY(-2px);
 }
 
 .ad-option-card.selected {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
     box-shadow: 0 6px 25px rgba(0, 123, 255, 0.15);
 }
@@ -604,7 +604,7 @@
 
 .ad-icon {
     font-size: 2rem;
-    color: #007bff;
+    color: #1a1a1a;
     margin-bottom: 0.5rem;
 }
 
@@ -685,7 +685,7 @@
 }
 
 .duration-title i {
-    color: #007bff;
+    color: #1a1a1a;
 }
 
 .duration-options-simple {
@@ -707,12 +707,12 @@
 }
 
 .duration-option-simple:hover {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     background: #f0f8ff;
 }
 
 .duration-option-simple.selected {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     background: #f0f8ff;
 }
 
@@ -803,7 +803,7 @@
 }
 
 .breadcrumb-item a {
-    color: #007bff;
+    color: #1a1a1a;
     text-decoration: none;
 }
 

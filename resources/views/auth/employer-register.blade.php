@@ -201,7 +201,7 @@
 .register-form select:focus,
 .register-form textarea:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
 }
 
@@ -263,7 +263,7 @@
 .submit-btn {
     width: 100%;
     padding: 15px;
-    background: #007bff;
+    background: #1a1a1a;
     color: white;
     border: none;
     border-radius: 4px;
@@ -275,7 +275,7 @@
 }
 
 .submit-btn:hover {
-    background: #0056b3;
+    background: #1a1a1a;
 }
 
 .submit-btn:focus {
@@ -295,7 +295,7 @@
 }
 
 .extra-links a {
-    color: #007bff;
+    color: #1a1a1a;
     text-decoration: none;
 }
 
@@ -362,7 +362,7 @@
 .phone-input-group input[type="tel"]:focus,
 .country-code-selector select:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 

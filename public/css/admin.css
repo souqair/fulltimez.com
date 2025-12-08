@@ -1002,7 +1002,7 @@
     width: 20px;
     height: 20px;
     border: 2px solid #e9ecef;
-    border-top: 2px solid #007bff;
+    border-top: 2px solid #1a1a1a;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -2221,7 +2221,7 @@
     padding: 0.5rem 0.75rem;
     margin-left: -1px;
     line-height: 1.25;
-    color: #007bff;
+    color: #1a1a1a;
     text-decoration: none;
     background-color: #fff;
     border: 1px solid #dee2e6;
@@ -2234,10 +2234,10 @@
 
 .pagination .page-link:hover {
     z-index: 2;
-    color: #0056b3;
+    color: #1a1a1a;
     text-decoration: none;
     background-color: #e9ecef;
-    border-color: #007bff;
+    border-color: #1a1a1a;
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0,123,255,0.2);
 }
@@ -2245,8 +2245,8 @@
 .pagination .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
     box-shadow: 0 2px 4px rgba(0,123,255,0.3);
 }
 

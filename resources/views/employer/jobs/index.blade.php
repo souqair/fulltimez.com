@@ -58,7 +58,7 @@
 }
 
 .stat-card:hover {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -95,7 +95,7 @@
 }
 
 .job-card:hover {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -109,7 +109,7 @@
 }
 
 .job-title:hover {
-    color: #007bff;
+    color: #1a1a1a;
 }
 
 .job-meta {
@@ -204,19 +204,19 @@
 
 .action-btn:hover {
     background: #f8f9fa;
-    border-color: #007bff;
-    color: #007bff;
+    border-color: #1a1a1a;
+    color: #1a1a1a;
 }
 
 .action-btn.primary {
-    background: #007bff;
-    border-color: #007bff;
+    background: #1a1a1a;
+    border-color: #1a1a1a;
     color: #ffffff;
 }
 
 .action-btn.primary:hover {
-    background: #0056b3;
-    border-color: #0056b3;
+    background: #1a1a1a;
+    border-color: #1a1a1a;
     color: #ffffff;
 }
 
@@ -257,7 +257,7 @@
 }
 
 .btn-create {
-    background: #007bff;
+    background: #1a1a1a;
     color: #ffffff;
     padding: 0.75rem 1.5rem;
     border-radius: 6px;
@@ -267,17 +267,17 @@
     align-items: center;
     gap: 0.5rem;
     transition: all 0.2s ease;
-    border: 1px solid #007bff;
+    border: 1px solid #1a1a1a;
 }
 
 .btn-create:hover {
-    background: #0056b3;
-    border-color: #0056b3;
+    background: #1a1a1a;
+    border-color: #1a1a1a;
     color: #ffffff;
 }
 
 .btn-header {
-    background: #007bff;
+    background: #1a1a1a;
     color: #ffffff;
     padding: 0.625rem 1.25rem;
     border-radius: 6px;
@@ -287,13 +287,13 @@
     align-items: center;
     gap: 0.5rem;
     transition: all 0.2s ease;
-    border: 1px solid #007bff;
+    border: 1px solid #1a1a1a;
     font-size: 0.875rem;
 }
 
 .btn-header:hover {
-    background: #0056b3;
-    border-color: #0056b3;
+    background: #1a1a1a;
+    border-color: #1a1a1a;
     color: #ffffff;
 }
 

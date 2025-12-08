@@ -277,7 +277,7 @@ button svg{
 
 .price-ad p span.price-negotiable {
     font-size: 14px !important;
-    color: #007bff !important;
+    color: #1a1a1a !important;
     white-space: nowrap !important;
     font-weight: 600 !important;
 }
@@ -2548,7 +2548,7 @@ $(document).ready(function() {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #007bff !important;
+    background: #1a1a1a !important;
     color: #ffffff !important;
     border: none !important;
     display: flex;
@@ -2560,7 +2560,7 @@ $(document).ready(function() {
 }
 
 .owl-nav button:hover {
-    background: #0056b3 !important;
+    background: #1a1a1a !important;
     transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
 }

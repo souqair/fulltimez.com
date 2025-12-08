@@ -248,7 +248,7 @@
 .price-input input[type="number"]:focus,
 .currency-selector select:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 

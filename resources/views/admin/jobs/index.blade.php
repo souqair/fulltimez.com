@@ -345,7 +345,7 @@
 }
 
 .job-card .card-title a:hover {
-    color: #007bff;
+    color: #1a1a1a;
 }
 
 .job-details {

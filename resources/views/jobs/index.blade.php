@@ -320,7 +320,7 @@ body {
 
 .price-ad p span.price-negotiable {
     font-size: 14px !important;
-    color: #007bff !important;
+    color: #1a1a1a !important;
     white-space: nowrap !important;
     font-weight: 600 !important;
 }

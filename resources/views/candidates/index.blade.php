@@ -554,7 +554,7 @@ body {
     display: block;
     padding: 8px 12px;
     border: 1px solid #dee2e6;
-    color: #007bff;
+    color: #1a1a1a;
     text-decoration: none;
     border-radius: 4px;
     font-size: 14px;
@@ -563,13 +563,13 @@ body {
 
 .simple-pagination .pagination .page-link:hover {
     background-color: #e9ecef;
-    color: #0056b3;
+    color: #1a1a1a;
     text-decoration: none;
 }
 
 .simple-pagination .pagination .active .page-link {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
     color: white;
 }
 

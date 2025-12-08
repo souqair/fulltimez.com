@@ -82,7 +82,7 @@
         font-size: 64px;
         font-weight: 700;
         color: #fff;
-        background: linear-gradient(135deg, #1d82ec, #673ab7);
+        background: linear-gradient(135deg, #1a1a1a, #673ab7);
     }
     .hero-meta {
         flex: 1 1 320px;
@@ -139,7 +139,7 @@
         transition: all 0.25s ease;
     }
     .hero-btn.primary {
-        background: #1d82ec;
+        background: #1a1a1a;
         color: #fff;
         border: none;
         box-shadow: 0 15px 35px rgba(29,130,236,0.45);
@@ -176,7 +176,7 @@
         gap: 10px;
     }
     .panel-title i {
-        color: #1d82ec;
+        color: #1a1a1a;
     }
     .section-tagline {
         font-size: 13px;
@@ -237,7 +237,7 @@
         height: 14px;
         border-radius: 50%;
         background: #fff;
-        border: 3px solid #1d82ec;
+        border: 3px solid #1a1a1a;
     }
     .timeline-title {
         font-weight: 600;
@@ -278,7 +278,7 @@
         border-bottom: 0;
     }
     .contact-line i {
-        color: #1d82ec;
+        color: #1a1a1a;
         font-size: 18px;
     }
     .locked-info {
@@ -291,7 +291,7 @@
         font-size: 14px;
     }
     .locked-info a {
-        color: #1d82ec;
+        color: #1a1a1a;
         font-weight: 600;
         text-decoration: underline;
     }
@@ -302,7 +302,7 @@
     }
     .skill-badge {
         background: #e8f4ff;
-        color: #1d82ec;
+        color: #1a1a1a;
         border-radius: 12px;
         padding: 6px 14px;
         font-weight: 500;

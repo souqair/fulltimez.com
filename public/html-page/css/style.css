@@ -4753,7 +4753,7 @@ tbody, td, tfoot, th, thead, tr{border-top: none;}
             margin-left: 15px;
         }
         .action-icons .edit-icon {
-            color: #007bff;
+            color: #1a1a1a;
         }
         .action-icons .delete-icon {
             color: #dc3545;

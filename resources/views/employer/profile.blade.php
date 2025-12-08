@@ -653,7 +653,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .document-status-card:hover {
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
@@ -714,7 +714,7 @@ document.addEventListener('DOMContentLoaded', function() {
 .phone-input-group input[type="tel"]:focus,
 .country-code-selector select:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #1a1a1a;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 

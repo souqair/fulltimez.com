@@ -52,7 +52,7 @@
 
 .profile-image:hover {
     transform: scale(1.05);
-    border-color: #007bff;
+    border-color: #1a1a1a;
 }
 
 .default-user-icon {
@@ -69,7 +69,7 @@
 
 .default-user-icon:hover {
     transform: scale(1.05);
-    border-color: #007bff;
+    border-color: #1a1a1a;
     background: #d0d0d0;
 }
 
@@ -141,14 +141,14 @@
 
 .nav-link:hover {
     background: #d0d5e5 !important;
-    color: #007bff;
+    color: #1a1a1a;
     transform: translateX(5px);
 }
 
 .nav-link.active {
     background: #d0d5e5 !important;
-    color: #007bff;
-    border-left: 4px solid #007bff;
+    color: #1a1a1a;
+    border-left: 4px solid #1a1a1a;
     font-weight: 600;
 }
 
@@ -159,7 +159,7 @@
     top: 0;
     bottom: 0;
     width: 4px;
-    background: #007bff;
+    background: #1a1a1a;
 }
 
 .nav-icon {
@@ -174,7 +174,7 @@
 
 .nav-link:hover .nav-icon,
 .nav-link.active .nav-icon {
-    color: #007bff;
+    color: #1a1a1a;
 }
 
 .nav-text {
