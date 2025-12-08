@@ -238,6 +238,7 @@
 .mobile-logo a {
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .mobile-logo .logo-text {
@@ -608,34 +609,34 @@
     </div>
     <div class="mobile-nav-menu-content">
         <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
-            <span style="margin-right: 10px; font-size: 18px;">🏠</span> Home
+            Home
         </a>
         <a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">
-            <span style="margin-right: 10px; font-size: 18px;">💼</span> Browse Jobs
+             Browse Jobs
         </a>
         <a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">
-            <span style="margin-right: 10px; font-size: 18px;">👥</span> Browse Resumes
+             Browse Resumes
         </a>
         <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">
-            <span style="margin-right: 10px; font-size: 18px;">✉️</span> Contact Us
+             Contact Us
         </a>
         <hr>
         @auth
         <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">
-            <span style="margin-right: 10px; font-size: 18px;">📊</span> Dashboard
+             Dashboard
         </a>
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); closeMobileMenu();" class="mobile-auth-btn logout-btn">
-            <span style="margin-right: 10px; font-size: 18px;">🚪</span> Logout
+             Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
         @else
         <a href="{{ route('login') }}" class="mobile-auth-btn login-btn">
-            <span style="margin-right: 10px; font-size: 18px;">🔑</span> Login
+             Login
         </a>
         <a href="{{ route('choose.role') }}" class="mobile-auth-btn register-btn">
-            <span style="margin-right: 10px; font-size: 18px;">➕</span> Get Started
+             Get Started
         </a>
         @endauth
     </div>
