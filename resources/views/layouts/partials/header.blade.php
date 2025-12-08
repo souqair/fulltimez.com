@@ -78,7 +78,7 @@
     vertical-align: middle;
 }
 
-.desktop-header .logo-text .logo-full {
+.desktop-header .logo-text .logo-timez {
     font-weight: 500;
 }
 
@@ -249,7 +249,7 @@
     line-height: 1;
 }
 
-.mobile-logo .logo-text .logo-full {
+.mobile-logo .logo-text .logo-timez {
     font-weight: 500;
 }
 
@@ -586,7 +586,7 @@
         <div class="mobile-logo">
             <a href="{{ route('home') }}">
                 <span class="logo-text">
-                    <span class="logo-full">Full</span><span class="logo-timez">Timez</span>
+                    <span class="logo-timez">Full</span><span class="logo-timez">Timez</span>
                 </span>
             </a>
         </div>

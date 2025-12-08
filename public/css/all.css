@@ -1734,7 +1734,7 @@ readers do not read off random characters that represent icons */
 .fa-font-awesome-flag:before {
   content: "\f425"; }
 
-.fa-font-awesome-logo-full:before {
+.fa-font-awesome-logo-timez:before {
   content: "\f4e6"; }
 
 .fa-fonticons:before {
