@@ -112,6 +112,48 @@
                     </li>
                     
                     <li class="nav-item">
+                        <a href="{{ route('admin.employment-types.index') }}" class="nav-link {{ request()->routeIs('admin.employment-types.*') ? 'active' : '' }}">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Employment Types</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="{{ route('admin.experience-levels.index') }}" class="nav-link {{ request()->routeIs('admin.experience-levels.*') ? 'active' : '' }}">
+                            <i class="fas fa-layer-group"></i>
+                            <span>Experience Levels</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="{{ route('admin.experience-years.index') }}" class="nav-link {{ request()->routeIs('admin.experience-years.*') ? 'active' : '' }}">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Experience Years</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="{{ route('admin.education-levels.index') }}" class="nav-link {{ request()->routeIs('admin.education-levels.*') ? 'active' : '' }}">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Education Levels</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="{{ route('admin.salary-currencies.index') }}" class="nav-link {{ request()->routeIs('admin.salary-currencies.*') ? 'active' : '' }}">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Salary Currencies</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="{{ route('admin.salary-periods.index') }}" class="nav-link {{ request()->routeIs('admin.salary-periods.*') ? 'active' : '' }}">
+                            <i class="fas fa-clock"></i>
+                            <span>Salary Periods</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
                         <a href="{{ route('admin.countries.index') }}" class="nav-link {{ request()->routeIs('admin.countries.*') ? 'active' : '' }}">
                             <i class="fas fa-globe"></i>
                             <span>Countries</span>
