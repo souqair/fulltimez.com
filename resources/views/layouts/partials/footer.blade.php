@@ -180,14 +180,26 @@ footer {
     color: #ffffff;
 }
 
+@media (max-width: 1200px) {
+    .footer-container {
+        max-width: 100%;
+        padding: 0 5%;
+    }
+    
+    .footer-bottom {
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 991px) {
     footer {
-        padding: 50px 5% 0;
+        padding: 50px 4% 0;
     }
     
     .footer-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
+        gap: 35px;
+        padding: 0;
     }
     
     .footer-brand {
@@ -195,15 +207,21 @@ footer {
     }
     
     .footer-bottom {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-        padding: 24px 5%;
+        flex-direction: row;
+        gap: 20px;
+        padding: 24px 4%;
+        flex-wrap: wrap;
+    }
+    
+    .footer-bottom > div:first-child {
+        flex: 1;
+        min-width: 200px;
     }
     
     .footer-bottom-links {
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-end;
+        gap: 20px;
     }
 }
 
@@ -214,7 +232,8 @@ footer {
     
     .footer-container {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 30px;
+        padding: 0;
     }
     
     .footer-brand {
@@ -223,15 +242,17 @@ footer {
     
     .footer-brand h4 {
         font-size: 22px;
+        margin-bottom: 14px;
     }
     
     .footer-brand p {
         font-size: 13px;
+        margin-bottom: 20px;
     }
     
     .footer-column h4 {
         font-size: 15px;
-        margin-bottom: 16px;
+        margin-bottom: 14px;
     }
     
     .footer-column ul li {
@@ -242,21 +263,30 @@ footer {
         font-size: 13px;
     }
     
+    .footer-column p.subscribe-desc {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+    
     .subscribe-form {
         flex-direction: column;
         gap: 10px;
+        margin-top: 12px;
     }
     
     .subscribe-form input[type="email"] {
         width: 100%;
+        box-sizing: border-box;
     }
     
     .subscribe-form button {
         width: 100%;
+        box-sizing: border-box;
     }
     
     .social-icons {
         gap: 12px;
+        margin-top: 16px;
     }
     
     .social-icons a {
@@ -270,23 +300,35 @@ footer {
     }
     
     .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
         padding: 20px 4%;
         font-size: 13px;
+        align-items: center;
+    }
+    
+    .footer-bottom > div:first-child {
+        width: 100%;
+        text-align: center;
     }
     
     .footer-bottom-links {
-        flex-direction: column;
-        gap: 12px;
+        flex-direction: row;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
     }
     
     .footer-bottom-links a {
         font-size: 13px;
+        white-space: nowrap;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
     footer {
-        padding: 30px 3% 0;
+        padding: 35px 3% 0;
     }
     
     .footer-container {
@@ -297,13 +339,94 @@ footer {
         font-size: 20px;
     }
     
+    .footer-brand p {
+        font-size: 12px;
+    }
+    
     .footer-column h4 {
         font-size: 14px;
+        margin-bottom: 12px;
+    }
+    
+    .footer-column ul li {
+        margin-bottom: 8px;
+    }
+    
+    .footer-column ul li a {
+        font-size: 12px;
+    }
+    
+    .footer-column p.subscribe-desc {
+        font-size: 12px;
+    }
+    
+    .subscribe-form input[type="email"] {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .subscribe-form button {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .social-icons {
+        gap: 10px;
+    }
+    
+    .social-icons a {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .social-icons svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .footer-bottom {
+        padding: 18px 3%;
+        font-size: 12px;
+    }
+    
+    .footer-bottom-links {
+        gap: 12px;
+    }
+    
+    .footer-bottom-links a {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        padding: 30px 3% 0;
+    }
+    
+    .footer-container {
+        gap: 24px;
+    }
+    
+    .footer-brand h4 {
+        font-size: 18px;
+    }
+    
+    .footer-column h4 {
+        font-size: 13px;
     }
     
     .footer-bottom {
         padding: 16px 3%;
-        font-size: 12px;
+        font-size: 11px;
+    }
+    
+    .footer-bottom-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .footer-bottom-links a {
+        font-size: 11px;
     }
 }
 </style>
