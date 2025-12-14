@@ -104,7 +104,7 @@ ul.tick li:before{
     color:  #1a73e8;
 }
 .login-btn i{
-    color:#008556;
+    color:#1a1a1a;
 }
 .cart span{ background: #fff;
     width: 28px;
@@ -262,7 +262,7 @@ ul.tick li:before{
 }
 
 .job_forms .login-btn:hover {
-  background-color: #008556;
+  background-color: #1a1a1a;
 }
 
 .divider {
@@ -341,7 +341,7 @@ ul.tick li:before{
   width: 100%;
   padding: 12px;
   margin-top: 25px;
-  background-color: #008556;
+  background-color: #1a1a1a;
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -470,7 +470,7 @@ ul.tick li:before{
     font-size: 14px;
   }
   .catebox  .cartbx i{
-    color: #008556;
+    color: #1a1a1a;
   }
   .catebox .cateImg img{
     border-radius: 10px 10px 0 0;
@@ -620,7 +620,7 @@ ul.tick li:before{
     contain: paint;
 }
 .price-ad{
-    color: #008556;
+    color: #1a1a1a;
     font-size: 14px !important;
     
     float: right;
@@ -633,7 +633,7 @@ ul.tick li:before{
 
 }
 .price-ad p {
-    color: #008556;
+    color: #1a1a1a;
 }
 .price-ad p span {
     margin-left: 5px;
@@ -835,8 +835,8 @@ right: -50px;
 .stars li{display: inline-block; color: #f6b022; font-size: 12px;}
 .popular-items .catebx{text-align: left; margin-top: 30px;} 
 .popular-items .catebx p{font-size: 15px; margin-top: 6px; line-height: 24px;}
-.pricebx{font-size: 14px; color: #008556; font-weight: bold;}
-.cartbx i{color: #008556;}
+.pricebx{font-size: 14px; color: #1a1a1a; font-weight: bold;}
+.cartbx i{color: #1a1a1a;}
 /* .cartbx a {
     background: #1a73e8;
     display: inline-block;
@@ -849,7 +849,7 @@ right: -50px;
     text-align: center;
 } */
 .pricebx span{color: #b3b3b3;}
-.cartbx a:hover{color: #008556;}
+.cartbx a:hover{color: #1a1a1a;}
 /* .cartbx{margin-bottom: -120px;}
 .catebx { overflow: hidden;} */
 /* .catebx:hover .cartbx{margin-bottom: -7px;
@@ -2691,7 +2691,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 .filters .input-group label{display: block; margin-bottom: 3px; margin-top: 15px;}
 .filters .input-group .form-control{width: 100%; font-size: 14px; height: 44px;}
 .apply_btn{text-decoration: none;
-    background-color: #008556;
+    background-color: #1a1a1a;
     color: #fff;
     transition: all ease 0.5s;
     display: inline-block; 
@@ -3050,7 +3050,7 @@ footer ul.footer-nav li a{font-size: 14px;}
     -webkit-transition: 0.2s;
     transition: 0.2s;
     color: #ffffff;
-    background-color: #008556;
+    background-color: #1a1a1a;
 }
 
 .text-start .btn-border {
@@ -3187,7 +3187,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 .job-header .jobinfo .companyinfo .title a {
 	font-size: 18px;
 	font-weight: 600;
-	color: #008556;
+	color: #1a1a1a;
 }
 .job-header .jobinfo .companyinfo .opening a {
 	color: #333;
@@ -3226,7 +3226,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 	text-decoration: none;
 }
 .catelist li a:hover {
-	color: #008556;
+	color: #1a1a1a;
 }
 .catelist li a:before {
 	position: absolute;
@@ -3245,7 +3245,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 	height: 100px;
 	background: #cbcbcb;
 	margin-right: 20px;
-	border: 5px solid #008556;
+	border: 5px solid #1a1a1a;
     margin-bottom: 20px;
 }
 .job-header .jobinfo .candidateinfo .title {
@@ -3265,7 +3265,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 }
 .job-header .jobinfo .candidateinfo .loctext i {
 	width: 20px;
-	color: #008556;
+	color: #1a1a1a;
 }
 .cadsocial {
 	margin-top: 10px;
@@ -3277,7 +3277,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 	margin-right: 7px;
 }
 .cadsocial a:hover {
-	color: #008556;
+	color: #1a1a1a;
 }
 .relatedJobs {
 	margin-bottom: 30px;
@@ -3304,7 +3304,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 	color: #fff;
 }
 .jobButtons a.apply {
-	background: #008556;
+	background: #1a1a1a;
 	color: #fff
 }
 .jobButtons a:hover {
@@ -3317,7 +3317,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 .job-header .contentbox h3 {
 	font-size: 24px;
 	font-weight: 700;
-	color: #008556;
+	color: #1a1a1a;
 	margin-bottom: 10px;
 }
 .job-header .contentbox p {
@@ -3336,7 +3336,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 .job-header .contentbox ul li:before {
 	content: '\f00c';
 	font-family: 'Font Awesome 5 Free';
-	color: #008556;
+	color: #1a1a1a;
     font-weight: bold;
 	position: absolute;
 	left: 0;
@@ -3352,7 +3352,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 }
 .jobdetail h3 {
 	font-size: 18px;
-	color: #008556;
+	color: #1a1a1a;
 	font-weight: 700;
 }
 .jbdetail {
@@ -3365,7 +3365,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 .jbdetail li a {
 	display: block;
 	text-align: right;
-	color: #008556;
+	color: #1a1a1a;
 	font-weight: 600;
 }
 .jbdetail li span {
@@ -3375,10 +3375,10 @@ footer ul.footer-nav li a{font-size: 14px;}
 	font-weight: 600;
 }
 .jbdetail li span.permanent {
-	color: #008556;
+	color: #1a1a1a;
 }
 .jbdetail li span.contract {
-	color: #008556;
+	color: #1a1a1a;
 }
 .jbdetail li span.freelance {
 	color: #F07200;
@@ -3406,7 +3406,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 	margin-top: 30px;
 }
 .educationList li:hover {
-	border-bottom-color: #008556;
+	border-bottom-color: #1a1a1a;
 }
 .educationList li:before {
 	display: none;
@@ -3430,7 +3430,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 .educationList li h4 {
 	font-size: 18px;
 	font-weight: 700;
-	color: #008556;
+	color: #1a1a1a;
 	margin-bottom: 5px;
 }
 .educationList li p {
@@ -3448,7 +3448,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 	margin-top: 30px;
 }
 .experienceList li:hover {
-	border-bottom-color: #008556;
+	border-bottom-color: #1a1a1a;
 }
 .experienceList li:before {
 	display: none;
@@ -3459,7 +3459,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 .experienceList li h4 {
 	font-size: 18px;
 	font-weight: 700;
-	color: #008556;
+	color: #1a1a1a;
 	margin-bottom: 10px;
 }
 .experienceList li p {
@@ -3489,7 +3489,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 }
 .formpanel .btn {
 	width: 100%;
-	background: #008556;
+	background: #1a1a1a;
 	color: #fff;
 	border-radius: 0;
 	padding: 10px;
@@ -3617,7 +3617,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 }
 .searchList li:hover {
 	box-shadow: 0 0 10px rgba(0,0,0,0.1);
-	border: 1px solid #008556;
+	border: 1px solid #1a1a1a;
 }
 .searchList li .jobimg {
 	float: left;
@@ -3627,7 +3627,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 .searchList li h3 a {
 	font-size: 18px;
 	font-weight: 600;
-	color: #008556;
+	color: #1a1a1a;
     text-decoration: none;
 }
 .searchList li .companyName {
@@ -3655,15 +3655,15 @@ footer ul.footer-nav li a{font-size: 14px;}
 	border-radius: 0;
 	width: 100%;
     text-decoration: none;
-	color: #008556;
+	color: #1a1a1a;
 	text-transform: uppercase;
 	font-weight: 700;
 	padding: 10px 15px;
 	text-align: center;
-	border:1px solid #008556;
+	border:1px solid #1a1a1a;
 }
 .searchList li .listbtn a:hover {
-	background: #008556;
+	background: #1a1a1a;
 	color:#fff;
 	text-decoration: none;
 }
@@ -3673,7 +3673,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 	margin: 10px 0 0 0;
 }
 .searchList li .cateinfo {
-	color: #008556;
+	color: #1a1a1a;
 	margin: 10px 0;
 }
 .searchList li .minsalary {
@@ -3681,7 +3681,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 	font-weight: 700;
 	text-align: center;
 	margin-top: 25px;
-	color: #008556;
+	color: #1a1a1a;
 }
 .searchList li .minsalary span {
 	color: #999;
@@ -3752,7 +3752,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 	content: '\f00c';
 	    font-family: 'Font Awesome 5 Free';
         font-weight: 700;
-	color: #008556;
+	color: #1a1a1a;
 	padding-left: 2px;
 	position: relative;
 	top: -3px;
@@ -3791,7 +3791,7 @@ footer ul.footer-nav li a{font-size: 14px;}
 
 .contact-info h2 {
   margin-bottom: 10px;
-  color: #008556;
+  color: #1a1a1a;
 }
 
 .contact-info p {
@@ -3888,7 +3888,7 @@ footer ul.footer-nav li a{font-size: 14px;}
     }
 .jobseekerWrp button {
       padding: 10px 20px;
-      background-color: #008556;
+      background-color: #1a1a1a;
       color: white;
       border: none;
       border-radius: 4px;
