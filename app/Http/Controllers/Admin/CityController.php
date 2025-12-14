@@ -37,11 +37,11 @@ class CityController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'country_id' => 'required|exists:countries,id',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         City::create($data);
 
@@ -60,11 +60,11 @@ class CityController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'country_id' => 'required|exists:countries,id',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         $city->update($data);
 

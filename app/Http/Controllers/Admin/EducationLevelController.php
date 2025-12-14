@@ -25,12 +25,12 @@ class EducationLevelController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:education_levels,name',
             'description' => 'nullable|string',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         EducationLevel::create($data);
 
@@ -48,12 +48,12 @@ class EducationLevelController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:education_levels,name,' . $educationLevel->id,
             'description' => 'nullable|string',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         $educationLevel->update($data);
 

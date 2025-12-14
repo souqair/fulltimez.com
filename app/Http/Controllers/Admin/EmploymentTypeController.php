@@ -25,12 +25,12 @@ class EmploymentTypeController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:employment_types,name',
             'description' => 'nullable|string',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         EmploymentType::create($data);
 
@@ -48,12 +48,12 @@ class EmploymentTypeController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:employment_types,name,' . $employmentType->id,
             'description' => 'nullable|string',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         $employmentType->update($data);
 

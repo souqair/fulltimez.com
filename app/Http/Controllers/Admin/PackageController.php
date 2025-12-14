@@ -29,8 +29,8 @@ class PackageController extends Controller
             'price' => 'required|numeric|min:0',
             'currency' => 'required|string|in:USD,AED,SAR,QAR,KWD,BHD,OMR,EUR,GBP,INR,PKR,EGP',
             'duration_days' => 'required|integer|min:1',
-            'is_active' => 'boolean',
-            'is_featured' => 'boolean',
+            'is_active' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean',
             'sort_order' => 'integer|min:0',
         ]);
 
@@ -67,8 +67,8 @@ class PackageController extends Controller
             'price' => 'required|numeric|min:0',
             'currency' => 'required|string|in:USD,AED,SAR,QAR,KWD,BHD,OMR,EUR,GBP,INR,PKR,EGP',
             'duration_days' => 'required|integer|min:1',
-            'is_active' => 'boolean',
-            'is_featured' => 'boolean',
+            'is_active' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean',
             'sort_order' => 'integer|min:0',
         ]);
 

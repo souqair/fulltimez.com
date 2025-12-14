@@ -25,11 +25,11 @@ class ExperienceYearController extends Controller
             'name' => 'required|string|max:255',
             'value' => 'required|string|max:255|unique:experience_years,value',
             'sort_order' => 'nullable|integer|min:0',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
         $data['sort_order'] = $request->sort_order ?? 0;
 
         ExperienceYear::create($data);
@@ -49,11 +49,11 @@ class ExperienceYearController extends Controller
             'name' => 'required|string|max:255',
             'value' => 'required|string|max:255|unique:experience_years,value,' . $experienceYear->id,
             'sort_order' => 'nullable|integer|min:0',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
         $data['sort_order'] = $request->sort_order ?? 0;
 
         $experienceYear->update($data);

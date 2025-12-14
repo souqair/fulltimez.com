@@ -25,11 +25,11 @@ class SalaryCurrencyController extends Controller
             'code' => 'required|string|max:3|unique:salary_currencies,code',
             'name' => 'required|string|max:255',
             'symbol' => 'nullable|string|max:10',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         SalaryCurrency::create($data);
 
@@ -48,11 +48,11 @@ class SalaryCurrencyController extends Controller
             'code' => 'required|string|max:3|unique:salary_currencies,code,' . $salaryCurrency->id,
             'name' => 'required|string|max:255',
             'symbol' => 'nullable|string|max:10',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         $salaryCurrency->update($data);
 

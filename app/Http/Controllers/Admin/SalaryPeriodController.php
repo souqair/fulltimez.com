@@ -25,12 +25,12 @@ class SalaryPeriodController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:salary_periods,name',
             'description' => 'nullable|string',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         SalaryPeriod::create($data);
 
@@ -48,12 +48,12 @@ class SalaryPeriodController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:salary_periods,name,' . $salaryPeriod->id,
             'description' => 'nullable|string',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         $salaryPeriod->update($data);
 

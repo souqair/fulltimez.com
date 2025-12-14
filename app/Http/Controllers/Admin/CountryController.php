@@ -24,11 +24,11 @@ class CountryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:countries,name',
             'code' => 'required|string|max:3|unique:countries,code',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         Country::create($data);
 
@@ -46,11 +46,11 @@ class CountryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:countries,name,' . $country->id,
             'code' => 'required|string|max:3|unique:countries,code,' . $country->id,
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         $country->update($data);
 

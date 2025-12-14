@@ -26,12 +26,12 @@ class JobCategoryController extends Controller
             'name' => 'required|string|max:255|unique:job_categories,name',
             'description' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         JobCategory::create($data);
 
@@ -50,12 +50,12 @@ class JobCategoryController extends Controller
             'name' => 'required|string|max:255|unique:job_categories,name,' . $category->id,
             'description' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
-            'is_active' => 'boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         $category->update($data);
 
