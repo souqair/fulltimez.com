@@ -1858,7 +1858,19 @@ button svg{
                   <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                </svg>
-               <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience</span>
+               <span>
+                  {{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • 
+                  @if($job->experience_years)
+                     @php
+                        $years = preg_replace('/[^0-9]/', '', $job->experience_years);
+                        $years = $years ? (int)$years : 0;
+                        $yearText = $years == 1 ? 'Year' : 'Years';
+                     @endphp
+                     {{ $years }} {{ $yearText }} Experience
+                  @else
+                     N/A Years Experience
+                  @endif
+               </span>
             </div>
             <!-- Separator Line -->
             <div style="height: 1px; background: #e5e7eb; margin-bottom: 16px;"></div>
@@ -2265,7 +2277,19 @@ button svg{
                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience</span>
+            <span>
+               {{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • 
+               @if($job->experience_years)
+                  @php
+                     $years = preg_replace('/[^0-9]/', '', $job->experience_years);
+                     $years = $years ? (int)$years : 0;
+                     $yearText = $years == 1 ? 'Year' : 'Years';
+                  @endphp
+                  {{ $years }} {{ $yearText }} Experience
+               @else
+                  N/A Years Experience
+               @endif
+            </span>
          </div>
          <!-- Separator Line -->
          <div style="height: 1px; background: #e5e7eb; margin-bottom: 16px;"></div>
