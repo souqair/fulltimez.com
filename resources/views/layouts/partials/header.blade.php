@@ -211,12 +211,19 @@
     transform: translateY(-1px);
 }
 
-.desktop-header .header-actions .dashboard-link i {
+.desktop-header .header-actions .dashboard-link i,
+.desktop-header .header-actions .dashboard-link .fa-solid {
     font-size: 16px;
     transition: all 0.3s ease;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
 }
 
-.desktop-header .header-actions .dashboard-link:hover i {
+.desktop-header .header-actions .dashboard-link:hover i,
+.desktop-header .header-actions .dashboard-link:hover .fa-solid {
     transform: scale(1.1);
 }
 
@@ -240,12 +247,19 @@
     transform: translateY(-1px);
 }
 
-.desktop-header .header-actions .logout-link i {
+.desktop-header .header-actions .logout-link i,
+.desktop-header .header-actions .logout-link .fa-solid {
     font-size: 16px;
     transition: all 0.3s ease;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
 }
 
-.desktop-header .header-actions .logout-link:hover i {
+.desktop-header .header-actions .logout-link:hover i,
+.desktop-header .header-actions .logout-link:hover .fa-solid {
     transform: scale(1.1) rotate(-10deg);
 }
 
@@ -607,13 +621,13 @@
         <div class="header-actions">
             @auth
             <a href="{{ route('dashboard') }}" class="dashboard-link">
-                <i class="fas fa-th-large"></i>
+                <i class="fa-solid fa-table-cells-large"></i>
                 <span>Dashboard</span>
             </a>
             <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                 @csrf
                 <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="logout-link">
-                    <i class="fas fa-sign-out-alt"></i>
+                    <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Logout</span>
                 </a>
             </form>
@@ -674,11 +688,11 @@
         <hr>
         @auth
         <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">
-            <i class="fas fa-th-large" style="margin-right: 8px;"></i>
+            <i class="fa-solid fa-table-cells-large" style="margin-right: 8px;"></i>
             Dashboard
         </a>
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); closeMobileMenu();" class="mobile-auth-btn logout-btn">
-            <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i>
+            <i class="fa-solid fa-right-from-bracket" style="margin-right: 8px;"></i>
             Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
