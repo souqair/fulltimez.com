@@ -192,24 +192,61 @@
 }
 
 .desktop-header .header-actions .dashboard-link {
-    color: #22c55e;
-    background: rgba(34, 197, 94, 0.1);
-    font-weight: 600;
+    color: #1a1a1a;
+    background: transparent;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid transparent;
 }
 
 .desktop-header .header-actions .dashboard-link:hover {
-    background: rgba(34, 197, 94, 0.15);
-    color: #16a34a;
+    color: #1a1a1a;
+    background: transparent;
+    border-color: #e5e7eb;
+    transform: translateY(-1px);
+}
+
+.desktop-header .header-actions .dashboard-link i {
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.desktop-header .header-actions .dashboard-link:hover i {
+    transform: scale(1.1);
 }
 
 .desktop-header .header-actions .logout-link {
-    color: #ef4444;
-    background: rgba(239, 68, 68, 0.1);
+    color: #1a1a1a;
+    background: transparent;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid transparent;
 }
 
 .desktop-header .header-actions .logout-link:hover {
-    background: rgba(239, 68, 68, 0.15);
-    color: #dc2626;
+    color: #ef4444;
+    background: transparent;
+    border-color: #fee2e2;
+    transform: translateY(-1px);
+}
+
+.desktop-header .header-actions .logout-link i {
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.desktop-header .header-actions .logout-link:hover i {
+    transform: scale(1.1) rotate(-10deg);
 }
 
 /* Mobile Header - Modern Design */
@@ -473,21 +510,29 @@
 }
 
 .mobile-auth-btn.dashboard-btn {
-    background: #22c55e;
-    color: #fff;
+    background: transparent;
+    color: #1a1a1a;
+    border: 1px solid #e5e7eb;
 }
 
 .mobile-auth-btn.dashboard-btn:hover {
-    background: #16a34a;
+    background: transparent;
+    border-color: #d1d5db;
+    color: #1a1a1a;
+    transform: translateY(-1px);
 }
 
 .mobile-auth-btn.logout-btn {
-    background: #ef4444;
-    color: #fff;
+    background: transparent;
+    color: #1a1a1a;
+    border: 1px solid #fee2e2;
 }
 
 .mobile-auth-btn.logout-btn:hover {
-    background: #dc2626;
+    background: transparent;
+    border-color: #fecaca;
+    color: #ef4444;
+    transform: translateY(-1px);
 }
 
 /* Responsive Design */
@@ -561,10 +606,16 @@
         </nav>
         <div class="header-actions">
             @auth
-            <a href="{{ route('dashboard') }}" class="dashboard-link">Dashboard</a>
+            <a href="{{ route('dashboard') }}" class="dashboard-link">
+                <i class="fas fa-th-large"></i>
+                <span>Dashboard</span>
+            </a>
             <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                 @csrf
-                <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="logout-link">Logout</a>
+                <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
             </form>
             @else
             <a href="{{ route('login') }}" class="login-link">
@@ -623,10 +674,12 @@
         <hr>
         @auth
         <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">
-             Dashboard
+            <i class="fas fa-th-large" style="margin-right: 8px;"></i>
+            Dashboard
         </a>
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); closeMobileMenu();" class="mobile-auth-btn logout-btn">
-             Logout
+            <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i>
+            Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
