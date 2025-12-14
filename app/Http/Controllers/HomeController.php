@@ -18,7 +18,7 @@ class HomeController extends Controller
                 $q->whereNull('expires_at')
                   ->orWhere('expires_at', '>', now());
             })
-            ->with(['employer.employerProfile', 'category']);
+            ->with(['employer.employerProfile', 'category', 'employmentType']);
 
         // Get featured jobs (validated featured ads only)
         $featuredJobs = (clone $basePublishedQuery)

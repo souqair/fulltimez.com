@@ -1859,7 +1859,7 @@ button svg{
                   <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                </svg>
                <span>
-                  {{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • 
+                  {{ optional($job->employmentType)->name ?? 'N/A' }} • 
                   @if($job->experience_years)
                      @php
                         $years = preg_replace('/[^0-9]/', '', $job->experience_years);

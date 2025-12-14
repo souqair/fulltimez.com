@@ -13,6 +13,12 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             CitySeeder::class,
             JobCategorySeeder::class,
+            EmploymentTypeSeeder::class,
+            ExperienceLevelSeeder::class,
+            ExperienceYearSeeder::class,
+            EducationLevelSeeder::class,
+            SalaryCurrencySeeder::class,
+            SalaryPeriodSeeder::class,
             UserSeeder::class,
             JobPostingSeeder::class,
         ]);

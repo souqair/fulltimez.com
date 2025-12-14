@@ -458,7 +458,7 @@
                             </div>
                             <div class="job-detail-content">
                                 <span>Job Type</span>
-                                <strong>{{ ucfirst(str_replace('_', ' ', $job->employment_type)) }}</strong>
+                                <strong>{{ optional($job->employmentType)->name ?? 'N/A' }}</strong>
                             </div>
                         </div>
                         
@@ -479,7 +479,7 @@
                             </div>
                             <div class="job-detail-content">
                                 <span>Salary</span>
-                                <strong>{{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} / {{ ucfirst($job->salary_period ?? 'monthly') }}</strong>
+                                <strong>{{ optional($job->salaryCurrency)->code ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} / {{ optional($job->salaryPeriod)->name ?? 'Monthly' }}</strong>
                             </div>
                         </div>
                         @endif

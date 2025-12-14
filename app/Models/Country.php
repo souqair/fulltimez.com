@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
 {
-    protected $fillable = ['name', 'code', 'is_active'];
+    protected $fillable = ['name', 'code', 'is_active', 'approved_for_jobs'];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'approved_for_jobs' => 'boolean',
     ];
 
     public function cities(): HasMany

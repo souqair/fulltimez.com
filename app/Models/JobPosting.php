@@ -17,15 +17,20 @@ class JobPosting extends Model
         'requirements',
         'responsibilities',
         'benefits',
-        'employment_type',
-        'experience_level',
-        'experience_years',
-        'education_level',
+        'employment_type_id',
+        'experience_level_id',
+        'experience_year_id',
+        'education_level_id',
         'salary_min',
         'salary_max',
-        'salary_currency',
-        'salary_period',
+        'salary_currency_id',
+        'salary_period_id',
+        'salary_type',
         'salary_negotiable',
+        'gender',
+        'age_from',
+        'age_to',
+        'age_below',
         'location_city',
         'location_state',
         'location_country',
@@ -53,6 +58,9 @@ class JobPosting extends Model
         'languages_required' => 'json',
         'salary_negotiable' => 'boolean',
         'remote_allowed' => 'boolean',
+        'age_from' => 'integer',
+        'age_to' => 'integer',
+        'age_below' => 'integer',
         'is_premium' => 'boolean',
         'premium_expires_at' => 'datetime',
         'published_at' => 'datetime',
@@ -67,6 +75,36 @@ class JobPosting extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(JobCategory::class, 'category_id');
+    }
+
+    public function employmentType(): BelongsTo
+    {
+        return $this->belongsTo(EmploymentType::class, 'employment_type_id');
+    }
+
+    public function experienceLevel(): BelongsTo
+    {
+        return $this->belongsTo(ExperienceLevel::class, 'experience_level_id');
+    }
+
+    public function experienceYear(): BelongsTo
+    {
+        return $this->belongsTo(ExperienceYear::class, 'experience_year_id');
+    }
+
+    public function educationLevel(): BelongsTo
+    {
+        return $this->belongsTo(EducationLevel::class, 'education_level_id');
+    }
+
+    public function salaryCurrency(): BelongsTo
+    {
+        return $this->belongsTo(SalaryCurrency::class, 'salary_currency_id');
+    }
+
+    public function salaryPeriod(): BelongsTo
+    {
+        return $this->belongsTo(SalaryPeriod::class, 'salary_period_id');
     }
 
     /**

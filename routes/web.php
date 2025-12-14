@@ -453,6 +453,12 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     
     // Admin CRUD for Dropdowns
     Route::resource('categories', App\Http\Controllers\Admin\JobCategoryController::class);
+    Route::resource('employment-types', App\Http\Controllers\Admin\EmploymentTypeController::class);
+    Route::resource('experience-levels', App\Http\Controllers\Admin\ExperienceLevelController::class);
+    Route::resource('experience-years', App\Http\Controllers\Admin\ExperienceYearController::class);
+    Route::resource('education-levels', App\Http\Controllers\Admin\EducationLevelController::class);
+    Route::resource('salary-currencies', App\Http\Controllers\Admin\SalaryCurrencyController::class);
+    Route::resource('salary-periods', App\Http\Controllers\Admin\SalaryPeriodController::class);
     Route::resource('countries', App\Http\Controllers\Admin\CountryController::class);
     Route::resource('cities', App\Http\Controllers\Admin\CityController::class);
     

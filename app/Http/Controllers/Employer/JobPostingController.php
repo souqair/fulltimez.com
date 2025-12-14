@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Employer;
 use App\Http\Controllers\Controller;
 use App\Models\JobPosting;
 use App\Models\JobCategory;
+use App\Models\EmploymentType;
+use App\Models\ExperienceLevel;
+use App\Models\ExperienceYear;
+use App\Models\EducationLevel;
+use App\Models\SalaryCurrency;
+use App\Models\SalaryPeriod;
 use App\Models\Package;
 use App\Models\User;
 use App\Models\Role;
@@ -71,12 +77,21 @@ class JobPostingController extends Controller
         }
 
         $categories = JobCategory::where('is_active', true)->get();
+        $employmentTypes = EmploymentType::where('is_active', true)->orderBy('name')->get();
+        $experienceLevels = ExperienceLevel::where('is_active', true)->orderBy('name')->get();
+        $experienceYears = ExperienceYear::where('is_active', true)->orderBy('sort_order')->get();
+        $educationLevels = EducationLevel::where('is_active', true)->orderBy('name')->get();
+        $salaryCurrencies = SalaryCurrency::where('is_active', true)->orderBy('code')->get();
+        $salaryPeriods = SalaryPeriod::where('is_active', true)->orderBy('name')->get();
         $packages = Package::where('is_active', true)->orderBy('sort_order')->get();
         
-        // Get countries for location dropdown
-        $countries = \App\Models\Country::where('is_active', true)->orderBy('name')->get();
+        // Get approved countries for location dropdown (employers can only post in approved countries)
+        $countries = \App\Models\Country::where('is_active', true)
+            ->where('approved_for_jobs', true)
+            ->orderBy('name')
+            ->get();
         
-        return view('employer.jobs.create', compact('categories', 'packages', 'countries'));
+        return view('employer.jobs.create', compact('categories', 'employmentTypes', 'experienceLevels', 'experienceYears', 'educationLevels', 'salaryCurrencies', 'salaryPeriods', 'packages', 'countries'));
     }
 
     public function store(Request $request)
@@ -118,32 +133,25 @@ class JobPostingController extends Controller
                 ->with('error', 'You cannot post jobs until all required documents are approved. Missing: ' . implode(', ', $missingNames) . '. Please complete document verification first.');
         }
 
-        $experienceOptions = array_map(function ($year) {
-            return $year === 1 ? '1 Year' : $year . ' Years';
-        }, range(1, 10));
-
-        $educationOptions = [
-            'Phd',
-            'Master',
-            'Bachelor',
-            'Higher Secondary',
-            'Primary',
-            'Diploma',
-            'Not Required',
-        ];
-
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:job_categories,id',
             'description' => 'required|string',
             'requirements' => 'nullable|string',
             'responsibilities' => 'nullable|string',
-            'employment_type' => 'required|in:full-time,part-time,contract,freelance,internship',
-            'experience_years' => ['required', Rule::in($experienceOptions)],
-            'education_level' => ['required', Rule::in($educationOptions)],
+            'employment_type_id' => 'required|exists:employment_types,id',
+            'experience_level_id' => 'required|exists:experience_levels,id',
+            'experience_year_id' => 'required|exists:experience_years,id',
+            'education_level_id' => 'required|exists:education_levels,id',
             'salary_min' => 'nullable|numeric|min:0',
             'salary_max' => 'nullable|numeric|min:0|gte:salary_min',
-            'salary_currency' => 'nullable|string|in:AED,USD,EUR,GBP',
+            'salary_currency_id' => 'nullable|exists:salary_currencies,id',
+            'salary_period_id' => 'nullable|exists:salary_periods,id',
+            'salary_type' => 'required|in:fixed,negotiable,based_on_experience,salary_plus_commission',
+            'gender' => 'required|in:male,female,any',
+            'age_from' => 'nullable|integer|min:18|max:100',
+            'age_to' => 'nullable|integer|min:18|max:100|gte:age_from',
+            'age_below' => 'nullable|integer|min:18|max:100',
             'location_city' => 'required|string',
             'location_country' => 'required|string',
             'application_deadline' => 'nullable|date|after:today',
@@ -154,6 +162,25 @@ class JobPostingController extends Controller
 
         if (empty($validated['application_deadline'])) {
             $validated['application_deadline'] = null;
+        }
+
+        // Validate approved country for job posting
+        $country = \App\Models\Country::where('name', $validated['location_country'])
+            ->where('is_active', true)
+            ->where('approved_for_jobs', true)
+            ->first();
+        
+        if (!$country) {
+            return redirect()->back()
+                ->withErrors(['location_country' => 'You can only post jobs in approved countries. Please select an approved country.'])
+                ->withInput();
+        }
+        
+        // Validate age fields - either age_from/age_to OR age_below
+        if ((!empty($validated['age_from']) || !empty($validated['age_to'])) && !empty($validated['age_below'])) {
+            return redirect()->back()
+                ->withErrors(['age_below' => 'Please use either age range (from-to) OR age below, not both.'])
+                ->withInput();
         }
 
         // Additional validation for featured ads
@@ -301,7 +328,13 @@ class JobPostingController extends Controller
         }
 
         $categories = JobCategory::where('is_active', true)->get();
-        return view('employer.jobs.edit', compact('job', 'categories'));
+        $employmentTypes = EmploymentType::where('is_active', true)->orderBy('name')->get();
+        $experienceLevels = ExperienceLevel::where('is_active', true)->orderBy('name')->get();
+        $experienceYears = ExperienceYear::where('is_active', true)->orderBy('sort_order')->get();
+        $educationLevels = EducationLevel::where('is_active', true)->orderBy('name')->get();
+        $salaryCurrencies = SalaryCurrency::where('is_active', true)->orderBy('code')->get();
+        $salaryPeriods = SalaryPeriod::where('is_active', true)->orderBy('name')->get();
+        return view('employer.jobs.edit', compact('job', 'categories', 'employmentTypes', 'experienceLevels', 'experienceYears', 'educationLevels', 'salaryCurrencies', 'salaryPeriods'));
     }
 
     public function update(Request $request, JobPosting $job)
@@ -330,15 +363,42 @@ class JobPostingController extends Controller
             'description' => 'required|string',
             'requirements' => 'nullable|string',
             'responsibilities' => 'nullable|string',
-            'employment_type' => 'required|in:full-time,part-time,contract,freelance,internship',
-            'experience_years' => ['required', Rule::in($experienceOptions)],
-            'education_level' => ['required', Rule::in($educationOptions)],
+            'employment_type_id' => 'required|exists:employment_types,id',
+            'experience_level_id' => 'required|exists:experience_levels,id',
+            'experience_year_id' => 'required|exists:experience_years,id',
+            'education_level_id' => 'required|exists:education_levels,id',
             'salary_min' => 'nullable|string',
             'salary_max' => 'nullable|string',
+            'salary_currency_id' => 'nullable|exists:salary_currencies,id',
+            'salary_period_id' => 'nullable|exists:salary_periods,id',
+            'salary_type' => 'required|in:fixed,negotiable,based_on_experience,salary_plus_commission',
+            'gender' => 'required|in:male,female,any',
+            'age_from' => 'nullable|integer|min:18|max:100',
+            'age_to' => 'nullable|integer|min:18|max:100|gte:age_from',
+            'age_below' => 'nullable|integer|min:18|max:100',
             'location_city' => 'required|string',
             'location_country' => 'required|string',
             'application_deadline' => 'nullable|date',
         ]);
+
+        // Validate approved country for job posting
+        $country = \App\Models\Country::where('name', $validated['location_country'])
+            ->where('is_active', true)
+            ->where('approved_for_jobs', true)
+            ->first();
+        
+        if (!$country) {
+            return redirect()->back()
+                ->withErrors(['location_country' => 'You can only post jobs in approved countries. Please select an approved country.'])
+                ->withInput();
+        }
+        
+        // Validate age fields
+        if ((!empty($validated['age_from']) || !empty($validated['age_to'])) && !empty($validated['age_below'])) {
+            return redirect()->back()
+                ->withErrors(['age_below' => 'Please use either age range (from-to) OR age below, not both.'])
+                ->withInput();
+        }
 
         $job->update($validated);
 

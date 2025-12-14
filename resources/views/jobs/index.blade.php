@@ -945,7 +945,7 @@ body {
                     </div>
                     <div class="jc-info" style="font-size: 12px; color: #444; line-height: 1.7; margin-bottom: 15px;">
                         📍 {{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}<br/>
-                        ⏰ {{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience
+                        ⏰ {{ optional($job->employmentType)->name ?? 'N/A' }} • {{ optional($job->experienceYear)->name ?? 'N/A' }} Experience
                     </div>
                     <div class="jc-salary" style="font-size: 14px; font-weight: 700; margin-top: 15px; color: #000;">
                         @if(!empty($job->salary_min) && !empty($job->salary_max))
@@ -982,7 +982,7 @@ body {
                 </div>
                 <div class="jc-info" style="font-size: 12px; color: #444; line-height: 1.7; margin-bottom: 15px;">
                     📍 {{ $job->location_city }}{{ $job->location_country ? ', ' . $job->location_country : '' }}<br/>
-                    ⏰ {{ ucfirst(str_replace('_', ' ', $job->employment_type)) }} • {{ $job->experience_years ?? 'N/A' }} Years Experience
+                    ⏰ {{ optional($job->employmentType)->name ?? 'N/A' }} • {{ optional($job->experienceYear)->name ?? 'N/A' }} Experience
                 </div>
                 <div class="jc-salary" style="font-size: 14px; font-weight: 700; margin-top: 15px; color: #000;">
                     @if(!empty($job->salary_min) && !empty($job->salary_max))

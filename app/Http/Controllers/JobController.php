@@ -12,7 +12,7 @@ class JobController extends Controller
     {
         // Base query for published jobs
         $baseQuery = JobPosting::where('status', 'published')
-            ->with(['employer.employerProfile', 'category']);
+            ->with(['employer.employerProfile', 'category', 'employmentType']);
 
         // Handle header search - title (combines title and description)
         if ($request->filled('title')) {
@@ -125,7 +125,7 @@ class JobController extends Controller
     {
         $job = JobPosting::where('slug', $slug)
             ->where('status', 'published')
-            ->with(['employer.employerProfile', 'category'])
+            ->with(['employer.employerProfile', 'category', 'employmentType'])
             ->firstOrFail();
 
         $job->increment('views_count');

@@ -886,23 +886,6 @@
 
                         <form action="{{ route('employer.jobs.store') }}" method="POST" id="jobForm">
                                     @csrf
-                            @php
-                                $experienceOptions = collect(range(1, 10))->map(function ($year) {
-                                    return $year === 1 ? '1 Year' : $year . ' Years';
-                                })->toArray();
-
-                                $educationOptions = [
-                                    'Phd',
-                                    'Master',
-                                    'Bachelor',
-                                    'Higher Secondary',
-                                    'Primary',
-                                    'Diploma',
-                                    'Not Required',
-                                ];
-                                $oldExperience = old('experience_years');
-                                $oldEducation = old('education_level');
-                            @endphp
                             
                             <!-- Basic Information Section -->
                             <div class="form-section" data-section="1">
@@ -941,15 +924,13 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                             <label class="form-label">Employment Type <sup class="text-danger">*</sup></label>
-                                                <select name="employment_type" class="form-control @error('employment_type') is-invalid @enderror" required>
+                                                <select name="employment_type_id" class="form-control @error('employment_type_id') is-invalid @enderror" required>
                                                     <option value="">Select Type</option>
-                                                    <option value="full-time" {{ old('employment_type') == 'full-time' ? 'selected' : '' }}>Full-time</option>
-                                                    <option value="part-time" {{ old('employment_type') == 'part-time' ? 'selected' : '' }}>Part-time</option>
-                                                    <option value="contract" {{ old('employment_type') == 'contract' ? 'selected' : '' }}>Contract</option>
-                                                    <option value="freelance" {{ old('employment_type') == 'freelance' ? 'selected' : '' }}>Freelance</option>
-                                                    <option value="internship" {{ old('employment_type') == 'internship' ? 'selected' : '' }}>Internship</option>
+                                                    @foreach($employmentTypes as $type)
+                                                        <option value="{{ $type->id }}" {{ old('employment_type_id') == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
+                                                    @endforeach
                                                 </select>
-                                                @error('employment_type')
+                                                @error('employment_type_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -1044,17 +1025,29 @@
 
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                            <label class="form-label">Experience Required <sup class="text-danger">*</sup></label>
-                                                <select name="experience_years" class="form-control @error('experience_years') is-invalid @enderror" required>
-                                                    <option value="">Select Experience</option>
-                                                    @foreach($experienceOptions as $option)
-                                                        <option value="{{ $option }}" {{ $oldExperience === $option ? 'selected' : '' }}>{{ $option }}</option>
+                                            <label class="form-label">Experience Level <sup class="text-danger">*</sup></label>
+                                                <select name="experience_level_id" class="form-control @error('experience_level_id') is-invalid @enderror" required>
+                                                    <option value="">Select Experience Level</option>
+                                                    @foreach($experienceLevels as $level)
+                                                        <option value="{{ $level->id }}" {{ old('experience_level_id') == $level->id ? 'selected' : '' }}>{{ $level->name }}</option>
                                                     @endforeach
-                                                    @if($oldExperience && !in_array($oldExperience, $experienceOptions))
-                                                        <option value="{{ $oldExperience }}" selected>{{ $oldExperience }}</option>
-                                                    @endif
                                                 </select>
-                                                @error('experience_years')
+                                                @error('experience_level_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                            <label class="form-label">Experience Years <sup class="text-danger">*</sup></label>
+                                                <select name="experience_year_id" class="form-control @error('experience_year_id') is-invalid @enderror" required>
+                                                    <option value="">Select Experience Years</option>
+                                                    @foreach($experienceYears as $year)
+                                                        <option value="{{ $year->id }}" {{ old('experience_year_id') == $year->id ? 'selected' : '' }}>{{ $year->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('experience_year_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
@@ -1063,18 +1056,62 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                             <label class="form-label">Education Level <sup class="text-danger">*</sup></label>
-                                                <select name="education_level" class="form-control @error('education_level') is-invalid @enderror" required>
+                                                <select name="education_level_id" class="form-control @error('education_level_id') is-invalid @enderror" required>
                                                     <option value="">Select Education</option>
-                                                    @foreach($educationOptions as $option)
-                                                        <option value="{{ $option }}" {{ $oldEducation === $option ? 'selected' : '' }}>{{ $option }}</option>
+                                                    @foreach($educationLevels as $level)
+                                                        <option value="{{ $level->id }}" {{ old('education_level_id') == $level->id ? 'selected' : '' }}>{{ $level->name }}</option>
                                                     @endforeach
-                                                    @if($oldEducation && !in_array($oldEducation, $educationOptions))
-                                                        <option value="{{ $oldEducation }}" selected>{{ $oldEducation }}</option>
-                                                    @endif
                                                 </select>
-                                                @error('education_level')
+                                                @error('education_level_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                            <label class="form-label">Gender <sup class="text-danger">*</sup></label>
+                                                <select name="gender" class="form-control @error('gender') is-invalid @enderror" required>
+                                                    <option value="">Select Gender</option>
+                                                    <option value="any" {{ old('gender', 'any') == 'any' ? 'selected' : '' }}>Any</option>
+                                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                                                </select>
+                                                @error('gender')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                            <label class="form-label">Age From</label>
+                                                <input type="number" name="age_from" class="form-control @error('age_from') is-invalid @enderror" value="{{ old('age_from') }}" placeholder="e.g., 25" min="18" max="100">
+                                                @error('age_from')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                            <label class="form-label">Age To</label>
+                                                <input type="number" name="age_to" class="form-control @error('age_to') is-invalid @enderror" value="{{ old('age_to') }}" placeholder="e.g., 45" min="18" max="100">
+                                                @error('age_to')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                            <label class="form-label">Age Below</label>
+                                                <input type="number" name="age_below" class="form-control @error('age_below') is-invalid @enderror" value="{{ old('age_below') }}" placeholder="e.g., 60" min="18" max="100">
+                                                <small class="form-text text-muted">Use this OR age range above</small>
+                                                @error('age_below')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                             </div>
@@ -1110,13 +1147,51 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                             <label class="form-label">Salary Currency</label>
-                                                <select name="salary_currency" class="form-control @error('salary_currency') is-invalid @enderror">
-                                                    <option value="AED" {{ old('salary_currency', 'AED') == 'AED' ? 'selected' : '' }}>AED</option>
-                                                    <option value="USD" {{ old('salary_currency') == 'USD' ? 'selected' : '' }}>USD</option>
-                                                    <option value="EUR" {{ old('salary_currency') == 'EUR' ? 'selected' : '' }}>EUR</option>
-                                                    <option value="GBP" {{ old('salary_currency') == 'GBP' ? 'selected' : '' }}>GBP</option>
+                                                <select name="salary_currency_id" class="form-control @error('salary_currency_id') is-invalid @enderror">
+                                                    <option value="">Select Currency</option>
+                                                    @foreach($salaryCurrencies as $currency)
+                                                        <option value="{{ $currency->id }}" {{ old('salary_currency_id', $salaryCurrencies->where('code', 'AED')->first()?->id) == $currency->id ? 'selected' : '' }}>
+                                                            {{ $currency->code }} - {{ $currency->name }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
-                                                @error('salary_currency')
+                                                @error('salary_currency_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                            <label class="form-label">Salary Period</label>
+                                                <select name="salary_period_id" class="form-control @error('salary_period_id') is-invalid @enderror">
+                                                    <option value="">Select Period</option>
+                                                    @php
+                                                        $defaultPeriod = $salaryPeriods->where('slug', 'monthly')->first();
+                                                    @endphp
+                                                    @foreach($salaryPeriods as $period)
+                                                        <option value="{{ $period->id }}" {{ old('salary_period_id', $defaultPeriod?->id) == $period->id ? 'selected' : '' }}>
+                                                            {{ $period->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('salary_period_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                            <label class="form-label">Salary Type <sup class="text-danger">*</sup></label>
+                                                <select name="salary_type" class="form-control @error('salary_type') is-invalid @enderror" required>
+                                                    <option value="">Select Salary Type</option>
+                                                    <option value="fixed" {{ old('salary_type') == 'fixed' ? 'selected' : '' }}>Fixed Salary</option>
+                                                    <option value="negotiable" {{ old('salary_type') == 'negotiable' ? 'selected' : '' }}>Negotiable</option>
+                                                    <option value="based_on_experience" {{ old('salary_type') == 'based_on_experience' ? 'selected' : '' }}>Based on Experience</option>
+                                                    <option value="salary_plus_commission" {{ old('salary_type') == 'salary_plus_commission' ? 'selected' : '' }}>Salary plus Commission</option>
+                                                </select>
+                                                @error('salary_type')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>

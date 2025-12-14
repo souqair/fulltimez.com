@@ -103,32 +103,30 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="employment_type" class="form-label">Employment Type <span class="text-danger">*</span></label>
-                        <select class="form-control @error('employment_type') is-invalid @enderror" 
-                                id="employment_type" name="employment_type" required>
+                        <label for="employment_type_id" class="form-label">Employment Type <span class="text-danger">*</span></label>
+                        <select class="form-control @error('employment_type_id') is-invalid @enderror" 
+                                id="employment_type_id" name="employment_type_id" required>
                             <option value="">Select Type</option>
-                            <option value="full_time" {{ old('employment_type', $job->employment_type) == 'full_time' ? 'selected' : '' }}>Full Time</option>
-                            <option value="part_time" {{ old('employment_type', $job->employment_type) == 'part_time' ? 'selected' : '' }}>Part Time</option>
-                            <option value="contract" {{ old('employment_type', $job->employment_type) == 'contract' ? 'selected' : '' }}>Contract</option>
-                            <option value="freelance" {{ old('employment_type', $job->employment_type) == 'freelance' ? 'selected' : '' }}>Freelance</option>
+                            @foreach($employmentTypes as $type)
+                                <option value="{{ $type->id }}" {{ old('employment_type_id', $job->employment_type_id) == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
+                            @endforeach
                         </select>
-                        @error('employment_type')
+                        @error('employment_type_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="experience_level" class="form-label">Experience Level <span class="text-danger">*</span></label>
-                        <select class="form-control @error('experience_level') is-invalid @enderror" 
-                                id="experience_level" name="experience_level" required>
+                        <label for="experience_level_id" class="form-label">Experience Level <span class="text-danger">*</span></label>
+                        <select class="form-control @error('experience_level_id') is-invalid @enderror" 
+                                id="experience_level_id" name="experience_level_id" required>
                             <option value="">Select Level</option>
-                            <option value="entry" {{ old('experience_level', $job->experience_level) == 'entry' ? 'selected' : '' }}>Entry Level</option>
-                            <option value="mid" {{ old('experience_level', $job->experience_level) == 'mid' ? 'selected' : '' }}>Mid Level</option>
-                            <option value="senior" {{ old('experience_level', $job->experience_level) == 'senior' ? 'selected' : '' }}>Senior Level</option>
-                            <option value="executive" {{ old('experience_level', $job->experience_level) == 'executive' ? 'selected' : '' }}>Executive Level</option>
+                            @foreach($experienceLevels as $level)
+                                <option value="{{ $level->id }}" {{ old('experience_level_id', $job->experience_level_id) == $level->id ? 'selected' : '' }}>{{ $level->name }}</option>
+                            @endforeach
                         </select>
-                        @error('experience_level')
+                        @error('experience_level_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
