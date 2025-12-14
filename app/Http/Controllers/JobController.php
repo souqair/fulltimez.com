@@ -38,18 +38,20 @@ class JobController extends Controller
             $baseQuery->where('category_id', $request->category);
         }
 
-        // Handle country from header - exact match first, then partial
-        if ($request->filled('country')) {
-            $country = trim($request->country);
+        // Handle country - support both 'country' and 'location_country' parameters
+        $countryParam = $request->filled('location_country') ? $request->location_country : $request->country;
+        if ($countryParam) {
+            $country = trim($countryParam);
             $baseQuery->where(function($q) use ($country) {
                 $q->where('location_country', '=', $country)
                   ->orWhere('location_country', 'like', '%' . $country . '%');
             });
         }
 
-        // Handle location from header - check city, state, and country
-        if ($request->filled('location')) {
-            $location = trim($request->location);
+        // Handle city/state - support both 'location_city' and 'location' parameters
+        $cityParam = $request->filled('location_city') ? $request->location_city : $request->location;
+        if ($cityParam) {
+            $location = trim($cityParam);
             $baseQuery->where(function($q) use ($location) {
                 $q->where('location_city', '=', $location)
                   ->orWhere('location_city', 'like', '%' . $location . '%')
@@ -98,10 +100,12 @@ class JobController extends Controller
         
         // Get countries and cities for search dropdowns
         $countries = \App\Models\Country::where('is_active', true)->orderBy('name')->get();
+        $selectedCountry = $request->filled('location_country') ? $request->location_country : $request->country;
         $cities = \App\Models\City::where('is_active', true)
-            ->when($request->filled('country'), function($q) use ($request) {
-                $q->whereHas('country', function($cq) use ($request) {
-                    $cq->where('name', 'like', '%' . $request->country . '%');
+            ->when($selectedCountry, function($q) use ($selectedCountry) {
+                $q->whereHas('country', function($cq) use ($selectedCountry) {
+                    $cq->where('name', '=', $selectedCountry)
+                       ->orWhere('name', 'like', '%' . $selectedCountry . '%');
                 });
             })
             ->orderBy('name')
