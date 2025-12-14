@@ -212,6 +212,7 @@
 }
 
 .desktop-header .header-actions .dashboard-link i,
+.desktop-header .header-actions .dashboard-link .fas,
 .desktop-header .header-actions .dashboard-link .fa-solid {
     font-size: 16px;
     transition: all 0.3s ease;
@@ -220,9 +221,12 @@
     font-variant: normal;
     text-rendering: auto;
     line-height: 1;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "Font Awesome 6 Pro", "Font Awesome 5 Pro";
+    font-weight: 900;
 }
 
 .desktop-header .header-actions .dashboard-link:hover i,
+.desktop-header .header-actions .dashboard-link:hover .fas,
 .desktop-header .header-actions .dashboard-link:hover .fa-solid {
     transform: scale(1.1);
 }
@@ -248,6 +252,7 @@
 }
 
 .desktop-header .header-actions .logout-link i,
+.desktop-header .header-actions .logout-link .fas,
 .desktop-header .header-actions .logout-link .fa-solid {
     font-size: 16px;
     transition: all 0.3s ease;
@@ -256,9 +261,12 @@
     font-variant: normal;
     text-rendering: auto;
     line-height: 1;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "Font Awesome 6 Pro", "Font Awesome 5 Pro";
+    font-weight: 900;
 }
 
 .desktop-header .header-actions .logout-link:hover i,
+.desktop-header .header-actions .logout-link:hover .fas,
 .desktop-header .header-actions .logout-link:hover .fa-solid {
     transform: scale(1.1) rotate(-10deg);
 }
@@ -621,13 +629,13 @@
         <div class="header-actions">
             @auth
             <a href="{{ route('dashboard') }}" class="dashboard-link">
-                <i class="fa-solid fa-table-cells-large"></i>
+                <i class="fas fa-th-large"></i>
                 <span>Dashboard</span>
             </a>
             <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                 @csrf
                 <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="logout-link">
-                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </a>
             </form>
@@ -688,11 +696,11 @@
         <hr>
         @auth
         <a href="{{ route('dashboard') }}" class="mobile-auth-btn dashboard-btn">
-            <i class="fa-solid fa-table-cells-large" style="margin-right: 8px;"></i>
+            <i class="fas fa-th-large" style="margin-right: 8px;"></i>
             Dashboard
         </a>
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit(); closeMobileMenu();" class="mobile-auth-btn logout-btn">
-            <i class="fa-solid fa-right-from-bracket" style="margin-right: 8px;"></i>
+            <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i>
             Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
