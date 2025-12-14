@@ -41,11 +41,8 @@ class EmployerAuthController extends Controller
                     ->with('error', 'Please verify your email address before logging in. Check your inbox for verification link.');
             }
 
-            // Admin users don't need approval
-            if (!$user->isAdmin() && !$user->is_approved) {
-                Auth::logout();
-                return back()->withErrors(['email' => 'Your account is pending admin approval. You will receive an email notification once your account is approved.']);
-            }
+            // Note: Admin approval is no longer required for login.
+            // Admin approval is only required for posting jobs (handled in JobPostingController).
 
             // Reset failed login attempts on successful login
             \App\Models\FailedLoginAttempt::resetAttempts($credentials['email']);
