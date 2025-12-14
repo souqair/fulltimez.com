@@ -1691,7 +1691,7 @@ button svg{
             <div style="display: flex; flex-direction: column; gap: 8px;">
                 <label style="font-size: 14px; font-weight: 500; color: #1a1a1a; text-align: left; margin: 0;">Country</label>
                 <div style="position: relative; display: flex; align-items: center;">
-                    <select name="location_country" style="width: 100%; padding: 12px 40px 12px 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; appearance: none; cursor: pointer; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
+                    <select name="location_country" id="countrySelect" style="width: 100%; padding: 12px 40px 12px 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; appearance: none; cursor: pointer; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
                         <option value="">All Countries</option>
                         @foreach($countries as $country)
                             <option value="{{ $country->name }}" {{ request('location_country') == $country->name ? 'selected' : '' }}>{{ $country->name }}</option>
@@ -1707,10 +1707,24 @@ button svg{
             <div style="display: flex; flex-direction: column; gap: 8px;">
                 <label style="font-size: 14px; font-weight: 500; color: #1a1a1a; text-align: left; margin: 0;">State</label>
                 <div style="position: relative; display: flex; align-items: center;">
-                    <select name="location_city" style="width: 100%; padding: 12px 40px 12px 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; appearance: none; cursor: pointer; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
+                    <select name="location_city" id="citySelect" style="width: 100%; padding: 12px 40px 12px 14px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #1a1a1a; background: #fff; outline: none; appearance: none; cursor: pointer; transition: border-color 0.2s;" onfocus="this.style.borderColor='#1a1a1a';" onblur="this.style.borderColor='#e5e7eb';">
                         <option value="">All States</option>
-                        @foreach($cities as $city)
-                            <option value="{{ $city->name }}" {{ request('location_city') == $city->name ? 'selected' : '' }}>{{ $city->name }}</option>
+                        @php
+                            $selectedCountry = request('location_country');
+                            $selectedCity = request('location_city');
+                            if($selectedCountry) {
+                                $country = \App\Models\Country::where('name', $selectedCountry)->first();
+                                if($country) {
+                                    $filteredCities = \App\Models\City::where('country_id', $country->id)->where('is_active', true)->orderBy('name')->get();
+                                } else {
+                                    $filteredCities = collect();
+                                }
+                            } else {
+                                $filteredCities = $cities;
+                            }
+                        @endphp
+                        @foreach($filteredCities as $city)
+                            <option value="{{ $city->name }}" {{ $selectedCity == $city->name ? 'selected' : '' }}>{{ $city->name }}</option>
                         @endforeach
                     </select>
                     <svg style="position: absolute; right: 14px; width: 18px; height: 18px; color: #6b7280; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2378,6 +2392,59 @@ button svg{
 @push('scripts')
 <script>
 $(document).ready(function() {
+    // Store all cities for "All Countries" option
+    var allCities = [
+        @foreach($cities as $city)
+        {name: "{{ $city->name }}"},
+        @endforeach
+    ];
+    
+    // Country and City Dropdown Filtering
+    $('#countrySelect').on('change', function() {
+        var countryName = $(this).val();
+        var citySelect = $('#citySelect');
+        
+        // Reset city dropdown
+        citySelect.html('<option value="">All States</option>');
+        
+        if (countryName) {
+            // Show loading state
+            citySelect.prop('disabled', true);
+            citySelect.css('opacity', '0.6');
+            
+            // Fetch cities for selected country
+            $.ajax({
+                url: '/api/cities/' + encodeURIComponent(countryName),
+                method: 'GET',
+                success: function(response) {
+                    if (response.success && response.cities && response.cities.length > 0) {
+                        // Add cities to dropdown
+                        $.each(response.cities, function(index, city) {
+                            citySelect.append('<option value="' + city.name + '">' + city.name + '</option>');
+                        });
+                    } else {
+                        citySelect.append('<option value="">No cities available</option>');
+                    }
+                    citySelect.prop('disabled', false);
+                    citySelect.css('opacity', '1');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching cities:', error);
+                    citySelect.append('<option value="">Error loading cities</option>');
+                    citySelect.prop('disabled', false);
+                    citySelect.css('opacity', '1');
+                }
+            });
+        } else {
+            // If no country selected, show all cities
+            $.each(allCities, function(index, city) {
+                citySelect.append('<option value="' + city.name + '">' + city.name + '</option>');
+            });
+            citySelect.prop('disabled', false);
+            citySelect.css('opacity', '1');
+        }
+    });
+    
     // Featured Jobs Carousel - Fully Responsive
     if($('.featured-jobs-carousel').length > 0) {
         $('.featured-jobs-carousel').owlCarousel({
