@@ -22,16 +22,18 @@ class JobCategoryController extends Controller
 
     public function store(Request $request)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'name' => 'required|string|max:255|unique:job_categories,name',
             'description' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->boolean('is_active');
 
         JobCategory::create($data);
 
@@ -46,16 +48,18 @@ class JobCategoryController extends Controller
 
     public function update(Request $request, JobCategory $category)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'name' => 'required|string|max:255|unique:job_categories,name,' . $category->id,
             'description' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->boolean('is_active');
 
         $category->update($data);
 

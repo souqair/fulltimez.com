@@ -21,15 +21,17 @@ class ExperienceYearController extends Controller
 
     public function store(Request $request)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'value' => 'required|string|max:255|unique:experience_years,value',
             'sort_order' => 'nullable|integer|min:0',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->boolean('is_active');
         $data['sort_order'] = $request->sort_order ?? 0;
 
         ExperienceYear::create($data);
@@ -45,15 +47,17 @@ class ExperienceYearController extends Controller
 
     public function update(Request $request, ExperienceYear $experienceYear)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'value' => 'required|string|max:255|unique:experience_years,value,' . $experienceYear->id,
             'sort_order' => 'nullable|integer|min:0',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->boolean('is_active');
         $data['sort_order'] = $request->sort_order ?? 0;
 
         $experienceYear->update($data);

@@ -21,14 +21,16 @@ class CountryController extends Controller
 
     public function store(Request $request)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'name' => 'required|string|max:255|unique:countries,name',
             'code' => 'required|string|max:3|unique:countries,code',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->boolean('is_active');
 
         Country::create($data);
 
@@ -43,14 +45,16 @@ class CountryController extends Controller
 
     public function update(Request $request, Country $country)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'name' => 'required|string|max:255|unique:countries,name,' . $country->id,
             'code' => 'required|string|max:3|unique:countries,code,' . $country->id,
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->boolean('is_active');
 
         $country->update($data);
 

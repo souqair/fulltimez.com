@@ -23,14 +23,20 @@ class PackageController extends Controller
 
     public function store(Request $request)
     {
+        // Convert checkbox values to boolean before validation
+        $request->merge([
+            'is_active' => $request->boolean('is_active'),
+            'is_featured' => $request->boolean('is_featured'),
+        ]);
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'currency' => 'required|string|in:USD,AED,SAR,QAR,KWD,BHD,OMR,EUR,GBP,INR,PKR,EGP',
             'duration_days' => 'required|integer|min:1',
-            'is_active' => 'nullable|boolean',
-            'is_featured' => 'nullable|boolean',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
             'sort_order' => 'integer|min:0',
         ]);
 
@@ -40,8 +46,8 @@ class PackageController extends Controller
             'price' => $request->price,
             'currency' => $request->currency,
             'duration_days' => $request->duration_days,
-            'is_active' => $request->boolean('is_active'),
-            'is_featured' => $request->boolean('is_featured'),
+            'is_active' => $request->is_active,
+            'is_featured' => $request->is_featured,
             'sort_order' => $request->sort_order ?? 0,
         ]);
 
@@ -61,14 +67,20 @@ class PackageController extends Controller
 
     public function update(Request $request, Package $package)
     {
+        // Convert checkbox values to boolean before validation
+        $request->merge([
+            'is_active' => $request->boolean('is_active'),
+            'is_featured' => $request->boolean('is_featured'),
+        ]);
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'currency' => 'required|string|in:USD,AED,SAR,QAR,KWD,BHD,OMR,EUR,GBP,INR,PKR,EGP',
             'duration_days' => 'required|integer|min:1',
-            'is_active' => 'nullable|boolean',
-            'is_featured' => 'nullable|boolean',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
             'sort_order' => 'integer|min:0',
         ]);
 
@@ -78,8 +90,8 @@ class PackageController extends Controller
             'price' => $request->price,
             'currency' => $request->currency,
             'duration_days' => $request->duration_days,
-            'is_active' => $request->boolean('is_active'),
-            'is_featured' => $request->boolean('is_featured'),
+            'is_active' => $request->is_active,
+            'is_featured' => $request->is_featured,
             'sort_order' => $request->sort_order ?? 0,
         ]);
 

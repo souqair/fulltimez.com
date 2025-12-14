@@ -22,15 +22,17 @@ class EmploymentTypeController extends Controller
 
     public function store(Request $request)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'name' => 'required|string|max:255|unique:employment_types,name',
             'description' => 'nullable|string',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->boolean('is_active');
 
         EmploymentType::create($data);
 
@@ -45,15 +47,17 @@ class EmploymentTypeController extends Controller
 
     public function update(Request $request, EmploymentType $employmentType)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'name' => 'required|string|max:255|unique:employment_types,name,' . $employmentType->id,
             'description' => 'nullable|string',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->boolean('is_active');
 
         $employmentType->update($data);
 

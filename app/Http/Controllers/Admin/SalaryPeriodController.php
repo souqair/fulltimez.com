@@ -22,15 +22,17 @@ class SalaryPeriodController extends Controller
 
     public function store(Request $request)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'name' => 'required|string|max:255|unique:salary_periods,name',
             'description' => 'nullable|string',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->boolean('is_active');
 
         SalaryPeriod::create($data);
 
@@ -45,15 +47,17 @@ class SalaryPeriodController extends Controller
 
     public function update(Request $request, SalaryPeriod $salaryPeriod)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'name' => 'required|string|max:255|unique:salary_periods,name,' . $salaryPeriod->id,
             'description' => 'nullable|string',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-        $data['is_active'] = $request->boolean('is_active');
 
         $salaryPeriod->update($data);
 

@@ -21,15 +21,17 @@ class SalaryCurrencyController extends Controller
 
     public function store(Request $request)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'code' => 'required|string|max:3|unique:salary_currencies,code',
             'name' => 'required|string|max:255',
             'symbol' => 'nullable|string|max:10',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->boolean('is_active');
 
         SalaryCurrency::create($data);
 
@@ -44,15 +46,17 @@ class SalaryCurrencyController extends Controller
 
     public function update(Request $request, SalaryCurrency $salaryCurrency)
     {
+        // Convert checkbox value to boolean before validation
+        $request->merge(['is_active' => $request->boolean('is_active')]);
+        
         $request->validate([
             'code' => 'required|string|max:3|unique:salary_currencies,code,' . $salaryCurrency->id,
             'name' => 'required|string|max:255',
             'symbol' => 'nullable|string|max:10',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->boolean('is_active');
 
         $salaryCurrency->update($data);
 
