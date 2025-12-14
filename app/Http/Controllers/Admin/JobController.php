@@ -69,7 +69,10 @@ class JobController extends Controller
         $salaryPeriods = \App\Models\SalaryPeriod::where('is_active', true)->orderBy('name')->get();
         $employers = User::where('role_id', 2)->with('employerProfile')->get();
         
-        return view('admin.jobs.create', compact('categories', 'employmentTypes', 'experienceLevels', 'experienceYears', 'educationLevels', 'salaryCurrencies', 'salaryPeriods', 'employers'));
+        // Get all countries (admin can post in any country)
+        $countries = \App\Models\Country::where('is_active', true)->orderBy('name')->get();
+        
+        return view('admin.jobs.create', compact('categories', 'employmentTypes', 'experienceLevels', 'experienceYears', 'educationLevels', 'salaryCurrencies', 'salaryPeriods', 'employers', 'countries'));
     }
 
     public function store(Request $request)
@@ -84,6 +87,8 @@ class JobController extends Controller
             'location_country' => 'required|string|max:255',
             'salary_min' => 'nullable|numeric|min:0',
             'salary_max' => 'nullable|numeric|min:0|gte:salary_min',
+            'salary_currency_id' => 'nullable|exists:salary_currencies,id',
+            'salary_period_id' => 'nullable|exists:salary_periods,id',
             'employment_type_id' => 'required|exists:employment_types,id',
             'experience_level_id' => 'required|exists:experience_levels,id',
             'experience_year_id' => 'required|exists:experience_years,id',
@@ -94,6 +99,7 @@ class JobController extends Controller
             'age_to' => 'nullable|integer|min:18|max:100|gte:age_from',
             'age_below' => 'nullable|integer|min:18|max:100',
             'skills_required' => 'nullable|string',
+            'application_deadline' => 'nullable|date|after:today',
             'status' => 'required|in:draft,published,closed',
         ]);
 
@@ -103,6 +109,25 @@ class JobController extends Controller
         if ($request->filled('skills_required')) {
             $skills = array_map('trim', explode(',', $request->skills_required));
             $jobData['skills_required'] = json_encode($skills);
+        }
+        
+        // Validate age fields
+        if ((!empty($jobData['age_from']) || !empty($jobData['age_to'])) && !empty($jobData['age_below'])) {
+            return redirect()->back()
+                ->withErrors(['age_below' => 'Please use either age range (from-to) OR age below, not both.'])
+                ->withInput();
+        }
+        
+        // Generate slug
+        $jobData['slug'] = \Illuminate\Support\Str::slug($jobData['title']) . '-' . time();
+        
+        // Set default values
+        $jobData['priority'] = $jobData['priority'] ?? 'normal';
+        $jobData['ad_type'] = $jobData['ad_type'] ?? 'recommended';
+        
+        // If published, set published_at
+        if ($jobData['status'] === 'published') {
+            $jobData['published_at'] = now();
         }
 
         $job = JobPosting::create($jobData);
@@ -142,7 +167,10 @@ class JobController extends Controller
         $salaryPeriods = \App\Models\SalaryPeriod::where('is_active', true)->orderBy('name')->get();
         $employers = User::where('role_id', 2)->with('employerProfile')->get();
         
-        return view('admin.jobs.edit', compact('job', 'categories', 'employmentTypes', 'experienceLevels', 'experienceYears', 'educationLevels', 'salaryCurrencies', 'salaryPeriods', 'employers'));
+        // Get all countries (admin can post in any country)
+        $countries = \App\Models\Country::where('is_active', true)->orderBy('name')->get();
+        
+        return view('admin.jobs.edit', compact('job', 'categories', 'employmentTypes', 'experienceLevels', 'experienceYears', 'educationLevels', 'salaryCurrencies', 'salaryPeriods', 'employers', 'countries'));
     }
 
     public function update(Request $request, JobPosting $job)
@@ -157,6 +185,8 @@ class JobController extends Controller
             'location_country' => 'required|string|max:255',
             'salary_min' => 'nullable|numeric|min:0',
             'salary_max' => 'nullable|numeric|min:0|gte:salary_min',
+            'salary_currency_id' => 'nullable|exists:salary_currencies,id',
+            'salary_period_id' => 'nullable|exists:salary_periods,id',
             'employment_type_id' => 'required|exists:employment_types,id',
             'experience_level_id' => 'required|exists:experience_levels,id',
             'experience_year_id' => 'required|exists:experience_years,id',
@@ -183,6 +213,11 @@ class JobController extends Controller
             return redirect()->back()
                 ->withErrors(['age_below' => 'Please use either age range (from-to) OR age below, not both.'])
                 ->withInput();
+        }
+        
+        // If status changed to published, set published_at
+        if ($job->status !== 'published' && $jobData['status'] === 'published') {
+            $jobData['published_at'] = now();
         }
 
         $oldStatus = $job->status;
