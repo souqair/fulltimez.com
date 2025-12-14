@@ -472,7 +472,23 @@
                             </div>
                         </div>
                         
-                        @if(!empty($job->salary_min) && !empty($job->salary_max))
+                        @if(in_array($job->salary_type, ['negotiable', 'salary_plus_commission']))
+                        <div class="job-detail-item">
+                            <div class="job-detail-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <span>Salary</span>
+                                <strong>
+                                    @if($job->salary_type == 'negotiable')
+                                        Negotiable
+                                    @elseif($job->salary_type == 'salary_plus_commission')
+                                        Commission based
+                                    @endif
+                                </strong>
+                            </div>
+                        </div>
+                        @elseif(!empty($job->salary_min) && !empty($job->salary_max) && in_array($job->salary_type, ['fixed', 'based_on_experience']))
                         <div class="job-detail-item">
                             <div class="job-detail-icon">
                                 <i class="fas fa-dollar-sign"></i>

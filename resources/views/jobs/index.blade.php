@@ -948,8 +948,16 @@ body {
                         ⏰ {{ optional($job->employmentType)->name ?? 'N/A' }} • {{ optional($job->experienceYear)->name ?? 'N/A' }} Experience
                     </div>
                     <div class="jc-salary" style="font-size: 14px; font-weight: 700; margin-top: 15px; color: #000;">
-                        @if(!empty($job->salary_min) && !empty($job->salary_max))
-                            {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span class="jc-monthly" style="font-size: 11px; color: #777; font-weight: normal;">/ {{ ucfirst($job->salary_period ?? 'Monthly') }}</span>
+                        @if(in_array($job->salary_type, ['negotiable', 'salary_plus_commission']))
+                            <span style="color: #777; font-weight: normal;">
+                                @if($job->salary_type == 'negotiable')
+                                    Negotiable
+                                @elseif($job->salary_type == 'salary_plus_commission')
+                                    Commission based
+                                @endif
+                            </span>
+                        @elseif(!empty($job->salary_min) && !empty($job->salary_max) && in_array($job->salary_type, ['fixed', 'based_on_experience']))
+                            {{ optional($job->salaryCurrency)->code ?? ($job->salary_currency ?? 'AED') }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span class="jc-monthly" style="font-size: 11px; color: #777; font-weight: normal;">/ {{ optional($job->salaryPeriod)->name ?? ucfirst($job->salary_period ?? 'Monthly') }}</span>
                         @else
                             <span style="color: #777; font-weight: normal;">Negotiable</span>
                         @endif
@@ -985,8 +993,16 @@ body {
                     ⏰ {{ optional($job->employmentType)->name ?? 'N/A' }} • {{ optional($job->experienceYear)->name ?? 'N/A' }} Experience
                 </div>
                 <div class="jc-salary" style="font-size: 14px; font-weight: 700; margin-top: 15px; color: #000;">
-                    @if(!empty($job->salary_min) && !empty($job->salary_max))
-                        {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span class="jc-monthly" style="font-size: 11px; color: #777; font-weight: normal;">/ {{ ucfirst($job->salary_period ?? 'Monthly') }}</span>
+                    @if(in_array($job->salary_type, ['negotiable', 'salary_plus_commission']))
+                        <span style="color: #777; font-weight: normal;">
+                            @if($job->salary_type == 'negotiable')
+                                Negotiable
+                            @elseif($job->salary_type == 'salary_plus_commission')
+                                Commission based
+                            @endif
+                        </span>
+                    @elseif(!empty($job->salary_min) && !empty($job->salary_max) && in_array($job->salary_type, ['fixed', 'based_on_experience']))
+                        {{ optional($job->salaryCurrency)->code ?? ($job->salary_currency ?? 'AED') }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }} <span class="jc-monthly" style="font-size: 11px; color: #777; font-weight: normal;">/ {{ optional($job->salaryPeriod)->name ?? ucfirst($job->salary_period ?? 'Monthly') }}</span>
                     @else
                         <span style="color: #777; font-weight: normal;">Negotiable</span>
                     @endif

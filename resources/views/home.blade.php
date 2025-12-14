@@ -1877,15 +1877,23 @@ button svg{
             <!-- Salary -->
             <div class="jc-salary" style="display: flex; align-items: baseline; justify-content: space-between;">
                <div style="font-size: 18px; font-weight: 700; color: #1a1a1a;">
-               @if(!empty($job->salary_min) && !empty($job->salary_max))
-                     {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
+               @if(in_array($job->salary_type, ['negotiable', 'salary_plus_commission']))
+                     <span style="color: #6b7280; font-weight: 500;">
+                        @if($job->salary_type == 'negotiable')
+                            Negotiable
+                        @elseif($job->salary_type == 'salary_plus_commission')
+                            Commission based
+                        @endif
+                     </span>
+               @elseif(!empty($job->salary_min) && !empty($job->salary_max) && in_array($job->salary_type, ['fixed', 'based_on_experience']))
+                     {{ optional($job->salaryCurrency)->code ?? ($job->salary_currency ?? 'AED') }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
                @else
                      <span style="color: #6b7280; font-weight: 500;">Negotiable</span>
                   @endif
                </div>
-               @if(!empty($job->salary_min) && !empty($job->salary_max))
+               @if(!empty($job->salary_min) && !empty($job->salary_max) && in_array($job->salary_type, ['fixed', 'based_on_experience']))
                <div style="font-size: 14px; color: #6b7280; font-weight: 400;">
-                  / {{ ucfirst($job->salary_period ?? 'Monthly') }}
+                  / {{ optional($job->salaryPeriod)->name ?? ucfirst($job->salary_period ?? 'Monthly') }}
                </div>
                @endif
             </div>
@@ -2296,15 +2304,23 @@ button svg{
          <!-- Salary -->
          <div class="jc-salary" style="display: flex; align-items: baseline; justify-content: space-between;">
             <div style="font-size: 18px; font-weight: 700; color: #1a1a1a;">
-            @if(!empty($job->salary_min) && !empty($job->salary_max))
-                  {{ $job->salary_currency ?? 'AED' }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
+            @if(in_array($job->salary_type, ['negotiable', 'salary_plus_commission']))
+                  <span style="color: #6b7280; font-weight: 500;">
+                     @if($job->salary_type == 'negotiable')
+                         Negotiable
+                     @elseif($job->salary_type == 'salary_plus_commission')
+                         Commission based
+                     @endif
+                  </span>
+            @elseif(!empty($job->salary_min) && !empty($job->salary_max) && in_array($job->salary_type, ['fixed', 'based_on_experience']))
+                  {{ optional($job->salaryCurrency)->code ?? ($job->salary_currency ?? 'AED') }} {{ number_format((float)$job->salary_min) }} - {{ number_format((float)$job->salary_max) }}
             @else
                   <span style="color: #6b7280; font-weight: 500;">Negotiable</span>
                @endif
             </div>
-            @if(!empty($job->salary_min) && !empty($job->salary_max))
+            @if(!empty($job->salary_min) && !empty($job->salary_max) && in_array($job->salary_type, ['fixed', 'based_on_experience']))
             <div style="font-size: 14px; color: #6b7280; font-weight: 400;">
-               / {{ ucfirst($job->salary_period ?? 'Monthly') }}
+               / {{ optional($job->salaryPeriod)->name ?? ucfirst($job->salary_period ?? 'Monthly') }}
             </div>
             @endif
          </div>
