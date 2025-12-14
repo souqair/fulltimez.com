@@ -315,32 +315,9 @@
 @endpush
 
 @section('content')
-<section class="breadcrumb-section">
-    <div class="container-auto">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-12">
-                <div class="page-title">
-                    <h1>Edit Job</h1>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-12">
-                <nav aria-label="breadcrumb" class="theme-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('employer.jobs.index') }}">My Jobs</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Job</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="pagecontent dashboard_wrap">
-    <div class="container">
-        <div class="row contactWrp">
-            @include('dashboard.sidebar')
-            <div class="col-lg-9">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
                 <div class="professional-form-container">
                     <!-- Header Section -->
                     <div class="form-header">
@@ -726,7 +703,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>
