@@ -153,123 +153,58 @@
                                 </div>
                             </div>
                             
-                    <!-- Jobs Table -->
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered align-middle" id="jobsTable">
-                            <thead class="table-light">
-                                <tr>
-                                    <th style="width: 5%;">ID</th>
-                                    <th style="width: 20%;">Job Title</th>
-                                    <th style="width: 12%;">Company</th>
-                                    <th style="width: 10%;">Location</th>
-                                    <th style="width: 8%;">Category</th>
-                                    <th style="width: 8%;">Status</th>
-                                    <th style="width: 8%;">OEP Info</th>
-                                    <th style="width: 7%;">Applications</th>
-                                    <th style="width: 7%;">Posted Date</th>
-                                    <th style="width: 15%;" class="text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($jobs as $job)
-                                <tr>
-                                    <td>{{ $job->id }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.jobs.show', $job) }}" class="text-decoration-none fw-semibold">
-                                            {{ Str::limit($job->title, 40) }}
-                                        </a>
-                                        @if($job->ad_type === 'featured' || $job->isFeatured())
-                                            <span class="badge bg-warning text-dark ms-1" title="Featured">
-                                                <i class="fas fa-star"></i> Featured
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($job->employer && $job->employer->employerProfile)
-                                            <small class="text-muted">
-                                                <i class="fas fa-building"></i> {{ Str::limit($job->employer->employerProfile->company_name, 25) }}
-                                            </small>
-                                        @else
-                                            <span class="text-muted">N/A</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <small>
-                                            <i class="fas fa-map-marker-alt text-muted"></i>
-                                            {{ Str::limit($job->location_city, 15) }}, {{ Str::limit($job->location_country, 15) }}
-                                        </small>
-                                    </td>
-                                    <td>
-                                        @if($job->category)
-                                            <span class="badge bg-primary">{{ Str::limit($job->category->name, 15) }}</span>
-                                        @else
-                                            <span class="text-muted">N/A</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($job->status == 'published')
-                                            <span class="badge bg-success">Published</span>
-                                        @elseif($job->status == 'pending')
-                                            <span class="badge bg-warning text-dark">Pending</span>
-                                        @elseif($job->status == 'featured_pending')
-                                            <span class="badge bg-info">Featured Pending</span>
-                                        @elseif($job->status == 'draft')
-                                            <span class="badge bg-secondary">Draft</span>
-                                        @else
-                                            <span class="badge bg-danger">Closed</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($job->is_oep_pakistan == 1)
-                                            <span class="badge bg-info">OEP: Yes</span>
-                                            @if($job->oep_permission_number)
-                                                <br><small class="text-info" title="Permission: {{ $job->oep_permission_number }}">
-                                                    <i class="fas fa-certificate"></i> {{ Str::limit($job->oep_permission_number, 10) }}
-                                                </small>
-                                            @endif
-                                        @else
-                                            <span class="text-muted">No</span>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="badge bg-secondary">
-                                            <i class="fas fa-users"></i> {{ $job->applications()->count() }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <small class="text-muted">
-                                            {{ $job->created_at->format('M j, Y') }}
-                                        </small>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('admin.jobs.show', $job) }}" class="btn btn-sm btn-outline-primary" title="View">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="{{ route('admin.jobs.edit', $job) }}" class="btn btn-sm btn-outline-info" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="More Actions">
+                    <!-- Jobs Grid -->
+                    <div class="row g-3">
+                        @forelse($jobs as $job)
+                            <div class="col-6 col-md-4 col-lg-3 col-xl-2-4">
+                                <div class="job-card-compact">
+                                    <div class="job-card-header">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <div class="flex-grow-1">
+                                                <h6 class="job-title mb-1">
+                                                    <a href="{{ route('admin.jobs.show', $job) }}" title="{{ $job->title }}">
+                                                        {{ Str::limit($job->title, 40) }}
+                                                    </a>
+                                                </h6>
+                                                @if($job->employer && $job->employer->employerProfile)
+                                                    <p class="job-company mb-0">
+                                                        <i class="fas fa-building"></i>
+                                                        <span>{{ Str::limit($job->employer->employerProfile->company_name, 25) }}</span>
+                                                    </p>
+                                                @endif
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn-icon" type="button" id="jobActions{{ $job->id }}" data-bs-toggle="dropdown">
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </button>
-                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="jobActions{{ $job->id }}">
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ route('admin.jobs.show', $job) }}">
+                                                            <i class="fas fa-eye text-primary"></i> View
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ route('admin.jobs.edit', $job) }}">
+                                                            <i class="fas fa-edit text-info"></i> Edit
+                                                        </a>
+                                                    </li>
                                                     @if($job->status === 'pending' || $job->status === 'featured_pending')
+                                                        <li><hr class="dropdown-divider"></li>
                                                         <li>
                                                             <form action="{{ route('admin.jobs.approve', $job) }}" method="POST" class="d-inline" onsubmit="return confirm('Approve this job?');">
                                                                 @csrf
                                                                 <button type="submit" class="dropdown-item text-success">
-                                                                    <i class="fas fa-check"></i> Approve Job
+                                                                    <i class="fas fa-check"></i> Approve
                                                                 </button>
                                                             </form>
                                                         </li>
                                                         @if($job->status === 'featured_pending')
                                                         <li>
-                                                            <form action="{{ route('admin.jobs.approve', $job) }}" method="POST" class="d-inline" onsubmit="return confirm('Approve this featured request as Recommended (Free) job?');">
+                                                            <form action="{{ route('admin.jobs.approve', $job) }}" method="POST" class="d-inline" onsubmit="return confirm('Approve as Recommended?');">
                                                                 @csrf
                                                                 <input type="hidden" name="as_recommended" value="1">
                                                                 <button type="submit" class="dropdown-item text-info">
-                                                                    <i class="fas fa-thumbs-up"></i> Approve as Recommended
+                                                                    <i class="fas fa-thumbs-up"></i> As Recommended
                                                                 </button>
                                                             </form>
                                                         </li>
@@ -278,20 +213,20 @@
                                                             <form action="{{ route('admin.jobs.reject', $job) }}" method="POST" class="d-inline" onsubmit="return confirm('Reject this job?');">
                                                                 @csrf
                                                                 <button type="submit" class="dropdown-item text-danger">
-                                                                    <i class="fas fa-times"></i> Reject Job
+                                                                    <i class="fas fa-times"></i> Reject
                                                                 </button>
                                                             </form>
                                                         </li>
-                                                        <li><hr class="dropdown-divider"></li>
                                                     @endif
                                                     @if($job->status === 'published')
+                                                        <li><hr class="dropdown-divider"></li>
                                                         @if($job->ad_type === 'featured' || $job->isFeatured())
                                                         <li>
-                                                            <form action="{{ route('admin.jobs.toggle-featured', $job) }}" method="POST" class="d-inline" onsubmit="return confirm('Convert this featured job to regular/recommended?');">
+                                                            <form action="{{ route('admin.jobs.toggle-featured', $job) }}" method="POST" class="d-inline" onsubmit="return confirm('Convert to Regular?');">
                                                                 @csrf
                                                                 <input type="hidden" name="make_featured" value="0">
                                                                 <button type="submit" class="dropdown-item text-warning">
-                                                                    <i class="fas fa-star-half-alt"></i> Convert to Regular
+                                                                    <i class="fas fa-star-half-alt"></i> To Regular
                                                                 </button>
                                                             </form>
                                                         </li>
@@ -302,37 +237,107 @@
                                                             </button>
                                                         </li>
                                                         @endif
-                                                        <li><hr class="dropdown-divider"></li>
                                                     @endif
+                                                    <li><hr class="dropdown-divider"></li>
                                                     <li>
-                                                        <form action="{{ route('admin.jobs.destroy', $job) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this job?');">
+                                                        <form action="{{ route('admin.jobs.destroy', $job) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this job?');">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="dropdown-item text-danger">
-                                                                <i class="fas fa-trash"></i> Delete Job
+                                                                <i class="fas fa-trash"></i> Delete
                                                             </button>
                                                         </form>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="10" class="text-center py-5">
-                                        <i class="fas fa-briefcase fa-4x text-muted mb-3 d-block"></i>
-                                        <h5 class="text-muted">No jobs found</h5>
-                                        <p class="text-muted">No jobs match your current filters.</p>
-                                        <a href="{{ route('admin.jobs.create') }}" class="btn btn-primary mt-3">
-                                            <i class="fas fa-plus"></i> Create First Job
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+                                        
+                                        <div class="job-badges mb-2">
+                                            @if($job->status == 'published')
+                                                <span class="badge-status status-published">Published</span>
+                                            @elseif($job->status == 'pending')
+                                                <span class="badge-status status-pending">Pending</span>
+                                            @elseif($job->status == 'featured_pending')
+                                                <span class="badge-status status-featured-pending">Featured Pending</span>
+                                            @elseif($job->status == 'draft')
+                                                <span class="badge-status status-draft">Draft</span>
+                                            @else
+                                                <span class="badge-status status-closed">Closed</span>
+                                            @endif
+                                            @if($job->ad_type === 'featured' || $job->isFeatured())
+                                                <span class="badge-status status-featured">
+                                                    <i class="fas fa-star"></i> Featured
+                                                </span>
+                                            @endif
+                                            @if($job->category)
+                                                <span class="badge-status status-category">{{ Str::limit($job->category->name, 12) }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="job-card-body">
+                                        <div class="job-info-item">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>{{ Str::limit($job->location_city, 15) }}, {{ Str::limit($job->location_country, 10) }}</span>
+                                        </div>
+                                        
+                                        @if($job->is_oep_pakistan == 1 && $job->oep_permission_number)
+                                            <div class="job-info-item job-info-oep">
+                                                <i class="fas fa-certificate"></i>
+                                                <span><strong>OEP#:</strong> {{ Str::limit($job->oep_permission_number, 15) }}</span>
+                                            </div>
+                                        @endif
+                                        
+                                        @if($job->salary_min || $job->salary_max)
+                                            <div class="job-info-item">
+                                                <i class="fas fa-dollar-sign"></i>
+                                                <span>
+                                                    @if($job->salary_min && $job->salary_max)
+                                                        {{ number_format($job->salary_min/1000, 0) }}k-{{ number_format($job->salary_max/1000, 0) }}k
+                                                    @elseif($job->salary_min)
+                                                        From {{ number_format($job->salary_min/1000, 0) }}k
+                                                    @else
+                                                        Up to {{ number_format($job->salary_max/1000, 0) }}k
+                                                    @endif
+                                                </span>
+                                            </div>
+                                        @endif
+                                        
+                                        <div class="job-info-item">
+                                            <i class="fas fa-users"></i>
+                                            <span>{{ $job->applications()->count() }} Applications</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="job-card-footer">
+                                        <div class="job-footer-info">
+                                            <i class="fas fa-calendar"></i>
+                                            <span>{{ $job->created_at->format('M j, Y') }}</span>
+                                        </div>
+                                        <div class="job-footer-actions">
+                                            <a href="{{ route('admin.jobs.show', $job) }}" class="btn-action" title="View">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('admin.jobs.edit', $job) }}" class="btn-action" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            @empty
+                            <div class="col-12">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-briefcase fa-4x text-muted mb-3"></i>
+                                    <h5 class="text-muted">No jobs found</h5>
+                                    <p class="text-muted">No jobs match your current filters.</p>
+                                    <a href="{{ route('admin.jobs.create') }}" class="btn btn-primary mt-3">
+                    <i class="fas fa-plus"></i> Create First Job
+                </a>
+                                </div>
+            </div>
+            @endforelse
+        </div>
         
                     <!-- Pagination -->
         <div class="row mt-4">
@@ -407,114 +412,265 @@
 @endforeach
 
 <style>
-/* Table Styles */
-#jobsTable {
-    font-size: 0.9rem;
+/* Compact Job Cards */
+.job-card-compact {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-#jobsTable thead th {
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid #dee2e6;
-    padding: 12px 8px;
-    background-color: #f8f9fa;
-    position: sticky;
+.job-card-compact::before {
+    content: '';
+    position: absolute;
     top: 0;
-    z-index: 10;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-#jobsTable tbody tr {
-    transition: background-color 0.2s;
+.job-card-compact:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-color: #667eea;
 }
 
-#jobsTable tbody tr:hover {
-    background-color: #f8f9fa;
+.job-card-compact:hover::before {
+    opacity: 1;
 }
 
-#jobsTable td {
-    padding: 12px 8px;
-    vertical-align: middle;
+.job-card-header {
+    margin-bottom: 12px;
 }
 
-#jobsTable .badge {
-    font-size: 0.75rem;
-    padding: 0.35em 0.65em;
+.job-title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.job-title a {
+    color: #1f2937;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.job-title a:hover {
+    color: #667eea;
+}
+
+.job-company {
+    font-size: 11px;
+    color: #6b7280;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.job-company i {
+    font-size: 10px;
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
+    padding: 4px 8px;
+    color: #9ca3af;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.btn-icon:hover {
+    background: #f3f4f6;
+    color: #667eea;
+}
+
+.job-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.badge-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.status-published {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-featured-pending {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-draft {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+.status-closed {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-featured {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-featured i {
+    font-size: 9px;
+    margin-right: 3px;
+}
+
+.status-category {
+    background: #ede9fe;
+    color: #6d28d9;
+}
+
+.job-card-body {
+    flex: 1;
+    margin-bottom: 12px;
+}
+
+.job-info-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.job-info-item:last-child {
+    margin-bottom: 0;
+}
+
+.job-info-item i {
+    font-size: 10px;
+    width: 14px;
+    color: #9ca3af;
+    flex-shrink: 0;
+}
+
+.job-info-oep {
+    color: #0284c7;
     font-weight: 500;
 }
 
-/* Action Buttons */
-#jobsTable .btn-group {
+.job-info-oep i {
+    color: #0284c7;
+}
+
+.job-card-footer {
     display: flex;
-    gap: 2px;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid #f3f4f6;
+    margin-top: auto;
 }
 
-#jobsTable .btn-sm {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
-    border-radius: 0.25rem;
+.job-footer-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    color: #9ca3af;
 }
 
-#jobsTable .btn-outline-primary:hover {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-    color: white;
+.job-footer-info i {
+    font-size: 9px;
 }
 
-#jobsTable .btn-outline-info:hover {
-    background-color: #0dcaf0;
-    border-color: #0dcaf0;
-    color: white;
+.job-footer-actions {
+    display: flex;
+    gap: 6px;
 }
 
-#jobsTable .btn-outline-secondary:hover {
-    background-color: #6c757d;
-    border-color: #6c757d;
-    color: white;
+.btn-action {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: #f3f4f6;
+    color: #6b7280;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 11px;
 }
 
-/* Dropdown Menu */
-#jobsTable .dropdown-menu {
-    min-width: 200px;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(0, 0, 0, 0.15);
+.btn-action:hover {
+    background: #667eea;
+    color: #ffffff;
+    transform: scale(1.1);
 }
 
-#jobsTable .dropdown-item {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
+/* Responsive Grid */
+.col-xl-2-4 {
+    flex: 0 0 auto;
+    width: 20%;
 }
 
-#jobsTable .dropdown-item i {
-    width: 18px;
-    text-align: center;
-    margin-right: 8px;
+@media (max-width: 1400px) {
+    .col-xl-2-4 {
+        width: 25%;
+    }
 }
 
-/* Status Badges */
-.bg-success {
-    background-color: #198754 !important;
+@media (max-width: 1200px) {
+    .col-xl-2-4 {
+        width: 33.333333%;
+    }
 }
 
-.bg-warning {
-    background-color: #ffc107 !important;
-    color: #000 !important;
+@media (max-width: 992px) {
+    .col-xl-2-4 {
+        width: 50%;
+    }
 }
 
-.bg-info {
-    background-color: #0dcaf0 !important;
+@media (max-width: 768px) {
+    .col-xl-2-4 {
+        width: 100%;
+    }
+    
+    .job-card-compact {
+        padding: 14px;
+    }
 }
 
-.bg-secondary {
-    background-color: #6c757d !important;
-}
-
-.bg-danger {
-    background-color: #dc3545 !important;
-}
-
-/* Avatar Styles */
+/* Statistics Cards */
 .avatar-sm {
     width: 3rem;
     height: 3rem;
@@ -551,31 +707,9 @@
     background-color: rgba(13, 202, 240, 0.1) !important;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-    #jobsTable {
-        font-size: 0.85rem;
-    }
-    
-    #jobsTable th,
-    #jobsTable td {
-        padding: 8px 6px;
-    }
-}
-
-@media (max-width: 768px) {
-    .table-responsive {
-        overflow-x: auto;
-    }
-    
-    #jobsTable {
-        font-size: 0.8rem;
-    }
-    
-    #jobsTable .btn-sm {
-        padding: 0.2rem 0.4rem;
-        font-size: 0.75rem;
-    }
+/* Empty State */
+.text-center.py-5 {
+    padding: 3rem 0;
 }
 </style>
 @endsection
