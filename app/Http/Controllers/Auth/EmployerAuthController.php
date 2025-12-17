@@ -35,13 +35,20 @@ class EmployerAuthController extends Controller
                 return back()->withErrors(['email' => 'Invalid credentials for employer.']);
             }
 
+            // Check if user is banned
+            if ($user->status === 'banned') {
+                Auth::logout();
+                return back()->withErrors(['email' => 'Your account has been banned. Please contact support.']);
+            }
+
             if (!$user->hasVerifiedEmail()) {
                 Auth::logout();
                 return redirect()->route('verification.notice')
                     ->with('error', 'Please verify your email address before logging in. Check your inbox for verification link.');
             }
 
-            // Note: Admin approval is no longer required for login.
+            // Note: Admin approval is NOT required for login.
+            // Verified employers can login even if not approved by admin.
             // Admin approval is only required for posting jobs (handled in JobPostingController).
 
             // Reset failed login attempts on successful login

@@ -655,6 +655,18 @@
                             </div>
                         </div>
                         @endif
+                        
+                        @if($job->is_oep_pakistan && !empty($job->oep_permission_number))
+                        <div class="job-detail-item">
+                            <div class="job-detail-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="job-detail-content">
+                                <span>OEP Permission Number</span>
+                                <strong>{{ $job->oep_permission_number }}</strong>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 
