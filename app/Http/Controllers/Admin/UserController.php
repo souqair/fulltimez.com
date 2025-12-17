@@ -327,13 +327,33 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Seeker profile not found for this user.');
         }
 
+        $approveAsRegular = $request->has('as_regular') && $request->as_regular == '1';
+        
+        // If admin wants to approve as regular (non-featured) instead of featured
+        if ($approveAsRegular) {
+            // First approve if not already approved
+            if ($user->seekerProfile->approval_status !== 'approved') {
+                $user->seekerProfile->update(['approval_status' => 'approved']);
+                $user->notify(new ResumeApproved());
+            }
+            
+            // Ensure it's not featured
+            $user->seekerProfile->update([
+                'is_featured' => false,
+                'featured_expires_at' => null,
+            ]);
+
+            return redirect()->back()->with('success', 'Resume approved as regular (non-featured). It will appear on Browse Resume page but not on homepage.');
+        }
+
         $request->validate([
             'featured_duration' => 'required|integer|min:1|max:365', // days
         ]);
 
-        // First approve if not already approved
+        // First approve if not already approved (so it can be featured)
         if ($user->seekerProfile->approval_status !== 'approved') {
             $user->seekerProfile->update(['approval_status' => 'approved']);
+            $user->notify(new ResumeApproved());
         }
 
         // Set featured - cast to int to ensure it's not a string

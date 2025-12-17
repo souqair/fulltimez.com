@@ -408,6 +408,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::get('/jobs', [App\Http\Controllers\Admin\JobController::class, 'index'])->name('jobs.index');
     Route::post('/jobs/{job}/approve', [App\Http\Controllers\Admin\JobController::class, 'approve'])->name('jobs.approve');
     Route::post('/jobs/{job}/reject', [App\Http\Controllers\Admin\JobController::class, 'reject'])->name('jobs.reject');
+    Route::post('/jobs/{job}/toggle-featured', [App\Http\Controllers\Admin\JobController::class, 'toggleFeatured'])->name('jobs.toggle-featured');
     Route::put('/jobs/{job}/status', [App\Http\Controllers\Admin\JobController::class, 'updateStatus'])->name('jobs.update-status');
     Route::delete('/jobs/{job}', [App\Http\Controllers\Admin\JobController::class, 'destroy'])->name('jobs.destroy');
     

@@ -40,6 +40,19 @@ class JobController extends Controller
             $query->where('status', $request->status);
         }
 
+        // OEP Pakistan filter
+        if ($request->filled('is_oep_pakistan')) {
+            $isOep = $request->is_oep_pakistan;
+            if ($isOep === '1') {
+                $query->where('is_oep_pakistan', 1);
+            } elseif ($isOep === '0') {
+                $query->where(function($q) {
+                    $q->where('is_oep_pakistan', 0)
+                      ->orWhereNull('is_oep_pakistan');
+                });
+            }
+        }
+
         $perPage = $request->get('per_page', 20);
         $perPage = in_array($perPage, [10, 20, 50, 100]) ? $perPage : 20;
         
@@ -244,13 +257,44 @@ class JobController extends Controller
             ->with('success', 'Job updated successfully.');
     }
 
-    public function approve(JobPosting $job)
+    public function approve(JobPosting $job, Request $request)
     {
+        $approveAsRecommended = $request->has('as_recommended') && $request->as_recommended == '1';
         $wasFeaturedPending = $job->status === 'featured_pending';
         $priority = $job->priority ?? 'normal';
         $adType = $job->ad_type ?? null;
 
-        // Calculate expiration date based on package
+        // If admin wants to approve featured request as recommended
+        if ($wasFeaturedPending && $approveAsRecommended) {
+            $expiresAt = now()->addDays(7);
+            $job->update([
+                'status' => 'published',
+                'published_at' => now(),
+                'expires_at' => $expiresAt,
+                'featured_expires_at' => null,
+                'ad_type' => 'recommended',
+                'priority' => 'normal',
+                'is_premium' => false,
+                'premium_expires_at' => null,
+            ]);
+
+            // Notify employer
+            if ($job->employer) {
+                $expiresText = $expiresAt ? $expiresAt->format('F j, Y') : null;
+                $job->employer->notify(new \App\Notifications\JobPublished(
+                    $job->id,
+                    $job->title,
+                    $expiresText
+                ));
+            }
+
+            // Notify matching jobseekers
+            $this->notifyMatchingJobseekers($job);
+
+            return redirect()->back()->with('success', 'Featured ad request approved as Recommended job. Job is now published in Recommended section.');
+        }
+
+        // Original featured approval logic
         $expiresAt = null;
         $featuredExpiresAt = null;
         $featuredDuration = null;
@@ -429,6 +473,52 @@ class JobController extends Controller
         $job->update(['status' => 'rejected']);
 
         return redirect()->back()->with('success', 'Job rejected successfully.');
+    }
+
+    /**
+     * Toggle featured status for a published job
+     */
+    public function toggleFeatured(Request $request, JobPosting $job)
+    {
+        if ($job->status !== 'published') {
+            return redirect()->back()->with('error', 'Only published jobs can be featured/unfeatured.');
+        }
+
+        $makeFeatured = $request->has('make_featured') && $request->make_featured == '1';
+        
+        if ($makeFeatured) {
+            // Make job featured
+            $duration = (int) ($request->featured_duration ?? 7);
+            if ($duration <= 0) {
+                $duration = 7;
+            }
+
+            $featuredExpiresAt = now()->addDays($duration);
+            $expiresAt = now()->addDays(max($duration, 7));
+
+            $job->update([
+                'ad_type' => 'featured',
+                'priority' => 'featured',
+                'featured_expires_at' => $featuredExpiresAt,
+                'featured_duration' => $duration,
+                'expires_at' => $expiresAt,
+                'is_premium' => false,
+            ]);
+
+            return redirect()->back()->with('success', "Job featured successfully for {$duration} days.");
+        } else {
+            // Convert featured to regular/recommended
+            $job->update([
+                'ad_type' => 'recommended',
+                'priority' => 'normal',
+                'featured_expires_at' => null,
+                'featured_duration' => null,
+                'is_premium' => false,
+                'premium_expires_at' => null,
+            ]);
+
+            return redirect()->back()->with('success', 'Job converted to regular/recommended successfully.');
+        }
     }
 
     public function destroy(JobPosting $job)

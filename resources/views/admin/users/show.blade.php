@@ -283,10 +283,17 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-info" onclick="approveAsRegular()">
+                                    <i class="fas fa-check"></i> Approve as Regular
+                                </button>
                                 <button type="submit" class="btn btn-warning">
                                     <i class="fas fa-star"></i> Feature Resume
                                 </button>
                             </div>
+                        </form>
+                        <form id="approveAsRegularForm" action="{{ route('admin.users.feature-resume', $user) }}" method="POST" style="display: none;">
+                            @csrf
+                            <input type="hidden" name="as_regular" value="1">
                         </form>
                     </div>
                 </div>
@@ -337,6 +344,13 @@ document.addEventListener('DOMContentLoaded', function(){
 			// cvIframe.setAttribute('src', 'about:blank');
 		});
 	}
+	
+	// Approve resume as regular (non-featured)
+	window.approveAsRegular = function() {
+		if (confirm('Approve this resume as regular (non-featured)? It will appear on Browse Resume page but not on homepage.')) {
+			document.getElementById('approveAsRegularForm').submit();
+		}
+	};
 });
 </script>
 @endpush

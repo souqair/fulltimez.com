@@ -127,7 +127,7 @@
                         @endforeach
                     </select>
             </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <select class="form-control" name="status">
                         <option value="">All Status</option>
                         <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending Approval</option>
@@ -137,7 +137,14 @@
                         <option value="closed" {{ request('status') == 'closed' ? 'selected' : '' }}>Closed</option>
                     </select>
         </div>
-                                <div class="col-md-2">
+                <div class="col-md-2">
+                    <select class="form-control" name="is_oep_pakistan">
+                        <option value="">All OEP Status</option>
+                        <option value="1" {{ request('is_oep_pakistan') == '1' ? 'selected' : '' }}>OEP in Pakistan (Yes)</option>
+                        <option value="0" {{ request('is_oep_pakistan') == '0' ? 'selected' : '' }}>Not OEP (No)</option>
+                    </select>
+        </div>
+                                <div class="col-md-1">
                                     <button type="submit" class="btn btn-primary w-100">
                         <i class="fas fa-search"></i> Filter
                     </button>
@@ -190,6 +197,17 @@
                                     </button>
                                 </form>
                                                         </li>
+                                                        @if($job->status === 'featured_pending')
+                                                        <li>
+                                <form action="{{ route('admin.jobs.approve', $job) }}" method="POST" class="d-inline" onsubmit="return confirm('Approve this featured request as Recommended (Free) job?');">
+                                    @csrf
+                                    <input type="hidden" name="as_recommended" value="1">
+                                                                <button type="submit" class="dropdown-item text-info">
+                                                                    <i class="fas fa-thumbs-up"></i> Approve as Recommended
+                                    </button>
+                                </form>
+                                                        </li>
+                                                        @endif
                                                         <li>
                                 <form action="{{ route('admin.jobs.reject', $job) }}" method="POST" class="d-inline" onsubmit="return confirm('Reject this job?');">
                                     @csrf
@@ -198,6 +216,26 @@
                                     </button>
                                 </form>
                                                         </li>
+                            @endif
+                            @if($job->status === 'published')
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        @if($job->ad_type === 'featured' || $job->isFeatured())
+                                                        <li>
+                                <form action="{{ route('admin.jobs.toggle-featured', $job) }}" method="POST" class="d-inline" onsubmit="return confirm('Convert this featured job to regular/recommended?');">
+                                    @csrf
+                                    <input type="hidden" name="make_featured" value="0">
+                                                                <button type="submit" class="dropdown-item text-warning">
+                                                                    <i class="fas fa-star-half-alt"></i> Convert to Regular
+                                    </button>
+                                </form>
+                                                        </li>
+                                                        @else
+                                                        <li>
+                                <button type="button" class="dropdown-item text-warning" data-bs-toggle="modal" data-bs-target="#featureJobModal{{ $job->id }}">
+                                                                    <i class="fas fa-star"></i> Make Featured
+                                    </button>
+                                                        </li>
+                                                        @endif
                             @endif
                                                     <li><hr class="dropdown-divider"></li>
                                                     <li>
@@ -237,6 +275,14 @@
                                                     {{ $job->location_city }}, {{ $job->location_country }}
                                                 </small>
                                             </div>
+                                            @if($job->is_oep_pakistan == 1 && $job->oep_permission_number)
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <i class="fas fa-certificate text-info me-2"></i>
+                                                    <small class="text-info">
+                                                        <strong>OEP Permission#:</strong> {{ $job->oep_permission_number }}
+                                                    </small>
+                                                </div>
+                                            @endif
                         @if($job->salary_min || $job->salary_max)
                                                 <div class="d-flex align-items-center mb-2">
                                                     <i class="fas fa-dollar-sign text-muted me-2"></i>
@@ -327,6 +373,42 @@
         </div>
     </div>
 </div>
+
+<!-- Feature Job Modals -->
+@foreach($jobs as $job)
+    @if($job->status === 'published' && ($job->ad_type !== 'featured' && !$job->isFeatured()))
+    <div class="modal fade" id="featureJobModal{{ $job->id }}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Feature Job</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ route('admin.jobs.toggle-featured', $job) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="make_featured" value="1">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="featured_duration{{ $job->id }}" class="form-label">Featured Duration (Days)</label>
+                            <input type="number" class="form-control" id="featured_duration{{ $job->id }}" name="featured_duration" min="1" max="365" value="7" required>
+                            <small class="form-text text-muted">Job will be featured on homepage for the specified number of days.</small>
+                        </div>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> This job will appear in the featured section on homepage.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-star"></i> Feature Job
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endif
+@endforeach
 
 <style>
 .job-card {
