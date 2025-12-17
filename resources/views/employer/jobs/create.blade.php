@@ -1023,6 +1023,39 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Are you an OEP in Pakistan? <sup class="text-danger">*</sup></label>
+                                                <div class="d-flex gap-4 mt-2">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="is_oep_pakistan" id="oep_yes" value="1" {{ old('is_oep_pakistan') == '1' ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="oep_yes">
+                                                            Yes
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="is_oep_pakistan" id="oep_no" value="0" {{ old('is_oep_pakistan', '0') == '0' ? 'checked' : '' }}>
+                                                        <label class="form-check-label" for="oep_no">
+                                                            No
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                @error('is_oep_pakistan')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12" id="oep_permission_field" style="display: none;">
+                                            <div class="form-group">
+                                                <label class="form-label">Permission# <sup class="text-danger">*</sup></label>
+                                                <input type="text" name="oep_permission_number" id="oep_permission_number" class="form-control @error('oep_permission_number') is-invalid @enderror" value="{{ old('oep_permission_number') }}" placeholder="Enter Permission Number">
+                                                @error('oep_permission_number')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                             <label class="form-label">Experience Level <sup class="text-danger">*</sup></label>
@@ -1510,6 +1543,31 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize progress
     updateProgress();
+    
+    // OEP Pakistan field toggle
+    const oepYes = document.getElementById('oep_yes');
+    const oepNo = document.getElementById('oep_no');
+    const oepPermissionField = document.getElementById('oep_permission_field');
+    const oepPermissionNumber = document.getElementById('oep_permission_number');
+    
+    function toggleOEPPermissionField() {
+        if (oepYes && oepYes.checked) {
+            oepPermissionField.style.display = 'block';
+            oepPermissionNumber.setAttribute('required', 'required');
+        } else {
+            oepPermissionField.style.display = 'none';
+            oepPermissionNumber.removeAttribute('required');
+            oepPermissionNumber.value = '';
+        }
+    }
+    
+    if (oepYes && oepNo) {
+        oepYes.addEventListener('change', toggleOEPPermissionField);
+        oepNo.addEventListener('change', toggleOEPPermissionField);
+        // Initialize on page load
+        toggleOEPPermissionField();
+    }
+    
     // Dynamic city loading based on country selection
     const countrySelect = document.getElementById('location_country');
     const citySelect = document.getElementById('location_city');

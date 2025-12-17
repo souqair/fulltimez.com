@@ -382,6 +382,89 @@ class UserController extends Controller
         return response()->download($fullPath, 'CV-'.$user->name.'.pdf');
     }
 
+    /**
+     * Admin: Show list of seekers with CVs for bulk download
+     */
+    public function resumesIndex(Request $request)
+    {
+        $query = User::whereHas('role', function($q) {
+            $q->where('slug', 'seeker');
+        })->whereHas('seekerProfile', function($q) {
+            $q->whereNotNull('cv_file');
+        })->with('seekerProfile');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhereHas('seekerProfile', function($sq) use ($search) {
+                      $sq->where('current_position', 'like', "%{$search}%")
+                        ->orWhere('city', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $seekers = $query->orderBy('id', 'desc')->paginate(20);
+
+        return view('admin.users.resumes', compact('seekers'));
+    }
+
+    /**
+     * Admin: Bulk download CVs
+     */
+    public function bulkDownloadCvs(Request $request)
+    {
+        $request->validate([
+            'user_ids' => 'required|array|min:1',
+            'user_ids.*' => 'exists:users,id',
+        ]);
+
+        $users = User::whereIn('id', $request->user_ids)
+            ->whereHas('role', function($q) {
+                $q->where('slug', 'seeker');
+            })
+            ->with('seekerProfile')
+            ->get();
+
+        if ($users->isEmpty()) {
+            return redirect()->back()->with('error', 'No valid seekers selected.');
+        }
+
+        $zip = new \ZipArchive();
+        $zipFileName = 'resumes_' . date('Y-m-d_His') . '.zip';
+        $zipPath = storage_path('app/temp/' . $zipFileName);
+
+        // Create temp directory if it doesn't exist
+        if (!file_exists(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0755, true);
+        }
+
+        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== TRUE) {
+            return redirect()->back()->with('error', 'Failed to create zip file.');
+        }
+
+        $addedCount = 0;
+        foreach ($users as $user) {
+            if ($user->seekerProfile && $user->seekerProfile->cv_file) {
+                $filePath = public_path($user->seekerProfile->cv_file);
+                if (file_exists($filePath)) {
+                    $fileName = 'CV-' . preg_replace('/[^a-zA-Z0-9_-]/', '_', $user->name) . '.pdf';
+                    $zip->addFile($filePath, $fileName);
+                    $addedCount++;
+                }
+            }
+        }
+
+        $zip->close();
+
+        if ($addedCount === 0) {
+            return redirect()->back()->with('error', 'No valid CV files found to download.');
+        }
+
+        return response()->download($zipPath, $zipFileName)->deleteFileAfterSend(true);
+    }
+
     public function destroy(User $user)
     {
         if ($user->isAdmin()) {
@@ -391,6 +474,37 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->back()->with('success', 'User deleted successfully!');
+    }
+
+    /**
+     * Admin: Bulk delete users
+     */
+    public function bulkDelete(Request $request)
+    {
+        $request->validate([
+            'user_ids' => 'required|array|min:1',
+            'user_ids.*' => 'exists:users,id',
+        ]);
+
+        $users = User::whereIn('id', $request->user_ids)
+            ->whereHas('role', function($q) {
+                $q->where('slug', '!=', 'admin');
+            })
+            ->get();
+
+        if ($users->isEmpty()) {
+            return redirect()->back()->with('error', 'No valid users selected for deletion.');
+        }
+
+        $deletedCount = 0;
+        foreach ($users as $user) {
+            if (!$user->isAdmin()) {
+                $user->delete();
+                $deletedCount++;
+            }
+        }
+
+        return redirect()->back()->with('success', "{$deletedCount} user(s) deleted successfully!");
     }
 
     /**

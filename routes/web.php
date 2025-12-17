@@ -397,7 +397,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::post('/users/{user}/feature-resume', [App\Http\Controllers\Admin\UserController::class, 'featureResume'])->name('users.feature-resume');
     Route::post('/users/{user}/unfeature-resume', [App\Http\Controllers\Admin\UserController::class, 'unfeatureResume'])->name('users.unfeature-resume');
     Route::get('/users/{user}/download-cv', [App\Http\Controllers\Admin\UserController::class, 'downloadCv'])->name('users.download-cv');
+    Route::get('/resumes', [App\Http\Controllers\Admin\UserController::class, 'resumesIndex'])->name('resumes.index');
+    Route::post('/resumes/bulk-download', [App\Http\Controllers\Admin\UserController::class, 'bulkDownloadCvs'])->name('resumes.bulk-download');
     Route::delete('/users/{user}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/users/bulk-delete', [App\Http\Controllers\Admin\UserController::class, 'bulkDelete'])->name('users.bulk-delete');
     
     // Featured Ads Email Route
     Route::post('/featured-ads/{job}/send-email', [App\Http\Controllers\Admin\UserController::class, 'sendFeaturedAdEmail'])->name('featured-ads.send-email');

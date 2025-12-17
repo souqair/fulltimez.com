@@ -5,6 +5,17 @@
 
 @section('content')
 <div class="container-fluid px-4">
+    <!-- Quick Actions -->
+    <div class="admin-card mb-4">
+        <div class="admin-card-body">
+            <div class="d-flex gap-2 flex-wrap">
+                <a href="{{ route('admin.resumes.index') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-download"></i> Download Resumes
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Statistics Cards -->
     <div class="row g-3 mb-4">
         <div class="col-lg-3 col-md-6">
@@ -116,12 +127,19 @@
                         </div>
                         <span class="text-muted" id="selectedCount">0 selected</span>
                     </div>
-                    <div>
+                    <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-success" id="bulkApproveBtn" disabled>
                             <i class="fas fa-check-circle"></i> Approve Selected
                         </button>
+                        <button type="button" class="btn btn-danger" id="bulkDeleteBtn" disabled onclick="confirmBulkDelete()">
+                            <i class="fas fa-trash"></i> Delete Selected
+                        </button>
                     </div>
                 </div>
+            </form>
+            <form id="bulkDeleteForm" action="{{ route('admin.users.bulk-delete') }}" method="POST" style="display: none;">
+                @csrf
+                <div id="bulkDeleteCheckboxes"></div>
             </form>
         </div>
     </div>
@@ -779,6 +797,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+    const bulkDeleteForm = document.getElementById('bulkDeleteForm');
+    
     // Update selected count
     function updateSelectedCount() {
         const checked = document.querySelectorAll('.user-checkbox:checked').length;
@@ -788,7 +809,44 @@ document.addEventListener('DOMContentLoaded', function() {
         if (bulkApproveBtn) {
             bulkApproveBtn.disabled = checked === 0;
         }
+        if (bulkDeleteBtn) {
+            bulkDeleteBtn.disabled = checked === 0;
+        }
     }
+    
+    // Bulk delete function
+    window.confirmBulkDelete = function() {
+        const checked = document.querySelectorAll('.user-checkbox:checked');
+        if (checked.length === 0) {
+            alert('Please select at least one user to delete.');
+            return false;
+        }
+        
+        if (!confirm(`Are you sure you want to delete ${checked.length} selected user(s)? This action cannot be undone.`)) {
+            return false;
+        }
+        
+        // Collect checked user IDs
+        const userIds = Array.from(checked).map(cb => cb.value);
+        
+        // Create hidden inputs for selected user IDs
+        const checkboxesContainer = document.getElementById('bulkDeleteCheckboxes');
+        if (checkboxesContainer) {
+            checkboxesContainer.innerHTML = '';
+            userIds.forEach(userId => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'user_ids[]';
+                input.value = userId;
+                checkboxesContainer.appendChild(input);
+            });
+        }
+        
+        // Submit form
+        if (bulkDeleteForm) {
+            bulkDeleteForm.submit();
+        }
+    };
     
     // Update select all checkbox state
     function updateSelectAllState() {

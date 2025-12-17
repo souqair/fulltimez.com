@@ -154,6 +154,8 @@ class JobPostingController extends Controller
             'age_below' => 'nullable|integer|min:18|max:100',
             'location_city' => 'required|string',
             'location_country' => 'required|string',
+            'is_oep_pakistan' => 'nullable|boolean',
+            'oep_permission_number' => 'required_if:is_oep_pakistan,1|nullable|string|max:255',
             'application_deadline' => 'nullable|date|after:today',
             'ad_type' => 'required|in:recommended,featured',
             'featured_duration' => 'nullable|in:7,15,30',
@@ -378,6 +380,8 @@ class JobPostingController extends Controller
             'age_below' => 'nullable|integer|min:18|max:100',
             'location_city' => 'required|string',
             'location_country' => 'required|string',
+            'is_oep_pakistan' => 'nullable|boolean',
+            'oep_permission_number' => 'required_if:is_oep_pakistan,1|nullable|string|max:255',
             'application_deadline' => 'nullable|date',
         ]);
 
