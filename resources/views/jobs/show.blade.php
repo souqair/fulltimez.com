@@ -488,6 +488,11 @@
                 <div class="company-details">
                     <h4>{{ $job->employer->employerProfile->company_name ?? 'Company' }}</h4>
                     <p><i class="fas fa-map-marker-alt"></i> {{ $job->location_city }}, {{ $job->location_country }}</p>
+                    @if($job->is_oep_pakistan && !empty($job->oep_permission_number))
+                    <p style="margin-top: 8px; color: #1a1a1a; font-weight: 600;">
+                        <i class="fas fa-certificate"></i> OEP Permission #: <strong>{{ $job->oep_permission_number }}</strong>
+                    </p>
+                    @endif
                 </div>
             </div>
             
@@ -652,18 +657,6 @@
                             <div class="job-detail-content">
                                 <span>Expiration Date</span>
                                 <strong>{{ $job->application_deadline->format('M d, Y') }}</strong>
-                            </div>
-                        </div>
-                        @endif
-                        
-                        @if($job->is_oep_pakistan && !empty($job->oep_permission_number))
-                        <div class="job-detail-item">
-                            <div class="job-detail-icon">
-                                <i class="fas fa-certificate"></i>
-                            </div>
-                            <div class="job-detail-content">
-                                <span>OEP Permission Number</span>
-                                <strong>{{ $job->oep_permission_number }}</strong>
                             </div>
                         </div>
                         @endif
