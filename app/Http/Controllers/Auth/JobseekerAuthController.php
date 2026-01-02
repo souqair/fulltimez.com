@@ -8,12 +8,15 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\SeekerProfile;
 use App\Notifications\NewJobseekerRegistered;
+use App\Notifications\PasswordResetNotification;
 use App\Notifications\UserActionNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class JobseekerAuthController extends Controller
 {
@@ -167,8 +170,19 @@ class JobseekerAuthController extends Controller
         $user = User::where('email', $request->email)->first();
         
         if ($user && $user->role->slug === 'seeker') {
+            // Generate password reset token
+            $token = Str::random(64);
+            DB::table('password_reset_tokens')->updateOrInsert(
+                ['email' => $user->email],
+                [
+                    'email' => $user->email,
+                    'token' => Hash::make($token),
+                    'created_at' => now()
+                ]
+            );
+
             // Send password reset email
-            $user->sendPasswordResetNotification();
+            $user->notify(new PasswordResetNotification($token, 'jobseeker'));
             
             return back()->with('success', 'Password reset link has been sent to your email address.');
         }
