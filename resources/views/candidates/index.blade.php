@@ -716,6 +716,45 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Candidates listing: bigger, more readable cards */
+.candidates-grid .cand,
+.candidates-grid-wrapper .cand {
+    padding: 36px 0 !important;
+    min-height: 300px !important;
+}
+
+.candidates-grid .cand .circle,
+.candidates-grid-wrapper .cand .circle {
+    width: 68px !important;
+    height: 68px !important;
+    font-size: 22px !important;
+}
+
+.candidates-grid .cand-name,
+.candidates-grid-wrapper .cand-name {
+    font-size: 16px !important;
+    margin-top: 14px !important;
+}
+
+.candidates-grid .cand-role,
+.candidates-grid-wrapper .cand-role {
+    font-size: 13px !important;
+    margin-bottom: 12px !important;
+}
+
+.candidates-grid .cand-tags span,
+.candidates-grid-wrapper .cand-tags span {
+    font-size: 12px !important;
+    padding: 6px 10px !important;
+    border-radius: 10px !important;
+}
+
+.candidates-grid .cand-info,
+.candidates-grid-wrapper .cand-info {
+    font-size: 12px !important;
+    margin-top: 14px !important;
+}
+
 .cand:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
     transform: translateY(-2px);
