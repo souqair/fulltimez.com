@@ -372,7 +372,7 @@ class JobController extends Controller
         // Get all jobseekers with profiles
         $jobseekers = \App\Models\User::whereHas('role', function($q) {
             $q->where('slug', 'seeker');
-        })->with('seekerProfile')->get();
+        })->whereNotNull('email_verified_at')->with('seekerProfile')->get();
 
         $companyName = $job->employer->employerProfile->company_name ?? 'Company';
         $location = $job->location_city . ', ' . $job->location_country;

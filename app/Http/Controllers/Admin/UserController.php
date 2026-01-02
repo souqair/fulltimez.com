@@ -15,7 +15,8 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $query = User::with(['role', 'seekerProfile', 'employerProfile']);
+        $query = User::with(['role', 'seekerProfile', 'employerProfile'])
+            ->whereNotNull('email_verified_at');
 
         if ($request->has('role') && $request->role != '') {
             $query->whereHas('role', function($q) use ($request) {
@@ -75,17 +76,19 @@ class UserController extends Controller
         
         $users = $query->latest()->paginate($perPage);
 
+        $verifiedUsers = User::whereNotNull('email_verified_at');
+
         // Calculate statistics
         $stats = [
-            'total' => User::count(),
-            'seekers' => User::whereHas('role', function($q) { $q->where('slug', 'seeker'); })->count(),
-            'employers' => User::whereHas('role', function($q) { $q->where('slug', 'employer'); })->count(),
-            'admins' => User::whereHas('role', function($q) { $q->where('slug', 'admin'); })->count(),
-            'active' => User::where('status', 'active')->count(),
-            'inactive' => User::where('status', 'inactive')->count(),
-            'banned' => User::where('status', 'banned')->count(),
-            'approved' => User::where('is_approved', true)->count(),
-            'pending_approval' => User::where('is_approved', false)->whereHas('role', function($q) {
+            'total' => (clone $verifiedUsers)->count(),
+            'seekers' => (clone $verifiedUsers)->whereHas('role', function($q) { $q->where('slug', 'seeker'); })->count(),
+            'employers' => (clone $verifiedUsers)->whereHas('role', function($q) { $q->where('slug', 'employer'); })->count(),
+            'admins' => (clone $verifiedUsers)->whereHas('role', function($q) { $q->where('slug', 'admin'); })->count(),
+            'active' => (clone $verifiedUsers)->where('status', 'active')->count(),
+            'inactive' => (clone $verifiedUsers)->where('status', 'inactive')->count(),
+            'banned' => (clone $verifiedUsers)->where('status', 'banned')->count(),
+            'approved' => (clone $verifiedUsers)->where('is_approved', true)->count(),
+            'pending_approval' => (clone $verifiedUsers)->where('is_approved', false)->whereHas('role', function($q) {
                 $q->whereIn('slug', ['seeker', 'employer']);
             })->count(),
         ];
@@ -409,7 +412,7 @@ class UserController extends Controller
     {
         $query = User::whereHas('role', function($q) {
             $q->where('slug', 'seeker');
-        })->whereHas('seekerProfile', function($q) {
+        })->whereNotNull('email_verified_at')->whereHas('seekerProfile', function($q) {
             $q->whereNotNull('cv_file');
         })->with('seekerProfile');
 
@@ -441,6 +444,7 @@ class UserController extends Controller
         ]);
 
         $users = User::whereIn('id', $request->user_ids)
+            ->whereNotNull('email_verified_at')
             ->whereHas('role', function($q) {
                 $q->where('slug', 'seeker');
             })

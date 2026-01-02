@@ -13,12 +13,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $verifiedUsers = User::whereNotNull('email_verified_at');
+
         $stats = [
-            'total_users' => User::count(),
-            'total_seekers' => User::whereHas('role', function($q) {
+            'total_users' => (clone $verifiedUsers)->count(),
+            'total_seekers' => (clone $verifiedUsers)->whereHas('role', function($q) {
                 $q->where('slug', 'seeker');
             })->count(),
-            'total_employers' => User::whereHas('role', function($q) {
+            'total_employers' => (clone $verifiedUsers)->whereHas('role', function($q) {
                 $q->where('slug', 'employer');
             })->count(),
             'total_jobs' => JobPosting::count(),
@@ -26,7 +28,7 @@ class DashboardController extends Controller
             'pending_jobs' => JobPosting::where('status', 'draft')->orWhere('status', 'pending')->count(),
             'total_applications' => JobApplication::count(),
             'pending_applications' => JobApplication::where('status', 'pending')->count(),
-            'pending_users' => User::whereHas('role', function($q) {
+            'pending_users' => (clone $verifiedUsers)->whereHas('role', function($q) {
                     // Exclude admins
                     $q->where('slug', '!=', 'admin');
                 })
@@ -60,7 +62,7 @@ class DashboardController extends Controller
             'pending_documents' => EmployerDocument::where('status', 'pending')->count(),
         ];
 
-        $recent_users = User::with('role')->latest()->take(5)->get();
+        $recent_users = (clone $verifiedUsers)->with('role')->latest()->take(5)->get();
         $recent_jobs = JobPosting::with('employer')->latest()->take(5)->get();
         $recent_applications = JobApplication::with(['job', 'seeker'])->latest()->take(5)->get();
 
