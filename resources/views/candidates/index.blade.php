@@ -399,7 +399,7 @@ body {
             <div class="col-12 fadeInLeft" style="position: relative;">
                 <div class="candidates-page-header">
                     <div class="candidates-page-title">
-                        <h2>Recommended Resumes</h2>
+                        <h2>Resumes</h2>
                         <div class="meta">{{ $candidates->total() }} candidates</div>
                     </div>
 
@@ -592,6 +592,10 @@ body {
                         // Get Featured candidate IDs to exclude from Recommended display
                         $featuredCandidateIds = $featuredCandidates ? $featuredCandidates->pluck('id')->toArray() : [];
                     @endphp
+                    <div class="candidates-section-header">
+                        <div class="title">Recommended Resumes</div>
+                        <div class="meta">{{ $recommendedCandidates->count() }} candidates</div>
+                    </div>
                     <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
                         @foreach($recommendedCandidates as $candidate)
                         @php
