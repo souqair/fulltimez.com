@@ -57,6 +57,32 @@ body {
      color: #6f7795;
  }
 
+ .candidates-section-header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     gap: 12px;
+     padding: 12px 14px;
+     border: 1px solid #eee;
+     border-radius: 16px;
+     background: #fff;
+     box-shadow: 0 10px 26px rgba(20, 28, 54, 0.05);
+     margin: 22px 0 12px;
+ }
+
+ .candidates-section-header .title {
+     font-size: 16px;
+     font-weight: 800;
+     color: #0d1f4a;
+     margin: 0;
+ }
+
+ .candidates-section-header .meta {
+     font-size: 12px;
+     color: #6f7795;
+     white-space: nowrap;
+ }
+
  .candidates-icon-btn {
      width: 44px;
      height: 44px;
@@ -500,7 +526,10 @@ body {
                 </div>
                 <div class="cate_list m-0">
                     @if($featuredCandidates && $featuredCandidates->count() > 0)
-                    <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 0; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Resumes</h2>
+                    <div class="candidates-section-header">
+                        <div class="title">Featured Resumes</div>
+                        <div class="meta">{{ $featuredCandidates->count() }} candidates</div>
+                    </div>
                     <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
                             @foreach($featuredCandidates as $candidate)
                             @php
@@ -634,8 +663,9 @@ body {
                     @endif
 
                     <div class="candidates-grid-wrapper">
-                        <div class="mb-3" style="margin-left: 0;">
-                            <strong style="font-size: 16px; color: #000;">{{ $candidates->total() }} candidates found</strong>
+                        <div class="candidates-section-header" style="margin-top: 10px;">
+                            <div class="title">All Candidates</div>
+                            <div class="meta">{{ $candidates->total() }} candidates found</div>
                         </div>
                     
                     <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
