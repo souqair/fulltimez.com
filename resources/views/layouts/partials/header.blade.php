@@ -13,6 +13,17 @@
     font-family: sans-serif;
 }
 
+ .header-container {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 14px 65px;
+     max-width: 100%;
+     width: 90%;
+     margin: 0 auto;
+     min-height: 60px;
+ }
+
 /* Desktop Header - Modern Design */
 .desktop-header {
     background: rgba(250, 250, 250, 0.7);
