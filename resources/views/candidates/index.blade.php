@@ -501,7 +501,7 @@ body {
                 <div class="cate_list m-0">
                     @if($featuredCandidates && $featuredCandidates->count() > 0)
                     <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 0; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Resumes</h2>
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; margin: 0; padding: 30px 0;">
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
                             @foreach($featuredCandidates as $candidate)
                             @php
                                 $profile = $candidate->seekerProfile;
@@ -563,7 +563,7 @@ body {
                         // Get Featured candidate IDs to exclude from Recommended display
                         $featuredCandidateIds = $featuredCandidates ? $featuredCandidates->pluck('id')->toArray() : [];
                     @endphp
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; margin: 0; padding: 30px 0;">
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
                         @foreach($recommendedCandidates as $candidate)
                         @php
                             // Skip if candidate is in Featured section
@@ -638,7 +638,7 @@ body {
                             <strong style="font-size: 16px; color: #000;">{{ $candidates->total() }} candidates found</strong>
                         </div>
                     
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; margin: 0; padding: 30px 0;">
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
                         @forelse($candidates as $candidate)
                         @php
                             $profile = $candidate->seekerProfile;
