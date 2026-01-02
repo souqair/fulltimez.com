@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\JobApplication;
 use App\Models\Country;
 use App\Models\City;
 use Illuminate\Http\Request;
@@ -190,6 +191,23 @@ class CandidateController extends Controller
             ->with(['seekerProfile', 'educationRecords', 'experienceRecords', 'certificates'])
             ->findOrFail($id);
 
-        return view('candidates.show', compact('candidate'));
+        $viewer = auth()->user();
+        $canViewContact = false;
+
+        if ($viewer) {
+            if ($viewer->isAdmin()) {
+                $canViewContact = true;
+            } elseif ($viewer->isSeeker() && $viewer->id === $candidate->id) {
+                $canViewContact = true;
+            } elseif ($viewer->isEmployer()) {
+                $canViewContact = JobApplication::where('seeker_id', $candidate->id)
+                    ->whereHas('job', function($q) use ($viewer) {
+                        $q->where('employer_id', $viewer->id);
+                    })
+                    ->exists();
+            }
+        }
+
+        return view('candidates.show', compact('candidate', 'canViewContact'));
     }
 }

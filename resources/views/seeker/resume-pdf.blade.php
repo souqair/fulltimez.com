@@ -158,7 +158,7 @@
 </head>
 <body>
     @php
-        $showContactDetails = true;
+        $showContactDetails = $showContactDetails ?? true;
         $rawLinks = isset($profile->social_links) ? (is_array($profile->social_links) ? $profile->social_links : json_decode($profile->social_links, true)) : [];
         $rawLinks = is_array($rawLinks) ? $rawLinks : [];
         $candidateKeys = ['linkedin','github','twitter','website','facebook','instagram'];

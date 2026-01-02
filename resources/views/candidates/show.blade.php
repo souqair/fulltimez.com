@@ -5,7 +5,7 @@
 @section('content')
 @php
     $profile = $candidate->seekerProfile;
-    $contactUnlocked = auth()->check() && (auth()->user()->isEmployer() || auth()->user()->isAdmin());
+    $contactUnlocked = $canViewContact ?? false;
     $city = $profile->city ?? 'N/A';
     $country = $profile->country ?? 'UAE';
     $displayName = $profile->full_name ?? $candidate->name;

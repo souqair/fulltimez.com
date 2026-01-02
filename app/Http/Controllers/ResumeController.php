@@ -6,6 +6,7 @@ use App\Notifications\UserActionNotification;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\User;
+use App\Models\JobApplication;
 
 class ResumeController extends Controller
 {
@@ -111,8 +112,16 @@ class ResumeController extends Controller
         $educations = $user->educationRecords()->orderBy('end_date', 'desc')->get();
         $certificates = $user->certificates()->orderBy('issue_date', 'desc')->get();
 
-        // Show contact details only to admins/employers
-        $showContactDetails = true;
+        $showContactDetails = false;
+        if ($viewer->isAdmin()) {
+            $showContactDetails = true;
+        } elseif ($viewer->isEmployer()) {
+            $showContactDetails = JobApplication::where('seeker_id', $user->id)
+                ->whereHas('job', function($q) use ($viewer) {
+                    $q->where('employer_id', $viewer->id);
+                })
+                ->exists();
+        }
 
         // Render the HTML template version for review
         return view('seeker.cv-index', compact('user', 'profile', 'projects', 'experiences', 'educations', 'certificates', 'showContactDetails'));
