@@ -160,18 +160,10 @@ class UserController extends Controller
         }
 
         $profile = $user->seekerProfile;
-        $wasAlreadyApproved = $profile->approval_status === 'approved';
-
         $profile->update([
             'verification_status' => 'verified',
-            'approval_status' => 'approved' // Resume approval
         ]);
-        $user->update(['is_approved' => true]); // Account approval
-
-        if (!$wasAlreadyApproved) {
-            $user->notify(new ResumeApproved());
-            $this->clearResumeReapprovalNotifications($user);
-        }
+        $user->update(['is_approved' => true]);
 
         // Send approval email notification
         try {
@@ -181,7 +173,7 @@ class UserController extends Controller
             \Log::error('Failed to send approval email to seeker: ' . $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Jobseeker account and resume approved successfully. Approval email has been sent.');
+        return redirect()->back()->with('success', 'Jobseeker account approved successfully. Approval email has been sent.');
     }
 
     public function rejectSeeker(User $user)
@@ -192,7 +184,6 @@ class UserController extends Controller
 
         $user->seekerProfile->update([
             'verification_status' => 'rejected',
-            'approval_status' => 'rejected'
         ]);
         $user->update(['is_approved' => false]);
 
@@ -261,17 +252,10 @@ class UserController extends Controller
                 if ($user->isSeeker() && $user->seekerProfile) {
                     // Approve seeker
                     $profile = $user->seekerProfile;
-                    $wasAlreadyApproved = $profile->approval_status === 'approved';
-
                     $profile->update([
                         'verification_status' => 'verified',
-                        'approval_status' => 'approved'
                     ]);
                     $user->update(['is_approved' => true]);
-
-                    if (!$wasAlreadyApproved) {
-                        $user->notify(new ResumeApproved());
-                    }
 
                     try {
                         $user->notify(new \App\Notifications\AccountApproved('seeker'));
