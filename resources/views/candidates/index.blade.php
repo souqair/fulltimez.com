@@ -17,6 +17,121 @@ body {
     margin-bottom: 30px;
 }
 
+ .candidates-toolbar {
+     display: flex;
+     justify-content: flex-end;
+     align-items: center;
+     gap: 12px;
+     margin: 10px 0 18px;
+ }
+
+ .candidates-icon-btn {
+     width: 44px;
+     height: 44px;
+     border-radius: 12px;
+     border: 1px solid #eee;
+     background: #fff;
+     color: #1a1a1a;
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+     transition: all 0.2s ease;
+ }
+
+ .candidates-icon-btn:hover {
+     background: #f7f7f7;
+ }
+
+ .candidates-drawer-overlay {
+     position: fixed;
+     inset: 0;
+     background: rgba(0,0,0,0.45);
+     opacity: 0;
+     pointer-events: none;
+     transition: opacity 0.2s ease;
+     z-index: 9998;
+ }
+
+ .candidates-drawer-overlay.open {
+     opacity: 1;
+     pointer-events: auto;
+ }
+
+ .candidates-drawer {
+     position: fixed;
+     top: 0;
+     right: 0;
+     height: 100vh;
+     width: min(420px, 92vw);
+     background: #fff;
+     transform: translateX(100%);
+     transition: transform 0.25s ease;
+     z-index: 9999;
+     box-shadow: -20px 0 50px rgba(0,0,0,0.15);
+     overflow-y: auto;
+     padding: 18px 18px 28px;
+ }
+
+ .candidates-drawer.open {
+     transform: translateX(0);
+ }
+
+ .candidates-drawer-header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     gap: 12px;
+     margin-bottom: 10px;
+ }
+
+ .candidates-drawer-title {
+     font-size: 16px;
+     font-weight: 700;
+     color: #000;
+     margin: 0;
+ }
+
+ .candidates-search-popover {
+     position: absolute;
+     right: 0;
+     top: 54px;
+     width: min(420px, 92vw);
+     background: #fff;
+     border: 1px solid #eee;
+     border-radius: 14px;
+     box-shadow: 0 18px 50px rgba(0,0,0,0.12);
+     padding: 14px;
+     display: none;
+     z-index: 50;
+ }
+
+ .candidates-search-popover.open {
+     display: block;
+ }
+
+ .candidates-search-row {
+     display: flex;
+     gap: 10px;
+ }
+
+ .candidates-search-row input {
+     flex: 1;
+     border: 1px solid #ddd;
+     border-radius: 10px;
+     padding: 10px 12px;
+     font-size: 13px;
+ }
+
+ .candidates-search-row button {
+     border: none;
+     border-radius: 10px;
+     padding: 10px 14px;
+     background: #1a1a1a;
+     color: #fff;
+     font-weight: 600;
+ }
+
 .filters h3 {
     font-size: 18px;
     font-weight: 700;
@@ -72,18 +187,7 @@ body {
 
 /* Mobile Responsive Styles */
 @media (max-width: 991px) {
-    /* Hide desktop filters on mobile */
-    .col-lg-3 {
-        display: none !important;
-    }
-    
-    /* Full width for candidates column on mobile */
-    .col-lg-9 {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-top: 0 !important;
-        padding: 0 !important;
-    }
+    /* Candidates page is full-width; keep cards stacked on smaller screens */
     
     /* Container adjustments */
     section.category-wrap > div {
@@ -208,102 +312,132 @@ body {
     <div class="" style="max-width: 100%; width: 1200px; margin: 0 auto; padding: 0 20px;">
         
         <div class="row">
-            <!-- Sidebar Filters -->
-            <div class="col-lg-3 fadeInLeft d-none d-lg-block">
-                <div class="filters">
-                    <h3>Filters</h3>
-                    
-                    <form action="{{ route('candidates.index') }}" method="GET">
-                        <!-- Search -->
-                        <div class="input-group">
-                            <label>Search</label>
-                            <input type="text" class="form-control" name="search" value="{{ request('search') }}" placeholder="Name or Position">
-                        </div>
-
-                        <!-- Experience -->
-                        <div class="input-group">
-                            <label>Experience</label>
-                            <select class="form-control" name="experience">
-                                <option value="">All Experience Levels</option>
-                                <option value="0-1" {{ request('experience') == '0-1' ? 'selected' : '' }}>0 - 1 years</option>
-                                <option value="2-3" {{ request('experience') == '2-3' ? 'selected' : '' }}>2 - 3 years</option>
-                                <option value="3-5" {{ request('experience') == '3-5' ? 'selected' : '' }}>3 - 5 years</option>
-                                <option value="5-7" {{ request('experience') == '5-7' ? 'selected' : '' }}>5 - 7 years</option>
-                                <option value="7-10" {{ request('experience') == '7-10' ? 'selected' : '' }}>7 - 10 years</option>
-                                <option value="10+" {{ request('experience') == '10+' ? 'selected' : '' }}>10+ years</option>
-                            </select>
-                        </div>
-
-                        <!-- Expected Salary -->
-                        <div class="input-group">
-                            <label>Expected Salary</label>
-                            <select class="form-control" name="salary">
-                                <option value="">All Salary Ranges</option>
-                                <option value="0-1999" {{ request('salary') == '0-1999' ? 'selected' : '' }}>0 - 1,999</option>
-                                <option value="2000-3999" {{ request('salary') == '2000-3999' ? 'selected' : '' }}>2,000 - 3,999</option>
-                                <option value="4000-5999" {{ request('salary') == '4000-5999' ? 'selected' : '' }}>4,000 - 5,999</option>
-                                <option value="6000-9999" {{ request('salary') == '6000-9999' ? 'selected' : '' }}>6,000 - 9,999</option>
-                                <option value="10000-14999" {{ request('salary') == '10000-14999' ? 'selected' : '' }}>10,000 - 14,999</option>
-                                <option value="15000+" {{ request('salary') == '15000+' ? 'selected' : '' }}>15,000+</option>
-                            </select>
-                        </div>
-
-                        <!-- Country -->
-                        <div class="input-group">
-                            <label>Country</label>
-                            <select class="form-control" name="country" id="countrySelect">
-                                <option value="">All Countries</option>
-                                @foreach($countries as $country)
-                                    <option value="{{ $country->name }}" {{ request('country') == $country->name ? 'selected' : '' }}>
-                                        {{ $country->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <!-- City -->
-                        <div class="input-group">
-                            <label>City</label>
-                            <select class="form-control" name="city" id="citySelect">
-                                <option value="">All Cities</option>
-                                @foreach($cities as $city)
-                                    <option value="{{ $city->name }}" {{ request('city') == $city->name ? 'selected' : '' }}>
-                                        {{ $city->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <!-- Nationality -->
-                        <div class="input-group">
-                            <label>Nationality</label>
-                            <select class="form-control" name="nationality">
-                                <option value="">All Nationalities</option>
-                                <option value="UAE" {{ request('nationality') == 'UAE' ? 'selected' : '' }}>UAE</option>
-                                <option value="India" {{ request('nationality') == 'India' ? 'selected' : '' }}>India</option>
-                                <option value="Pakistan" {{ request('nationality') == 'Pakistan' ? 'selected' : '' }}>Pakistan</option>
-                                <option value="Egypt" {{ request('nationality') == 'Egypt' ? 'selected' : '' }}>Egypt</option>
-                                <option value="USA" {{ request('nationality') == 'USA' ? 'selected' : '' }}>USA</option>
-                                <option value="UK" {{ request('nationality') == 'UK' ? 'selected' : '' }}>UK</option>
-                                <option value="Bangladesh" {{ request('nationality') == 'Bangladesh' ? 'selected' : '' }}>Bangladesh</option>
-                                <option value="Philippines" {{ request('nationality') == 'Philippines' ? 'selected' : '' }}>Philippines</option>
-                                <option value="Sri Lanka" {{ request('nationality') == 'Sri Lanka' ? 'selected' : '' }}>Sri Lanka</option>
-                            </select>
-                        </div>
-
-                        <div class="input-group justify-content-center">
-                            <input type="submit" value="Apply Filter" class="apply_btn">
-                        </div>
-                    </form>
-                </div>
-            </div>
-
             <!-- Main Content -->
-            <div class="col-lg-9 fadeInLeft">
+            <div class="col-12 fadeInLeft" style="position: relative;">
+                <div class="candidates-toolbar">
+                    <button type="button" class="candidates-icon-btn" id="candidatesSearchBtn" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button type="button" class="candidates-icon-btn" id="candidatesFilterBtn" aria-label="Filters">
+                        <i class="fas fa-sliders-h"></i>
+                    </button>
+
+                    <div class="candidates-search-popover" id="candidatesSearchPopover">
+                        <form action="{{ route('candidates.index') }}" method="GET">
+                            @foreach(request()->except(['search','page']) as $k => $v)
+                                @if(is_array($v))
+                                    @foreach($v as $vv)
+                                        <input type="hidden" name="{{ $k }}[]" value="{{ $vv }}">
+                                    @endforeach
+                                @else
+                                    <input type="hidden" name="{{ $k }}" value="{{ $v }}">
+                                @endif
+                            @endforeach
+                            <div class="candidates-search-row">
+                                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search name or position">
+                                <button type="submit">Go</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="candidates-drawer-overlay" id="candidatesDrawerOverlay"></div>
+                <div class="candidates-drawer" id="candidatesDrawer">
+                    <div class="candidates-drawer-header">
+                        <h3 class="candidates-drawer-title">Filters</h3>
+                        <button type="button" class="candidates-icon-btn" id="candidatesDrawerClose" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="filters" style="border: none; padding: 0; margin: 0;">
+                        <form action="{{ route('candidates.index') }}" method="GET">
+                            <!-- Search -->
+                            <div class="input-group">
+                                <label>Search</label>
+                                <input type="text" class="form-control" name="search" value="{{ request('search') }}" placeholder="Name or Position">
+                            </div>
+
+                            <!-- Experience -->
+                            <div class="input-group">
+                                <label>Experience</label>
+                                <select class="form-control" name="experience">
+                                    <option value="">All Experience Levels</option>
+                                    <option value="0-1" {{ request('experience') == '0-1' ? 'selected' : '' }}>0 - 1 years</option>
+                                    <option value="2-3" {{ request('experience') == '2-3' ? 'selected' : '' }}>2 - 3 years</option>
+                                    <option value="3-5" {{ request('experience') == '3-5' ? 'selected' : '' }}>3 - 5 years</option>
+                                    <option value="5-7" {{ request('experience') == '5-7' ? 'selected' : '' }}>5 - 7 years</option>
+                                    <option value="7-10" {{ request('experience') == '7-10' ? 'selected' : '' }}>7 - 10 years</option>
+                                    <option value="10+" {{ request('experience') == '10+' ? 'selected' : '' }}>10+ years</option>
+                                </select>
+                            </div>
+
+                            <!-- Expected Salary -->
+                            <div class="input-group">
+                                <label>Expected Salary</label>
+                                <select class="form-control" name="salary">
+                                    <option value="">All Salary Ranges</option>
+                                    <option value="0-1999" {{ request('salary') == '0-1999' ? 'selected' : '' }}>0 - 1,999</option>
+                                    <option value="2000-3999" {{ request('salary') == '2000-3999' ? 'selected' : '' }}>2,000 - 3,999</option>
+                                    <option value="4000-5999" {{ request('salary') == '4000-5999' ? 'selected' : '' }}>4,000 - 5,999</option>
+                                    <option value="6000-9999" {{ request('salary') == '6000-9999' ? 'selected' : '' }}>6,000 - 9,999</option>
+                                    <option value="10000-14999" {{ request('salary') == '10000-14999' ? 'selected' : '' }}>10,000 - 14,999</option>
+                                    <option value="15000+" {{ request('salary') == '15000+' ? 'selected' : '' }}>15,000+</option>
+                                </select>
+                            </div>
+
+                            <!-- Country -->
+                            <div class="input-group">
+                                <label>Country</label>
+                                <select class="form-control" name="country" id="countrySelect">
+                                    <option value="">All Countries</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country->name }}" {{ request('country') == $country->name ? 'selected' : '' }}>
+                                            {{ $country->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- City -->
+                            <div class="input-group">
+                                <label>City</label>
+                                <select class="form-control" name="city" id="citySelect">
+                                    <option value="">All Cities</option>
+                                    @foreach($cities as $city)
+                                        <option value="{{ $city->name }}" {{ request('city') == $city->name ? 'selected' : '' }}>
+                                            {{ $city->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Nationality -->
+                            <div class="input-group">
+                                <label>Nationality</label>
+                                <select class="form-control" name="nationality">
+                                    <option value="">All Nationalities</option>
+                                    <option value="UAE" {{ request('nationality') == 'UAE' ? 'selected' : '' }}>UAE</option>
+                                    <option value="India" {{ request('nationality') == 'India' ? 'selected' : '' }}>India</option>
+                                    <option value="Pakistan" {{ request('nationality') == 'Pakistan' ? 'selected' : '' }}>Pakistan</option>
+                                    <option value="Egypt" {{ request('nationality') == 'Egypt' ? 'selected' : '' }}>Egypt</option>
+                                    <option value="USA" {{ request('nationality') == 'USA' ? 'selected' : '' }}>USA</option>
+                                    <option value="UK" {{ request('nationality') == 'UK' ? 'selected' : '' }}>UK</option>
+                                    <option value="Bangladesh" {{ request('nationality') == 'Bangladesh' ? 'selected' : '' }}>Bangladesh</option>
+                                    <option value="Philippines" {{ request('nationality') == 'Philippines' ? 'selected' : '' }}>Philippines</option>
+                                    <option value="Sri Lanka" {{ request('nationality') == 'Sri Lanka' ? 'selected' : '' }}>Sri Lanka</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group justify-content-center">
+                                <input type="submit" value="Apply Filter" class="apply_btn">
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="cate_list m-0">
                     @if($featuredCandidates && $featuredCandidates->count() > 0)
-                    <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Resumes</h2>
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto; padding: 50px 0;">
+                    <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 0; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Resumes</h2>
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; margin: 0; padding: 30px 0;">
                             @foreach($featuredCandidates as $candidate)
                             @php
                                 $profile = $candidate->seekerProfile;
@@ -365,8 +499,8 @@ body {
                         // Get Featured candidate IDs to exclude from Recommended display
                         $featuredCandidateIds = $featuredCandidates ? $featuredCandidates->pluck('id')->toArray() : [];
                     @endphp
-                    <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Recommended Resumes</h2>
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto; padding: 50px 0;">
+                    <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 0; margin-bottom: 10px; margin-top: 20px; color: #000;">Recommended Resumes</h2>
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; margin: 0; padding: 30px 0;">
                         @foreach($recommendedCandidates as $candidate)
                         @php
                             // Skip if candidate is in Featured section
@@ -437,11 +571,11 @@ body {
                     @endif
 
                     <div class="candidates-grid-wrapper">
-                        <div class="mb-3" style="margin-left: 60px;">
+                        <div class="mb-3" style="margin-left: 0;">
                             <strong style="font-size: 16px; color: #000;">{{ $candidates->total() }} candidates found</strong>
                         </div>
                     
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto; padding: 50px 0;">
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; margin: 0; padding: 30px 0;">
                         @forelse($candidates as $candidate)
                         @php
                             $profile = $candidate->seekerProfile;
@@ -582,6 +716,60 @@ body {
 </style>
 
 <script>
+// Search + filter UI
+document.addEventListener('DOMContentLoaded', function() {
+    const filterBtn = document.getElementById('candidatesFilterBtn');
+    const drawer = document.getElementById('candidatesDrawer');
+    const overlay = document.getElementById('candidatesDrawerOverlay');
+    const closeBtn = document.getElementById('candidatesDrawerClose');
+    const searchBtn = document.getElementById('candidatesSearchBtn');
+    const searchPopover = document.getElementById('candidatesSearchPopover');
+
+    function openDrawer() {
+        if (drawer) drawer.classList.add('open');
+        if (overlay) overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        if (searchPopover) searchPopover.classList.remove('open');
+    }
+
+    function closeDrawer() {
+        if (drawer) drawer.classList.remove('open');
+        if (overlay) overlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    if (filterBtn) {
+        filterBtn.addEventListener('click', function() {
+            openDrawer();
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            closeDrawer();
+        });
+    }
+
+    if (overlay) {
+        overlay.addEventListener('click', function() {
+            closeDrawer();
+        });
+    }
+
+    if (searchBtn && searchPopover) {
+        searchBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchPopover.classList.toggle('open');
+        });
+        document.addEventListener('click', function() {
+            searchPopover.classList.remove('open');
+        });
+        searchPopover.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+});
+
 // Dynamic city loading based on country selection
 document.addEventListener('DOMContentLoaded', function() {
     const countrySelect = document.getElementById('countrySelect');
