@@ -399,7 +399,7 @@ body {
             <div class="col-12 fadeInLeft" style="position: relative;">
                 <div class="candidates-page-header">
                     <div class="candidates-page-title">
-                        <h2>Resumes</h2>
+                        <h2>Browse Resumes</h2>
                         <div class="meta">{{ $candidates->total() }} candidates</div>
                     </div>
 
@@ -667,11 +667,6 @@ body {
                     @endif
 
                     <div class="candidates-grid-wrapper">
-                        <div class="candidates-section-header" style="margin-top: 10px;">
-                            <div class="title">All Candidates</div>
-                            <div class="meta">{{ $candidates->total() }} candidates found</div>
-                        </div>
-                    
                     <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
                         @forelse($candidates as $candidate)
                         @php
