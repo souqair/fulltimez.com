@@ -666,66 +666,7 @@ body {
                     </div>
                     @endif
 
-                    <div class="candidates-grid-wrapper">
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
-                        @forelse($candidates as $candidate)
-                        @php
-                            $profile = $candidate->seekerProfile;
-                            $displayName = $profile->full_name ?? $candidate->name ?? 'Candidate';
-                            $initials = strtoupper(mb_substr($displayName, 0, 1) . (mb_substr($displayName, strpos($displayName, ' ') + 1, 1) ?? ''));
-                            $rawPhoto = $profile->profile_picture ?? null;
-                            $hasImage = false;
-                            $avatarPath = null;
-
-                            if ($rawPhoto) {
-                                if (\Illuminate\Support\Str::startsWith($rawPhoto, ['http://', 'https://'])) {
-                                    $hasImage = true;
-                                    $avatarPath = $rawPhoto;
-                                } else {
-                                    $normalized = ltrim($rawPhoto, '/');
-                                    if (file_exists(public_path($normalized))) {
-                                        $hasImage = true;
-                                        $avatarPath = asset($normalized);
-                                    }
-                                }
-                            }
-                            
-                            $skills = [];
-                            if($profile && $profile->skills) {
-                                $skillsData = is_string($profile->skills) ? json_decode($profile->skills, true) : $profile->skills;
-                                if(is_array($skillsData)) {
-                                    $skills = array_slice($skillsData, 0, 3);
-                                }
-                            }
-                        @endphp
-                        <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 34px 0; min-height: 260px; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
-                            <div class="circle" style="width: 50px; height: 50px; border-radius: 50%; background: #f5f5f5; margin: auto; font-size: 18px; display: flex; justify-content: center; align-items: center; color: #666; font-weight: 600;">
-                                @if($hasImage && $avatarPath)
-                                    <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
-                                @else
-                                    {{ $initials }}
-                                @endif
-                            </div>
-                            <div class="cand-name" style="margin-top: 10px; font-size: 14px; font-weight: 700; color: #000;">{{ $displayName }}</div>
-                            <div class="cand-role" style="font-size: 11px; color: #666; margin-bottom: 10px;">{{ $profile->current_position ?? 'Job Seeker' }}</div>
-                            @if(count($skills) > 0)
-                            <div class="cand-tags" style="margin-bottom: 10px;">
-                                @foreach($skills as $skill)
-                                    <span style="font-size: 10px; background: #eee; padding: 3px 7px; margin: 2px; border-radius: 6px; display: inline-block; color: #444;">{{ $skill }}</span>
-                                @endforeach
-                            </div>
-                            @endif
-                            <div class="cand-info" style="font-size: 11px; color: #666; margin-top: 10px;">
-                                {{ $profile->experience_years ?? 'N/A' }} Years • ⭐ 4.9
-                            </div>
-                        </div>
-                        @empty
-                        <div class="no-candidates">
-                            <h4>No candidates found</h4>
-                            <p>No candidates match your search criteria. Try adjusting your filters.</p>
-                        </div>
-                        @endforelse
-                    </div>
+                   
 
                     @if($candidates->hasPages())
                     <div class="simple-pagination">
