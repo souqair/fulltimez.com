@@ -8,6 +8,143 @@ body {
     overflow-x: hidden !important;
 }
 
+/* Jobs header (same vibe as candidates) */
+.jobs-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 14px;
+    border: 1px solid #eee;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(20, 28, 54, 0.06);
+    margin: 10px 0 18px;
+}
+
+.jobs-page-title h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0d1f4a;
+    margin: 0;
+    letter-spacing: 0.2px;
+}
+
+.jobs-page-title .meta {
+    font-size: 12px;
+    color: #6f7795;
+}
+
+.jobs-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.jobs-icon-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    background: #fff;
+    color: #0d1f4a;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.jobs-icon-btn:hover {
+    box-shadow: 0 6px 18px rgba(20, 28, 54, 0.08);
+    transform: translateY(-1px);
+}
+
+.jobs-icon-btn.active {
+    background: #0d1f4a;
+    border-color: #0d1f4a;
+    color: #fff;
+}
+
+.jobs-search-popover {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: min(520px, calc(100vw - 40px));
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    box-shadow: 0 18px 50px rgba(20, 28, 54, 0.12);
+    padding: 14px;
+    display: none;
+    z-index: 50;
+}
+
+.jobs-search-popover.open {
+    display: block;
+}
+
+.jobs-search-popover label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0d1f4a;
+    margin-bottom: 8px;
+}
+
+.jobs-search-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.jobs-search-row input {
+    flex: 1;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid #e6e9f2;
+    padding: 0 14px;
+    font-size: 14px;
+}
+
+.jobs-search-row button {
+    height: 44px;
+    border-radius: 12px;
+    border: 0;
+    background: #0d1f4a;
+    color: #fff;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.jobs-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 10px 26px rgba(20, 28, 54, 0.05);
+    margin: 22px 0 12px;
+}
+
+.jobs-section-header .title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0d1f4a;
+    margin: 0;
+}
+
+.jobs-section-header .meta {
+    font-size: 12px;
+    color: #6f7795;
+    white-space: nowrap;
+}
+
 /* Simple Filters Styling */
 .filters {
     background: #ffffff;
@@ -329,6 +466,34 @@ body {
     margin-bottom: 40px;
 }
 
+/* Make jobs cards more readable (override inline styles) */
+.jobs-grid .job-card {
+    padding: 30px !important;
+    min-height: 260px !important;
+    border-radius: 16px !important;
+}
+
+.jobs-grid .jc-title,
+.jobs-grid .jc-title a {
+    font-size: 16px !important;
+    font-weight: 800 !important;
+}
+
+.jobs-grid .jc-company {
+    font-size: 13px !important;
+}
+
+.jobs-grid .jc-info {
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+}
+
+.jobs-grid .jc-tag {
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+    border-radius: 999px !important;
+}
+
 .featured-jobs-grid .col-lg-4,
 .featured-jobs-grid .col-md-6,
 .recommended-jobs-grid .col-lg-4,
@@ -613,7 +778,7 @@ body {
     
     /* Container adjustments */
     section.category-wrap > div {
-        width: 1200px !important;
+        width: 100% !important;
         padding: 0 15px !important;
     }
     
@@ -735,7 +900,7 @@ body {
 @endphp
 
 <section class="category-wrap innerseeker popular-items mt-5">
-      <div class="" style="max-width: 100%; width: 1200px; margin: 0 auto; padding: 0 20px;">
+      <div class="" style="max-width: 100%; width: 1635px; margin: 0 auto; padding: 0 20px;">
         
          <div class="mobile-search-wrapper d-lg-none">
             <details class="mobile-search-card" {{ $filtersActive ? 'open' : '' }}>
@@ -832,8 +997,34 @@ body {
                 </form>
             </details>
          </div>
+<div class="jobs-page-header" id="jobsPageHeader">
+    <div class="jobs-page-title">
+        <h2>Browse Jobs</h2>
+        <div class="meta">{{ number_format($jobCount) }} jobs</div>
+    </div>
+
+    <div class="jobs-toolbar">
+        <button type="button" class="jobs-icon-btn" id="jobsSearchBtn" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </button>
+        <button type="button" class="jobs-icon-btn" id="jobsFilterBtn" aria-label="Filters">
+            <i class="fas fa-sliders-h"></i>
+        </button>
+    </div>
+
+    <div class="jobs-search-popover" id="jobsSearchPopover">
+        <form action="{{ route('jobs.index') }}" method="GET">
+            <label for="jobsTitleSearch">Search jobs</label>
+            <div class="jobs-search-row">
+                <input type="text" id="jobsTitleSearch" name="title" placeholder="e.g. Sales Manager" value="{{ request('title') }}">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="row">
-            <div class="col-lg-3 fadeInLeft d-none d-lg-block">
+            <div class="col-lg-3 fadeInLeft d-none d-lg-block" id="jobsSidebarCol">
 <div class="filters">
     <h3>Filters</h3>
 
@@ -922,12 +1113,15 @@ body {
                 
 </div>
 
- <div class="col-lg-9 fadeInLeft" style="margin-top: -20px;">
+ <div class="col-lg-9 fadeInLeft" style="margin-top: -20px;" id="jobsMainCol">
 <div class="cate_list m-0">
         @if($featuredJobs->count())
         <div class="featured-jobs-section-wrapper">
-            <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Jobs</h2>
-            <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto;">
+            <div class="jobs-section-header">
+                <div class="title">Featured Jobs</div>
+                <div class="meta">{{ $featuredJobs->count() }} jobs</div>
+            </div>
+            <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
                 @foreach($featuredJobs as $job)
                 <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
                     <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
@@ -971,8 +1165,11 @@ body {
         @php
             $listHeading = ($postedAs ?? null) === 'featured' ? 'Featured Jobs' : 'Recommended Jobs';
         @endphp
-        <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 60px; margin-bottom: 10px; margin-top: 20px; color: #000;">{{ $listHeading }}</h2>
-        <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; width: 90%; margin: auto;">
+        <div class="jobs-section-header">
+            <div class="title">{{ $listHeading }}</div>
+            <div class="meta">{{ number_format($jobCount) }} jobs</div>
+        </div>
+        <div class="jobs-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
             @foreach($recommendedJobs as $job)
             <div class="job-card" style="border: 1px solid #eee; border-radius: 14px; padding: 25px; background: white; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('jobs.show', $job->slug) }}'">
                 <div class="jc-top" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
@@ -1019,13 +1216,64 @@ body {
 
     </div>
 
-
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchBtn = document.getElementById('jobsSearchBtn');
+    const filterBtn = document.getElementById('jobsFilterBtn');
+    const popover = document.getElementById('jobsSearchPopover');
+    const sidebar = document.getElementById('jobsSidebarCol');
+    const mainCol = document.getElementById('jobsMainCol');
 
-       
+    function closePopover() {
+        if (!popover) return;
+        popover.classList.remove('open');
+        if (searchBtn) searchBtn.classList.remove('active');
+    }
 
+    if (searchBtn && popover) {
+        searchBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const willOpen = !popover.classList.contains('open');
+            closePopover();
+            if (willOpen) {
+                popover.classList.add('open');
+                searchBtn.classList.add('active');
+                const input = document.getElementById('jobsTitleSearch');
+                if (input) setTimeout(() => input.focus(), 50);
+            }
+        });
+    }
 
-      </div> 
-   </section>
+    document.addEventListener('click', function(e) {
+        if (!popover || !popover.classList.contains('open')) return;
+        const header = document.getElementById('jobsPageHeader');
+        if (header && !header.contains(e.target)) {
+            closePopover();
+        }
+    });
+
+    if (filterBtn && sidebar && mainCol) {
+        filterBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            closePopover();
+            const isHidden = sidebar.classList.contains('d-none');
+
+            if (isHidden) {
+                sidebar.classList.remove('d-none');
+                filterBtn.classList.remove('active');
+                mainCol.classList.add('col-lg-9');
+                mainCol.classList.remove('col-12');
+            } else {
+                sidebar.classList.add('d-none');
+                filterBtn.classList.add('active');
+                mainCol.classList.remove('col-lg-9');
+                mainCol.classList.add('col-12');
+            }
+        });
+    }
+});
+</script>
+
 @endsection
