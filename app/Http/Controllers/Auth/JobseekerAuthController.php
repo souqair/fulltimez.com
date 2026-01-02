@@ -23,7 +23,6 @@ class JobseekerAuthController extends Controller
     public function showLogin()
     {
         return view('auth.jobseeker-login');
-        
     }
 
     public function login(Request $request)
