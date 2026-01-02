@@ -22,7 +22,39 @@ body {
      justify-content: flex-end;
      align-items: center;
      gap: 12px;
-     margin: 10px 0 18px;
+     margin: 0;
+ }
+
+ .candidates-page-header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     gap: 14px;
+     padding: 14px 14px;
+     border: 1px solid #eee;
+     border-radius: 16px;
+     background: linear-gradient(135deg, #ffffff 0%, #fafbff 100%);
+     box-shadow: 0 12px 34px rgba(20, 28, 54, 0.06);
+     margin: 8px 0 18px;
+ }
+
+ .candidates-page-title {
+     display: flex;
+     flex-direction: column;
+     gap: 2px;
+ }
+
+ .candidates-page-title h2 {
+     margin: 0;
+     font-size: 18px;
+     font-weight: 800;
+     color: #0d1f4a;
+     letter-spacing: 0.2px;
+ }
+
+ .candidates-page-title .meta {
+     font-size: 12px;
+     color: #6f7795;
  }
 
  .candidates-icon-btn {
@@ -31,7 +63,7 @@ body {
      border-radius: 12px;
      border: 1px solid #eee;
      background: #fff;
-     color: #1a1a1a;
+     color: #0d1f4a;
      display: inline-flex;
      align-items: center;
      justify-content: center;
@@ -41,6 +73,14 @@ body {
 
  .candidates-icon-btn:hover {
      background: #f7f7f7;
+     transform: translateY(-1px);
+     box-shadow: 0 10px 22px rgba(20, 28, 54, 0.08);
+ }
+
+ .candidates-icon-btn.active {
+     background: #0d1f4a;
+     color: #fff;
+     border-color: #0d1f4a;
  }
 
  .candidates-drawer-overlay {
@@ -132,6 +172,14 @@ body {
      font-weight: 600;
  }
 
+ @media (max-width: 991px) {
+     .candidates-search-popover {
+         right: auto;
+         left: 0;
+         top: 56px;
+     }
+ }
+
 .filters h3 {
     font-size: 18px;
     font-weight: 700;
@@ -188,6 +236,15 @@ body {
 /* Mobile Responsive Styles */
 @media (max-width: 991px) {
     /* Candidates page is full-width; keep cards stacked on smaller screens */
+
+    .candidates-page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .candidates-toolbar {
+        justify-content: space-between;
+    }
     
     /* Container adjustments */
     section.category-wrap > div {
@@ -314,30 +371,37 @@ body {
         <div class="row">
             <!-- Main Content -->
             <div class="col-12 fadeInLeft" style="position: relative;">
-                <div class="candidates-toolbar">
-                    <button type="button" class="candidates-icon-btn" id="candidatesSearchBtn" aria-label="Search">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    <button type="button" class="candidates-icon-btn" id="candidatesFilterBtn" aria-label="Filters">
-                        <i class="fas fa-sliders-h"></i>
-                    </button>
+                <div class="candidates-page-header">
+                    <div class="candidates-page-title">
+                        <h2>Recommended Resumes</h2>
+                        <div class="meta">{{ $candidates->total() }} candidates</div>
+                    </div>
 
-                    <div class="candidates-search-popover" id="candidatesSearchPopover">
-                        <form action="{{ route('candidates.index') }}" method="GET">
-                            @foreach(request()->except(['search','page']) as $k => $v)
-                                @if(is_array($v))
-                                    @foreach($v as $vv)
-                                        <input type="hidden" name="{{ $k }}[]" value="{{ $vv }}">
-                                    @endforeach
-                                @else
-                                    <input type="hidden" name="{{ $k }}" value="{{ $v }}">
-                                @endif
-                            @endforeach
-                            <div class="candidates-search-row">
-                                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search name or position">
-                                <button type="submit">Go</button>
-                            </div>
-                        </form>
+                    <div class="candidates-toolbar">
+                        <button type="button" class="candidates-icon-btn" id="candidatesSearchBtn" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button type="button" class="candidates-icon-btn" id="candidatesFilterBtn" aria-label="Filters">
+                            <i class="fas fa-sliders-h"></i>
+                        </button>
+
+                        <div class="candidates-search-popover" id="candidatesSearchPopover">
+                            <form action="{{ route('candidates.index') }}" method="GET">
+                                @foreach(request()->except(['search','page']) as $k => $v)
+                                    @if(is_array($v))
+                                        @foreach($v as $vv)
+                                            <input type="hidden" name="{{ $k }}[]" value="{{ $vv }}">
+                                        @endforeach
+                                    @else
+                                        <input type="hidden" name="{{ $k }}" value="{{ $v }}">
+                                    @endif
+                                @endforeach
+                                <div class="candidates-search-row">
+                                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search name or position">
+                                    <button type="submit">Go</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
@@ -499,7 +563,6 @@ body {
                         // Get Featured candidate IDs to exclude from Recommended display
                         $featuredCandidateIds = $featuredCandidates ? $featuredCandidates->pluck('id')->toArray() : [];
                     @endphp
-                    <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 0; margin-bottom: 10px; margin-top: 20px; color: #000;">Recommended Resumes</h2>
                     <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; width: 100%; margin: 0; padding: 30px 0;">
                         @foreach($recommendedCandidates as $candidate)
                         @php
@@ -730,12 +793,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (overlay) overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
         if (searchPopover) searchPopover.classList.remove('open');
+        if (searchBtn) searchBtn.classList.remove('active');
+        if (filterBtn) filterBtn.classList.add('active');
     }
 
     function closeDrawer() {
         if (drawer) drawer.classList.remove('open');
         if (overlay) overlay.classList.remove('open');
         document.body.style.overflow = '';
+        if (filterBtn) filterBtn.classList.remove('active');
     }
 
     if (filterBtn) {
@@ -760,9 +826,12 @@ document.addEventListener('DOMContentLoaded', function() {
         searchBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             searchPopover.classList.toggle('open');
+            searchBtn.classList.toggle('active');
+            if (filterBtn) filterBtn.classList.remove('active');
         });
         document.addEventListener('click', function() {
             searchPopover.classList.remove('open');
+            searchBtn.classList.remove('active');
         });
         searchPopover.addEventListener('click', function(e) {
             e.stopPropagation();
