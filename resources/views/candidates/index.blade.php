@@ -366,7 +366,7 @@ body {
             </div>
 
 <section class="category-wrap innerseeker popular-items mt-5">
-    <div class="" style="max-width: 100%; width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="" style="max-width: 100%; width: 1635px; margin: 0 auto; padding: 0 20px;">
         
         <div class="row">
             <!-- Main Content -->
@@ -501,7 +501,7 @@ body {
                 <div class="cate_list m-0">
                     @if($featuredCandidates && $featuredCandidates->count() > 0)
                     <h2 class="section-title" style="font-size: 24px; font-weight: 700; margin-left: 0; margin-bottom: 10px; margin-top: 20px; color: #000;">Featured Resumes</h2>
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
                             @foreach($featuredCandidates as $candidate)
                             @php
                                 $profile = $candidate->seekerProfile;
@@ -532,7 +532,7 @@ body {
                                     }
                                 }
                             @endphp
-                            <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 25px 0; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
+                            <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 34px 0; min-height: 260px; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
                                 <div class="circle" style="width: 50px; height: 50px; border-radius: 50%; background: #f5f5f5; margin: auto; font-size: 18px; display: flex; justify-content: center; align-items: center; color: #666; font-weight: 600;">
                                     @if($hasImage && $avatarPath)
                                         <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
@@ -563,7 +563,7 @@ body {
                         // Get Featured candidate IDs to exclude from Recommended display
                         $featuredCandidateIds = $featuredCandidates ? $featuredCandidates->pluck('id')->toArray() : [];
                     @endphp
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
                         @foreach($recommendedCandidates as $candidate)
                         @php
                             // Skip if candidate is in Featured section
@@ -608,7 +608,7 @@ body {
                                 }
                             }
                         @endphp
-                        <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 25px 0; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
+                        <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 34px 0; min-height: 260px; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
                             <div class="circle" style="width: 50px; height: 50px; border-radius: 50%; background: #f5f5f5; margin: auto; font-size: 18px; display: flex; justify-content: center; align-items: center; color: #666; font-weight: 600;">
                                 @if($hasImage && $avatarPath)
                                     <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
@@ -638,7 +638,7 @@ body {
                             <strong style="font-size: 16px; color: #000;">{{ $candidates->total() }} candidates found</strong>
                         </div>
                     
-                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
+                    <div class="candidates-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; width: 100%; margin: 0; padding: 26px 0;">
                         @forelse($candidates as $candidate)
                         @php
                             $profile = $candidate->seekerProfile;
@@ -669,7 +669,7 @@ body {
                                 }
                             }
                         @endphp
-                        <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 25px 0; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
+                        <div class="cand" style="border: 1px solid #eee; border-radius: 16px; padding: 34px 0; min-height: 260px; text-align: center; cursor: pointer; transition: all 0.3s ease;" onclick="window.location.href='{{ route('candidates.show', $candidate->id) }}'">
                             <div class="circle" style="width: 50px; height: 50px; border-radius: 50%; background: #f5f5f5; margin: auto; font-size: 18px; display: flex; justify-content: center; align-items: center; color: #666; font-weight: 600;">
                                 @if($hasImage && $avatarPath)
                                     <img src="{{ $avatarPath }}" alt="{{ $displayName }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
