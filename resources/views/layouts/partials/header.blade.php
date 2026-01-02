@@ -38,9 +38,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 65px;
-    max-width: 100%;
-    width: 90%;
+    padding: 14px clamp(16px, 2vw, 40px);
+    max-width: 1635px;
+    width: 100%;
     margin: 0 auto;
     min-height: 60px;
 }
@@ -560,7 +560,7 @@
 /* Responsive Design */
 @media (max-width: 1199px) {
     .desktop-header .header-container {
-        padding: 14px 40px;
+        padding: 14px clamp(16px, 2vw, 40px);
         min-height: 60px;
     }
     
