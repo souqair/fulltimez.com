@@ -126,9 +126,7 @@ class CandidateController extends Controller
                       $subQ->whereNull('featured_expires_at')
                            ->orWhere('featured_expires_at', '>', now());
                   })
-                  ->whereNotNull('full_name')
-                  ->whereNotNull('current_position')
-                  ->whereNotNull('expected_salary');
+                  ->whereNotNull('full_name');
             })
             ->orderBy('created_at', 'desc')
             ->take(8)
@@ -157,9 +155,7 @@ class CandidateController extends Controller
                                        ->where('featured_expires_at', '<=', now());
                            });
                   })
-                  ->whereNotNull('full_name')
-                  ->whereNotNull('current_position')
-                  ->whereNotNull('expected_salary');
+                  ->whereNotNull('full_name');
             })
             ->when(!empty($featuredCandidateIds), function($q) use ($featuredCandidateIds) {
                 // Double check: exclude featured candidates by ID (active featured ones)
