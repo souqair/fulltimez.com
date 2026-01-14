@@ -80,8 +80,7 @@ class HomeController extends Controller
             ->whereNotNull('email_verified_at')
             ->whereHas('seekerProfile', function($q) {
                 $q->where('approval_status', 'approved') // Only approved resumes
-                  ->where('is_featured', true) // Must be featured
-                  
+                  ->where('is_featured', true); // Must be featured
             })
             ->latest()
             ->take(4)
