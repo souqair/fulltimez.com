@@ -47,8 +47,12 @@ class HomeController extends Controller
                 $q->where('slug', 'seeker');
             })
             ->with('seekerProfile')
+            ->where('status', 'active')
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
+            ->whereHas('seekerProfile', function($q) {
+                $q->where('approval_status', 'approved'); // Only show approved resumes
+            })
             ->latest()
             ->take(10)
             ->get();
@@ -59,10 +63,6 @@ class HomeController extends Controller
             })
             ->with('seekerProfile')
             ->where('status', 'active')
-            ->whereHas('seekerProfile', function($q) {
-                $q->whereNotNull('full_name')
-                  ->whereNotNull('current_position');
-            })
             ->latest()
             ->first();
 
