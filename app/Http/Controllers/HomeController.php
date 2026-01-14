@@ -79,6 +79,8 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
+            dd($featuredCandidates);
+
         // Get categories for search dropdown
         $categories = JobCategory::where('is_active', true)->orderBy('name')->get();
 
