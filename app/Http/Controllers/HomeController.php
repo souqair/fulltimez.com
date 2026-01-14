@@ -74,14 +74,7 @@ class HomeController extends Controller
             ->where('status', 'active')
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
-            ->whereHas('seekerProfile', function($q) {
-                $q->where('approval_status', 'approved') // Only approved resumes
-                  ->where('is_featured', true) // Must be featured
-                  ->where('featured_expires_at', '>', now()) // Featured must not be expired
-                  ->whereNotNull('full_name')
-                  ->whereNotNull('current_position')
-                  ->whereNotNull('expected_salary');
-            })
+          
             ->latest()
             ->take(4)
             ->get();
