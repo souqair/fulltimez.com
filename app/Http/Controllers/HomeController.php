@@ -50,9 +50,6 @@ class HomeController extends Controller
             ->where('status', 'active')
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
-            ->whereHas('seekerProfile', function($q) {
-                $q->where('approval_status', 'approved'); // Only show approved resumes
-            })
             ->latest()
             ->take(10)
             ->get();
