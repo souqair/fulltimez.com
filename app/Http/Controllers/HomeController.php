@@ -64,8 +64,7 @@ class HomeController extends Controller
             ->with('seekerProfile')
             ->where('status', 'active')
             ->whereHas('seekerProfile', function($q) {
-                $q->whereNotNull('full_name')
-                  ->whereNotNull('current_position');
+                $q->whereNotNull('full_name');
             })
             ->latest()
             ->first();
@@ -88,7 +87,7 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
-            dd($featuredCandidates);
+          //  dd($featuredCandidates);
 
         // Get categories for search dropdown
         $categories = JobCategory::where('is_active', true)->orderBy('name')->get();
