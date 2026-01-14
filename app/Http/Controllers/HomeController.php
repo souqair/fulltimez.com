@@ -47,7 +47,6 @@ class HomeController extends Controller
                 $q->where('slug', 'seeker');
             })
             ->with('seekerProfile')
-            ->where('status', 'active')
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
             ->latest()
