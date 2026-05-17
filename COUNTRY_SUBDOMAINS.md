@@ -26,6 +26,32 @@ deploy or configure separate projects.
    `whereIn('country', ...)` clause when a country is active. On the bare
    domain (no subdomain) no filter is applied — global view.
 
+## Geo-IP auto redirect
+
+When a visitor lands on the bare domain (`fulltimez.com`), the middleware
+attempts to redirect them to the subdomain that matches their country:
+
+1. If the request is behind Cloudflare, the `CF-IPCountry` header is trusted.
+2. Otherwise the visitor IP is looked up via `https://ipapi.co/{ip}/country/`.
+3. The lookup is cached for 24 hours per IP (`Cache::remember`).
+4. The resolved 2-letter code is matched against the `subdomain` field in
+   `countries.json`. If a match exists, the visitor is `302`-redirected to
+   `<subdomain>.fulltimez.com` with the same path/query.
+
+The middleware skips the redirect when:
+
+- Request is **not** a `GET`, or is AJAX / `Accept: application/json`.
+- Host is `localhost` or an IP address.
+- User agent looks like a known bot (Googlebot, Bingbot, FB scraper, etc.).
+- Path begins with one of `api/`, `admin/`, `storage/`, `files/`, `email/`,
+  `_debugbar`, `login`, `logout`, `jobseeker/`, `employer/`.
+- Visitor has the `stay_global=1` cookie, or the URL contains `?global=1`.
+  (Visiting `https://fulltimez.com/?global=1` sets the cookie and keeps the
+  user on the global site permanently for 30 days.)
+
+After a successful redirect, a `country_subdomain` cookie is set (30 days)
+recording which subdomain they were sent to — useful for debugging.
+
 ## Adding a new country
 
 Edit [`config/countries.json`](config/countries.json) and add a new entry under

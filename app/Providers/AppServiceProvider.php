@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\CountryContext;
+use App\Services\GeoLocator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,6 +15,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(CountryContext::class, function () {
             return new CountryContext();
+        });
+
+        $this->app->singleton(GeoLocator::class, function () {
+            return new GeoLocator();
         });
     }
 
