@@ -15,20 +15,24 @@ use Stripe\Webhook;
 
 class StripeService
 {
-    protected StripeClient $client;
+    protected ?StripeClient $client = null;
 
     public function __construct()
     {
-        $secret = config('services.stripe.secret');
-        if (! $secret) {
-            throw new \RuntimeException('STRIPE_SECRET is not configured.');
-        }
-        $this->client = new StripeClient($secret);
+        // Defer Stripe client creation so a missing key does not break
+        // controller instantiation. Throws on first use via client().
     }
 
     public function client(): StripeClient
     {
-        return $this->client;
+        if ($this->client) {
+            return $this->client;
+        }
+        $secret = config('services.stripe.secret');
+        if (! $secret) {
+            throw new \RuntimeException('STRIPE_SECRET is not configured.');
+        }
+        return $this->client = new StripeClient($secret);
     }
 
     /**
@@ -40,7 +44,7 @@ class StripeService
             return $user->stripe_customer_id;
         }
 
-        $customer = $this->client->customers->create([
+        $customer = $this->client()->customers->create([
             'email' => $user->email,
             'name'  => $user->name,
             'metadata' => [
@@ -60,7 +64,7 @@ class StripeService
     {
         // Product
         if (empty($plan->stripe_product_id)) {
-            $product = $this->client->products->create([
+            $product = $this->client()->products->create([
                 'name' => $plan->name,
                 'description' => $plan->description ?: $plan->name,
                 'metadata' => ['plan_slug' => $plan->slug],
@@ -70,7 +74,7 @@ class StripeService
 
         if ($plan->type === 'subscription') {
             if (empty($plan->stripe_price_id_monthly) && $plan->price_monthly_usd) {
-                $price = $this->client->prices->create([
+                $price = $this->client()->prices->create([
                     'product' => $plan->stripe_product_id,
                     'unit_amount' => (int) round($plan->price_monthly_usd * 100),
                     'currency' => 'usd',
@@ -81,7 +85,7 @@ class StripeService
             }
 
             if (empty($plan->stripe_price_id_yearly) && $plan->price_yearly_usd) {
-                $price = $this->client->prices->create([
+                $price = $this->client()->prices->create([
                     'product' => $plan->stripe_product_id,
                     'unit_amount' => (int) round($plan->price_yearly_usd * 100),
                     'currency' => 'usd',
@@ -95,7 +99,7 @@ class StripeService
         if ($plan->type === 'one_time'
             && empty($plan->stripe_price_id_onetime)
             && $plan->price_onetime_usd) {
-            $price = $this->client->prices->create([
+            $price = $this->client()->prices->create([
                 'product' => $plan->stripe_product_id,
                 'unit_amount' => (int) round($plan->price_onetime_usd * 100),
                 'currency' => 'usd',
@@ -122,7 +126,7 @@ class StripeService
             return $vat->stripe_tax_rate_id;
         }
 
-        $taxRate = $this->client->taxRates->create([
+        $taxRate = $this->client()->taxRates->create([
             'display_name' => $vat->label,
             'description'  => $vat->label . ' for ' . $vat->country_name,
             'jurisdiction' => strtoupper($vat->country_key),
@@ -169,7 +173,7 @@ class StripeService
             $lineItem['tax_rates'] = [$taxRateId];
         }
 
-        return $this->client->checkout->sessions->create([
+        return $this->client()->checkout->sessions->create([
             'mode' => 'subscription',
             'customer' => $customerId,
             'line_items' => [$lineItem],
@@ -226,7 +230,7 @@ class StripeService
             $lineItem['tax_rates'] = [$taxRateId];
         }
 
-        return $this->client->checkout->sessions->create(array_merge([
+        return $this->client()->checkout->sessions->create(array_merge([
             'mode' => 'payment',
             'customer' => $customerId,
             'line_items' => [$lineItem],
@@ -251,9 +255,9 @@ class StripeService
     public function cancelSubscription(string $stripeSubscriptionId, bool $immediately = false): void
     {
         if ($immediately) {
-            $this->client->subscriptions->cancel($stripeSubscriptionId);
+            $this->client()->subscriptions->cancel($stripeSubscriptionId);
         } else {
-            $this->client->subscriptions->update($stripeSubscriptionId, [
+            $this->client()->subscriptions->update($stripeSubscriptionId, [
                 'cancel_at_period_end' => true,
             ]);
         }
