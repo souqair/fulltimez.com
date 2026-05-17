@@ -1,0 +1,41 @@
+{
+    "default": "global",
+    "countries": {
+        "global": {
+            "label": "Global",
+            "name": null,
+            "code": null,
+            "subdomain": null,
+            "currency": null,
+            "flag": null,
+            "is_default": true
+        },
+        "pk": {
+            "label": "Pakistan",
+            "name": "Pakistan",
+            "code": "PAK",
+            "subdomain": "pk",
+            "currency": "PKR",
+            "flag": "pk",
+            "aliases": ["Pakistan"]
+        },
+        "ae": {
+            "label": "United Arab Emirates",
+            "name": "United Arab Emirates",
+            "code": "UAE",
+            "subdomain": "ae",
+            "currency": "AED",
+            "flag": "ae",
+            "aliases": ["United Arab Emirates", "UAE", "U.A.E"]
+        },
+        "sa": {
+            "label": "Saudi Arabia",
+            "name": "Saudi Arabia",
+            "code": "SAU",
+            "subdomain": "sa",
+            "currency": "SAR",
+            "flag": "sa",
+            "aliases": ["Saudi Arabia", "KSA"]
+        }
+    }
+}

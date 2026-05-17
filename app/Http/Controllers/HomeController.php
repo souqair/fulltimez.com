@@ -7,16 +7,22 @@ use App\Models\User;
 use App\Models\JobCategory;
 use App\Models\Country;
 use App\Models\City;
+use App\Services\CountryContext;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(CountryContext $countryContext)
     {
+        $countryAliases = $countryContext->aliases();
+
         $basePublishedQuery = JobPosting::where('status', 'published')
             ->where(function($q) {
                 $q->whereNull('expires_at')
                   ->orWhere('expires_at', '>', now());
+            })
+            ->when(! empty($countryAliases), function($q) use ($countryAliases) {
+                $q->whereIn('location_country', $countryAliases);
             })
             ->with(['employer.employerProfile', 'category', 'employmentType', 'salaryCurrency', 'salaryPeriod', 'experienceYear']);
 
@@ -43,16 +49,21 @@ class HomeController extends Controller
                 ->get();
         }
 
-        $jobSeekers = User::whereHas('role', function($q) {
+        $baseSeekerQuery = User::whereHas('role', function($q) {
                 $q->where('slug', 'seeker');
             })
             ->with('seekerProfile')
             ->where('status', 'active')
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
-            ->whereHas('seekerProfile', function($q) {
-                $q->where('approval_status', 'approved'); // Only show approved resumes
-            })
+            ->whereHas('seekerProfile', function($q) use ($countryAliases) {
+                $q->where('approval_status', 'approved');
+                if (! empty($countryAliases)) {
+                    $q->whereIn('country', $countryAliases);
+                }
+            });
+
+        $jobSeekers = (clone $baseSeekerQuery)
             ->latest()
             ->take(10)
             ->get();
@@ -63,8 +74,11 @@ class HomeController extends Controller
             })
             ->with('seekerProfile')
             ->where('status', 'active')
-            ->whereHas('seekerProfile', function($q) {
+            ->whereHas('seekerProfile', function($q) use ($countryAliases) {
                 $q->whereNotNull('full_name');
+                if (! empty($countryAliases)) {
+                    $q->whereIn('country', $countryAliases);
+                }
             })
             ->latest()
             ->first();
@@ -77,11 +91,14 @@ class HomeController extends Controller
             ->where('status', 'active')
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
-            ->whereHas('seekerProfile', function($q) {
-                $q->where('approval_status', 'approved') // Only approved resumes
-                  ->where('is_featured', true) // Must be featured
-                  ->where('featured_expires_at', '>', now()) // Featured must not be expired
+            ->whereHas('seekerProfile', function($q) use ($countryAliases) {
+                $q->where('approval_status', 'approved')
+                  ->where('is_featured', true)
+                  ->where('featured_expires_at', '>', now())
                   ->whereNotNull('full_name');
+                if (! empty($countryAliases)) {
+                    $q->whereIn('country', $countryAliases);
+                }
             })
             ->latest()
             ->take(4)
@@ -93,9 +110,15 @@ class HomeController extends Controller
 
         // Get countries and cities for search dropdown
         $countries = Country::where('is_active', true)->orderBy('name')->get();
-        $cities = City::where('is_active', true)->orderBy('name')->get();
+        $cities = City::where('is_active', true)
+            ->when(! empty($countryAliases), function($q) use ($countryAliases) {
+                $q->whereHas('country', function($cq) use ($countryAliases) {
+                    $cq->whereIn('name', $countryAliases);
+                });
+            })
+            ->orderBy('name')
+            ->get();
 
         return view('home', compact('featuredJobs', 'recommendedJobs', 'jobSeekers', 'featuredJobSeeker', 'featuredCandidates', 'categories', 'countries', 'cities'));
     }
 }
-

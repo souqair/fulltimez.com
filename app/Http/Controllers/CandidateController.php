@@ -6,12 +6,15 @@ use App\Models\User;
 use App\Models\JobApplication;
 use App\Models\Country;
 use App\Models\City;
+use App\Services\CountryContext;
 use Illuminate\Http\Request;
 
 class CandidateController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, CountryContext $countryContext)
     {
+        $countryAliases = $countryContext->aliases();
+
         $query = User::whereHas('role', function($q) {
                 $q->where('slug', 'seeker');
             })
@@ -19,8 +22,11 @@ class CandidateController extends Controller
             ->where('status', 'active')
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
-            ->whereHas('seekerProfile', function($q) {
-                $q->where('approval_status', 'approved'); // Only show approved resumes
+            ->whereHas('seekerProfile', function($q) use ($countryAliases) {
+                $q->where('approval_status', 'approved');
+                if (! empty($countryAliases)) {
+                    $q->whereIn('country', $countryAliases);
+                }
             });
 
         // Search filter - name or position
@@ -119,7 +125,7 @@ class CandidateController extends Controller
             ->where('status', 'active')
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
-            ->whereHas('seekerProfile', function($q) {
+            ->whereHas('seekerProfile', function($q) use ($countryAliases) {
                 $q->where('approval_status', 'approved')
                   ->where('is_featured', true)
                   ->where(function($subQ) {
@@ -127,6 +133,9 @@ class CandidateController extends Controller
                            ->orWhere('featured_expires_at', '>', now());
                   })
                   ->whereNotNull('full_name');
+                if (! empty($countryAliases)) {
+                    $q->whereIn('country', $countryAliases);
+                }
             })
             ->orderBy('created_at', 'desc')
             ->take(8)
@@ -143,7 +152,7 @@ class CandidateController extends Controller
             ->where('status', 'active')
             ->where('is_approved', true)
             ->whereNotNull('email_verified_at')
-            ->whereHas('seekerProfile', function($q) {
+            ->whereHas('seekerProfile', function($q) use ($countryAliases) {
                 $q->where('approval_status', 'approved')
                   ->where(function($subQ) {
                       // Exclude active featured candidates: get only non-featured OR featured but expired
@@ -156,6 +165,9 @@ class CandidateController extends Controller
                            });
                   })
                   ->whereNotNull('full_name');
+                if (! empty($countryAliases)) {
+                    $q->whereIn('country', $countryAliases);
+                }
             })
             ->when(!empty($featuredCandidateIds), function($q) use ($featuredCandidateIds) {
                 // Double check: exclude featured candidates by ID (active featured ones)
@@ -165,10 +177,21 @@ class CandidateController extends Controller
             ->take(6)
             ->get();
 
-        // Get countries and cities for filter dropdowns
-        $countries = Country::where('is_active', true)->orderBy('name')->get();
+        // Get countries and cities for filter dropdowns.
+        // When a country subdomain is active, restrict both lists to that country.
+        $countriesQuery = Country::where('is_active', true);
+        if (! empty($countryAliases)) {
+            $countriesQuery->whereIn('name', $countryAliases);
+        }
+        $countries = $countriesQuery->orderBy('name')->get();
+
         $cities = City::where('is_active', true)
-            ->when($request->filled('country'), function($q) use ($request) {
+            ->when(! empty($countryAliases), function($q) use ($countryAliases) {
+                $q->whereHas('country', function($cq) use ($countryAliases) {
+                    $cq->whereIn('name', $countryAliases);
+                });
+            })
+            ->when(empty($countryAliases) && $request->filled('country'), function($q) use ($request) {
                 $q->whereHas('country', function($cq) use ($request) {
                     $cq->where('name', 'like', '%' . $request->country . '%');
                 });
@@ -179,10 +202,17 @@ class CandidateController extends Controller
         return view('candidates.index', compact('candidates', 'featuredCandidates', 'recommendedCandidates', 'countries', 'cities'));
     }
 
-    public function show($id)
+    public function show($id, CountryContext $countryContext)
     {
+        $countryAliases = $countryContext->aliases();
+
         $candidate = User::whereHas('role', function($q) {
                 $q->where('slug', 'seeker');
+            })
+            ->when(! empty($countryAliases), function($q) use ($countryAliases) {
+                $q->whereHas('seekerProfile', function($sq) use ($countryAliases) {
+                    $sq->whereIn('country', $countryAliases);
+                });
             })
             ->with(['seekerProfile', 'educationRecords', 'experienceRecords', 'certificates'])
             ->findOrFail($id);

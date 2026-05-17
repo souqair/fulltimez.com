@@ -4,14 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\JobPosting;
 use App\Models\JobCategory;
+use App\Services\CountryContext;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, CountryContext $countryContext)
     {
+        $countryAliases = $countryContext->aliases();
+
         // Base query for published jobs
         $baseQuery = JobPosting::where('status', 'published')
+            ->when(! empty($countryAliases), function($q) use ($countryAliases) {
+                $q->whereIn('location_country', $countryAliases);
+            })
             ->with(['employer.employerProfile', 'category', 'employmentType', 'salaryCurrency', 'salaryPeriod', 'experienceYear']);
 
         // Handle header search - title (combines title and description)
@@ -98,11 +104,22 @@ class JobController extends Controller
         
         $categories = JobCategory::where('is_active', true)->get();
         
-        // Get countries and cities for search dropdowns
-        $countries = \App\Models\Country::where('is_active', true)->orderBy('name')->get();
+        // Get countries and cities for search dropdowns.
+        // When a country subdomain is active, restrict both lists to that country.
+        $countriesQuery = \App\Models\Country::where('is_active', true);
+        if (! empty($countryAliases)) {
+            $countriesQuery->whereIn('name', $countryAliases);
+        }
+        $countries = $countriesQuery->orderBy('name')->get();
+
         $selectedCountry = $request->filled('location_country') ? $request->location_country : $request->country;
         $cities = \App\Models\City::where('is_active', true)
-            ->when($selectedCountry, function($q) use ($selectedCountry) {
+            ->when(! empty($countryAliases), function($q) use ($countryAliases) {
+                $q->whereHas('country', function($cq) use ($countryAliases) {
+                    $cq->whereIn('name', $countryAliases);
+                });
+            })
+            ->when(empty($countryAliases) && $selectedCountry, function($q) use ($selectedCountry) {
                 $q->whereHas('country', function($cq) use ($selectedCountry) {
                     $cq->where('name', '=', $selectedCountry)
                        ->orWhere('name', 'like', '%' . $selectedCountry . '%');
@@ -121,10 +138,15 @@ class JobController extends Controller
         ]);
     }
 
-    public function show($slug)
+    public function show($slug, CountryContext $countryContext)
     {
+        $countryAliases = $countryContext->aliases();
+
         $job = JobPosting::where('slug', $slug)
             ->where('status', 'published')
+            ->when(! empty($countryAliases), function($q) use ($countryAliases) {
+                $q->whereIn('location_country', $countryAliases);
+            })
             ->with(['employer.employerProfile', 'category', 'employmentType', 'salaryCurrency', 'salaryPeriod', 'experienceYear', 'experienceLevel', 'educationLevel'])
             ->firstOrFail();
 
@@ -133,15 +155,23 @@ class JobController extends Controller
         $relatedJobs = JobPosting::where('status', 'published')
             ->where('category_id', $job->category_id)
             ->where('id', '!=', $job->id)
+            ->when(! empty($countryAliases), function($q) use ($countryAliases) {
+                $q->whereIn('location_country', $countryAliases);
+            })
             ->take(3)
             ->get();
 
         return view('jobs.show', compact('job', 'relatedJobs'));
     }
 
-    public function search(Request $request)
+    public function search(Request $request, CountryContext $countryContext)
     {
+        $countryAliases = $countryContext->aliases();
+
         $query = JobPosting::where('status', 'published')
+            ->when(! empty($countryAliases), function($q) use ($countryAliases) {
+                $q->whereIn('location_country', $countryAliases);
+            })
             ->with(['employer.employerProfile', 'category', 'salaryCurrency', 'salaryPeriod']);
 
         if ($request->filled('title')) {
