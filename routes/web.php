@@ -38,6 +38,20 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
 
+Route::get('/env-check', function () {
+    $mask = fn($v) => $v ? substr($v, 0, 7) . '...' . substr($v, -4) . ' (len=' . strlen($v) . ')' : 'EMPTY';
+    return response()->json([
+        'env_file_loaded'         => app()->environmentFilePath(),
+        'APP_ENV'                 => config('app.env'),
+        'config_cached'           => app()->configurationIsCached(),
+        'STRIPE_KEY_env'          => $mask(env('STRIPE_KEY')),
+        'STRIPE_SECRET_env'       => $mask(env('STRIPE_SECRET')),
+        'STRIPE_KEY_config'       => $mask(config('services.stripe.key')),
+        'STRIPE_SECRET_config'    => $mask(config('services.stripe.secret')),
+        'STRIPE_WEBHOOK_config'   => $mask(config('services.stripe.webhook_secret')),
+    ]);
+});
+
 Route::get('/cache-clear', function () {
     $results = [];
     foreach (['config:clear', 'config:cache', 'route:clear', 'route:cache', 'view:clear', 'cache:clear'] as $cmd) {
