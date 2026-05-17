@@ -38,6 +38,19 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
 
+Route::get('/cache-clear', function () {
+    $results = [];
+    foreach (['config:clear', 'config:cache', 'route:clear', 'route:cache', 'view:clear', 'cache:clear'] as $cmd) {
+        try {
+            Artisan::call($cmd);
+            $results[$cmd] = trim(Artisan::output()) ?: 'OK';
+        } catch (\Throwable $e) {
+            $results[$cmd] = 'ERROR: ' . $e->getMessage();
+        }
+    }
+    return response()->json(['status' => 'done', 'results' => $results]);
+});
+
 // Stripe Webhook — CSRF exemption is configured in bootstrap/app.php
 Route::post('/stripe/webhook', [App\Http\Controllers\StripeWebhookController::class, 'handle'])
     ->name('stripe.webhook');
