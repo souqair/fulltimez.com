@@ -624,6 +624,7 @@
         <nav>
             <a href="{{ route('jobs.index') }}" class="{{ request()->routeIs('jobs.*') ? 'active' : '' }}">Browse Jobs</a>
             <a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">Browse Resumes</a>
+            <a href="{{ route('pricing') }}" class="{{ request()->routeIs('pricing') ? 'active' : '' }}">Pricing</a>
             <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact Us</a>
         </nav>
         <div class="header-actions">
@@ -689,6 +690,9 @@
         </a>
         <a href="{{ route('candidates.index') }}" class="{{ request()->routeIs('candidates.*') ? 'active' : '' }}">
              Browse Resumes
+        </a>
+        <a href="{{ route('pricing') }}" class="{{ request()->routeIs('pricing') ? 'active' : '' }}">
+             Pricing
         </a>
         <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">
              Contact Us
