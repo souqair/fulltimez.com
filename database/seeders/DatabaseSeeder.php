@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
             SalaryPeriodSeeder::class,
             UserSeeder::class,
             JobPostingSeeder::class,
+            PlanSeeder::class,
+            VatRateSeeder::class,
+            FaqSeeder::class,
         ]);
     }
 }

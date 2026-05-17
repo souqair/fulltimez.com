@@ -22,7 +22,10 @@ class DetectCountrySubdomain
         // If the visitor landed on the bare/global domain, try to geo-redirect
         // them to the subdomain that matches their country.
         if ($this->context->isGlobal() && $this->shouldAutoRedirect($request)) {
-            $code = $this->geo->countryCode($request);
+            // Manual override via ?force_country=PK — handy for testing on
+            // localhost or when geo lookup is failing.
+            $forced = $request->query('force_country');
+            $code = $forced ? strtolower($forced) : $this->geo->countryCode($request);
             $target = $this->resolveSubdomainForCode($code);
 
             if ($target) {

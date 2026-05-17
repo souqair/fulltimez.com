@@ -11,8 +11,19 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Trust all upstream proxies (Cloudflare, load balancers, cPanel
+        // shared hosting reverse proxies, etc.) so that $request->ip()
+        // returns the real visitor IP from X-Forwarded-For.
+        $middleware->trustProxies(at: '*');
+
         $middleware->web(append: [
             \App\Http\Middleware\DetectCountrySubdomain::class,
+        ]);
+
+        // Stripe sends its own signature header — exempt the webhook URL
+        // from Laravel's CSRF check.
+        $middleware->validateCsrfTokens(except: [
+            'stripe/webhook',
         ]);
 
         $middleware->alias([

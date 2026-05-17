@@ -27,9 +27,18 @@ class GeoLocator
             return null;
         }
 
-        return Cache::remember("geo:country:{$ip}", now()->addHours(24), function () use ($ip) {
-            return $this->lookup($ip);
-        });
+        $cacheKey = "geo:country:{$ip}";
+        $cached = Cache::get($cacheKey);
+        if ($cached) {
+            return $cached;
+        }
+
+        $code = $this->lookup($ip);
+        if ($code) {
+            Cache::put($cacheKey, $code, now()->addHours(24));
+        }
+
+        return $code;
     }
 
     protected function lookup(string $ip): ?string

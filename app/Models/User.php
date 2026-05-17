@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\VerifyEmailNotification;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
     use HasFactory, Notifiable;
 
@@ -23,6 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
         'status',
         'is_approved',
+        'stripe_customer_id',
     ];
 
     protected $hidden = [
@@ -88,6 +91,31 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(EmployerDocument::class, 'employer_id');
     }
 
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function activeSubscription(): ?Subscription
+    {
+        return $this->subscriptions()->active()->latest()->first();
+    }
+
+    public function hasActiveSubscription(): bool
+    {
+        return $this->subscriptions()->active()->exists();
+    }
+
+    public function atsCvPurchases(): HasMany
+    {
+        return $this->hasMany(AtsCvPurchase::class);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
     public function isAdmin(): bool
     {
         return $this->role->slug === 'admin';
@@ -113,5 +141,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmailNotification());
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if ($panel->getId() === 'saas') {
+            return $this->isAdmin();
+        }
+        return true;
     }
 }

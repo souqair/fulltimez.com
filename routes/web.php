@@ -10,12 +10,57 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\PricingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResumeController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+// Debug endpoint to inspect country-subdomain detection. Visit
+// https://fulltimez.com/__geo to see what the middleware is seeing.
+Route::get('/__geo', function (\Illuminate\Http\Request $request, \App\Services\GeoLocator $geo, \App\Services\CountryContext $ctx) {
+    $resolved = $ctx->resolveFromRequest($request);
+    return response()->json([
+        'host'              => $request->getHost(),
+        'request_ip'        => $request->ip(),
+        'x_forwarded_for'   => $request->header('X-Forwarded-For'),
+        'cf_connecting_ip'  => $request->header('CF-Connecting-IP'),
+        'cf_ipcountry'      => $request->header('CF-IPCountry'),
+        'user_agent'        => $request->userAgent(),
+        'detected_country'  => $geo->countryCode($request),
+        'resolved_subdomain_country' => $resolved,
+        'available_countries' => $ctx->all(),
+        'note' => 'Add ?force_country=PK to test redirect without geo-IP.',
+    ], 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
+
+// Stripe Webhook — CSRF exemption is configured in bootstrap/app.php
+Route::post('/stripe/webhook', [App\Http\Controllers\StripeWebhookController::class, 'handle'])
+    ->name('stripe.webhook');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/subscribe/checkout/{plan}', [App\Http\Controllers\SubscriptionController::class, 'checkout'])
+        ->name('subscribe.checkout');
+    Route::get('/subscribe/success', [App\Http\Controllers\SubscriptionController::class, 'success'])
+        ->name('subscribe.success');
+    Route::get('/subscriptions', [App\Http\Controllers\SubscriptionController::class, 'index'])
+        ->name('subscriptions.index');
+    Route::post('/subscriptions/{subscription}/cancel', [App\Http\Controllers\SubscriptionController::class, 'cancel'])
+        ->name('subscriptions.cancel');
+
+    Route::get('/ats-cv/start/{plan}', [App\Http\Controllers\AtsCvController::class, 'showUpload'])
+        ->name('ats.start');
+    Route::post('/ats-cv/checkout/{plan}', [App\Http\Controllers\AtsCvController::class, 'checkout'])
+        ->name('ats.checkout');
+    Route::get('/ats-cv', [App\Http\Controllers\AtsCvController::class, 'index'])
+        ->name('ats.index');
+    Route::post('/ats-cv/{purchase}/upload', [App\Http\Controllers\AtsCvController::class, 'uploadAfterPayment'])
+        ->name('ats.upload');
+});
 
 Route::get('/get-started', function () {
     return view('auth.choose-role');
