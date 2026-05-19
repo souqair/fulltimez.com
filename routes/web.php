@@ -69,6 +69,70 @@ Route::get('/cache-clear', function () {
 Route::post('/stripe/webhook', [App\Http\Controllers\StripeWebhookController::class, 'handle'])
     ->name('stripe.webhook');
 
+Route::get('/stripe-debug', function (\Illuminate\Http\Request $request) {
+    $user = $request->user();
+    if (! $user) {
+        return response()->json(['error' => 'Not logged in. Login first.'], 401);
+    }
+
+    $stripe = app(\App\Services\StripeService::class);
+    $info = [
+        'user_id'             => $user->id,
+        'email'               => $user->email,
+        'role'                => $user->role->slug ?? null,
+        'stripe_customer_id'  => $user->stripe_customer_id,
+        'local_subscriptions' => $user->subscriptions()->count(),
+        'sessions'            => [],
+        'sync_actions'        => [],
+    ];
+
+    if (! $user->stripe_customer_id) {
+        $info['note'] = 'User has no stripe_customer_id — checkout never completed customer creation. Fallback: scan Stripe by email.';
+        try {
+            $customers = $stripe->client()->customers->all(['email' => $user->email, 'limit' => 5]);
+            $info['customers_by_email'] = array_map(fn($c) => ['id' => $c->id, 'email' => $c->email], $customers->data);
+            if (! empty($customers->data)) {
+                $user->forceFill(['stripe_customer_id' => $customers->data[0]->id])->save();
+                $info['stripe_customer_id'] = $user->stripe_customer_id;
+                $info['note'] .= ' [Set customer from first match.]';
+            }
+        } catch (\Throwable $e) {
+            $info['customers_lookup_error'] = $e->getMessage();
+        }
+    }
+
+    if ($user->stripe_customer_id) {
+        try {
+            $sessions = $stripe->client()->checkout->sessions->all([
+                'customer' => $user->stripe_customer_id,
+                'limit'    => 20,
+            ]);
+            foreach ($sessions->data as $s) {
+                $info['sessions'][] = [
+                    'id'             => $s->id,
+                    'mode'           => $s->mode,
+                    'payment_status' => $s->payment_status,
+                    'subscription'   => $s->subscription,
+                    'metadata'       => (array) $s->metadata,
+                ];
+                if ($s->payment_status === 'paid') {
+                    try {
+                        app(\App\Http\Controllers\StripeWebhookController::class)->onCheckoutCompleted($s);
+                        $info['sync_actions'][] = "Synced session {$s->id}";
+                    } catch (\Throwable $e) {
+                        $info['sync_actions'][] = "FAIL {$s->id}: " . $e->getMessage();
+                    }
+                }
+            }
+        } catch (\Throwable $e) {
+            $info['sessions_error'] = $e->getMessage();
+        }
+    }
+
+    $info['local_subscriptions_after'] = $user->fresh()->subscriptions()->count();
+    return response()->json($info, 200, [], JSON_PRETTY_PRINT);
+})->middleware('auth');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/subscribe/checkout/{plan}', [App\Http\Controllers\SubscriptionController::class, 'checkout'])
         ->name('subscribe.checkout');
