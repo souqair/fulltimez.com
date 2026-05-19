@@ -48,8 +48,12 @@ class SubscriptionController extends Controller
                 'user_id' => $user->id,
                 'plan_id' => $plan->id,
                 'error'   => $e->getMessage(),
+                'class'   => get_class($e),
             ]);
-            return back()->with('error', 'Could not start checkout. Please try again.');
+            $detail = config('app.debug')
+                ? ' ['.class_basename($e).': '.$e->getMessage().']'
+                : '';
+            return back()->with('error', 'Could not start checkout. Please try again.' . $detail);
         }
     }
 
