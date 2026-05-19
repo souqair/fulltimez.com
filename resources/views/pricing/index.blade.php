@@ -66,6 +66,17 @@
         <h1 class="pricing-title">Boost your career — pick a plan</h1>
         <p class="pricing-sub">All prices are in USD. VAT is calculated automatically based on your country.</p>
 
+        @if(session('error'))
+            <div style="max-width:720px;margin:0 auto 24px;padding:14px 18px;background:#fee2e2;border:1px solid #fca5a5;color:#991b1b;border-radius:10px;font-size:14.5px;">
+                {{ session('error') }}
+            </div>
+        @endif
+        @if(session('success'))
+            <div style="max-width:720px;margin:0 auto 24px;padding:14px 18px;background:#dcfce7;border:1px solid #86efac;color:#166534;border-radius:10px;font-size:14.5px;">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="country-strip">
             Showing pricing for <strong>{{ $vat->country_name }}</strong> — {{ $vat->label }}
             @if($vat->rate > 0)
