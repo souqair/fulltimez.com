@@ -74,7 +74,7 @@ class StripeWebhookController extends Controller
 
     public function onCheckoutCompleted($session): void
     {
-        $metadata = (array) ($session->metadata ?? []);
+        $metadata = $session->metadata ? $session->metadata->toArray() : [];
         $userId   = $metadata['user_id'] ?? null;
         $planId   = $metadata['plan_id'] ?? null;
 
