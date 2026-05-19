@@ -61,33 +61,58 @@ class SubscriptionController extends Controller
     {
         $sessionId = $request->query('session_id');
 
-        $subscription = null;
         if ($sessionId) {
-            // We persist subscription state via webhook, but show the latest
-            // for the current user to confirm success on the success page.
-            $subscription = Subscription::where('user_id', $request->user()->id)
-                ->latest()
-                ->first();
+            try {
+                $session = $this->stripe->client()->checkout->sessions->retrieve($sessionId);
+                app(StripeWebhookController::class)->onCheckoutCompleted($session);
+            } catch (\Throwable $e) {
+                Log::warning('Sync subscription on success failed', [
+                    'session_id' => $sessionId,
+                    'error'      => $e->getMessage(),
+                ]);
+            }
         }
+
+        $subscription = Subscription::where('user_id', $request->user()->id)
+            ->latest()
+            ->first();
 
         return view('subscriptions.success', compact('subscription'));
     }
 
     public function index(Request $request)
     {
-        $subscriptions = $request->user()
-            ->subscriptions()
-            ->with('plan')
-            ->latest()
-            ->get();
+        $user = $request->user();
 
-        $transactions = $request->user()
-            ->transactions()
-            ->latest()
-            ->take(20)
-            ->get();
+        if ($user->stripe_customer_id && $user->subscriptions()->count() === 0) {
+            $this->syncFromStripe($user);
+        }
+
+        $subscriptions = $user->subscriptions()->with('plan')->latest()->get();
+        $transactions  = $user->transactions()->latest()->take(20)->get();
 
         return view('subscriptions.index', compact('subscriptions', 'transactions'));
+    }
+
+    protected function syncFromStripe(\App\Models\User $user): void
+    {
+        try {
+            $sessions = $this->stripe->client()->checkout->sessions->all([
+                'customer' => $user->stripe_customer_id,
+                'limit'    => 20,
+            ]);
+            foreach ($sessions->data as $session) {
+                if ($session->payment_status !== 'paid') {
+                    continue;
+                }
+                app(StripeWebhookController::class)->onCheckoutCompleted($session);
+            }
+        } catch (\Throwable $e) {
+            Log::warning('Sync subscriptions from Stripe failed', [
+                'user_id' => $user->id,
+                'error'   => $e->getMessage(),
+            ]);
+        }
     }
 
     public function cancel(Request $request, Subscription $subscription)
