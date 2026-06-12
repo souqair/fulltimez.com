@@ -8,6 +8,17 @@ use Illuminate\Support\Facades\Storage;
 
 @push('styles')
 <style>
+/* Pricing-style navy typography palette */
+.section-title,
+.category-wrap.jobwrp .main_title,
+.main_title {
+    color: #0b1437 !important;
+}
+</style>
+@endpush
+
+@push('styles')
+<style>
 /* Global Container Fix */
 body {
     overflow-x: hidden !important;
@@ -1677,7 +1688,7 @@ button svg{
 @section('hero')
 <!-- Hero Section -->
 <section class="hero" style="text-align: center; padding: 80px 20px 60px; background: #fafafa;">
-    <h1 style="font-size: 4.5rem; font-weight: 700; line-height: 1.2; color: #000; margin: 60px 0 24px 0; letter-spacing: -0.5px; max-width: 800px; margin-left: auto; margin-right: auto;">
+    <h1 style="font-size: 4.5rem; font-weight: 700; line-height: 1.2; color: #0b1437; margin: 60px 0 24px 0; letter-spacing: -0.5px; max-width: 800px; margin-left: auto; margin-right: auto;">
         Empowering Your<br>Career Journey
     </h1>
     <p style="margin: 0 0 130px 0; font-size: 18px; color: #6b7280; line-height: 1.6; max-width: 700px; margin-left: auto; margin-right: auto;">
@@ -1769,21 +1780,21 @@ button svg{
 <!-- Statistics Section -->
 <section class="stats" style="display: none; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 80px 0; width: 90%; max-width: 1200px; margin: 0 auto;">
     <div style="text-align: center;">
-        <h2 style="font-size: 3rem; font-weight: 700; color: #000; margin: 0; line-height: 1.2;">
+        <h2 style="font-size: 3rem; font-weight: 700; color: #0b1437; margin: 0; line-height: 1.2;">
             <span style=" padding: 4px 8px; border-radius: 4px; display: inline-block;">10,000</span><span>+</span>
         </h2>
         <p style="font-size: 14px; color: #777; margin-top: 12px; margin-bottom: 0; font-weight: 400;">Active Jobs</p>
     </div>
     <div style="text-align: center;">
-        <h2 style="font-size: 3rem; font-weight: 700; color: #000; margin: 0; line-height: 1.2;">5,000+</h2>
+        <h2 style="font-size: 3rem; font-weight: 700; color: #0b1437; margin: 0; line-height: 1.2;">5,000+</h2>
         <p style="font-size: 14px; color: #777; margin-top: 12px; margin-bottom: 0; font-weight: 400;">Companies</p>
     </div>
     <div style="text-align: center;">
-        <h2 style="font-size: 3rem; font-weight: 700; color: #000; margin: 0; line-height: 1.2;">50,000+</h2>
+        <h2 style="font-size: 3rem; font-weight: 700; color: #0b1437; margin: 0; line-height: 1.2;">50,000+</h2>
         <p style="font-size: 14px; color: #777; margin-top: 12px; margin-bottom: 0; font-weight: 400;">Candidates</p>
     </div>
     <div style="text-align: center;">
-        <h2 style="font-size: 3rem; font-weight: 700; color: #000; margin: 0; line-height: 1.2;">95%</h2>
+        <h2 style="font-size: 3rem; font-weight: 700; color: #0b1437; margin: 0; line-height: 1.2;">95%</h2>
         <p style="font-size: 14px; color: #777; margin-top: 12px; margin-bottom: 0; font-weight: 400;">Success Rate</p>
     </div>
 </section>

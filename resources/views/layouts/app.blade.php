@@ -84,6 +84,15 @@
                 margin: 5px 10px;
             }
         }
+
+        /* Unified system sans-serif typography (matches pricing page) */
+        body,
+        h1, h2, h3, h4, h5, h6,
+        p, a, span, li, label,
+        input, select, textarea, button,
+        .main_title, .section-title {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+        }
     </style>
     @stack('styles')
     <title>@yield('title', 'FullTimez')</title>
