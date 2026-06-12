@@ -13,9 +13,15 @@ class JobController extends Controller
     {
         $countryAliases = $countryContext->aliases();
 
+        // Explicit country selection from the search form overrides the subdomain
+        // filter, so a user can browse any country's jobs regardless of the
+        // current subdomain.
+        $countryParam = $request->filled('location_country') ? $request->location_country : $request->country;
+        $hasCountrySelection = filled($countryParam);
+
         // Base query for published jobs
         $baseQuery = JobPosting::where('status', 'published')
-            ->when(! empty($countryAliases), function($q) use ($countryAliases) {
+            ->when(! empty($countryAliases) && ! $hasCountrySelection, function($q) use ($countryAliases) {
                 $q->whereIn('location_country', $countryAliases);
             })
             ->with(['employer.employerProfile', 'category', 'employmentType', 'salaryCurrency', 'salaryPeriod', 'experienceYear']);
@@ -45,8 +51,7 @@ class JobController extends Controller
         }
 
         // Handle country - support both 'country' and 'location_country' parameters
-        $countryParam = $request->filled('location_country') ? $request->location_country : $request->country;
-        if ($countryParam) {
+        if ($hasCountrySelection) {
             $country = trim($countryParam);
             $baseQuery->where(function($q) use ($country) {
                 $q->where('location_country', '=', $country)
@@ -105,24 +110,26 @@ class JobController extends Controller
         $categories = JobCategory::where('is_active', true)->get();
         
         // Get countries and cities for search dropdowns.
-        // When a country subdomain is active, restrict both lists to that country.
+        // When a country subdomain is active we normally restrict both lists to
+        // that country, but an explicit country selection overrides this so the
+        // chosen country (and its cities) are available regardless of subdomain.
         $countriesQuery = \App\Models\Country::where('is_active', true);
-        if (! empty($countryAliases)) {
+        if (! empty($countryAliases) && ! $hasCountrySelection) {
             $countriesQuery->whereIn('name', $countryAliases);
         }
         $countries = $countriesQuery->orderBy('name')->get();
 
-        $selectedCountry = $request->filled('location_country') ? $request->location_country : $request->country;
         $cities = \App\Models\City::where('is_active', true)
-            ->when(! empty($countryAliases), function($q) use ($countryAliases) {
-                $q->whereHas('country', function($cq) use ($countryAliases) {
-                    $cq->whereIn('name', $countryAliases);
+            ->when($hasCountrySelection, function($q) use ($countryParam) {
+                $selected = trim($countryParam);
+                $q->whereHas('country', function($cq) use ($selected) {
+                    $cq->where('name', '=', $selected)
+                       ->orWhere('name', 'like', '%' . $selected . '%');
                 });
             })
-            ->when(empty($countryAliases) && $selectedCountry, function($q) use ($selectedCountry) {
-                $q->whereHas('country', function($cq) use ($selectedCountry) {
-                    $cq->where('name', '=', $selectedCountry)
-                       ->orWhere('name', 'like', '%' . $selectedCountry . '%');
+            ->when(! $hasCountrySelection && ! empty($countryAliases), function($q) use ($countryAliases) {
+                $q->whereHas('country', function($cq) use ($countryAliases) {
+                    $cq->whereIn('name', $countryAliases);
                 });
             })
             ->orderBy('name')
